@@ -151,7 +151,7 @@ export default function Layout({ children }: LayoutProps) {
             </Link>
             
             {/* Desktop Navigation */}
-            <nav className="hidden lg:block">
+            <nav className="hidden md:block">
               <div className="flex items-center space-x-1">
                 {navigationItems.map((item) => {
                   const Icon = item.icon;
@@ -162,7 +162,7 @@ export default function Layout({ children }: LayoutProps) {
                       key={item.name}
                       to={item.href}
                       className={cn(
-                        "flex items-center space-x-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 group relative",
+                        "flex items-center space-x-2 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 group relative",
                         isActive
                           ? "bg-blue-100 text-blue-700 shadow-md"
                           : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
@@ -172,7 +172,7 @@ export default function Layout({ children }: LayoutProps) {
                         "h-4 w-4 transition-colors",
                         isActive ? "text-blue-600" : "text-slate-500 group-hover:text-slate-700"
                       )} />
-                      <span>{item.name}</span>
+                      <span className="hidden lg:inline">{item.name}</span>
                       {isActive && (
                         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-blue-600 rounded-full"></div>
                       )}
@@ -209,7 +209,7 @@ export default function Layout({ children }: LayoutProps) {
               <Button
                 variant="ghost"
                 size="sm"
-                className="lg:hidden p-2 hover:bg-slate-100"
+                className="md:hidden p-2 hover:bg-slate-100"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
                 {isMobileMenuOpen ? (
@@ -224,7 +224,7 @@ export default function Layout({ children }: LayoutProps) {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md">
+          <div className="md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md">
             <div className="max-w-7xl mx-auto px-4 py-4">
               <nav className="space-y-2">
                 {navigationItems.map((item) => {

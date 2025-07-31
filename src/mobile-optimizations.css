@@ -1,0 +1,197 @@
+/* Mobile Optimizations for GCP Learning Hub */
+
+/* Touch-friendly button sizes */
+@media (max-width: 640px) {
+  .btn-mobile {
+    min-height: 44px;
+    padding: 12px 16px;
+    font-size: 16px;
+  }
+  
+  /* Larger touch targets for mobile */
+  .mobile-touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better spacing for mobile */
+  .mobile-spacing {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  /* Improved text readability on mobile */
+  .mobile-text {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  /* Better card layout for mobile */
+  .mobile-card {
+    margin-bottom: 16px;
+    border-radius: 12px;
+  }
+  
+  /* Improved form elements for mobile */
+  .mobile-input {
+    font-size: 16px;
+    padding: 12px;
+    border-radius: 8px;
+  }
+  
+  /* Better navigation for mobile */
+  .mobile-nav {
+    padding: 12px 16px;
+  }
+  
+  /* Improved modal for mobile */
+  .mobile-modal {
+    margin: 16px;
+    border-radius: 12px;
+  }
+  
+  /* Better table layout for mobile */
+  .mobile-table {
+    font-size: 14px;
+  }
+  
+  /* Improved progress indicators for mobile */
+  .mobile-progress {
+    height: 8px;
+    border-radius: 4px;
+  }
+  
+  /* Better badge sizing for mobile */
+  .mobile-badge {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+  
+  /* Improved icon sizing for mobile */
+  .mobile-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  /* Better grid layout for mobile */
+  .mobile-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  /* Improved spacing for mobile */
+  .mobile-gap {
+    gap: 12px;
+  }
+  
+  /* Better button groups for mobile */
+  .mobile-button-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  /* Improved select dropdowns for mobile */
+  .mobile-select {
+    font-size: 16px;
+    padding: 12px;
+  }
+  
+  /* Better radio buttons for mobile */
+  .mobile-radio {
+    min-height: 48px;
+    padding: 12px;
+  }
+  
+  /* Improved checkbox for mobile */
+  .mobile-checkbox {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better textarea for mobile */
+  .mobile-textarea {
+    font-size: 16px;
+    padding: 12px;
+    min-height: 100px;
+  }
+}
+
+/* Landscape mobile optimizations */
+@media (max-width: 640px) and (orientation: landscape) {
+  .landscape-mobile {
+    padding: 8px 16px;
+  }
+  
+  .landscape-text {
+    font-size: 14px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .retina-optimized {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Dark mode support for mobile */
+@media (prefers-color-scheme: dark) {
+  .mobile-dark {
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-reduced-motion {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Print styles for mobile */
+@media print {
+  .mobile-print {
+    display: none;
+  }
+}
+
+/* Focus styles for better accessibility on mobile */
+.mobile-focus:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Better scrolling on mobile */
+.mobile-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Improved loading states for mobile */
+.mobile-loading {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Better error states for mobile */
+.mobile-error {
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+}
+
+/* Improved success states for mobile */
+.mobile-success {
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #16a34a;
+} 

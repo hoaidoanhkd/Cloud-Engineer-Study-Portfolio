@@ -275,8 +275,8 @@ export default function PortfolioPage() {
           </div>
 
           {/* Controls */}
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex flex-wrap items-center space-x-4">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center justify-between gap-4">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as SortOption)}
@@ -429,7 +429,7 @@ export default function PortfolioPage() {
         <div className="space-y-6">
           {/* Portfolio Grid/List */}
           {viewMode === 'grid' ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {processedData.map((item, index) => (
                 <Card key={index} className="hover:shadow-lg transition-shadow border-0 shadow-md">
                   <CardContent className="p-6">

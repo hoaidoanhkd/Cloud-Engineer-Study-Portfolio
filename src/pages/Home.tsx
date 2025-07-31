@@ -45,14 +45,14 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center">
             <div className="flex items-center justify-center space-x-3 mb-6">
-              <div className="p-4 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl">
-                <BookOpen className="h-10 w-10 text-white" />
+              <div className="p-3 sm:p-4 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl">
+                <BookOpen className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
               </div>
-              <h1 className="text-5xl font-bold text-slate-900">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
                 GCP Learning Hub
               </h1>
             </div>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-8">
+            <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto mb-8 px-4">
               Master Google Cloud Platform with our interactive quiz system. 
               Track your progress like an investment portfolio and visualize your learning journey.
             </p>
@@ -76,7 +76,7 @@ export default function HomePage() {
 
       {/* Stats Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-16">
           <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-0 shadow-lg">
             <CardContent className="p-6 text-center">
               <div className="p-3 bg-blue-100 rounded-full inline-block mb-4">
@@ -119,7 +119,7 @@ export default function HomePage() {
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Quiz Feature */}
           <Card className="group hover:shadow-xl transition-shadow border-0 shadow-lg">
             <CardHeader>

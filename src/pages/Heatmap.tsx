@@ -338,11 +338,11 @@ export default function HeatmapPage() {
               <div className="p-2 bg-gradient-to-br from-green-600 to-blue-600 rounded-xl">
                 <BarChart3 className="h-6 w-6 text-white" />
               </div>
-              <h1 className="text-3xl lg:text-4xl font-bold text-slate-900">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900">
                 Knowledge Heatmap
               </h1>
             </div>
-            <p className="text-lg text-slate-600 max-w-2xl">
+            <p className="text-base sm:text-lg text-slate-600 max-w-2xl">
               Visualize your learning progress across different GCP topics and identify areas for improvement.
             </p>
           </div>

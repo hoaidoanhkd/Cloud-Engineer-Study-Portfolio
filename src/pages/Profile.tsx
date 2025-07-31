@@ -86,8 +86,8 @@ export default function ProfilePage() {
     <div className="max-w-6xl mx-auto space-y-8">
       {/* Header */}
       <div className="text-center space-y-4">
-        <h1 className="text-3xl font-bold text-slate-900">My Profile</h1>
-        <p className="text-lg text-slate-600">Track your GCP learning journey</p>
+        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">My Profile</h1>
+        <p className="text-base sm:text-lg text-slate-600">Track your GCP learning journey</p>
       </div>
 
       {/* Profile Card */}
@@ -95,9 +95,9 @@ export default function ProfilePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-lg"></div>
         <CardContent className="relative p-8">
           <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
-            <Avatar className="h-24 w-24 ring-4 ring-white shadow-lg">
+            <Avatar className="h-20 w-20 sm:h-24 sm:w-24 ring-4 ring-white shadow-lg">
               <AvatarImage src={user.avatar} alt={user.name} />
-              <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white text-2xl font-bold">
+              <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white text-xl sm:text-2xl font-bold">
                 {initials}
               </AvatarFallback>
             </Avatar>

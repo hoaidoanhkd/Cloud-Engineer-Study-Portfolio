@@ -336,11 +336,11 @@ export default function QuizPage() {
           <div className="text-center mb-8">
             <div className="flex items-center justify-center space-x-3 mb-4">
               <div className="p-3 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl">
-                <BookOpen className="h-8 w-8 text-white" />
+                <BookOpen className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
               </div>
-              <h1 className="text-4xl font-bold text-slate-900">GCP Quiz</h1>
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900">GCP Quiz</h1>
             </div>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto px-4">
               Test your Google Cloud Platform knowledge with our comprehensive quiz system.
               Choose a topic to get started!
             </p>
@@ -386,7 +386,7 @@ export default function QuizPage() {
               </div>
               {/* Selection Content */}
               {selectionMode === 'topic' ? (
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                   {gcpTopics.map((topic) => {
                     const topicKey = topic === 'All Topics' ? 'all' : topic.toLowerCase().trim();
                     const questionCount = getTopicCounts()[topicKey] || 0;
@@ -453,7 +453,7 @@ export default function QuizPage() {
 
                   {/* Keyword Grid */}
                   <div className="max-h-80 overflow-y-auto border border-slate-200 rounded-lg p-2">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                       {keywordStats.map((stats) => (
                         <button
                           key={stats.keyword}
@@ -868,17 +868,17 @@ export default function QuizPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Quiz Header */}
         <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 space-y-4 sm:space-y-0">
             <div className="flex items-center space-x-3">
               <div className="p-2 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl">
                 <BookOpen className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-slate-900">Quiz in Progress</h1>
+                <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">Quiz in Progress</h1>
                 <p className="text-slate-600">Question {currentQuiz.currentIndex + 1} of {currentQuiz.questions.length}</p>
               </div>
             </div>
-            <div className="text-right">
+            <div className="text-left sm:text-right">
               <div className="flex items-center space-x-2 text-slate-600">
                 <Clock className="h-4 w-4" />
                 <span className="font-mono">{formatTime(Math.floor((Date.now() - currentQuiz.startTime.getTime()) / 1000))}</span>
@@ -976,24 +976,24 @@ export default function QuizPage() {
         </Card>
 
         {/* Action Buttons */}
-        <div className="flex justify-between items-center">
-          <div className="text-sm text-slate-600">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-4 sm:space-y-0">
+          <div className="text-sm text-slate-600 text-center sm:text-left">
             Progress: {currentQuiz.answers.length}/{currentQuiz.questions.length} answered
           </div>
 
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center justify-center sm:justify-end space-x-3">
             {!isAnswered ? (
               <Button
                 onClick={handleSubmitAnswer}
                 disabled={!selectedAnswer}
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 w-full sm:w-auto"
               >
                 Submit Answer
               </Button>
             ) : (
               <Button
                 onClick={handleNextQuestion}
-                className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700"
+                className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 w-full sm:w-auto"
               >
                 {isLastQuestion ? (
                   <>
