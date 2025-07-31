@@ -795,50 +795,57 @@ export default function QuizPage() {
           </Card>
 
           {/* Navigation */}
-          <div className="flex justify-between items-center">
-            <Button
-              variant="outline"
-              onClick={() => handleReviewNavigation('prev')}
-              disabled={reviewIndex === 0}
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Previous
-            </Button>
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-4 sm:space-y-0">
+            <div className="flex justify-center sm:justify-start">
+              <Button
+                variant="outline"
+                onClick={() => handleReviewNavigation('prev')}
+                disabled={reviewIndex === 0}
+                className="w-full sm:w-auto"
+              >
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Previous
+              </Button>
+            </div>
 
-            <div className="flex items-center space-x-4">
-              <span className="text-sm text-slate-600">
+            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
+              <span className="text-sm text-slate-600 text-center">
                 {reviewIndex + 1} of {currentQuiz.questions.length}
               </span>
               <Progress 
                 value={(reviewIndex + 1) / currentQuiz.questions.length * 100} 
-                className="w-32"
+                className="w-full sm:w-32"
               />
             </div>
 
-            {reviewIndex < currentQuiz.questions.length - 1 ? (
-              <Button
-                onClick={() => handleReviewNavigation('next')}
-              >
-                Next
-                <ArrowRight className="h-4 w-4 ml-2" />
-              </Button>
-            ) : (
-              <div className="flex space-x-3">
+            <div className="flex justify-center sm:justify-end">
+              {reviewIndex < currentQuiz.questions.length - 1 ? (
                 <Button
-                  variant="outline"
-                  onClick={handleFinishQuiz}
+                  onClick={() => handleReviewNavigation('next')}
+                  className="w-full sm:w-auto"
                 >
-                  <Home className="h-4 w-4 mr-2" />
-                  Finish Review
+                  Next
+                  <ArrowRight className="h-4 w-4 ml-2" />
                 </Button>
-                <Link to="/portfolio">
-                  <Button className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700">
-                    <Trophy className="h-4 w-4 mr-2" />
-                    View Portfolio
+              ) : (
+                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 w-full sm:w-auto">
+                  <Button
+                    variant="outline"
+                    onClick={handleFinishQuiz}
+                    className="w-full sm:w-auto"
+                  >
+                    <Home className="h-4 w-4 mr-2" />
+                    Finish Review
                   </Button>
-                </Link>
-              </div>
-            )}
+                  <Link to="/portfolio" className="w-full sm:w-auto">
+                    <Button className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 w-full sm:w-auto">
+                      <Trophy className="h-4 w-4 mr-2" />
+                      View Portfolio
+                    </Button>
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
