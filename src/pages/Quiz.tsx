@@ -154,6 +154,8 @@ export default function QuizPage() {
   const [isAnswered, setIsAnswered] = useState(false);
   const [reviewMode, setReviewMode] = useState(false);
   const [reviewIndex, setReviewIndex] = useState(0);
+  // Automatically submit once an option is selected
+  const autoSubmitOnSelect = true;
 
   const currentQuiz = state.currentQuiz;
   const currentQuestion = currentQuiz?.questions?.[currentQuiz.currentIndex];
@@ -245,10 +247,11 @@ export default function QuizPage() {
   /**
    * Submit answer and show explanation
    */
-  const handleSubmitAnswer = () => {
-    if (!selectedAnswer || !currentQuestion) return;
+  const handleSubmitAnswer = (answer?: string) => {
+    const finalAnswer = answer ?? selectedAnswer;
+    if (!finalAnswer || !currentQuestion) return;
 
-    submitAnswer(currentQuestion.id, selectedAnswer);
+    submitAnswer(currentQuestion.id, finalAnswer);
     setIsAnswered(true);
     setShowExplanation(true);
   };
@@ -912,9 +915,14 @@ export default function QuizPage() {
               {currentQuestion?.question || 'Question text not available'}
             </div>
 
-            <RadioGroup 
-              value={selectedAnswer} 
-              onValueChange={setSelectedAnswer}
+            <RadioGroup
+              value={selectedAnswer}
+              onValueChange={(value) => {
+                setSelectedAnswer(value);
+                if (autoSubmitOnSelect && !isAnswered) {
+                  handleSubmitAnswer(value);
+                }
+              }}
               disabled={isAnswered}
             >
               {(currentQuestion?.options || []).map((option, index) => {
