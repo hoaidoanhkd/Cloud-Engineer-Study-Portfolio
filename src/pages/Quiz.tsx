@@ -154,7 +154,7 @@ export default function QuizPage() {
   const [isAnswered, setIsAnswered] = useState(false);
   const [reviewMode, setReviewMode] = useState(false);
   const [reviewIndex, setReviewIndex] = useState(0);
-  // Automatically submit once an option is selected
+  // Set to true if selecting an option should immediately submit the answer
   const autoSubmitOnSelect = true;
 
   const currentQuiz = state.currentQuiz;
