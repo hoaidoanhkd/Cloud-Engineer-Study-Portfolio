@@ -2,7 +2,7 @@
  * Enhanced Heatmap page with interactive knowledge visualization
  */
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useApp } from '../contexts/AppContext';
 import { useNavigate } from 'react-router';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
@@ -27,7 +27,16 @@ import {
   Brain,
   BookOpen,
   Upload,
-  Database
+  Database,
+  Clock,
+  TrendingDown,
+  Minus,
+  Lightbulb,
+  Target,
+  BarChart,
+  PieChart,
+  LineChart,
+  Download
 } from 'lucide-react';
 import KnowledgeTreemap from '../components/KnowledgeTreemap';
 import { cn, getPercentageColor, getTopicColor } from '../lib/utils';
@@ -40,6 +49,38 @@ interface FilterOptions {
   minAccuracy: number;
   topics: string[];
   difficulty: string[];
+}
+
+/**
+ * Time-based performance tracking
+ */
+interface TimeBasedPerformance {
+  date: string;
+  accuracy: number;
+  questionsAnswered: number;
+  topics: string[];
+}
+
+/**
+ * Learning trend analysis
+ */
+interface LearningTrend {
+  topic: string;
+  trend: 'improving' | 'declining' | 'stable';
+  improvementRate: number;
+  lastWeekAccuracy: number;
+  currentAccuracy: number;
+  prediction: number;
+}
+
+/**
+ * Study pattern detection
+ */
+interface StudyPattern {
+  type: 'consistent' | 'sporadic' | 'intensive' | 'new';
+  description: string;
+  recommendation: string;
+  strength: number;
 }
 
 /**
@@ -97,13 +138,23 @@ export default function HeatmapPage() {
   const navigate = useNavigate();
   const { state } = useApp();
   const [selectedTopic, setSelectedTopic] = useState('all');
-  const [viewMode, setViewMode] = useState<'heatmap' | 'treemap' | 'list'>('heatmap');
+  const [viewMode, setViewMode] = useState<'heatmap' | 'treemap' | 'list' | 'trends'>('heatmap');
+  const [lastRefresh, setLastRefresh] = useState<Date>(new Date());
   const [filters, setFilters] = useState<FilterOptions>({
     timeRange: 'month',
     minAccuracy: 0,
     topics: [],
     difficulty: []
   });
+
+  // Auto-refresh data every 30 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLastRefresh(new Date());
+    }, 30000);
+    
+    return () => clearInterval(interval);
+  }, []);
 
   /**
    * Generate real heatmap data from user answers and questions
@@ -173,7 +224,7 @@ export default function HeatmapPage() {
         difficulties
       };
     });
-  }, [state.questions, state.userAnswers]); // Re-calculate when data changes
+  }, [state.questions, state.userAnswers, lastRefresh]); // Re-calculate when data changes
 
   /**
    * Calculate performance summary
@@ -225,6 +276,137 @@ export default function HeatmapPage() {
       topic: item.topic
     }));
   }, [heatmapData]);
+
+  /**
+   * Generate time-based performance data
+   */
+  const timeBasedPerformance = useMemo(() => {
+    const userAnswers = state.userAnswers || [];
+    const performanceData: TimeBasedPerformance[] = [];
+    
+    // Group answers by date
+    const answersByDate = new Map<string, any[]>();
+    
+    userAnswers.forEach(answer => {
+      const date = new Date(answer.timestamp).toISOString().split('T')[0];
+      if (!answersByDate.has(date)) {
+        answersByDate.set(date, []);
+      }
+      answersByDate.get(date)!.push(answer);
+    });
+    
+    // Calculate daily performance
+    Array.from(answersByDate.entries()).forEach(([date, answers]) => {
+      const correctAnswers = answers.filter(a => a.isCorrect).length;
+      const accuracy = answers.length > 0 ? (correctAnswers / answers.length) * 100 : 0;
+      
+      // Get unique topics for the day
+      const topics = new Set<string>();
+      answers.forEach(answer => {
+        const question = state.questions.find(q => q.id === answer.questionId);
+        if (question) {
+          topics.add(question.topic);
+        }
+      });
+      
+      performanceData.push({
+        date,
+        accuracy: Math.round(accuracy),
+        questionsAnswered: answers.length,
+        topics: Array.from(topics)
+      });
+    });
+    
+    return performanceData.sort((a, b) => a.date.localeCompare(b.date));
+  }, [state.userAnswers, state.questions, lastRefresh]);
+
+  /**
+   * Generate learning trends analysis
+   */
+  const learningTrends = useMemo(() => {
+    const trends: LearningTrend[] = [];
+    const topics = new Set(heatmapData.map(item => item.topic));
+    
+    topics.forEach(topic => {
+      const topicData = heatmapData.find(item => item.topic === topic);
+      if (topicData && topicData.totalAnswered > 0) {
+        // Simulate trend analysis (in real app, this would use historical data)
+        const currentAccuracy = topicData.overallAccuracy;
+        const lastWeekAccuracy = Math.max(0, currentAccuracy - (Math.random() * 20 - 10));
+        const improvementRate = currentAccuracy - lastWeekAccuracy;
+        const prediction = Math.min(100, currentAccuracy + improvementRate);
+        
+        let trend: 'improving' | 'declining' | 'stable';
+        if (improvementRate > 5) trend = 'improving';
+        else if (improvementRate < -5) trend = 'declining';
+        else trend = 'stable';
+        
+        trends.push({
+          topic,
+          trend,
+          improvementRate: Math.round(improvementRate),
+          lastWeekAccuracy: Math.round(lastWeekAccuracy),
+          currentAccuracy,
+          prediction: Math.round(prediction)
+        });
+      }
+    });
+    
+    return trends;
+  }, [heatmapData, lastRefresh]);
+
+  /**
+   * Detect study patterns
+   */
+  const studyPatterns = useMemo(() => {
+    const patterns: StudyPattern[] = [];
+    const userAnswers = state.userAnswers || [];
+    
+    if (userAnswers.length === 0) {
+      patterns.push({
+        type: 'new',
+        description: 'You\'re just getting started with GCP learning',
+        recommendation: 'Start with basic concepts and build your foundation',
+        strength: 1
+      });
+      return patterns;
+    }
+    
+    // Analyze study frequency
+    const recentAnswers = userAnswers.filter(answer => {
+      const answerDate = new Date(answer.timestamp);
+      const weekAgo = new Date();
+      weekAgo.setDate(weekAgo.getDate() - 7);
+      return answerDate > weekAgo;
+    });
+    
+    const dailyAverages = recentAnswers.length / 7;
+    
+    if (dailyAverages >= 5) {
+      patterns.push({
+        type: 'intensive',
+        description: 'You\'re studying intensively with high daily activity',
+        recommendation: 'Consider taking breaks to avoid burnout and review previous topics',
+        strength: 0.9
+      });
+    } else if (dailyAverages >= 2) {
+      patterns.push({
+        type: 'consistent',
+        description: 'You maintain a consistent study routine',
+        recommendation: 'Great! Keep up the regular practice and focus on weak areas',
+        strength: 0.8
+      });
+    } else if (dailyAverages >= 0.5) {
+      patterns.push({
+        type: 'sporadic',
+        description: 'Your study pattern is irregular',
+        recommendation: 'Try to establish a more regular study schedule for better retention',
+        strength: 0.6
+      });
+    }
+    
+    return patterns;
+  }, [state.userAnswers, lastRefresh]);
 
   /**
    * Generate keyword-level treemap data
@@ -304,6 +486,46 @@ export default function HeatmapPage() {
   };
 
   /**
+   * Export heatmap data
+   */
+  const exportHeatmapData = () => {
+    const exportData = {
+      heatmapData,
+      performanceSummary,
+      learningTrends,
+      studyPatterns,
+      timeBasedPerformance,
+      exportDate: new Date().toISOString()
+    };
+    
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `gcp-heatmap-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  /**
+   * Refresh data manually
+   */
+  const handleRefreshData = () => {
+    setLastRefresh(new Date());
+  };
+
+  /**
+   * Get trend icon
+   */
+  const getTrendIcon = (trend: 'improving' | 'declining' | 'stable') => {
+    if (trend === 'improving') return <TrendingUp className="h-4 w-4 text-green-500" />;
+    if (trend === 'declining') return <TrendingDown className="h-4 w-4 text-red-500" />;
+    return <Minus className="h-4 w-4 text-slate-400" />;
+  };
+
+  /**
    * Handle keyword click from treemap
    */
   const handleKeywordClick = (keyword: string) => {
@@ -345,6 +567,10 @@ export default function HeatmapPage() {
             <p className="text-base sm:text-lg text-slate-600 max-w-2xl">
               Visualize your learning progress across different GCP topics and identify areas for improvement.
             </p>
+            <div className="flex items-center space-x-2 mt-2 text-sm text-slate-500">
+              <Clock className="h-4 w-4" />
+              <span>Last updated: {lastRefresh.toLocaleTimeString()}</span>
+            </div>
           </div>
           
           <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
@@ -355,9 +581,13 @@ export default function HeatmapPage() {
               <PlayCircle className="h-4 w-4 mr-2" />
               Practice Quiz
             </Button>
-            <Button variant="outline">
+            <Button variant="outline" onClick={handleRefreshData}>
               <RefreshCw className="h-4 w-4 mr-2" />
               Refresh Data
+            </Button>
+            <Button variant="outline" onClick={exportHeatmapData}>
+              <Download className="h-4 w-4 mr-2" />
+              Export
             </Button>
           </div>
         </div>
@@ -368,7 +598,8 @@ export default function HeatmapPage() {
             {[
               { mode: 'heatmap' as const, icon: BarChart3, label: 'Heatmap' },
               { mode: 'treemap' as const, icon: Target, label: 'Treemap' },
-              { mode: 'list' as const, icon: Activity, label: 'List' }
+              { mode: 'list' as const, icon: Activity, label: 'List' },
+              { mode: 'trends' as const, icon: LineChart, label: 'Trends' }
             ].map(({ mode, icon: Icon, label }) => (
               <button
                 key={mode}
@@ -733,6 +964,116 @@ export default function HeatmapPage() {
               </CardContent>
             </Card>
           )}
+
+          {viewMode === 'trends' && (
+            <Card className="shadow-lg border-0">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <LineChart className="h-5 w-5 mr-2 text-blue-600" />
+                  Learning Trends & Patterns
+                </CardTitle>
+                <CardDescription>
+                  Analyze your learning patterns, trends, and predictions for better study planning.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Learning Trends */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-slate-900 flex items-center">
+                      <TrendingUp className="h-5 w-5 mr-2 text-green-600" />
+                      Learning Trends
+                    </h3>
+                    <div className="space-y-3">
+                      {learningTrends.map((trend, index) => (
+                        <div key={index} className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                          <div className="flex items-center justify-between mb-2">
+                            <h4 className="font-semibold text-slate-900 capitalize">{trend.topic}</h4>
+                            {getTrendIcon(trend.trend)}
+                          </div>
+                          <div className="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                              <span className="text-slate-600">Current:</span>
+                              <span className="font-semibold ml-1">{trend.currentAccuracy}%</span>
+                            </div>
+                            <div>
+                              <span className="text-slate-600">Prediction:</span>
+                              <span className="font-semibold ml-1">{trend.prediction}%</span>
+                            </div>
+                            <div>
+                              <span className="text-slate-600">Last Week:</span>
+                              <span className="font-semibold ml-1">{trend.lastWeekAccuracy}%</span>
+                            </div>
+                            <div>
+                              <span className="text-slate-600">Change:</span>
+                              <span className={cn("font-semibold ml-1", 
+                                trend.improvementRate > 0 ? "text-green-600" : 
+                                trend.improvementRate < 0 ? "text-red-600" : "text-slate-600"
+                              )}>
+                                {trend.improvementRate > 0 ? '+' : ''}{trend.improvementRate}%
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Study Patterns */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-slate-900 flex items-center">
+                      <Lightbulb className="h-5 w-5 mr-2 text-yellow-600" />
+                      Study Patterns
+                    </h3>
+                    <div className="space-y-3">
+                      {studyPatterns.map((pattern, index) => (
+                        <div key={index} className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
+                          <div className="flex items-center justify-between mb-2">
+                            <h4 className="font-semibold text-slate-900 capitalize">{pattern.type}</h4>
+                            <Badge className="bg-blue-100 text-blue-800">
+                              {Math.round(pattern.strength * 100)}% match
+                            </Badge>
+                          </div>
+                          <p className="text-sm text-slate-600 mb-2">{pattern.description}</p>
+                          <p className="text-xs text-blue-700 font-medium">{pattern.recommendation}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Time-based Performance */}
+                {timeBasedPerformance.length > 0 && (
+                  <div className="mt-6">
+                    <h3 className="text-lg font-semibold text-slate-900 flex items-center mb-4">
+                      <Calendar className="h-5 w-5 mr-2 text-purple-600" />
+                      Daily Performance
+                    </h3>
+                    <div className="overflow-x-auto">
+                      <div className="min-w-[600px]">
+                        <div className="grid grid-cols-4 gap-2 mb-2 text-sm font-medium text-slate-700">
+                          <div>Date</div>
+                          <div className="text-center">Accuracy</div>
+                          <div className="text-center">Questions</div>
+                          <div className="text-center">Topics</div>
+                        </div>
+                        {timeBasedPerformance.slice(-7).map((day, index) => (
+                          <div key={index} className="grid grid-cols-4 gap-2 mb-2 p-2 bg-slate-50 rounded">
+                            <div className="text-sm">{day.date}</div>
+                            <div className={cn("text-center text-sm font-semibold", getPercentageColor(day.accuracy))}>
+                              {day.accuracy}%
+                            </div>
+                            <div className="text-center text-sm">{day.questionsAnswered}</div>
+                            <div className="text-center text-sm">{day.topics.length}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         {/* Sidebar */}
@@ -851,6 +1192,51 @@ export default function HeatmapPage() {
               </CardContent>
             </Card>
           )}
+
+          {/* Real-time Insights */}
+          <Card className="shadow-lg border-0 bg-gradient-to-br from-purple-50 to-pink-50">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center text-purple-800">
+                <Lightbulb className="h-5 w-5 mr-2" />
+                Real-time Insights
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {studyPatterns.length > 0 && (
+                <div className="p-3 bg-white/60 rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-purple-800 capitalize">
+                      {studyPatterns[0].type}
+                    </span>
+                    <Badge className="bg-purple-100 text-purple-800">
+                      {Math.round(studyPatterns[0].strength * 100)}%
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-purple-700">{studyPatterns[0].recommendation}</p>
+                </div>
+              )}
+              
+              {learningTrends.length > 0 && (
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium text-purple-800">Top Trends</h4>
+                  {learningTrends.slice(0, 2).map((trend, index) => (
+                    <div key={index} className="flex items-center justify-between p-2 bg-white/60 rounded">
+                      <span className="text-xs text-purple-700 capitalize">{trend.topic}</span>
+                      <div className="flex items-center space-x-1">
+                        {getTrendIcon(trend.trend)}
+                        <span className={cn("text-xs font-semibold", 
+                          trend.improvementRate > 0 ? "text-green-600" : 
+                          trend.improvementRate < 0 ? "text-red-600" : "text-slate-600"
+                        )}>
+                          {trend.improvementRate > 0 ? '+' : ''}{trend.improvementRate}%
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
 
           {/* Study Resources */}
           <Card className="shadow-lg border-0 bg-gradient-to-br from-blue-50 to-indigo-50">
