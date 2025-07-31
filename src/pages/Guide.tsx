@@ -23,7 +23,7 @@ import {
 
 export default function GuidePage() {
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="max-w-4xl mx-auto space-y-8 mobile-content">
       {/* Header */}
       <div className="text-center space-y-4">
         <h1 className="text-3xl font-bold text-slate-900">Study Guide</h1>
@@ -33,7 +33,7 @@ export default function GuidePage() {
       </div>
 
       <Tabs defaultValue="exam-info" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-4 mobile-tabs">
           <TabsTrigger value="exam-info">Exam Info</TabsTrigger>
           <TabsTrigger value="how-to-use">How to Use</TabsTrigger>
           <TabsTrigger value="study-tips">Study Tips</TabsTrigger>

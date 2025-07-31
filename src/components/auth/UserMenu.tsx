@@ -50,7 +50,7 @@ export default function UserMenu() {
         </Button>
       </DropdownMenuTrigger>
       
-      <DropdownMenuContent className="w-80" align="end" forceMount>
+      <DropdownMenuContent className="w-80 mobile-dropdown" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-2">
             <div className="flex items-center space-x-3">

@@ -114,6 +114,273 @@
     padding: 12px;
     min-height: 100px;
   }
+
+  /* Ensure modals are properly visible on mobile */
+  .mobile-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  .mobile-modal-content {
+    background: white;
+    border-radius: 12px;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    width: 100%;
+  }
+
+  /* Ensure dropdowns are visible on mobile */
+  .mobile-dropdown {
+    position: absolute;
+    z-index: 1000;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+  }
+
+  /* Better tabs for mobile */
+  .mobile-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mobile-tabs-list {
+    display: flex;
+    min-width: max-content;
+    gap: 8px;
+  }
+
+  /* Ensure all interactive elements are visible */
+  .mobile-visible {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  /* Better form layouts for mobile */
+  .mobile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mobile-form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Improved dialog positioning for mobile */
+  .mobile-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+  }
+
+  /* Better table responsiveness */
+  .mobile-table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mobile-table-responsive table {
+    min-width: 600px;
+  }
+
+  /* Ensure buttons are always clickable */
+  .mobile-button {
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Better navigation visibility */
+  .mobile-nav-visible {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  /* Improved header visibility */
+  .mobile-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Better footer visibility */
+  .mobile-footer {
+    position: relative;
+    z-index: 10;
+  }
+
+  /* Ensure content is not hidden behind fixed elements */
+  .mobile-content {
+    padding-top: 80px;
+    padding-bottom: 20px;
+  }
+
+  /* Better card visibility */
+  .mobile-card-visible {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Improved list visibility */
+  .mobile-list-visible {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .mobile-list-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .mobile-list-item:last-child {
+    border-bottom: none;
+  }
+
+  /* Better search visibility */
+  .mobile-search {
+    position: relative;
+    z-index: 5;
+  }
+
+  .mobile-search-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  /* Improved filter visibility */
+  .mobile-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+
+  /* Better pagination visibility */
+  .mobile-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+  }
+
+  .mobile-pagination-button {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+  }
+
+  /* Ensure tooltips are visible */
+  .mobile-tooltip {
+    position: absolute;
+    z-index: 1000;
+    background: #1f2937;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    max-width: 200px;
+    word-wrap: break-word;
+  }
+
+  /* Better loading states */
+  .mobile-loading-visible {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    background: rgba(255, 255, 255, 0.8);
+  }
+
+  /* Improved error states */
+  .mobile-error-visible {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    padding: 16px;
+    border-radius: 8px;
+    margin: 16px 0;
+  }
+
+  /* Better success states */
+  .mobile-success-visible {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #16a34a;
+    padding: 16px;
+    border-radius: 8px;
+    margin: 16px 0;
+  }
+
+  /* Ensure all text is readable */
+  .mobile-text-visible {
+    color: #1f2937;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* Better link visibility */
+  .mobile-link-visible {
+    color: #3b82f6;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  /* Improved image visibility */
+  .mobile-image-visible {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  /* Better icon visibility */
+  .mobile-icon-visible {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+  }
 }
 
 /* Landscape mobile optimizations */
@@ -124,6 +391,10 @@
   
   .landscape-text {
     font-size: 14px;
+  }
+
+  .landscape-modal {
+    max-height: 80vh;
   }
 }
 
@@ -194,4 +465,62 @@
   background-color: #f0fdf4;
   border: 1px solid #bbf7d0;
   color: #16a34a;
+}
+
+/* Global mobile visibility fixes */
+@media (max-width: 640px) {
+  /* Ensure all elements are visible by default */
+  * {
+    visibility: visible !important;
+  }
+
+  /* Fix any hidden elements */
+  .hidden {
+    display: none !important;
+  }
+
+  /* Ensure proper stacking context */
+  .mobile-stack {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Better touch targets */
+  button, a, input, select, textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Ensure proper contrast */
+  .mobile-contrast {
+    color: #1f2937;
+    background: white;
+  }
+
+  /* Better spacing */
+  .mobile-padding {
+    padding: 16px;
+  }
+
+  .mobile-margin {
+    margin: 16px;
+  }
+
+  /* Improved typography */
+  .mobile-typography {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #1f2937;
+  }
+
+  /* Better borders */
+  .mobile-border {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+  }
+
+  /* Improved shadows */
+  .mobile-shadow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
 } 

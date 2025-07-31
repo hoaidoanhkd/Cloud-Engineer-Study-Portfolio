@@ -125,7 +125,7 @@ export default function Layout({ children }: LayoutProps) {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Header */}
       <header className={cn(
-        "sticky top-0 z-50 transition-all duration-300",
+        "sticky top-0 z-50 transition-all duration-300 mobile-header",
         scrolled 
           ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-slate-200/50" 
           : "bg-white/80 backdrop-blur-sm border-b border-slate-200/30"
@@ -224,7 +224,7 @@ export default function Layout({ children }: LayoutProps) {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md">
+          <div className="md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md mobile-nav-visible">
             <div className="max-w-7xl mx-auto px-4 py-4">
               <nav className="space-y-2">
                 {navigationItems.map((item) => {
@@ -280,12 +280,12 @@ export default function Layout({ children }: LayoutProps) {
       )}
 
       {/* Main Content */}
-      <main className="min-h-[calc(100vh-80px)]">
+      <main className="min-h-[calc(100vh-80px)] mobile-content">
         {children}
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-white">
+      <footer className="bg-slate-900 text-white mobile-footer">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Brand */}
