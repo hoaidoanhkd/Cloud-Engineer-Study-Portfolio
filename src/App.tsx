@@ -3,19 +3,12 @@
  */
 
 import React, { Suspense } from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router';
-import { AppProvider } from './contexts/AppContext';
-import { AuthProvider } from './contexts/AuthContext';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 
 // Dynamic imports for code splitting
 const HomePage = React.lazy(() => import('./pages/Home'));
-const QuizPage = React.lazy(() => import('./pages/Quiz'));
 const GCPQuizPage = React.lazy(() => import('./pages/GCPQuiz'));
-const HeatmapPage = React.lazy(() => import('./pages/Heatmap'));
-const PortfolioPage = React.lazy(() => import('./pages/Portfolio'));
-const GuidePage = React.lazy(() => import('./pages/Guide'));
-const ProfilePage = React.lazy(() => import('./pages/Profile'));
 
 // Loading component
 const LoadingSpinner = () => (
@@ -29,25 +22,16 @@ const LoadingSpinner = () => (
 
 function App() {
   return (
-    <AuthProvider>
-      <AppProvider>
-        <Router>
-          <Layout>
-            <Suspense fallback={<LoadingSpinner />}>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/quiz" element={<QuizPage />} />
-                <Route path="/gcp-quiz" element={<GCPQuizPage />} />
-                <Route path="/heatmap" element={<HeatmapPage />} />
-                <Route path="/portfolio" element={<PortfolioPage />} />
-                <Route path="/guide" element={<GuidePage />} />
-                <Route path="/profile" element={<ProfilePage />} />
-              </Routes>
-            </Suspense>
-          </Layout>
-        </Router>
-      </AppProvider>
-    </AuthProvider>
+    <Router>
+      <Layout>
+        <Suspense fallback={<LoadingSpinner />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/gcp-quiz" element={<GCPQuizPage />} />
+          </Routes>
+        </Suspense>
+      </Layout>
+    </Router>
   );
 }
 

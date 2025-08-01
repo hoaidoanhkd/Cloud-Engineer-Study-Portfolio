@@ -3,29 +3,16 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation } from 'react-router-dom';
 import { 
   Home, 
-  FileText, 
-  BarChart3, 
-  TrendingUp, 
-  HelpCircle,
   Brain,
-  LogIn,
   Menu,
   X,
-  ChevronDown,
-  User,
-  Settings,
-  Bell,
-  Upload,
-  Database
+  ChevronDown
 } from 'lucide-react';
 import { cn, getHoverClasses } from '../lib/utils';
-import { useAuth } from '../contexts/AuthContext';
 import { Button } from './ui/button';
-import UserMenu from './auth/UserMenu';
-import LoginModal from './auth/LoginModal';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -49,41 +36,15 @@ const navigationItems: NavigationItem[] = [
     description: 'Dashboard and overview' 
   },
   { 
-    name: 'Quiz', 
-    href: '/quiz', 
-    icon: FileText, 
-    description: 'Practice questions and tests' 
-  },
-  { 
     name: 'GCP Quiz', 
     href: '/gcp-quiz', 
     icon: Brain, 
     description: 'GCP Cloud Engineer Exam Practice' 
   },
-  { 
-    name: 'Heatmap', 
-    href: '/heatmap', 
-    icon: BarChart3, 
-    description: 'Visual progress tracking' 
-  },
-  { 
-    name: 'Portfolio', 
-    href: '/portfolio', 
-    icon: TrendingUp, 
-    description: 'Achievement and analytics' 
-  },
-  { 
-    name: 'Guide', 
-    href: '/guide', 
-    icon: HelpCircle, 
-    description: 'Study materials and resources' 
-  },
 ];
 
 export default function Layout({ children }: LayoutProps) {
   const location = useLocation();
-  const { state } = useAuth();
-  const [showLoginModal, setShowLoginModal] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -178,27 +139,6 @@ export default function Layout({ children }: LayoutProps) {
 
             {/* Right Side Actions */}
             <div className="flex items-center space-x-2 sm:space-x-3">
-              {/* Notifications - only for authenticated users */}
-              {state.isAuthenticated && (
-                <Button variant="ghost" size="sm" className="relative p-2 hover:bg-slate-100 hidden sm:flex">
-                  <Bell className="h-5 w-5 text-slate-600" />
-                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></div>
-                </Button>
-              )}
-
-              {/* Auth Section */}
-              {state.isAuthenticated ? (
-                <UserMenu />
-              ) : (
-                <Button 
-                  onClick={() => setShowLoginModal(true)}
-                  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base px-3 sm:px-4 py-2"
-                >
-                  <LogIn className="h-4 w-4 mr-1 sm:mr-2" />
-                  <span className="hidden sm:inline">Login</span>
-                </Button>
-              )}
-
               {/* Mobile Menu Button */}
               <Button
                 variant="ghost"
@@ -303,10 +243,10 @@ export default function Layout({ children }: LayoutProps) {
             <div>
               <h4 className="font-semibold mb-4">Learning</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link to="/quiz" className="text-slate-400 hover:text-white transition-colors">Practice Quiz</Link></li>
-                <li><Link to="/heatmap" className="text-slate-400 hover:text-white transition-colors">Progress Heatmap</Link></li>
-                <li><Link to="/guide" className="text-slate-400 hover:text-white transition-colors">Study Guide</Link></li>
-                <li><Link to="/portfolio" className="text-slate-400 hover:text-white transition-colors">Portfolio</Link></li>
+                <li><Link to="/gcp-quiz" className="text-slate-400 hover:text-white transition-colors">GCP Quiz</Link></li>
+                <li><a href="#" className="text-slate-400 hover:text-white transition-colors">Study Guide</a></li>
+                <li><a href="#" className="text-slate-400 hover:text-white transition-colors">Practice Tests</a></li>
+                <li><a href="#" className="text-slate-400 hover:text-white transition-colors">Resources</a></li>
               </ul>
             </div>
 
@@ -345,12 +285,6 @@ export default function Layout({ children }: LayoutProps) {
           </div>
         </div>
       </footer>
-
-      {/* Login Modal */}
-      <LoginModal 
-        isOpen={showLoginModal} 
-        onClose={() => setShowLoginModal(false)} 
-      />
     </div>
   );
 }
