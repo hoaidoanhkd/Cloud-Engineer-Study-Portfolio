@@ -1,321 +1,186 @@
 /**
- * Home page - Main dashboard and entry point
+ * Home page - GCP Learning Hub Dashboard
  */
 
 import React from 'react';
 import { Link } from 'react-router';
-import { useApp } from '../contexts/AppContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { 
-  BookOpen, 
-  TrendingUp, 
-  Target, 
-  BarChart3, 
-  PlayCircle,
-  Trophy,
-  Users,
-  Clock,
-  Zap,
-  Star,
-  Activity,
-  Award,
-  Eye,
-  FileText,
-  Settings,
-  Upload,
-  Database
+  Brain, 
+  PlayCircle, 
+  Trophy, 
+  Clock, 
+  Target,
+  BookOpen,
+  BarChart3
 } from 'lucide-react';
+import { gcpQuestions } from '../../gcpQuestions';
 
 export default function HomePage() {
-  const { state } = useApp();
-
-  // Calculate statistics
-  const totalQuestions = state.questions.length;
-  const totalAnswered = state.userAnswers.length;
-  const correctAnswers = state.userAnswers.filter(a => a.isCorrect).length;
-  const accuracy = totalAnswered > 0 ? Math.round((correctAnswers / totalAnswered) * 100) : 0;
-  const portfolioItems = Object.keys(state.portfolio).length;
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="text-center">
-            <div className="flex items-center justify-center space-x-3 mb-6">
-              <div className="p-4 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl">
-                <BookOpen className="h-10 w-10 text-white" />
-              </div>
-              <h1 className="text-5xl font-bold text-slate-900">
-                GCP Learning Hub
-              </h1>
-            </div>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-8">
-              Master Google Cloud Platform with our interactive quiz system. 
-              Track your progress like an investment portfolio and visualize your learning journey.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <Link to="/quiz">
-                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700">
-                  <PlayCircle className="h-5 w-5 mr-2" />
-                  Start Quiz
-                </Button>
-              </Link>
-              <Link to="/portfolio">
-                <Button size="lg" variant="outline">
-                  <TrendingUp className="h-5 w-5 mr-2" />
-                  View Portfolio
-                </Button>
-              </Link>
-            </div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-4">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="mx-auto w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+            <Brain className="h-10 w-10 text-blue-600" />
           </div>
-        </div>
-      </div>
-
-      {/* Stats Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
-          <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-0 shadow-lg">
-            <CardContent className="p-6 text-center">
-              <div className="p-3 bg-blue-100 rounded-full inline-block mb-4">
-                <Database className="h-6 w-6 text-blue-600" />
-              </div>
-              <div className="text-3xl font-bold text-slate-900 mb-1">{totalQuestions}</div>
-              <div className="text-sm text-slate-600">Total Questions</div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-0 shadow-lg">
-            <CardContent className="p-6 text-center">
-              <div className="p-3 bg-green-100 rounded-full inline-block mb-4">
-                <Target className="h-6 w-6 text-green-600" />
-              </div>
-              <div className="text-3xl font-bold text-slate-900 mb-1">{accuracy}%</div>
-              <div className="text-sm text-slate-600">Accuracy Rate</div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border-0 shadow-lg">
-            <CardContent className="p-6 text-center">
-              <div className="p-3 bg-purple-100 rounded-full inline-block mb-4">
-                <TrendingUp className="h-6 w-6 text-purple-600" />
-              </div>
-              <div className="text-3xl font-bold text-slate-900 mb-1">{portfolioItems}</div>
-              <div className="text-sm text-slate-600">Portfolio Items</div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-yellow-50 to-orange-50 border-0 shadow-lg">
-            <CardContent className="p-6 text-center">
-              <div className="p-3 bg-yellow-100 rounded-full inline-block mb-4">
-                <Activity className="h-6 w-6 text-yellow-600" />
-              </div>
-              <div className="text-3xl font-bold text-slate-900 mb-1">{totalAnswered}</div>
-              <div className="text-sm text-slate-600">Questions Answered</div>
-            </CardContent>
-          </Card>
+          <h1 className="text-4xl font-bold text-slate-900 mb-2">
+            GCP Learning Hub
+          </h1>
+          <p className="text-lg text-slate-600">
+            Master Google Cloud Platform with interactive quizzes and comprehensive learning resources
+          </p>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Quiz Feature */}
-          <Card className="group hover:shadow-xl transition-shadow border-0 shadow-lg">
+        {/* Main Features */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          {/* GCP Quiz Card */}
+          <Card className="hover:shadow-lg transition-shadow duration-200">
             <CardHeader>
-              <div className="p-3 bg-blue-100 rounded-lg inline-block mb-2 group-hover:bg-blue-200 transition-colors">
-                <PlayCircle className="h-6 w-6 text-blue-600" />
-              </div>
-              <CardTitle>Interactive Quiz</CardTitle>
-              <CardDescription>
-                Take comprehensive quizzes on various GCP topics with instant feedback and explanations.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link to="/quiz">
-                <Button className="w-full">
-                  Start Quiz
-                  <PlayCircle className="h-4 w-4 ml-2" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-
-          {/* Portfolio Feature */}
-          <Card className="group hover:shadow-xl transition-shadow border-0 shadow-lg">
-            <CardHeader>
-              <div className="p-3 bg-green-100 rounded-lg inline-block mb-2 group-hover:bg-green-200 transition-colors">
-                <TrendingUp className="h-6 w-6 text-green-600" />
-              </div>
-              <CardTitle>Learning Portfolio</CardTitle>
-              <CardDescription>
-                Track your knowledge like an investment portfolio with performance metrics and growth tracking.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link to="/portfolio">
-                <Button variant="outline" className="w-full">
-                  View Portfolio
-                  <TrendingUp className="h-4 w-4 ml-2" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-
-          {/* Heatmap Feature */}
-          <Card className="group hover:shadow-xl transition-shadow border-0 shadow-lg">
-            <CardHeader>
-              <div className="p-3 bg-purple-100 rounded-lg inline-block mb-2 group-hover:bg-purple-200 transition-colors">
-                <BarChart3 className="h-6 w-6 text-purple-600" />
-              </div>
-              <CardTitle>Progress Heatmap</CardTitle>
-              <CardDescription>
-                Visualize your learning patterns and identify areas that need more attention.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link to="/heatmap">
-                <Button variant="outline" className="w-full">
-                  View Heatmap
-                  <Eye className="h-4 w-4 ml-2" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-
-          {/* Guide Feature */}
-          <Card className="group hover:shadow-xl transition-shadow border-0 shadow-lg">
-            <CardHeader>
-              <div className="p-3 bg-indigo-100 rounded-lg inline-block mb-2 group-hover:bg-indigo-200 transition-colors">
-                <BookOpen className="h-6 w-6 text-indigo-600" />
-              </div>
-              <CardTitle>Study Guide</CardTitle>
-              <CardDescription>
-                Access comprehensive study materials and best practices for GCP certification.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link to="/guide">
-                <Button variant="outline" className="w-full">
-                  Read Guide
-                  <BookOpen className="h-4 w-4 ml-2" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-
-          {/* Import Feature */}
-          <Card className="group hover:shadow-xl transition-shadow border-0 shadow-lg">
-            <CardHeader>
-              <div className="p-3 bg-orange-100 rounded-lg inline-block mb-2 group-hover:bg-orange-200 transition-colors">
-                <Upload className="h-6 w-6 text-orange-600" />
-              </div>
-              <CardTitle>Import Questions</CardTitle>
-              <CardDescription>
-                Upload your own questions from JSON or CSV files to expand the quiz database.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link to="/import">
-                <Button variant="outline" className="w-full">
-                  Import Questions
-                  <Upload className="h-4 w-4 ml-2" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-
-          {/* Management Feature */}
-          <Card className="group hover:shadow-xl transition-shadow border-0 shadow-lg">
-            <CardHeader>
-              <div className="p-3 bg-red-100 rounded-lg inline-block mb-2 group-hover:bg-red-200 transition-colors">
-                <Settings className="h-6 w-6 text-red-600" />
-              </div>
-              <CardTitle>Question Management</CardTitle>
-              <CardDescription>
-                Manage your question database, edit existing questions, and organize content.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link to="/manage">
-                <Button variant="outline" className="w-full">
-                  Manage Questions
-                  <Settings className="h-4 w-4 ml-2" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Recent Activity */}
-        {totalAnswered > 0 && (
-          <div className="mt-16">
-            <h2 className="text-2xl font-bold text-slate-900 mb-6">Recent Activity</h2>
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    <div className="p-3 bg-blue-100 rounded-full">
-                      <Activity className="h-6 w-6 text-blue-600" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-slate-900">
-                        {totalAnswered} questions answered
-                      </div>
-                      <div className="text-sm text-slate-600">
-                        {correctAnswers} correct • {accuracy}% accuracy rate
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    {accuracy >= 80 && (
-                      <Badge className="bg-green-100 text-green-800">
-                        <Trophy className="h-3 w-3 mr-1" />
-                        Excellent
-                      </Badge>
-                    )}
-                    {accuracy >= 60 && accuracy < 80 && (
-                      <Badge className="bg-blue-100 text-blue-800">
-                        <Star className="h-3 w-3 mr-1" />
-                        Good
-                      </Badge>
-                    )}
-                    {accuracy < 60 && (
-                      <Badge className="bg-yellow-100 text-yellow-800">
-                        <Zap className="h-3 w-3 mr-1" />
-                        Keep Practicing
-                      </Badge>
-                    )}
-                  </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                  <PlayCircle className="h-5 w-5 text-blue-600" />
                 </div>
-              </CardContent>
-            </Card>
+                <CardTitle className="text-xl">GCP Quiz</CardTitle>
+              </div>
+              <CardDescription>
+                Test your knowledge with {gcpQuestions.length} carefully curated questions covering all GCP topics
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-slate-600">Questions:</span>
+                <Badge variant="outline">{gcpQuestions.length}</Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-slate-600">Types:</span>
+                <Badge variant="outline">Single & Multiple Choice</Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-slate-600">Topics:</span>
+                <Badge variant="outline">All GCP Services</Badge>
+              </div>
+              
+              <Link to="/gcp-quiz">
+                <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                  <PlayCircle className="mr-2 h-4 w-4" />
+                  Start Quiz
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          {/* Progress Tracking */}
+          <Card className="hover:shadow-lg transition-shadow duration-200">
+            <CardHeader>
+              <div className="flex items-center space-x-2">
+                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                  <BarChart3 className="h-5 w-5 text-green-600" />
+                </div>
+                <CardTitle className="text-xl">Progress Tracking</CardTitle>
+              </div>
+              <CardDescription>
+                Monitor your learning progress and identify areas for improvement
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-slate-600">Real-time:</span>
+                <Badge variant="outline" className="bg-green-100 text-green-800">Active</Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-slate-600">Analytics:</span>
+                <Badge variant="outline">Performance Metrics</Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-slate-600">Review:</span>
+                <Badge variant="outline">Answer Analysis</Badge>
+              </div>
+              
+              <Button variant="outline" className="w-full">
+                <BarChart3 className="mr-2 h-4 w-4" />
+                View Progress
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Learning Resources */}
+          <Card className="hover:shadow-lg transition-shadow duration-200">
+            <CardHeader>
+              <div className="flex items-center space-x-2">
+                <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                  <BookOpen className="h-5 w-5 text-purple-600" />
+                </div>
+                <CardTitle className="text-xl">Learning Resources</CardTitle>
+              </div>
+              <CardDescription>
+                Access comprehensive study materials and official GCP documentation
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-slate-600">Materials:</span>
+                <Badge variant="outline">Official Docs</Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-slate-600">Practice:</span>
+                <Badge variant="outline">Hands-on Labs</Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-slate-600">Updates:</span>
+                <Badge variant="outline">Latest Content</Badge>
+              </div>
+              
+              <Button variant="outline" className="w-full">
+                <BookOpen className="mr-2 h-4 w-4" />
+                Browse Resources
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Quick Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+          <div className="text-center p-4 bg-blue-50 rounded-lg">
+            <div className="text-2xl font-bold text-blue-600">{gcpQuestions.length}</div>
+            <div className="text-sm text-blue-600">Total Questions</div>
           </div>
-        )}
+          <div className="text-center p-4 bg-green-50 rounded-lg">
+            <div className="text-2xl font-bold text-green-600">Multiple</div>
+            <div className="text-sm text-green-600">Question Types</div>
+          </div>
+          <div className="text-center p-4 bg-purple-50 rounded-lg">
+            <div className="text-2xl font-bold text-purple-600">Real-time</div>
+            <div className="text-sm text-purple-600">Progress Tracking</div>
+          </div>
+          <div className="text-center p-4 bg-orange-50 rounded-lg">
+            <div className="text-2xl font-bold text-orange-600">Interactive</div>
+            <div className="text-sm text-orange-600">Learning Experience</div>
+          </div>
+        </div>
 
         {/* Call to Action */}
-        <div className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white">
-            <h2 className="text-3xl font-bold mb-4">Ready to level up your GCP skills?</h2>
-            <p className="text-xl mb-6 opacity-90">
-              Join thousands of professionals mastering Google Cloud Platform
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <Link to="/quiz">
-                <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-                  <PlayCircle className="h-5 w-5 mr-2" />
-                  Start Your Journey
-                </Button>
-              </Link>
-              <Link to="/guide">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600">
-                  <FileText className="h-5 w-5 mr-2" />
-                  Read Study Guide
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
+        <Card className="text-center p-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+          <CardHeader>
+            <CardTitle className="text-3xl font-bold text-white">
+              Ready to Test Your GCP Knowledge?
+            </CardTitle>
+            <CardDescription className="text-blue-100">
+              Start your journey to becoming a Google Cloud Certified Associate Cloud Engineer
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Link to="/gcp-quiz">
+              <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50">
+                <PlayCircle className="mr-2 h-5 w-5" />
+                Start GCP Quiz Now
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
