@@ -576,32 +576,17 @@ You have a batch workload that runs every night and uses a large number of virtu
 </div>
 </form>
 
+<script src="../quiz-common.js"></script>
 <script>
 const correctAnswers = ['D', 'D', 'C', 'C', 'B', 'D', 'A', 'D', 'A', 'A', 'C', 'B', 'B', 'B', 'A', 'D', 'C', 'B', 'B', 'A', 'C', 'B', 'B', 'D', 'C', 'A', 'C', 'A', 'A', 'B', 'D', 'D', 'B', 'A', 'A', 'C', 'A', 'A', 'D', 'D', 'A', 'A', 'B', 'B', 'B', 'D', 'A', 'D', 'D', 'A'];
 
 const total = 50;
+const partName = 'Part 3 (Questions 101-150)';
 
-    for (let i = 1; i <= total; i++) {
-      const radios = document.getElementsByName(`q${i}`);
-      radios.forEach(radio => {
-        radio.addEventListener('change', function() {
-          radios.forEach(r => {
-            const label = r.parentElement;
-            label.style.fontWeight = "normal";
-            label.style.color = "black";
-          });
-
-          const label = this.parentElement;
-          if (this.value === correctAnswers[i - 1]) {
-            label.style.color = "green";
-            label.style.fontWeight = "bold";
-          } else {
-            label.style.color = "red";
-            label.style.fontWeight = "bold";
-          }
-        });
-      });
-    }
+// Khởi tạo quiz khi trang load
+document.addEventListener('DOMContentLoaded', function() {
+    initializeQuiz(correctAnswers, total, partName, 101);
+});
 </script>
 </body>
 </html>
