@@ -2,7 +2,7 @@ export interface Question {
   id: number;
   text: string;
   options: string[];
-  correctAnswer: string;
+    correctAnswer: "C",
   explanation?: string;
 }
 
@@ -16,7 +16,7 @@ export const gcpQuestions: Question[] = [
       "Ask each member of the team to generate a new SSH key pair and to add the public key to their Google account. Grant the ג€compute.osAdminLoginג€ role to the Google group corresponding to this team.",
       "Generate a new SSH key pair. Give the private key to each member of your team. Configure the public key as a project-wide public SSH key in your Cloud Platform project and allow project-wide public SSH keys on each instance."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 2,
@@ -27,7 +27,7 @@ export const gcpQuestions: Question[] = [
       "172.16.0.0/12",
       "192.168.0.0/16"
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 3,
@@ -38,7 +38,7 @@ export const gcpQuestions: Question[] = [
       "Select Cloud Spanner. Set up your instance with 2 nodes.",
       "Select Cloud Spanner. Set up your instance as multi-regional."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 4,
@@ -49,7 +49,7 @@ export const gcpQuestions: Question[] = [
       "Create a managed instance group. Set the Autohealing health check to healthy (HTTP)",
       "Create a managed instance group. Verify that the autoscaling setting is on."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 5,
@@ -60,7 +60,7 @@ export const gcpQuestions: Question[] = [
       "Use kubectl config get-contexts to review the output.",
       "Use kubectl config use-context and kubectl config view to review the output."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 6,
@@ -71,7 +71,7 @@ export const gcpQuestions: Question[] = [
       "Nearline Storage",
       "Coldline Storage"
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 7,
@@ -82,7 +82,7 @@ export const gcpQuestions: Question[] = [
       "In the Google Platform Console, go to the Resource Manage and move all projects to the root Organizarion.",
       "In the Google Cloud Platform Console, create a new billing account and set up a payment method."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 8,
@@ -93,7 +93,7 @@ export const gcpQuestions: Question[] = [
       "Use the IP 10.0.3.21 as a custom ephemeral IP address and assign it to the licensing server.",
       "Start the licensing server with an automatic ephemeral IP address, and then promote it to a static internal IP address."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 9,
@@ -104,7 +104,7 @@ export const gcpQuestions: Question[] = [
       "Basic Scaling with max_instances set to 3.",
       "Automatic Scaling with min_idle_instances set to 3."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 10,
@@ -115,7 +115,7 @@ export const gcpQuestions: Question[] = [
       "In the Google Cloud Platform Console, use the \'create role from role\' functionality.",
       "In the Google Cloud Platform Console, use the \'create role\' functionality and select all applicable permissions."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 11,
@@ -126,7 +126,7 @@ export const gcpQuestions: Question[] = [
       "Managed Instance Group",
       "Unmanaged Instance Group"
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 12,
@@ -137,7 +137,7 @@ export const gcpQuestions: Question[] = [
       "Create a docker image from the Dockerfile and upload it to Container Registry. Create a Deployment YAML file to point to that image. Use kubectl to create the deployment with that file.",
       "Create a docker image from the Dockerfile and upload it to Cloud Storage. Create a Deployment YAML file to point to that image. Use kubectl to create the deployment with that file."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 13,
@@ -148,7 +148,7 @@ export const gcpQuestions: Question[] = [
       "Create a Kubernetes cluster on Compute Engine and create a deployment with the Jenkins Docker image.",
       "Use GCP Marketplace to launch the Jenkins solution."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 14,
@@ -159,7 +159,7 @@ export const gcpQuestions: Question[] = [
       "gcloud deployment-manager resources create --config",
       "gcloud deployment-manager resources update --config"
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 15,
@@ -170,7 +170,7 @@ export const gcpQuestions: Question[] = [
       "Use the command line to run a dry run query to estimate the number of bytes returned. Then convert that bytes estimate to dollars using the Pricing Calculator.",
       "Run a select count (*) to get an idea of how many records your query will look through. Then convert that number of rows to dollars using the Pricing Calculator."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 16,
@@ -181,7 +181,7 @@ export const gcpQuestions: Question[] = [
       "Create an instance template, and use the template in a managed instance group that scales up and down based on the time of day.",
       "Use a set of third-party tools to build automation around scaling the application up and down, based on Stackdriver CPU usage monitoring."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 17,
@@ -192,7 +192,7 @@ export const gcpQuestions: Question[] = [
       "Export your transactions to a local file, and perform analysis with a desktop tool.",
       "Export your bill to a BigQuery dataset, and then write time window-based SQL queries for analysis."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 18,
@@ -203,7 +203,7 @@ export const gcpQuestions: Question[] = [
       "Use gsutil rewrite and set the Delete action to 275 days (365-90).",
       "Use gsutil rewrite and set the Delete action to 365 days."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 19,
@@ -214,7 +214,7 @@ export const gcpQuestions: Question[] = [
       "Download a JSON Private Key for the service account. On the Custom Metadata of the VM, add that JSON as the value for the key compute-engine- service-account.",
       "Download a JSON Private Key for the service account. After creating the VM, ssh into the VM and save the JSON under ~/.gcloud/compute-engine-service- account.json."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 20,
@@ -225,7 +225,7 @@ export const gcpQuestions: Question[] = [
       "Set a Windows password in the GCP Console. Verify that a firewall rule for port 22 exists. Click the RDP button in the GCP Console and supply the credentials to log in.",
       "Set a Windows username and password in the GCP Console. Verify that a firewall rule for port 3389 exists. Click the RDP button in the GCP Console, and supply the credentials to log in."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 21,
@@ -236,7 +236,7 @@ export const gcpQuestions: Question[] = [
       "Activate two configurations using gcloud configurations activate [NAME]. Run gcloud config list to start the Compute Engine instances.",
       "Activate two configurations using gcloud configurations activate [NAME]. Run gcloud configurations list to start the Compute Engine instances."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 22,
@@ -247,7 +247,7 @@ export const gcpQuestions: Question[] = [
       "Execute the Deployment Manager template against a separate project with the same configuration, and monitor for failures.",
       "Execute the Deployment Manager template using the ג€\"-preview option in the same project, and observe the state of interdependent resources."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 23,
@@ -258,7 +258,7 @@ export const gcpQuestions: Question[] = [
       "Cloud Pub/Sub, Cloud Storage, BigQuery, Cloud Bigtable",
       "Cloud Pub/Sub, Cloud Dataflow, Cloud Bigtable, BigQuery"
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 24,
@@ -269,7 +269,7 @@ export const gcpQuestions: Question[] = [
       "Create a Deployment Manager configuration file that copies the current App Engine deployment into a new project.",
       "Deploy your application again using gcloud and specify the project parameter with the new project name to create the new project."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 25,
@@ -280,7 +280,7 @@ export const gcpQuestions: Question[] = [
       "Add the auditor user accounts to the \'logging.viewer\' and \'bigQuery.dataViewer\' predefined IAM roles.",
       "Add the auditor user accounts to two new custom IAM roles."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 26,
@@ -291,7 +291,7 @@ export const gcpQuestions: Question[] = [
       "Create a service account and add it to the IAM role \'storage.objectCreator\' for that bucket.",
       "Create a service account and add it to the IAM role \'storage.objectAdmin\' for that bucket."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 27,
@@ -302,7 +302,7 @@ export const gcpQuestions: Question[] = [
       "View the bucket in the Storage section of the GCP Console.",
       "Create a trace in Stackdriver to view the information."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 28,
@@ -313,7 +313,7 @@ export const gcpQuestions: Question[] = [
       "Storage Object Admin",
       "Storage Object Creator"
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 29,
@@ -324,7 +324,7 @@ export const gcpQuestions: Question[] = [
       "Configure the storage bucket as a static website and furnish the object\'s URL to the company. Delete the object from the storage bucket after four hours.",
       "Create a new Cloud Storage bucket specifically for the external company to access. Copy the object to that bucket. Delete the bucket after four hours have passed."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 30,
@@ -335,7 +335,7 @@ export const gcpQuestions: Question[] = [
       "Reference the monitoring pod in a Deployment object.",
       "Reference the monitoring pod in a cluster initializer at the GKE cluster creation time."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 31,
@@ -346,7 +346,7 @@ export const gcpQuestions: Question[] = [
       "Use Deployment Manager to deploy your application. Rely on the automatic enablement of all APIs used by the application being deployed.",
       "Grant the App Engine Default service account the role of Cloud Pub/Sub Admin. Have your application enable the API on the first connection to Cloud Pub/ Sub."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 32,
@@ -357,7 +357,7 @@ export const gcpQuestions: Question[] = [
       "Configure a single Stackdriver account, and link all projects to the same account.",
       "Configure a single Stackdriver account for one of the projects. In Stackdriver, create a Group and add the other project names as criteria for that Group."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 33,
@@ -368,7 +368,7 @@ export const gcpQuestions: Question[] = [
       "Set autoscaling to On, set the minimum number of instances to 1, and then set the maximum number of instances to 2.",
       "Set autoscaling to Off, set the minimum number of instances to 1, and then set the maximum number of instances to 2."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 34,
@@ -379,7 +379,7 @@ export const gcpQuestions: Question[] = [
       "Navigate to the project and then to the IAM section in the GCP Console. Review the members and roles.",
       "Navigate to the project and then to the Roles section in the GCP Console. Review the roles and status."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 35,
@@ -390,7 +390,7 @@ export const gcpQuestions: Question[] = [
       "Verify that you are Billing Administrator for the billing account. Create a new project and link the new project to the existing billing account.",
       "Verify that you are Billing Administrator for the billing account. Update the existing project to link it to the existing billing account."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 36,
@@ -401,7 +401,7 @@ export const gcpQuestions: Question[] = [
       "Grant the service account the IAM Role of Compute Storage Admin in the project called proj-vm.",
       "When creating the VMs, set the service account\'s API scope for Compute Engine to read/write."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 37,
@@ -412,7 +412,7 @@ export const gcpQuestions: Question[] = [
       "Create a second App Engine application in the existing GCP project and specify asia-northeast1 as the region to serve your application.",
       "Create a new GCP project and create an App Engine application inside this new project. Specify asia-northeast1 as the region to serve your application."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 38,
@@ -423,7 +423,7 @@ export const gcpQuestions: Question[] = [
       "Run gcloud iam roles describe roles/spanner.viewer - -project my-project. Add the users to the role.",
       "Run gcloud iam roles describe roles/spanner.viewer - -project my-project. Add the users to a new group. Add the group to the role."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 39,
@@ -434,7 +434,7 @@ export const gcpQuestions: Question[] = [
       "Select the latest available cluster version for your GKE cluster.",
       "Select ג€Container-Optimized OS (cos)ג€ as a node image for your GKE cluster."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 40,
@@ -445,7 +445,7 @@ export const gcpQuestions: Question[] = [
       "Configure an external SSL proxy load balancer.",
       "Configure an external TCP proxy load balancer."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 41,
@@ -456,7 +456,7 @@ export const gcpQuestions: Question[] = [
       "Decrease the TCP window size on the machine initiating the transfer.",
       "Change the storage class of the bucket from Nearline to Multi-Regional."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 42,
@@ -467,7 +467,7 @@ export const gcpQuestions: Question[] = [
       "Store the database password inside a ConfigMap object. Modify the YAML file to populate the DB_PASSWORD environment variable from the ConfigMap.",
       "Store the database password in a file inside a Kubernetes persistent volume, and use a persistent volume claim to mount the volume to the container."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 43,
@@ -478,7 +478,7 @@ export const gcpQuestions: Question[] = [
       "Use a TCP health check instead of an HTTP health check.",
       "Increase the initial delay of the HTTP health check to 200 seconds."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 44,
@@ -489,7 +489,7 @@ export const gcpQuestions: Question[] = [
       "Select Compute Engine. Use preemptible VM instances of the appropriate standard machine type.",
       "Select Compute Engine. Use VM instance types that support micro bursting."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 45,
@@ -500,7 +500,7 @@ export const gcpQuestions: Question[] = [
       "On the App Engine Versions page of the GCP Console, route 100% of the traffic to the previous version.",
       "Deploy the original version as a separate application. Then go to App Engine settings and split traffic between applications so that the original version serves 100% of the requests."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 46,
@@ -511,7 +511,7 @@ export const gcpQuestions: Question[] = [
       "Go to Deployment Manager and review settings for deployment of applications.",
       "Go to Cloud Shell and run gcloud config list to review the Google Cloud configuration used for deployment."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 47,
@@ -522,7 +522,7 @@ export const gcpQuestions: Question[] = [
       "Create an instance group for the instances. Set the \'Autohealing\' health check to healthy (HTTP).",
       "Create an instance group for the instance. Verify that the \'Advanced creation options\' setting for \'do not retry machine creation\' is set to off."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 48,
@@ -533,7 +533,7 @@ export const gcpQuestions: Question[] = [
       "Set Content-Type metadata to application/pdf on the PDF file objects.",
       "Add a label to the storage bucket with a key of Content-Type and value of application/pdf."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 49,
@@ -544,7 +544,7 @@ export const gcpQuestions: Question[] = [
       "Stop the VM, change the machine type to n1-standard-8, and start the VM.",
       "Stop the VM, increase the memory to 8 GB, and start the VM."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 50,
@@ -555,7 +555,7 @@ export const gcpQuestions: Question[] = [
       "Create 2 custom VPCs, each with a single subnet. Create each subnet in a different region and with a different CIDR range.",
       "Create 2 custom VPCs, each with a single subnet. Create each subnet in the same region and with the same CIDR range."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 51,
@@ -566,7 +566,7 @@ export const gcpQuestions: Question[] = [
       "In the Instance Template, add the label \'health-check\'.",
       "In the Instance Template, add a startup script that sends a heartbeat to the metadata server."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 52,
@@ -577,7 +577,7 @@ export const gcpQuestions: Question[] = [
       "1. Create a dedicated Google group in Cloud Identity. 2. Add each data scientist\'s user account to the group. 3. Assign the BigQuery jobUser role to the group.",
       "1. Create a dedicated Google group in Cloud Identity. 2. Add each data scientist\'s user account to the group. 3. Assign the BigQuery dataViewer user role to the group."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 53,
@@ -588,7 +588,7 @@ export const gcpQuestions: Question[] = [
       "1. Create an ingress firewall rule with the following settings: ג€¢ Targets: all instances with tier #2 service account ג€¢ Source filter: all instances with tier #1 service account ג€¢ Protocols: allow all 2. Create an ingress firewall rule with the following settings: ג€¢ Targets: all instances with tier #3 service account ג€¢ Source filter: all instances with tier #2 service account ג€¢ Protocols: allow all",
       "1. Create an egress firewall rule with the following settings: ג€¢ Targets: all instances ג€¢ Source filter: IP ranges (with the range set to 10.0.2.0/24) ג€¢ Protocols: allow TCP: 8080 2. Create an egress firewall rule with the following settings: ג€¢ Targets: all instances ג€¢ Source filter: IP ranges (with the range set to 10.0.1.0/24) ג€¢ Protocols: allow TCP: 8080"
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 54,
@@ -599,7 +599,7 @@ export const gcpQuestions: Question[] = [
       "1. Create a subnetwork in the same VPC, in europe-west1. 2. Use Cloud VPN to connect the two subnetworks. 3. Create the new instance in the new subnetwork and use the first instance\'s private address as the endpoint.",
       "1. Create a VPC and a subnetwork in europe-west1. 2. Peer the 2 VPCs. 3. Create the new instance in the new subnetwork and use the first instance\'s private address as the endpoint."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 55,
@@ -610,7 +610,7 @@ export const gcpQuestions: Question[] = [
       "1. Go to the GKE console, and delete existing clusters. 2. Recreate a new cluster. 3. Clear the option to enable legacy Stackdriver Logging.",
       "1. Go to the GKE console, and delete existing clusters. 2. Recreate a new cluster. 3. Clear the option to enable legacy Stackdriver Monitoring."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 56,
@@ -621,7 +621,7 @@ export const gcpQuestions: Question[] = [
       "Create a new App Engine application in the same project. Deploy the new version in that application. Use the App Engine library to proxy 1% of the requests to the new version.",
       "Create a new App Engine application in the same project. Deploy the new version in that application. Configure your network load balancer to send 1% of the traffic to that new application."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 57,
@@ -632,7 +632,7 @@ export const gcpQuestions: Question[] = [
       "Create a new managed instance group with an updated instance template. Add the group to the backend service for the load balancer. When all instances in the new managed instance group are healthy, delete the old managed instance group.",
       "Create a new instance template with the new application version. Update the existing managed instance group with the new instance template. Delete the instances in the managed instance group to allow the managed instance group to recreate the instance using the new instance template."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 58,
@@ -643,7 +643,7 @@ export const gcpQuestions: Question[] = [
       "Cloud Firestore",
       "Cloud Datastore"
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 59,
@@ -654,7 +654,7 @@ export const gcpQuestions: Question[] = [
       "Assign the finance team the Billing Account User role on the billing account and the Project Billing Manager role on the organization.",
       "Assign the engineering team the Billing Account User role on the billing account and the Project Billing Manager role on the organization."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 60,
@@ -665,7 +665,7 @@ export const gcpQuestions: Question[] = [
       "1. In GKE, create a Service of type LoadBalancer that uses the application\'s Pods as backend. 2. Add an annotation to this service: cloud.google.com/load-balancer-type: Internal 3. Peer the two VPCs together. 4. Configure the Compute Engine instance to use the address of the load balancer that has been created.",
       "1. In GKE, create a Service of type LoadBalancer that uses the application\'s Pods as backend. 2. Add a Cloud Armor Security Policy to the load balancer that whitelists the internal IPs of the MIG\'s instances. 3. Configure the Compute Engine instance to use the address of the load balancer that has been created."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 61,
@@ -676,7 +676,7 @@ export const gcpQuestions: Question[] = [
       "Write a custom script that uses logging API to copy the logs from Stackdriver logs to BigQuery.",
       "Export these logs to Cloud Pub/Sub and write a Cloud Dataflow pipeline to store logs to Cloud SQL."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 62,
@@ -687,7 +687,7 @@ export const gcpQuestions: Question[] = [
       "Package it in a container image, and run it on Kubernetes Engine, using n1-standard-32 instances as nodes.",
       "Run it on Compute Engine, choose the instance type n1-standard-1, and add an SSD persistent disk of 32 GB."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 63,
@@ -698,7 +698,7 @@ export const gcpQuestions: Question[] = [
       "1. Use Migrate for Compute Engine (formerly known as Velostrata) to migrate those servers to Compute Engine. 2. Create an internal load balancer (ILB) that uses storage.googleapis.com as backend. 3. Configure your new instances to use this ILB as proxy.",
       "1. Using Cloud VPN or Interconnect, create a tunnel to a VPC in Google Cloud. 2. Use Cloud Router to create a custom route advertisement for 199.36.153.4/30. Announce that network to your on-premises network through the VPN tunnel. 3. In your on-premises network, configure your DNS server to resolve *.googleapis.com as a CNAME to restricted.googleapis.com."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 64,
@@ -709,7 +709,7 @@ export const gcpQuestions: Question[] = [
       "1. Create a service account. 2. Give the Cloud Run Invoker role to that service account for your Cloud Run application. 3. Create a Cloud Pub/Sub subscription that uses that service account and uses your Cloud Run application as the push endpoint.",
       "1. Deploy your application on Cloud Run on GKE with the connectivity set to Internal. 2. Create a Cloud Pub/Sub subscription for that topic. 3. In the same Google Kubernetes Engine cluster as your application, deploy a container that takes the messages and sends them to your application."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 65,
@@ -720,7 +720,7 @@ export const gcpQuestions: Question[] = [
       "Deploy the container on App Engine Flexible.",
       "Deploy the container on GKE with cluster autoscaling and horizontal pod autoscaling enabled."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 66,
@@ -731,7 +731,7 @@ export const gcpQuestions: Question[] = [
       "Migrate the acquired company\'s projects into your company\'s GCP organization. Link the migrated projects to your company\'s billing account.",
       "Create a new GCP organization and a new billing account. Migrate the acquired company\'s projects and your company\'s projects into the new GCP organization and link the projects to the new billing account."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 67,
@@ -742,7 +742,7 @@ export const gcpQuestions: Question[] = [
       "Add the support team group to the roles/spanner.databaseReader role.",
       "Add the support team group to the roles/stackdriver.accounts.viewer role."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 68,
@@ -753,7 +753,7 @@ export const gcpQuestions: Question[] = [
       "1. In Cloud Logging, create a filter to view only Compute Engine logs. 2. Click Create Export. 3. Choose BigQuery as Sink Service, and the platform-logs dataset as Sink Destination.",
       "1. Create a Cloud Function that has the BigQuery User role on the platform-logs dataset. 2. Configure this Cloud Function to create a BigQuery Job that executes this query: INSERT INTO dataset.platform-logs (timestamp, log) SELECT timestamp, log FROM compute.logs WHERE timestamp > DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY) 3. Use Cloud Scheduler to trigger this Cloud Function once a day."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 69,
@@ -764,7 +764,7 @@ export const gcpQuestions: Question[] = [
       "With Deployment Manager, create a Compute Engine instance with a startup script that uses kubectl to create the DaemonSet.",
       "In the cluster\'s definition in Deployment Manager, add a metadata that has kube-system as key and the DaemonSet manifest as value."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 70,
@@ -775,7 +775,7 @@ export const gcpQuestions: Question[] = [
       "Set up direct interconnect between your data center and Google Cloud Platform to enable authentication for your on-premises applications.",
       "Go to the IAM & admin console, grant a user account permissions similar to the service account permissions, and use this user account for authentication from your data center."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 71,
@@ -786,7 +786,7 @@ export const gcpQuestions: Question[] = [
       "Create a service account, and give it access to Cloud Storage. Create a P12 key for this service account and use it as an imagePullSecrets in Kubernetes.",
       "Configure the ACLs on each image in Cloud Storage to give read-only access to the default Compute Engine service account."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 72,
@@ -797,7 +797,7 @@ export const gcpQuestions: Question[] = [
       "Review details of myapp-deployment-58ddbbb995-lp86m Pod and check for warning messages.",
       "View logs of the container in myapp-deployment-58ddbbb995-lp86m pod and check for warning messages."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 73,
@@ -808,7 +808,7 @@ export const gcpQuestions: Question[] = [
       "When creating the VM, add metadata to the instance using \'windows-password\' as the key and a password as the value.",
       "After the VM has been created, download the JSON private key for the default Compute Engine service account. Use the credentials in the JSON file to log in to the VM."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 74,
@@ -819,7 +819,7 @@ export const gcpQuestions: Question[] = [
       "Enable block project wide keys for the instance. Generate an SSH key for each user in the dev1 group. Distribute the keys to dev1 users and direct them to use their third-party tools to connect.",
       "Enable block project wide keys for the instance. Generate an SSH key and associate the key with that instance. Distribute the key to dev1 users and direct them to use their third-party tools to connect."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 75,
@@ -830,7 +830,7 @@ export const gcpQuestions: Question[] = [
       "Run gcloud info to view the account value, and then run gcloud services list --account.",
       "Run gcloud projects describeto verify the project value, and then run gcloud services list --available."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 76,
@@ -841,7 +841,7 @@ export const gcpQuestions: Question[] = [
       "Deploy a new version as a separate app in App Engine. Then configure App Engine using GCP Console to split traffic between the two apps.",
       "Deploy a new version of your application in App Engine. Then go to App Engine settings in GCP Console and split traffic between the current version and newly deployed versions accordingly."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 77,
@@ -852,7 +852,7 @@ export const gcpQuestions: Question[] = [
       "Select Add GPUs. Fill in persistent disk storage and snapshot storage.",
       "Select Add GPUs. Add estimated cost for cluster management."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 78,
@@ -863,7 +863,7 @@ export const gcpQuestions: Question[] = [
       "Create a Kubernetes Service of type NodePort to expose the application on port 443 of each node of the Kubernetes cluster. Configure the public DNS name of your application with the IP of every node of the cluster to achieve load-balancing.",
       "Create a HAProxy pod in the cluster to load-balance the traffic to all the pods of the application. Forward the public traffic to HAProxy with an iptable rule. Configure the DNS name of your application using the public IP of the node HAProxy is running on."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 79,
@@ -874,7 +874,7 @@ export const gcpQuestions: Question[] = [
       "Verify that you are the Project Administrator of both projects. Create two new VPCs and add all instances.",
       "Verify that you are the Project Administrator of both projects. Create a new VPC and add all instances."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 80,
@@ -885,7 +885,7 @@ export const gcpQuestions: Question[] = [
       "Select the built-in IAM project Viewer role. Add the user\'s account to this role.",
       "Select the built-in IAM service Viewer role. Add the user\'s account to this role."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 81,
@@ -896,7 +896,7 @@ export const gcpQuestions: Question[] = [
       "Create your own Kubernetes cluster on top of Compute Engine with nodes that have GPUs. Dedicate this cluster to your ML team.",
       "Add a new, GPU-enabled, node pool to the GKE cluster. Ask your ML team to add the cloud.google.com/gke -accelerator: nvidia-tesla-p100 nodeSelector to their pod specification."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 82,
@@ -907,7 +907,7 @@ export const gcpQuestions: Question[] = [
       "Create a new project. Use Shared VPC to share the current network with the new project.",
       "Create a new subnet with the same starting IP but a wider range to overwrite the current subnet."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 83,
@@ -918,7 +918,7 @@ export const gcpQuestions: Question[] = [
       "Create a CSV sheet with all users\' email addresses. Use the gcloud command line tool to convert them into Google Cloud Platform accounts.",
       "In the G Suite console, add the users to a special group called [email protected]. Rely on the default behavior of the Cloud Platform to grant users access if they are members of this group."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 84,
@@ -929,7 +929,7 @@ export const gcpQuestions: Question[] = [
       "Go to Cloud Shell and export this information to Cloud Storage on a daily basis.",
       "Go to GCP Console and export this information to Cloud SQL on a daily basis."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 85,
@@ -940,7 +940,7 @@ export const gcpQuestions: Question[] = [
       "Create external tables in BigQuery that point to Cloud Storage buckets and run a SQL query on these external tables to complete your request.",
       "Create a Hadoop cluster and copy the AVRO file to NDFS by compressing it. Load the file in a hive table and provide access to your analysts so that they can run SQL queries."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 86,
@@ -951,7 +951,7 @@ export const gcpQuestions: Question[] = [
       "Filter the Activity log to view the Data Access category. Filter the Resource type to Service Account.",
       "Filter the Activity log to view the Data Access category. Filter the Resource type to Google Project."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 87,
@@ -962,7 +962,7 @@ export const gcpQuestions: Question[] = [
       "Add a network tag of your choice to the instance. Create a firewall rule to allow ingress on UDP port 636 for that network tag.",
       "Add a network tag of your choice to the instance running the LDAP server. Create a firewall rule to allow egress on UDP port 636 for that network tag."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 88,
@@ -973,7 +973,7 @@ export const gcpQuestions: Question[] = [
       "Verify that you are the project administrator. Select the associated billing account and create a budget for the appropriate project.",
       "Verify that you are project administrator. Select the associated billing account and create a budget and a custom alert."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 89,
@@ -984,7 +984,7 @@ export const gcpQuestions: Question[] = [
       "Create the VM using Compute Engine default settings. Use gcloud to modify the running instance to have 96 vCPUs.",
       "Start the VM using Compute Engine default settings, and adjust as you go based on Rightsizing Recommendations."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 90,
@@ -995,7 +995,7 @@ export const gcpQuestions: Question[] = [
       "Add a bucket lifecycle rule that archives data from regional storage after 30 days to Coldline Storage.",
       "Add a bucket lifecycle rule that archives data from regional storage after 30 days to Nearline Storage."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 91,
@@ -1006,7 +1006,7 @@ export const gcpQuestions: Question[] = [
       "Create bastion hosts both in your on-premises environment and on Google Cloud. Configure both as proxy servers using their public IP addresses.",
       "Set up Cloud VPN between the infrastructure on-premises and Google Cloud."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 92,
@@ -1017,7 +1017,7 @@ export const gcpQuestions: Question[] = [
       "Select Regional Storage. Add a bucket lifecycle rule that archives data after 30 days to Nearline Storage.",
       "Select Regional Storage. Add a bucket lifecycle rule that archives data after 30 days to Coldline Storage."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 93,
@@ -1028,7 +1028,7 @@ export const gcpQuestions: Question[] = [
       "Write a script that loops through all the projects in your organization and runs a query on INFORMATION_SCHEMA.COLUMNS view to find the employee_ssn column.",
       "Write a Cloud Dataflow job that loops through all the projects in your organization and runs a query on INFORMATION_SCHEMA.COLUMNS view to find employee_ssn column."
     ],
-    correctAnswer: "D"
+    correctAnswer: "B",
   },
   {
     id: 94,
@@ -1039,7 +1039,7 @@ export const gcpQuestions: Question[] = [
       "The node pool is configured with a service account that does not have permission to pull the container image used by the pending Pod.",
       "The pending Pod was originally scheduled on a node that has been preempted between the creation of the Deployment and your verification of the Pods\' status. It is currently being rescheduled on a new node."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 95,
@@ -1050,7 +1050,7 @@ export const gcpQuestions: Question[] = [
       "Go to the Stackdriver Monitoring console and review information for Cloud Spanner.",
       "Go to the Stackdriver Logging console, review admin activity logs, and filter them for Cloud Spanner IAM roles."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 96,
@@ -1062,7 +1062,7 @@ export const gcpQuestions: Question[] = [
       "Split your BigQuery data warehouse into multiple data warehouses for each business unit.",
       "Change your BigQuery query model from on-demand to flat rate. Apply the appropriate number of slots to each Project."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 97,
@@ -1073,7 +1073,7 @@ export const gcpQuestions: Question[] = [
       "Create a GKE node pool with a sandbox type configured to gvisor. Add the parameter runtimeClassName: gvisor to the specification of your customers\' Pods.",
       "Use the cos_containerd image for your GKE nodes. Add a nodeSelector with the value cloud.google.com/gke-os-distribution: cos_containerd to the specification of your customers\' Pods."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 98,
@@ -1084,7 +1084,7 @@ export const gcpQuestions: Question[] = [
       "Change the primary key to not have monotonically increasing values.",
       "Create a secondary index using the following Data Definition Language (DDL):"
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 99,
@@ -1095,7 +1095,7 @@ export const gcpQuestions: Question[] = [
       "Add the group for the finance team to roles/billing viewer role.",
       "Add the group for the finance team to roles/billing project/Manager role."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 100,
@@ -1106,7 +1106,7 @@ export const gcpQuestions: Question[] = [
       "Add your SREs to a group and then add this group to roles/iam.roleAdmin.role.",
       "Add your SREs to a group and then add this group to roles/accessapproval.approver role."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 101,
@@ -1117,7 +1117,7 @@ export const gcpQuestions: Question[] = [
       "Use a sole-tenant node.",
       "Enable deletion protection on the instance."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 102,
@@ -1128,7 +1128,7 @@ export const gcpQuestions: Question[] = [
       "Create a custom role by removing delete permissions, and add users to that role only.",
       "Create a custom role by removing delete permissions. Add users to the group, and then add the group to the custom role."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 103,
@@ -1139,7 +1139,7 @@ export const gcpQuestions: Question[] = [
       "Install the google-cloud-sdk-datastore-emulator component using the apt get install command.",
       "Install the cloud-datastore-emulator component using the gcloud components install command."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 104,
@@ -1150,7 +1150,7 @@ export const gcpQuestions: Question[] = [
       "Add the users to a group, and add this group to roles/browser.",
       "Add the users to a group, and add this group to roles/iam.roleViewer role."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 105,
@@ -1161,7 +1161,7 @@ export const gcpQuestions: Question[] = [
       "Obtain OAuth 2.0 credentials, configure the user consent screen, and set up OAuth 2.0 for Mobile & Desktop Apps.",
       "Obtain OAuth 2.0 credentials, configure the user consent screen, and set up OAuth 2.0 for Web Server Applications."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 106,
@@ -1172,7 +1172,7 @@ export const gcpQuestions: Question[] = [
       "Add the user to roles/iam.serviceAccountUser role.",
       "Add the user to roles/iam.serviceAccountAdmin role."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 107,
@@ -1183,7 +1183,7 @@ export const gcpQuestions: Question[] = [
       "Regional Storage",
       "Multi-Regional Storage"
     ],
-    correctAnswer: "D"
+    correctAnswer: "A",
   },
   {
     id: 108,
@@ -1194,7 +1194,7 @@ export const gcpQuestions: Question[] = [
       "Create a node pool with preemptible VMs and GPUs attached to those VMs.",
       "Create a node pool of instances with GPUs, and enable autoscaling on this node pool with a minimum size of 1."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 109,
@@ -1205,7 +1205,7 @@ export const gcpQuestions: Question[] = [
       "Export users from Active Directory as a CSV and import them to Cloud Identity via the Admin Console.",
       "Ask each employee to create a Google account using self signup. Require that each employee use their company email address and password."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 110,
@@ -1216,7 +1216,7 @@ export const gcpQuestions: Question[] = [
       "Create a new project, modify your existing VPC to be a Shared VPC, share that VPC with your new project, and replicate the setup you have in the development environment in that new project in the Shared VPC.",
       "Ask the security team to grant you the Project Editor role in an existing production project used by another division of your company. Once they grant you that role, replicate the setup you have in the development environment in that project."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 111,
@@ -1227,7 +1227,7 @@ export const gcpQuestions: Question[] = [
       "Create a temporary account for the auditor in Cloud Identity, and give that account the Viewer role on the project.",
       "Create a temporary account for the auditor in Cloud Identity, and give that account the Security Reviewer role on the project."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 112,
@@ -1238,7 +1238,7 @@ export const gcpQuestions: Question[] = [
       "Create a cron job to create a new disk from the disk using gcloud.",
       "Create a Cloud Task to create an image and export it to Cloud Storage."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 113,
@@ -1249,7 +1249,7 @@ export const gcpQuestions: Question[] = [
       "Assign the auditor\'s IAM user to a custom role that has logging.privateLogEntries.list permission. Perform the export of logs to Cloud Storage.",
       "Assign the auditor\'s IAM user to a custom role that has logging.privateLogEntries.list permission. Direct the auditor to also review the logs for changes to Cloud IAM policy."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 114,
@@ -1260,7 +1260,7 @@ export const gcpQuestions: Question[] = [
       "Create a Stackdriver Logging Export with a Sink destination to Cloud Storage. Create a lifecycle rule to delete objects after 60 days.",
       "Configure a Cloud Scheduler job to read from Stackdriver and store the logs in BigQuery. Configure the table expiration to 60 days."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 115,
@@ -1271,7 +1271,7 @@ export const gcpQuestions: Question[] = [
       "1. Verify that you are assigned the Organizational Administrator IAM role for this project. 2. Locate the project in the GCP console, enter the project ID and then click Shut down.",
       "1. Verify that you are assigned the Organizational Administrators IAM role for this project. 2. Switch to the project in the GCP console, locate the resources and delete them."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 116,
@@ -1282,7 +1282,7 @@ export const gcpQuestions: Question[] = [
       "Give ג€project ownerג€ role to crm-databases-proj and bigquery.dataViewer role to web-applications.",
       "Give bigquery.dataViewer role to crm-databases-proj and appropriate roles to web-applications."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 117,
@@ -1293,7 +1293,7 @@ export const gcpQuestions: Question[] = [
       "View Data Access audit logs in Cloud Logging. Search for the user\'s email as the principal.",
       "View the Admin Activity log in Cloud Logging. Search for the service account associated with the user."
     ],
-    correctAnswer: "B"
+    correctAnswer: "A",
   },
   {
     id: 118,
@@ -1304,7 +1304,7 @@ export const gcpQuestions: Question[] = [
       "Use permissions in your role that use the \'testing\' support level for role permissions. Set the role stage to ALPHA while testing the role permissions.",
       "Use permissions in your role that use the \'testing\' support level for role permissions. Set the role stage to BETA while testing the role permissions."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 119,
@@ -1315,7 +1315,7 @@ export const gcpQuestions: Question[] = [
       "Upload the data into Cloud SQL using the import function in the console.",
       "Upload the data into Cloud Spanner using the import function in the console."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 120,
@@ -1326,7 +1326,7 @@ export const gcpQuestions: Question[] = [
       "1. Use the default configuration for one project you need to manage. 2. Activate the appropriate configuration when you work with each of your assigned Google Cloud projects.",
       "1. Use the default configuration for one project you need to manage. 2. Use gcloud init to update the configuration values when you need to work with a non-default project."
     ],
-    correctAnswer: "C"
+    correctAnswer: "A",
   },
   {
     id: 121,
@@ -1337,7 +1337,7 @@ export const gcpQuestions: Question[] = [
       "Verify that the instance template being used by the instance group contains valid syntax. Delete any persistent disks with the same name as instance names. Set the disks.autoDelete property to true in the instance template.",
       "Delete the current instance template and replace it with a new instance template. Verify that the instance name and persistent disk name values are not the same in the template. Set the disks.autoDelete property to true in the instance template."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 122,
@@ -1348,7 +1348,7 @@ export const gcpQuestions: Question[] = [
       "1. Build a Cassandra Compute Engine instance and take a snapshot of it. 2. Use the snapshot to create instances for your developers.",
       "1. Build a Cassandra Compute Engine instance and take a snapshot of it. 2. Upload the snapshot to Cloud Storage and make it accessible to your developers. 3. Build instructions to create a Compute Engine instance from the snapshot so that developers can do it themselves."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 123,
@@ -1359,7 +1359,7 @@ export const gcpQuestions: Question[] = [
       "1. Create a Cloud Monitoring Workspace and associate your GCP project with it. 2. Write a script that monitors the CPU usage and sends it as a custom metric to Cloud Monitoring. 3. Create an uptime check for the instance in Cloud Monitoring.",
       "1. In Cloud Logging, create a logs-based metric to extract the CPU usage by using this regular expression: CPU Usage: ([0-9] {1,3})% 2. In Cloud Monitoring, create an Alerting Policy based on this metric. 3. Configure your email address in the notification channel."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 124,
@@ -1370,7 +1370,7 @@ export const gcpQuestions: Question[] = [
       "Create a Cloud Monitoring alerting policy to send an alert to Google Cloud Support email when Cloud Spanner CPU exceeds your threshold. Google support would scale resources up or down accordingly.",
       "Create a Cloud Monitoring alerting policy to send an alert to webhook when Cloud Spanner CPU is over or under your threshold. Create a Cloud Function that listens to HTTP and resizes Spanner resources accordingly."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 125,
@@ -1381,7 +1381,7 @@ export const gcpQuestions: Question[] = [
       "Export the billing data to BigQuery. Create a Cloud Function that uses BigQuery to sum the egress network costs of the exported billing data for the Apache web server for the current month and sends an email if it is over 100 dollars. Schedule the Cloud Function using Cloud Scheduler to run hourly.",
       "Use the Cloud Logging Agent to export the Apache web server logs to Cloud Logging. Create a Cloud Function that uses BigQuery to parse the HTTP response log data in Cloud Logging for the current month and sends an email if the size of all HTTP responses, multiplied by current Google Cloud egress prices, totals over 100 dollars. Schedule the Cloud Function using Cloud Scheduler to run hourly."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 126,
@@ -1392,7 +1392,7 @@ export const gcpQuestions: Question[] = [
       "Provision the solution on Google Cloud. Leave the solution provisioned for 1 week. Navigate to the Billing Report page in the Cloud Console. Multiply the 1 week cost to determine the monthly costs.",
       "Provision the solution on Google Cloud. Leave the solution provisioned for 1 week. Use Cloud Monitoring to determine the provisioned and used resource amounts. Multiply the 1 week cost to determine the monthly costs."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 127,
@@ -1403,7 +1403,7 @@ export const gcpQuestions: Question[] = [
       "SSL Proxy Load Balancer",
       "Internal TCP/UDP Load Balancer. Add a firewall rule allowing ingress traffic from 0.0.0.0/0 on the target instances."
     ],
-    correctAnswer: "A"
+    correctAnswer: "C",
   },
   {
     id: 128,
@@ -1414,7 +1414,7 @@ export const gcpQuestions: Question[] = [
       "Migrate to use a Local SSD on the instance.",
       "Migrate to use a Regional SSD on the instance."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 129,
@@ -1425,7 +1425,7 @@ export const gcpQuestions: Question[] = [
       "Create a new VPC network for the VMs. Enable VPC Peering between the VMs\' VPC network and the Dataproc cluster VPC network.",
       "Create a new VPC network for the VMs with a subnet of 172.32.0.0/16. Enable VPC network Peering between the Dataproc VPC network and the VMs VPC network. Configure a custom Route exchange."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 130,
@@ -1436,7 +1436,7 @@ export const gcpQuestions: Question[] = [
       "In Cloud IAM of your project, ensure that the default App Engine service account has the role of BigQuery Data Viewer.",
       "In Cloud IAM of your project, grant a newly created service account from the other team the role of BigQuery Job User in your project."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 131,
@@ -1447,7 +1447,7 @@ export const gcpQuestions: Question[] = [
       "Create a custom Compute Engine image from a snapshot. Create your images from that image.",
       "Create a custom Compute Engine image from a snapshot. Create your instances from that image."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 132,
@@ -1458,7 +1458,7 @@ export const gcpQuestions: Question[] = [
       "Configure a Health Check on the instance and set a Low Healthy Threshold value.",
       "Install and configure the Cloud Logging Agent and view the logs from Cloud Logging."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 133,
@@ -1469,7 +1469,7 @@ export const gcpQuestions: Question[] = [
       "Create a Shared VPC network between both projects. Grant the VM Service Account the role Storage Object Creator on corp-iot-insights.",
       "Make corp-aggregate-reports-storage public and create a folder with a pseudo-randomized suffix name. Share the folder with the IoT team."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 134,
@@ -1480,7 +1480,7 @@ export const gcpQuestions: Question[] = [
       "Store credentials for service accounts with appropriate access for Google services in a config file, and deploy this config file with your application.",
       "Store credentials for your user account with appropriate access for Google services in a config file, and deploy this config file with your application."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 135,
@@ -1491,7 +1491,7 @@ export const gcpQuestions: Question[] = [
       "Using the Cloud SDK, create the new instance, and use the --project flag to specify the new project. Answer yes when prompted by Cloud SDK to enable the Compute Engine API.",
       "Enable the Compute Engine API in the Cloud Console. Go to the Compute Engine section of the Console to create a new instance, and look for the Create In A New Project option in the creation form."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 136,
@@ -1502,7 +1502,7 @@ export const gcpQuestions: Question[] = [
       "Migrate the workload to a Compute Engine VM. Start and stop the instance as needed.",
       "Create an Instance Template with Preemptible VMs On. Create a Managed Instance Group from the template and adjust Target CPU Utilization. Migrate the workload."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 137,
@@ -1513,7 +1513,7 @@ export const gcpQuestions: Question[] = [
       "Create a new Kubernetes Engine cluster. Create a deployment for the Jenkins image.",
       "Create an instance template with the Jenkins executable. Create a managed instance group with this template."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 138,
@@ -1524,7 +1524,7 @@ export const gcpQuestions: Question[] = [
       "In the CLI installation directory, create a file called default.conf containing zone=europeג€\"west1ג€\"d.",
       "Create a Metadata entry on the Compute Engine page with key compute/zone and value europeג€\"west1ג€\"d."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 139,
@@ -1535,7 +1535,7 @@ export const gcpQuestions: Question[] = [
       "Ingest the data into Datastore. Store data in an entity group based on the device.",
       "Ingest the data into Cloud Bigtable. Create a row key based on the event timestamp."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 140,
@@ -1546,7 +1546,7 @@ export const gcpQuestions: Question[] = [
       "Enable API and then use default dashboards to view all projects in sequence.",
       "Enable API, create a workspace under project A, and then add projects B and C."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 141,
@@ -1557,7 +1557,7 @@ export const gcpQuestions: Question[] = [
       "Fill all resources in the Pricing Calculator to get an estimate of the monthly cost.",
       "Use the Reports view in the Cloud Billing Console to view the desired cost information."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 142,
@@ -1568,7 +1568,7 @@ export const gcpQuestions: Question[] = [
       "Create a deny-all egress firewall rule on the VPC network.",
       "Create a route on the VPC to route all traffic to the instance over the VPN tunnel."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 143,
@@ -1579,7 +1579,7 @@ export const gcpQuestions: Question[] = [
       "Apply the changes in a development environment, run gcloud compute instances list, and then save the output in a shared Storage bucket.",
       "Apply the changes in a development environment, run gcloud compute instances list, and then save the output in Cloud Source Repositories."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 144,
@@ -1590,7 +1590,7 @@ export const gcpQuestions: Question[] = [
       "1. Create a Cloud Function that creates a snapshot of your instance\'s disk. 2. Create a Cloud Function that deletes snapshots that are older than 30 days. 3. Use Cloud Scheduler to trigger both Cloud Functions daily at 1:00 AM.",
       "1. Create a bash script in the instance that copies the content of the disk to Cloud Storage. 2. Create a bash script in the instance that deletes data older than 30 days in the backup Cloud Storage bucket. 3. Configure the instance\'s crontab to execute these scripts daily at 1:00 AM."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 145,
@@ -1601,7 +1601,7 @@ export const gcpQuestions: Question[] = [
       "Create a new cluster with n2ג€\"highmemג€\"16 nodes. Redeploy the pods and delete the old cluster.",
       "Create a new cluster with both n1ג€\"standardג€\"2 and n2ג€\"highmemג€\"16 nodes. Redeploy the pods and delete the old cluster."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 146,
@@ -1612,7 +1612,7 @@ export const gcpQuestions: Question[] = [
       "Create a Cloud Dataproc cluster that runs a Spark job to extract data from Cloud Bigtable and Cloud Storage for specific users.",
       "Create two separate BigQuery external tables on Cloud Storage and Cloud Bigtable. Use the BigQuery console to join these tables through user fields, and apply appropriate filters."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 147,
@@ -1623,7 +1623,7 @@ export const gcpQuestions: Question[] = [
       "ג€\" Create an HTTP(S) Load Balancer. ג€\" Create one or more global forwarding rules to direct traffic to your VMs.",
       "ג€\" Perform regular backups of your application. ג€\" Create a Cloud Monitoring Alert and be notified if your application becomes unavailable. ג€\" Restore from backups when notified."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 148,
@@ -1634,7 +1634,7 @@ export const gcpQuestions: Question[] = [
       "Enable Audit Logs on the IAM & admin page for all resources, and validate the results.",
       "Use the command gcloud projects getג€\"iamג€\"policy to view the current role assignments."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 149,
@@ -1645,7 +1645,7 @@ export const gcpQuestions: Question[] = [
       "Create a new VPC, and set up VPC peering with the existing VPC.",
       "Expand the CIDR range of the relevant subnet for the cluster."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 150,
@@ -1656,7 +1656,7 @@ export const gcpQuestions: Question[] = [
       "Run a test using a managed instance group. If the test is successful, use N1 Standard VMs in the managed instance group when running future jobs.",
       "Run a test using N1 standard VMs instead of N2. If the test is successful, use N1 Standard VMs when running future jobs."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 151,
@@ -1667,7 +1667,7 @@ export const gcpQuestions: Question[] = [
       "Set up a high-priority (1000) rule that blocks all egress and a low-priority (65534) rule that allows only the appropriate ports.",
       "Set up a high-priority (1000) rule to allow the appropriate ports."
     ],
-    correctAnswer: "D"
+    correctAnswer: "A",
   },
   {
     id: 152,
@@ -1678,7 +1678,7 @@ export const gcpQuestions: Question[] = [
       "Set up Cloud VPN between your Google Cloud VPC and the internal network of the operations partner.",
       "Ask the operations partner to generate SSH key pairs, and add the public keys to the VM instances."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 153,
@@ -1689,7 +1689,7 @@ export const gcpQuestions: Question[] = [
       "Use Google Kubernetes Engine and configure a CronJob to trigger the application using Pub/Sub.",
       "Use Dataflow as a batch job, and configure the bucket as a data source."
     ],
-    correctAnswer: "D"
+    correctAnswer: "B",
   },
   {
     id: 154,
@@ -1700,7 +1700,7 @@ export const gcpQuestions: Question[] = [
       "Set up a policy that uses Nearline storage for 30 days, then moves the Coldline for one year, and then moves to Archive storage for two years.",
       "Set up a policy that uses Standard storage for 30 days, then moves to Coldline for one year, and then moves to Archive storage for two years."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 155,
@@ -1711,7 +1711,7 @@ export const gcpQuestions: Question[] = [
       "Allow only a single Service Account access to read the data.",
       "Enable Data Access audit logs for the Cloud Storage API."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 156,
@@ -1722,7 +1722,7 @@ export const gcpQuestions: Question[] = [
       "Create a budget per project and configure budget alerts on all of these budgets.",
       "Create a single billing account for all sandbox projects and enable BigQuery billing exports. Create a Data Studio dashboard to plot the spending per project."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 157,
@@ -1733,7 +1733,7 @@ export const gcpQuestions: Question[] = [
       "Disable Automatic restart on the instance.",
       "Enable Preemptibility on the instance."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 158,
@@ -1744,7 +1744,7 @@ export const gcpQuestions: Question[] = [
       "Create a custom role that combines the required permissions. Grant the DevOps team the custom role on the production project.",
       "Create a custom role that combines the required permissions. Grant the DevOps team the custom role on the organization level."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 159,
@@ -1755,7 +1755,7 @@ export const gcpQuestions: Question[] = [
       "Set up an SFTP server for your application, and create a separate user for each supplier.",
       "Build a Cloud function that triggers a timer of 45 days to delete objects that have expired. E. Develop a script that loops through all Cloud Storage buckets and deletes any buckets that are older than 45 days."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 160,
@@ -1766,7 +1766,7 @@ export const gcpQuestions: Question[] = [
       "Use the Cloud Console interface to provision and manage all related resources.",
       "Create a bash script that contains all requirement steps as gcloud commands."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 161,
@@ -1777,7 +1777,7 @@ export const gcpQuestions: Question[] = [
       "Review the Identity-Aware Proxy settings for each resource.",
       "Create a Data Loss Prevention job."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 162,
@@ -1788,7 +1788,7 @@ export const gcpQuestions: Question[] = [
       "Configure the IP of the database as custom metadata for each instance, and query the metadata server.",
       "Query the Compute Engine internal DNS from the applications to retrieve the IP of the database."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 163,
@@ -1799,7 +1799,7 @@ export const gcpQuestions: Question[] = [
       "Deploy the container on App Engine flexible environment with autoscaling, and set the value min_instances to zero in the app.yaml.",
       "Deploy the container on App Engine flexible environment with manual scaling, and set the value instances to zero in the app.yaml."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 164,
@@ -1810,7 +1810,7 @@ export const gcpQuestions: Question[] = [
       "Create a ticket with Google Billing Support to ask them to send the invoice to your company.",
       "Change the billing account of your projects to the billing account of your company."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 165,
@@ -1821,7 +1821,7 @@ export const gcpQuestions: Question[] = [
       "Ask the partner to create a Service Account in their project, and have them give the Service Account access to BigQuery in their project.",
       "Ask the partner to create a Service Account in their project, and grant their Service Account access to the BigQuery dataset in your project."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 166,
@@ -1832,7 +1832,7 @@ export const gcpQuestions: Question[] = [
       "Create a new service with the new version of the application. Add an HTTP Load Balancer in front of both services.",
       "Create a new revision with the new version of the application. Add an HTTP Load Balancer in front of both revisions."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 167,
@@ -1843,7 +1843,7 @@ export const gcpQuestions: Question[] = [
       "Configure an External HTTP(s) load balancer in front of the application servers.",
       "Configure an External Network load balancer in front of the application servers."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 168,
@@ -1854,7 +1854,7 @@ export const gcpQuestions: Question[] = [
       "Create a script that uses the gsutil command line interface to synchronize the on-premises storage with Cloud Storage. Schedule the script as a cron job.",
       "In the Cloud Console, go to Cloud Storage. Upload the relevant images to the appropriate bucket."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 169,
@@ -1865,7 +1865,7 @@ export const gcpQuestions: Question[] = [
       "Assign the appropriate permissions, and then use Cloud Monitoring to review metrics.",
       "Use the export logs API to provide the Admin Activity Audit Logs in the format they want."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 170,
@@ -1876,7 +1876,7 @@ export const gcpQuestions: Question[] = [
       "Place the private key file in the installation directory of the Cloud SDK and rename it to ג€credentials.jsonג€.",
       "Place the private key file in your home directory and rename it to ג€GOOGLE_APPLICATION_CREDENTIALSג€."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 171,
@@ -1887,7 +1887,7 @@ export const gcpQuestions: Question[] = [
       "Set up an on-demand backup for the first of the month. Write the backup to an Archive class Cloud Storage bucket.",
       "Convert the automatic first-of-the-month backup to an export file. Write the export file to a Coldline class Cloud Storage bucket."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 172,
@@ -1898,7 +1898,7 @@ export const gcpQuestions: Question[] = [
       "Create a custom log-based metric for the specific error to be used in an Alerting Policy.",
       "Grant Project Owner access to the Service Account."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 173,
@@ -1909,7 +1909,7 @@ export const gcpQuestions: Question[] = [
       "Use Cloud Spanner for data storage.",
       "Use Firestore for data storage."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 174,
@@ -1920,7 +1920,7 @@ export const gcpQuestions: Question[] = [
       "Provision Compute Engine instances with local SSDs attached.",
       "Provision Compute Engine instances with M1 machine type."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 175,
@@ -1931,7 +1931,7 @@ export const gcpQuestions: Question[] = [
       "Create and deploy a Job per microservice.",
       "Create and deploy a Deployment per microservice."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 176,
@@ -1942,7 +1942,7 @@ export const gcpQuestions: Question[] = [
       "After starting the instances, use gcloud compute instances update to specify a Service Account for each instance.",
       "After starting the instances, use gcloud compute instances update to assign the name of the relevant Service Account as instance metadata."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 177,
@@ -1953,7 +1953,7 @@ export const gcpQuestions: Question[] = [
       "Download a MongoDB installation package, and run it on Compute Engine instances.",
       "Download a MongoDB installation package, and run it on a Managed Instance Group."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 178,
@@ -1964,7 +1964,7 @@ export const gcpQuestions: Question[] = [
       "Use Cloud Scheduler to schedule a batch Dataflow job to copy the data from BigQuery to the BI team\'s internal data warehouse.",
       "Assign the IAM role of BigQuery User to a Google Group that contains the members of the BI team."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 179,
@@ -1975,7 +1975,7 @@ export const gcpQuestions: Question[] = [
       "1. Create a VPC with a subnet for the DMZ and another VPC with a subnet for the LAN. 2. Set up firewall rules to open up relevant traffic between the DMZ and the LAN subnets, and another firewall rule to allow public ingress traffic for the DMZ.",
       "1. Create a VPC with a subnet for the DMZ and another VPC with a subnet for the LAN. 2. Set up firewall rules to open up relevant traffic between the DMZ and the LAN subnets, and another firewall rule to allow public egress traffic for the DMZ."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 180,
@@ -1986,7 +1986,7 @@ export const gcpQuestions: Question[] = [
       "Create a new VPC network with subnetworks in all desired regions.",
       "Grant yourself the IAM role of Cloud Spanner Admin."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 181,
@@ -1997,7 +1997,7 @@ export const gcpQuestions: Question[] = [
       "Enable the compute googleapis.com API.",
       "Grant yourself the IAM role of Computer Admin."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 182,
@@ -2008,7 +2008,7 @@ export const gcpQuestions: Question[] = [
       "Create a GKE cluster with autoscaling enabled on the node pool. Set a minimum and maximum for the size of the node pool.",
       "Create a separate node pool for each application, and deploy each application to its dedicated node pool."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 183,
@@ -2019,7 +2019,7 @@ export const gcpQuestions: Question[] = [
       "Create a new service account and assign this service account to the new instance. Grant the service account permissions on Cloud Storage.",
       "Create a new service account and assign this service account to the new instance. Add metadata to the objects on Cloud Storage that matches the metadata on the new instance."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 184,
@@ -2030,7 +2030,7 @@ export const gcpQuestions: Question[] = [
       "Configure dual-regional storage for the dual region closest to the users. Configure a Nearline storage class.",
       "Configure dual-regional storage for the dual region closest to the users. Configure a Standard storage class."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 185,
@@ -2041,7 +2041,7 @@ export const gcpQuestions: Question[] = [
       "Deploy the application on Kubernetes Engine. For a new release, update the deployment to use the new version.",
       "Deploy the application on Kubernetes Engine. For a new release, create a new deployment for the new version. Update the service to use the new deployment."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 186,
@@ -2052,7 +2052,7 @@ export const gcpQuestions: Question[] = [
       "Tell the user that they must delete their existing account.",
       "Tell the user to remove all personal email from the existing account."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 187,
@@ -2063,7 +2063,7 @@ export const gcpQuestions: Question[] = [
       "Create an alert in Cloud Monitoring to alert when the percentage of high priority CPU utilization reaches 65%. If you exceed this threshold, add nodes to your instance.",
       "Create an alert in Cloud Monitoring to alert when the percentage of high priority CPU utilization reaches 65%. Use database query statistics to identify queries that result in high CPU usage, and then rewrite those queries to optimize their resource usage."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 188,
@@ -2074,7 +2074,7 @@ export const gcpQuestions: Question[] = [
       "Cloud Spanner",
       "Cloud Datastore"
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 189,
@@ -2085,7 +2085,7 @@ export const gcpQuestions: Question[] = [
       "Create a file called gke.default in the ~/.gcloud folder that contains the cluster name.",
       "Create a file called defaults.json in the ~/.gcloud folder that contains the cluster name."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 190,
@@ -2096,7 +2096,7 @@ export const gcpQuestions: Question[] = [
       "Create another project with the ID acme-marketing-data-digest for the Marketing team and deploy the resources there.",
       "Create a new project named Marketing Data Digest and use the ID acme-data-digest. Grant the Project Editor role to the Marketing team."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 191,
@@ -2107,7 +2107,7 @@ export const gcpQuestions: Question[] = [
       "Create an SSH keypair and store the public key as a project-wide SSH Key.",
       "Create an SSH keypair and store the private key as a project-wide SSH Key."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 192,
@@ -2118,7 +2118,7 @@ export const gcpQuestions: Question[] = [
       "Upload the image to Container Registry and create a Kubernetes Service referencing the image.",
       "Upload the image to Container Registry and create a Kubernetes Deployment referencing the image."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 193,
@@ -2129,7 +2129,7 @@ export const gcpQuestions: Question[] = [
       "Use Cloud Debugger to find out why the data was not refreshed correctly.",
       "In Cloud Logging, create a filter for your Data Studio report."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 194,
@@ -2140,7 +2140,7 @@ export const gcpQuestions: Question[] = [
       "Set up a proper billing account structure to group IAM policies.",
       "Set up a proper project naming structure to group IAM policies."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 195,
@@ -2151,7 +2151,7 @@ export const gcpQuestions: Question[] = [
       "Use a custom mode VPC network, use Cloud Router border gateway protocol (BGP) routes, and use active/passive routing.",
       "Use an automatic mode VPC network, use Cloud Router border gateway protocol (BGP) routes, and configure policy-based routing."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 196,
@@ -2162,7 +2162,7 @@ export const gcpQuestions: Question[] = [
       "Use the node pool with general-purpose machine type nodes for the image rendering microservice. Create a node pool with compute-optimized machine type nodes for the other microservices.",
       "Configure the required amount of CPU and memory in the resource requests specification of the image rendering microservice deployment. Keep the resource requests for the other microservices at the default."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 197,
@@ -2173,7 +2173,7 @@ export const gcpQuestions: Question[] = [
       "1. Verify that you are assigned the Organization Administrator IAM role for your organization\'s Google Cloud account. 2. Create a new Google Cloud Project for the Marketing department. 3. Link the new project to a Marketing Billing Account.",
       "1. Verify that you are assigned the Organization Administrator IAM role for your organization\'s Google Cloud account. 2. Create a new Google Cloud Project for the Marketing department. 3. Set the default key-value project labels to department:marketing for all services in this project."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 198,
@@ -2184,7 +2184,7 @@ export const gcpQuestions: Question[] = [
       "Expose the application by using an SSL Proxy Load Balancer.",
       "Expose the application by using an internal TCP Network Load Balancer."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 199,
@@ -2195,7 +2195,7 @@ export const gcpQuestions: Question[] = [
       "Use BigQuery to store game statistics with a Redis on Memorystore instance in the front to provide global consistency.",
       "Store game statistics in a Bigtable database partitioned by username."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 200,
@@ -2206,7 +2206,7 @@ export const gcpQuestions: Question[] = [
       "Cloud Spanner",
       "Bigtable"
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 201,
@@ -2217,7 +2217,7 @@ export const gcpQuestions: Question[] = [
       "In the Google Cloud console, use the export functionality of the Cost table. Create a Looker Studio dashboard on top of the CSV export.",
       "Configure Cloud Billing data export to BigQuery for the billing account. Create a Looker Studio dashboard on top of the BigQuery export."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 202,
@@ -2228,7 +2228,7 @@ export const gcpQuestions: Question[] = [
       "Enable Private Google Access on the subnet within the custom VPC.",
       "Deploy a Cloud NAT instance and route the traffic to the dedicated IP address of the Cloud Storage bucket."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 203,
@@ -2239,7 +2239,7 @@ export const gcpQuestions: Question[] = [
       "Create a Private Catalog for the Google Cloud Marketplace, and upload the resources of the startup\'s production project to the Catalog. Share the Catalog with your organization, and deploy the resources in your company’s project.",
       "Create an infrastructure-as-code template for all resources in the project by using Terraform, and deploy that template to a new project in your organization. Delete the project from the startup’s Google Cloud organization."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 204,
@@ -2250,7 +2250,7 @@ export const gcpQuestions: Question[] = [
       "Create an Identity and Access Management (IAM) policy to restrict the resources locations in the US. Apply the policy to all dev projects.",
       "Create an Identity and Access Management (IAM) policy to restrict the resources locations in all dev projects. Apply the policy to all dev roles."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 205,
@@ -2261,7 +2261,7 @@ export const gcpQuestions: Question[] = [
       "Create one A record to point mydomain.com to the load balancer, and create two CNAME records to point WWW and HOME to mydomain.com respectively.",
       "Create one A record to point mydomain.com to the load balancer, and create two NS records to point WWW and HOME to mydomain.com respectively."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 206,
@@ -2272,7 +2272,7 @@ export const gcpQuestions: Question[] = [
       "• Create a service account sa-app and a network tag db-server.• Associate the service account sa-app with the application servers and the network tag db-server with the database servers.• Create an ingress firewall rule to allow network traffic from source VPC IP addresses and target the subnet-a IP addresses.",
       "• Create a network tag app-server and service account sa-db.• Add the tag to the application servers and associate the service account with the database servers.• Create an egress firewall rule to allow network traffic from source network tag app-server to target service account sa-db."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 207,
@@ -2283,7 +2283,7 @@ export const gcpQuestions: Question[] = [
       "Search for the CMS solution in Google Cloud Marketplace. Use Terraform and the Cloud Marketplace ID to deploy the solution with the appropriate parameters.",
       "Use the installation guide of the CMS provider. Perform the installation through your configuration management system."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 208,
@@ -2294,7 +2294,7 @@ export const gcpQuestions: Question[] = [
       "Apply for monthly invoiced billing, and have a single invoice for the project paid by the finance team.",
       "Create a billing account, associate it with a monthly purchase order (PO), and send the PO to Google Cloud."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 209,
@@ -2305,7 +2305,7 @@ export const gcpQuestions: Question[] = [
       "Open the Google Cloud console, and run a query to determine which resources this service account can access.",
       "Open the Google Cloud console, and run a query of the audit logs to find permission denied errors for this service account."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 210,
@@ -2316,7 +2316,7 @@ export const gcpQuestions: Question[] = [
       "Use a third party tool to provide remote access to the instances.",
       "Create a bastion host with public internet access. Create the SSH tunnel to the instance through the bastion host."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 211,
@@ -2327,7 +2327,7 @@ export const gcpQuestions: Question[] = [
       "Create a custom role based on the Compute Storage Admin role. Exclude unnecessary permissions from the custom role. Grant the custom role to the user at the project level.",
       "Grant the Compute Storage Admin role at the project level."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 212,
@@ -2338,7 +2338,7 @@ export const gcpQuestions: Question[] = [
       "Set the maximum number of instances for your Cloud Run service to 100.",
       "Update your web application to use the protocol HTTP/2 instead of HTTP/1.1."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 213,
@@ -2349,7 +2349,7 @@ export const gcpQuestions: Question[] = [
       "Stream data to Dataflow, and use Dataprep by Trifacta to send data to Bigtable.",
       "Stream data to Dataflow, and use Storage Transfer Service to send data to BigQuery."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 214,
@@ -2360,7 +2360,7 @@ export const gcpQuestions: Question[] = [
       "Change the subnet IP range from 10.0.0.0/20 to 10.0.0.0/22.",
       "Convert the subnet IP range from IPv4 to IPv6."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 215,
@@ -2371,7 +2371,7 @@ export const gcpQuestions: Question[] = [
       "• Add all developers to a Google group in Cloud Identity.• Assign predefined roles for Compute Engine, Cloud Functions, and Cloud SQL permissions to the Google group for each project in the Google Cloud organization.",
       "• Add all developers to a Google group in Cloud Identity.• Create a custom role with Compute Engine, Cloud Functions, and Cloud SQL permissions at the Google Cloud organization level.• Assign the custom role to the Google group."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 216,
@@ -2382,7 +2382,7 @@ export const gcpQuestions: Question[] = [
       "Create a Pub/Sub topic, and create a Cloud Function connected to the topic that writes data to Cloud Storage. Create an application that sends all medical images to the Pub/Sub topic.",
       "In the Google Cloud console, go to Cloud Storage. Upload the relevant images to the appropriate bucket."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 217,
@@ -2393,7 +2393,7 @@ export const gcpQuestions: Question[] = [
       "Cloud SQL",
       "Firestore"
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 218,
@@ -2404,7 +2404,7 @@ export const gcpQuestions: Question[] = [
       "Migrate the workload to a Google Kubernetes Engine cluster with Spot nodes.",
       "Migrate the workload to a Compute Engine Spot VM."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 219,
@@ -2415,7 +2415,7 @@ export const gcpQuestions: Question[] = [
       "Migrate from MySQL to Cloud Spanner, from Kafka to Memorystore, and from Cloud SQL for PostgreSQL to Cloud SQL.",
       "Migrate from MySQL to Cloud SQL, from Kafka to Memorystore, and from Cloud SQL for PostgreSQL to Cloud SQL."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 220,
@@ -2426,7 +2426,7 @@ export const gcpQuestions: Question[] = [
       "Set an organizational policy constraint to limit identities by domain to automatically remove mismatched users.",
       "Set an organizational policy constraint to limit identities by domain, and then retroactively remove the existing mismatched users"
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 221,
@@ -2437,7 +2437,7 @@ export const gcpQuestions: Question[] = [
       "Select the MIG from the Compute Engine console and, in the menu, select Replace VMs.",
       "Update and apply the instance template of the MIG."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 222,
@@ -2448,7 +2448,7 @@ export const gcpQuestions: Question[] = [
       "Use gcloud CLI to delete the topic.",
       "Use gcloud CLI to update the topic label managed-by-cnrm to false."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 223,
@@ -2459,7 +2459,7 @@ export const gcpQuestions: Question[] = [
       "Turn on identity federation between Cloud Identity and Google Workspace. Enforce multi-factor authentication for domain wide delegation.",
       "Use a third-party identity provider service through federation. Synchronize the users from Google Workplace to the third-party provider in real time."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 224,
@@ -2470,7 +2470,7 @@ export const gcpQuestions: Question[] = [
       "Deploy your solution to an instance group, and increase the number of available instances whenever you see high CPU utilization in Cloud Monitoring.",
       "Deploy your solution to an instance group, and set the autoscaling based on CPU utilization."
     ],
-    correctAnswer: "C"
+    correctAnswer: "A",
   },
   {
     id: 225,
@@ -2481,7 +2481,7 @@ export const gcpQuestions: Question[] = [
       "Verify that the instance template being used by the instance group contains valid syntax. Delete any persistent disks with the same name as instance names. Set the disks.autoDelete property to true in the instance template.",
       "Delete the current instance template and replace it with a new instance template. Verify that the instance name and persistent disk name values are not the same in the template. Set the disks.autoDelete property to true in the instance template."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 226,
@@ -2492,7 +2492,7 @@ export const gcpQuestions: Question[] = [
       "Upload the image to Artifact Registry and create a Kubernetes Service referencing the image.",
       "Upload the image to Artifact Registry and create a Kubernetes Deployment referencing the image."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 227,
@@ -2503,7 +2503,7 @@ export const gcpQuestions: Question[] = [
       "Review the Error Reporting page in the Google Cloud console to find any errors.",
       "Use the BigQuery interface to review the nightly job and look for any errors."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 228,
@@ -2514,7 +2514,7 @@ export const gcpQuestions: Question[] = [
       "Run a test using a managed instance group. If the test is successful, use N2 Standard VMs in the managed instance group when running future jobs.",
       "Run a test using N1 standard VMs instead of N2. If the test is successful, use N1 Standard VMs when running future jobs."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 229,
@@ -2525,7 +2525,7 @@ export const gcpQuestions: Question[] = [
       "Visit the Cost Table page to get a CSV export and visualize it using Looker Studio.",
       "Configure Billing Data Export to BigQuery and visualize the data in Looker Studio."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 230,
@@ -2536,7 +2536,7 @@ export const gcpQuestions: Question[] = [
       "Upload the data into Cloud SQL using the import function in the Google Cloud console.",
       "Upload the data into Cloud Spanner using the import function in the Google Cloud console."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 231,
@@ -2547,7 +2547,7 @@ export const gcpQuestions: Question[] = [
       "Connect to the instance’s serial console and read the application logs.",
       "Install and configure the Ops agent and view the logs from Cloud Logging."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 232,
@@ -2558,7 +2558,7 @@ export const gcpQuestions: Question[] = [
       "Open the Google Cloud console and enable all Google Cloud APIs from the API dashboard.",
       "Open the Google Cloud console and run gcloud init --project in a Cloud Shell."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 233,
@@ -2569,7 +2569,7 @@ export const gcpQuestions: Question[] = [
       "Upload Docker images to the Cloud Storage, and deploy the application on Google Kubernetes Engine using Standard mode.",
       "Upload Docker images to Artifact Registry, and deploy the application on Cloud Run."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 234,
@@ -2580,7 +2580,7 @@ export const gcpQuestions: Question[] = [
       "Store the application data on a regional persistent disk. Create a snapshot schedule for the disk. If an outage occurs, create a new disk from the most recent snapshot and attach it to a new VM in another zone.",
       "Store the application data on a regional persistent disk. If an outage occurs, create an instance in another zone with this disk attached."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 235,
@@ -2591,7 +2591,7 @@ export const gcpQuestions: Question[] = [
       "Create a custom role at the folder level and grant all compute.instanceAdmin.* permissions to the role. Grant the custom role to the DevOps group.",
       "Grant the basic role roles/editor to the DevOps group."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 236,
@@ -2602,7 +2602,7 @@ export const gcpQuestions: Question[] = [
       "Use the existing codebase and deploy each service as a separate Cloud Function. Update the configurations and the required endpoints.",
       "Use your existing codebase and deploy each service as a separate Cloud Run. Use the same configurations as on-premises."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 237,
@@ -2613,7 +2613,7 @@ export const gcpQuestions: Question[] = [
       "Use the node pool with general-purpose machine type nodes for the image rendering microservice. Create a node pool with compute-optimized machine type nodes for the other microservices.",
       "Configure the required amount of CPU and memory in the resource requests specification of the image rendering microservice deployment. Keep the resource requests for the other microservices at the default."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 238,
@@ -2624,7 +2624,7 @@ export const gcpQuestions: Question[] = [
       "Create a zonal GKE standard cluster. Enroll the cluster in the stable release channel.",
       "Create a regional GKE standard cluster. Enroll the cluster in the rapid release channel."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 239,
@@ -2635,7 +2635,7 @@ export const gcpQuestions: Question[] = [
       "Implement an App Engine service which invokes the Cloud Monitoring API and sends a notification in case of anomalies.",
       "Use the Cloud Monitoring dashboard to observe latency and take the necessary actions when the response latency exceeds the specified threshold."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 240,
@@ -2646,7 +2646,7 @@ export const gcpQuestions: Question[] = [
       "Upload the code to Cloud Functions. Use Cloud Scheduler to start the application.",
       "Lift and shift to a VM on Compute Engine. Use an instance schedule to start and stop the instance."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 241,
@@ -2657,7 +2657,7 @@ export const gcpQuestions: Question[] = [
       "kubectl config set-context dev-clusterkubectl cluster-info",
       "kubectl config set-credentials dev-clusterkubectl cluster-info"
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 242,
@@ -2668,7 +2668,7 @@ export const gcpQuestions: Question[] = [
       "Enforce an org policy constraint allowing the lifetime of service account keys to be 24 hours. Enforce an org policy constraint denying service account key creation with an exception on pj-sa.",
       "Enforce a DENY org policy constraint over the lifetime of service account keys for 24 hours. Disable attachment of service accounts to resources in all projects with an exception to pj-sa."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 243,
@@ -2679,7 +2679,7 @@ export const gcpQuestions: Question[] = [
       "Implement a similar architecture on Google Cloud, and run a reasonable load test on a smaller scale. Check the billing information, and calculate the estimated costs based on the real load your system usually handles.",
       "Use the Google Cloud Pricing Calculator to determine the cost of every Google Cloud resource you expect to use. Use similar size instances for the web server, and use your current on-premises machines as a comparison for Cloud SQL."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 244,
@@ -2690,7 +2690,7 @@ export const gcpQuestions: Question[] = [
       "• Navigate to the Audit Logs page in the Google Cloud console, and enable Data Read, Data Write and Admin Read logs for the Bigtable instance.• Create a Pub/Sub topic as a Cloud Logging sink destination, and add your SIEM as a subscriber to the topic.",
       "• Install the Ops Agent on the Bigtable instance during configuration.• Create a service account with read permissions for the Bigtable instance.• Create a custom Dataflow job with this service account to export logs to the company’s SIEM system."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 245,
@@ -2701,7 +2701,7 @@ export const gcpQuestions: Question[] = [
       "Deploy a standard public cluster and enable shielded nodes.",
       "Deploy a standard private cluster and enable shielded nodes."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 246,
@@ -2712,7 +2712,7 @@ export const gcpQuestions: Question[] = [
       "Run the web application on a Cloud Storage bucket and the backend API on Cloud Run. Use Cloud Tasks to run your background job on Cloud Run.",
       "Run the web application on a Cloud Storage bucket and the backend API on Cloud Run. Use Cloud Tasks to run your background job on Compute Engine."
     ],
-    correctAnswer: "A"
+    correctAnswer: "D",
   },
   {
     id: 247,
@@ -2723,7 +2723,7 @@ export const gcpQuestions: Question[] = [
       "• Attach a single service account to the compute instances.• Add all required Identity and Access Management (IAM) permissions to this service account to create, update, or delete resources.",
       "• Create multiple service accounts, one for each pipeline with the appropriate minimal Identity and Access Management (IAM) permissions.• Use a secret manager service to store the key files of the service accounts.• Allow the CI/CD pipeline to request the appropriate secrets during the execution of the pipeline."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 248,
@@ -2734,7 +2734,7 @@ export const gcpQuestions: Question[] = [
       "Create a retention policy on the storage bucket of 30 days, and lock the bucket by using a retention policy lock.",
       "Enable object versioning on the storage bucket and add lifecycle rules to expire non-current versions after 30 days."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 249,
@@ -2745,7 +2745,7 @@ export const gcpQuestions: Question[] = [
       "Configure the Vertical Pod Autoscaler recommendations for availability, and configure the Cluster autoscaler for suggestions.",
       "Configure the Vertical Pod Autoscaler recommendations for availability, and configure the Horizontal Pod Autoscaler for suggestions."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 250,
@@ -2756,7 +2756,7 @@ export const gcpQuestions: Question[] = [
       "Enable object versioning on the bucket, and use Cloud Scheduler to invoke a Cloud Functions instance to move or delete your documents based on their metadata.",
       "Enable object versioning on the bucket, use lifecycle conditions to change the storage class of the objects, set the number of versions, and delete old files."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 251,
@@ -2767,7 +2767,7 @@ export const gcpQuestions: Question[] = [
       "Provide values for CLOUDSDK_PROXY_USERNAME and CLOUDSDK_PROXY_PASSWORD in the gcloud CLI tool configuration file.",
       "Set the CLOUDSDK_PROXY_USERNAME and CLOUDSDK_PROXY_PASSWORD properties by using environment variables in your command line tool."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 252,
@@ -2778,7 +2778,7 @@ export const gcpQuestions: Question[] = [
       "Create a cluster with both a Spot VM node pool and a node pool by using standard VMs. Deploy the critical deployments on the Spot VM node pool and the fault-tolerant deployments on the node pool by using standard VMs.",
       "Create a cluster with both a Spot VM node pool and a nods pool by using standard VMs. Deploy the critical deployments on the node pool by using standard VMs and the fault-tolerant deployments on the Spot VM node pool."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 253,
@@ -2789,7 +2789,7 @@ export const gcpQuestions: Question[] = [
       "Deploy the application to Cloud Functions. Specify the version number in the functions name.",
       "Deploy the application to App Engine. For each new version, create a new service."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 254,
@@ -2800,7 +2800,7 @@ export const gcpQuestions: Question[] = [
       "• Ensure that the OS Config agent is installed on the Compute Engine instance.• Provide the security team member roles/osconfig.vulnerabilityReportViewer permission.",
       "• Ensure that the OS Config agent is installed on the Compute Engine instance.• Create a log sink to BigQuery dataset.• Provide the security team member with access to this dataset."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 255,
@@ -2811,7 +2811,7 @@ export const gcpQuestions: Question[] = [
       "Send all customer traffic to the new revision, and roll back to a previous revision if you witness any problems in production.",
       "Deploy your application to a second Cloud Run service, and ask your customers to use the second Cloud Run service."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 256,
@@ -2822,7 +2822,7 @@ export const gcpQuestions: Question[] = [
       "Instruct the external consultant to generate an SSH key pair, and request the public key from the consultant. Add the public key to the instance yourself, and have the consultant access the instance through SSH with their private key.",
       "Instruct the external consultant to generate an SSH key pair, and request the private key from the consultant. Add the private key to the instance yourself, and have the consultant access the instance through SSH with their public key."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 257,
@@ -2833,7 +2833,7 @@ export const gcpQuestions: Question[] = [
       "Install Kibana on a compute instance. Create a log sink to forward Cloud Audit Logs filtered for firewalls and compute instances to Pub/Sub. Target the Pub/Sub topic to push messages to the Kibana instance. Analyze the logs on Kibana in real time.",
       "Turn on Google Cloud firewall rules logging, and set up alerts for any insert, update, or delete events."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 258,
@@ -2844,7 +2844,7 @@ export const gcpQuestions: Question[] = [
       "Grant \"project owner\" role to crm-databases and roles/bigquery.dataViewer role to web-applications.",
       "Grant roles/bigquery.dataViewer role to crm-databases and appropriate roles to web-applications."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 259,
@@ -2855,7 +2855,7 @@ export const gcpQuestions: Question[] = [
       "Create a new VPC network for the VMs. Enable VPC Peering between the VMs\'VPC network and the Dataproc cluster VPC network.",
       "Create a new VPC network for the VMs with a subnet of 172.32.0.0/16. Enable VPC network Peering between the Dataproc VPC network and the VMs VPC network. Configure a custom Route exchange."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 260,
@@ -2866,7 +2866,7 @@ export const gcpQuestions: Question[] = [
       "Create a multi-region Cloud SQL for PostgreSQL database with optimized indexes.",
       "Create a multi-region BigQuery dataset with optimized tables."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 261,
@@ -2877,7 +2877,7 @@ export const gcpQuestions: Question[] = [
       "Use the gcloud iam roles copy command, and provide the Organization ID of the startup company\'s Google Cloud Organization as the destination.",
       "Use the gcloud iam roles copy command, and provide the project IDs of all projects in the startup company\'s organization as the destination."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 262,
@@ -2888,7 +2888,7 @@ export const gcpQuestions: Question[] = [
       "Run a Python script by using a Linux cron job in Compute Engine to scan the bucket regularly for incoming files, and call the Speech-to-Text API for each unprocessed file.",
       "Create a Cloud Function triggered by Cloud Storage bucket events to submit the file URI to the Google Speech-to-Text API."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 263,
@@ -2899,7 +2899,7 @@ export const gcpQuestions: Question[] = [
       "An internal HTTP(S) load balancer together with Identity-Aware Proxy to allow only HTTPS traffic.",
       "An external HTTP(S) load balancer to distribute the load and a URL map to target the requests for the static content to the Cloud Storage backend. Install the HTTPS certificates on the instance."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 264,
@@ -2910,7 +2910,7 @@ export const gcpQuestions: Question[] = [
       "Ingest the data into Cloud SQL. Use multiple read replicas to match the throughput.",
       "Ingest the data into Bigtable. Create a row key based on the event timestamp."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 265,
@@ -2921,7 +2921,7 @@ export const gcpQuestions: Question[] = [
       "Download your Cloud Identity user account key. Place the key file in a folder on your machine where gcloud CLI can find it.",
       "Run gcloud config set compute/zone $my_zone to set the default zone for gcloud CLI. E. Run gcloud config set project $my_project to set the default project for gcloud CLI."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 266,
@@ -2932,7 +2932,7 @@ export const gcpQuestions: Question[] = [
       "Use Storage Transfer Service for the video files, BigQuery Data Transfer Service for the data warehouse data, and Storage Transfer Service for the PNG files.",
       "Use Cloud Data Fusion for the video files, Dataflow for the data warehouse data, and Storage Transfer Service for the PNG files."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 267,
@@ -2943,7 +2943,7 @@ export const gcpQuestions: Question[] = [
       "Deploy the application on GKE Standard.",
       "Deploy the application on Cloud Functions."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 268,
@@ -2954,7 +2954,7 @@ export const gcpQuestions: Question[] = [
       "Save the incoming votes to a JSON file on Cloud Storage. Process the votes in a batch at the end of the day.",
       "Save the incoming votes to Pub/Sub. Use the Pub/Sub topic to trigger a Cloud Functions instance to process the votes."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 269,
@@ -2965,7 +2965,7 @@ export const gcpQuestions: Question[] = [
       "Deploy a Cloud SQL database and configure IAM database authentication. Access the database through the Cloud SQL Auth Proxy.",
       "Deploy a Cloud SQL database and configure a database user and password. Access the database through the Cloud SQL Auth Proxy."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 270,
@@ -2976,7 +2976,7 @@ export const gcpQuestions: Question[] = [
       "Configure a Cloud Router in vpc-a and another Cloud Router in vpc-b.",
       "Configure a Cloud Interconnect connection between vpc-a and vpc-b."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 271,
@@ -2987,7 +2987,7 @@ export const gcpQuestions: Question[] = [
       "Configure Cloud Scheduler to trigger a Cloud Function each day that creates a new machine image and deletes machine images that are older than 7 days.",
       "Configure a bash script using gsutil to run daily through a cron job. Copy the disk’s files to a Cloud Storage bucket with archive storage class and an object lifecycle rule to delete the objects after 7 days."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 272,
@@ -2998,7 +2998,7 @@ export const gcpQuestions: Question[] = [
       "Use the Google Cloud APIs by using curl to configure Google Cloud products. Store and share the curl commands in a source code repository.",
       "Create Terraform modules that utilize the Google Cloud Terraform Provider to configure Google Cloud products. Store and share the modules in a source code repository."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 273,
@@ -3009,7 +3009,7 @@ export const gcpQuestions: Question[] = [
       "Organize projects under folders for each department. Configure both organization policies and log sinks on the folders.",
       "Organize projects under folders for each department. Configure organization policies on the organization and log sinks on the folders."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 274,
@@ -3020,7 +3020,7 @@ export const gcpQuestions: Question[] = [
       "Use HTTP(S) load balancing for the MIG and a CNAME record in your DNS private zone with the load balancer’s IP address.",
       "Use HTTP(S) load balancing for the MIG and an A record in your DNS public zone with the load balancer’s IP address."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 275,
@@ -3031,7 +3031,7 @@ export const gcpQuestions: Question[] = [
       "Configure a Horizontal Pod Autoscaler for each microservice.",
       "Configure GKE cluster autoscaling."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 276,
@@ -3042,7 +3042,7 @@ export const gcpQuestions: Question[] = [
       "Configure Cloud Trace to analyze the issue.",
       "Search errors in Cloud Audit Logs to analyze the issue. E. View errors in Cloud Monitoring to analyze the issue."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 277,
@@ -3053,7 +3053,7 @@ export const gcpQuestions: Question[] = [
       "Deploy the application on Cloud Functions and configure the maximum number instances.",
       "Deploy the application on Cloud Run and configure autoscaling."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 278,
@@ -3064,7 +3064,7 @@ export const gcpQuestions: Question[] = [
       "Modify the maximum number of Cloud Run instances.",
       "Set a minimum concurrent requests environment variable for the application."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 279,
@@ -3075,7 +3075,7 @@ export const gcpQuestions: Question[] = [
       "Deploy the web application on Cloud Run with Private Service Connect configured.",
       "Deploy the web application to GKE Autopilot with Private Google Access configured."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 280,
@@ -3086,7 +3086,7 @@ export const gcpQuestions: Question[] = [
       "Create a schema for the storage bucket and run SQL queries for the data in the bucket.",
       "Export logs to a storage bucket and create an external view in BigQuery."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 281,
@@ -3097,7 +3097,7 @@ export const gcpQuestions: Question[] = [
       "Create an instance template. Set the disk type to be Hyperdisk Extreme. Launch the instance template as part of a stateful managed instance group.",
       "Create an instance template. Set the disk type to be Hyperdisk Extreme. Launch the instance template as part of a stateless managed instance group."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 282,
@@ -3108,7 +3108,7 @@ export const gcpQuestions: Question[] = [
       "Reserve a new static external IPv6 address and assign the new IP address to the VM.",
       "Reserve a new static external IP address and assign the new IP address to the VM."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 283,
@@ -3119,7 +3119,7 @@ export const gcpQuestions: Question[] = [
       "Use the gcloud container clusters update command with the option --region us-central1 to update the cluster and deploy the application to it.",
       "Use the gcloud container clusters update command with the option --node-locations us-central1-a,us-central1-b to update the cluster and deploy the application to the nodes."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 284,
@@ -3130,7 +3130,7 @@ export const gcpQuestions: Question[] = [
       "Configure the gcloud CLI to use service account impersonation. Issue a relevant BigQuery request through the gcloud CLI to test the access.",
       "Configure the gcloud CLI with Application Default Credentials using your user account. Issue a relevant BigQuery request through the gcloud CLI to test the access."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 285,
@@ -3141,7 +3141,7 @@ export const gcpQuestions: Question[] = [
       "Create a folder for each department in Resource Manager. Grant the users of each department the Folder Admin role on the folder of their department.",
       "Create a folder for each department in Resource Manager. Grant all company users the Folder Admin role on the organization level."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 286,
@@ -3152,7 +3152,7 @@ export const gcpQuestions: Question[] = [
       "Create an egress firewall rule on the VPC to allow connections to 0.0.0.0/ on ports 80 and 443.",
       "Deploy an internal Application Load Balancer to expose the API on GKE to the VPC. Configure Cloud DNS with the IP address of the internal Application Load Balancer. Deploy a Serverless VPC Access connector to allow the Cloud Run service to call the API through the FQDN on Cloud DNS."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 287,
@@ -3163,7 +3163,7 @@ export const gcpQuestions: Question[] = [
       "Create a Cloud Logging sink and configure Cloud Storage as the destination. Configure the SaaS tool to read the Cloud Storage bucket to retrieve the logs.",
       "Use a Cloud Scheduler cron job to trigger a Cloud Function that queries Cloud Logging and sends the logs to the SaaS tool."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 288,
@@ -3174,7 +3174,7 @@ export const gcpQuestions: Question[] = [
       "Run your database as a DaemonSet. Run the resize command when you notice changes in the demands of your workloads.",
       "Run your database as a Deployment. Configure cluster autoscaling to handle changes in the demands of your workloads."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 289,
@@ -3185,7 +3185,7 @@ export const gcpQuestions: Question[] = [
       "Enable versioning on the Cloud Storage bucket. Set up a custom script that scans versions of Cloud Storage objects being modified and alert the admin by using the script.",
       "Configure Object change notifications on the Cloud Storage buckets. Send the events to Pub/Sub."
     ],
-    correctAnswer: "A"
+    correctAnswer: "A",
   },
   {
     id: 290,
@@ -3196,7 +3196,7 @@ export const gcpQuestions: Question[] = [
       "Store your documents on Filestore, and move the documents to Cloud Storage with object storage class set to Coldline after six months.",
       "Store your documents on Filestore, and move the documents to Cloud Storage with object storage class set to Standard after six months."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 291,
@@ -3207,7 +3207,7 @@ export const gcpQuestions: Question[] = [
       "Configure a Standard multi-zonal GKE cluster.",
       "Configure an Autopilot GKE cluster."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 292,
@@ -3218,7 +3218,7 @@ export const gcpQuestions: Question[] = [
       "Use Cloud SQL for customer data. Cloud Storage (Archive) for historical logs, and Bigtable for sensor data.",
       "Use Spanner for all data."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 293,
@@ -3229,7 +3229,7 @@ export const gcpQuestions: Question[] = [
       "Create a VPC in the Premium Tier, and deploy both production and development workloads on this VPC.",
       "Create a VPC in the Standard Tier, and deploy both production and development workloads on this VPC."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 294,
@@ -3240,7 +3240,7 @@ export const gcpQuestions: Question[] = [
       "Set up Error Reporting to identify stack traces that indicate slowdowns in Dataflow jobs. Set up alerts based on these log entries.",
       "Use the Personalized Service Health dashboard to identify issues with Dataflow jobs across regions."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 295,
@@ -3251,7 +3251,7 @@ export const gcpQuestions: Question[] = [
       "Attach a new service account to the instance every hour, and grant the service account the BigQuery Data Viewer IAM role on the dataset.",
       "Attach a custom service account to the instance, and grant the service account the BigQuery Data Viewer IAM role on the project."
     ],
-    correctAnswer: "C"
+    correctAnswer: "C",
   },
   {
     id: 296,
@@ -3262,7 +3262,7 @@ export const gcpQuestions: Question[] = [
       "Ingest your application logs to Cloud Logging by using Ops Agent, and explore your logs with Log Analytics.",
       "Use a custom script to push your application logs to Cloud SQL for exploration."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 297,
@@ -3273,7 +3273,7 @@ export const gcpQuestions: Question[] = [
       "Create the GKE cluster and deploy the application. Request a security exception to create a Google service account key. Set the constraints/iam.serviceAccountKeyExpiryHours organization policy to 24 hours.",
       "Create the GKE cluster and deploy the application. Request a security exception to create a Google service account key. Set the constraints/iam.serviceAccountKeyExpiryHours organization policy to 8 hours."
     ],
-    correctAnswer: "B"
+    correctAnswer: "B",
   },
   {
     id: 298,
@@ -3284,7 +3284,7 @@ export const gcpQuestions: Question[] = [
       "Create a custom IAM role that includes only the required permissions from the predefined roles.",
       "Grant the team the IAM roles of Kubernetes Engine Admin and Cloud SQL Admin."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 299,
@@ -3295,7 +3295,7 @@ export const gcpQuestions: Question[] = [
       "Deploy your code to GKE. Use Eventarc for event delivery.",
       "Deploy your code to Cloud Run. Use Eventarc for event delivery."
     ],
-    correctAnswer: "C"
+    correctAnswer: "A",
   },
   {
     id: 300,
@@ -3306,7 +3306,7 @@ export const gcpQuestions: Question[] = [
       "Migrate your data to Firebase.",
       "Migrate your data to Bigtable."
     ],
-    correctAnswer: "B"
+    correctAnswer: "D",
   },
   {
     id: 301,
@@ -3317,7 +3317,7 @@ export const gcpQuestions: Question[] = [
       "Use Cloud Run and GPU as a platform to run the fine-tuning jobs.",
       "Use Google Kubernetes Engine (GKE) and hardware accelerators as a platform to run the fine-tuning jobs."
     ],
-    correctAnswer: "D"
+    correctAnswer: "D",
   },
   {
     id: 302,
