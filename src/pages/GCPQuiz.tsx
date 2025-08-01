@@ -75,17 +75,24 @@ export default function GCPQuizPage() {
   };
 
   /**
-   * Handle answer selection
+   * Handle answer selection and auto-submit
    */
   const handleAnswerChange = (value: string | string[]) => {
     setSelectedAnswer(value);
+    
+    // Auto-submit when answer is selected
+    if (value && !showAnswer) {
+      setTimeout(() => {
+        handleSubmitAnswer();
+      }, 100); // Small delay to ensure state is updated
+    }
   };
 
   /**
    * Submit answer and handle feedback
    */
   const handleSubmitAnswer = () => {
-    if (!currentQuestion) return;
+    if (!currentQuestion || showAnswer) return; // Prevent multiple submissions
 
     // For now, all questions are single choice (radio)
     const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
@@ -101,14 +108,17 @@ export default function GCPQuizPage() {
     setAnsweredQuestions((prev: Set<number>) => new Set([...prev, currentQuestion.id]));
 
     if (isCorrect) {
-      // If correct, automatically move to next question
-      if (currentQuestionIndex < allQuestions.length - 1) {
-        setCurrentQuestionIndex((prev: number) => prev + 1);
-        setSelectedAnswer([]);
-        setShowAnswer(false);
-      } else {
-        setQuizFinished(true);
-      }
+      // If correct, show feedback briefly then move to next question
+      setShowAnswer(true);
+      setTimeout(() => {
+        if (currentQuestionIndex < allQuestions.length - 1) {
+          setCurrentQuestionIndex((prev: number) => prev + 1);
+          setSelectedAnswer([]);
+          setShowAnswer(false);
+        } else {
+          setQuizFinished(true);
+        }
+      }, 1500); // Show correct answer for 1.5 seconds before moving
     } else {
       // If incorrect, show the correct answer
       setShowAnswer(true);
@@ -510,15 +520,33 @@ export default function GCPQuizPage() {
                 })}
               </RadioGroup>
 
-              {/* Show correct answer when wrong */}
+              {/* Show answer feedback */}
               {showAnswer && (
-                <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                <div className={cn(
+                  "p-4 rounded-lg border",
+                  selectedAnswer === currentQuestion.correctAnswer 
+                    ? "bg-green-50 border-green-200" 
+                    : "bg-red-50 border-red-200"
+                )}>
                   <div className="flex items-center space-x-2 mb-2">
-                    <CheckCircle className="h-5 w-5 text-green-600" />
-                    <div className="font-medium text-green-900">Đáp án đúng:</div>
+                    {selectedAnswer === currentQuestion.correctAnswer ? (
+                      <>
+                        <CheckCircle className="h-5 w-5 text-green-600" />
+                        <div className="font-medium text-green-900">Chính xác!</div>
+                      </>
+                    ) : (
+                      <>
+                        <XCircle className="h-5 w-5 text-red-600" />
+                        <div className="font-medium text-red-900">Sai rồi!</div>
+                      </>
+                    )}
                   </div>
-                  <div className="text-green-700">
-                    {currentQuestion.correctAnswer}: {currentQuestion.options[currentQuestion.correctAnswer.charCodeAt(0) - 65]}
+                  <div className={cn(
+                    selectedAnswer === currentQuestion.correctAnswer 
+                      ? "text-green-700" 
+                      : "text-red-700"
+                  )}>
+                    Đáp án đúng: {currentQuestion.correctAnswer}: {currentQuestion.options[currentQuestion.correctAnswer.charCodeAt(0) - 65]}
                   </div>
                 </div>
               )}
@@ -533,17 +561,7 @@ export default function GCPQuizPage() {
                 Reset Quiz
               </Button>
               
-              {!showAnswer ? (
-                <Button
-                  onClick={handleSubmitAnswer}
-                  disabled={!selectedAnswer || 
-                    (Array.isArray(selectedAnswer) && selectedAnswer.length === 0)}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                >
-                  Trả lời
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              ) : (
+              {showAnswer && (
                 <Button
                   onClick={() => {
                     if (currentQuestionIndex < allQuestions.length - 1) {
