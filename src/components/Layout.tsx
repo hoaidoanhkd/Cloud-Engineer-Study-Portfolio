@@ -21,7 +21,7 @@ import {
   Upload,
   Database
 } from 'lucide-react';
-import { cn, getHoverClasses } from '../lib/utils';
+import { cn } from '../lib/utils';
 import { useAuth } from '../contexts/AuthContext';
 import { Button } from './ui/button';
 import UserMenu from './auth/UserMenu';
@@ -127,7 +127,7 @@ export default function Layout({ children }: LayoutProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 lg:h-20">
             {/* Logo */}
-            <Link to="/" className={cn("flex items-center space-x-3 group transition-transform", getHoverClasses('scale'))}>
+            <Link to="/" className="flex items-center space-x-3 group transition-transform hover:scale-105">
               <div className="relative">
                 <div className="p-2 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 rounded-xl shadow-lg group-hover:shadow-xl transition-shadow">
                   <Brain className="h-6 w-6 lg:h-7 lg:w-7 text-white" />

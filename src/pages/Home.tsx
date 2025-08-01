@@ -31,7 +31,6 @@ import {
   HelpCircle
 } from 'lucide-react';
 import { gcpQuestions } from '../data/gcpQuestions';
-import { cn, getGradientClasses, getHoverClasses } from '../lib/utils';
 
 export default function HomePage() {
   // Get quiz statistics from localStorage
@@ -113,7 +112,7 @@ export default function HomePage() {
       {/* Stats Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-20">
-          <Card className={cn("border-0 shadow-xl", getGradientClasses('blue'), getHoverClasses('both'))}>
+          <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <CardContent className="p-8 text-center">
               <div className="p-4 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl inline-block mb-6">
                 <Database className="h-8 w-8 text-blue-600" />
@@ -123,7 +122,7 @@ export default function HomePage() {
             </CardContent>
           </Card>
 
-          <Card className={cn("border-0 shadow-xl", getGradientClasses('green'), getHoverClasses('both'))}>
+          <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <CardContent className="p-8 text-center">
               <div className="p-4 bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl inline-block mb-6">
                 <Target className="h-8 w-8 text-green-600" />
@@ -133,7 +132,7 @@ export default function HomePage() {
             </CardContent>
           </Card>
 
-          <Card className={cn("border-0 shadow-xl", getGradientClasses('purple'), getHoverClasses('both'))}>
+          <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <CardContent className="p-8 text-center">
               <div className="p-4 bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl inline-block mb-6">
                 <TrendingUp className="h-8 w-8 text-purple-600" />
@@ -143,7 +142,7 @@ export default function HomePage() {
             </CardContent>
           </Card>
 
-          <Card className={cn("border-0 shadow-xl", getGradientClasses('orange'), getHoverClasses('both'))}>
+          <Card className="bg-gradient-to-br from-yellow-50 to-orange-50 border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <CardContent className="p-8 text-center">
               <div className="p-4 bg-gradient-to-br from-yellow-100 to-orange-100 rounded-2xl inline-block mb-6">
                 <Activity className="h-8 w-8 text-yellow-600" />
@@ -157,7 +156,7 @@ export default function HomePage() {
         {/* Features Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
           {/* Quiz Feature */}
-          <Card className={cn("group border-0 shadow-xl", getHoverClasses('both'))}>
+          <Card className="group hover:shadow-2xl transition-all duration-500 border-0 shadow-xl transform hover:scale-105">
             <CardHeader className="pb-4">
               <div className="p-4 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl inline-block mb-4 group-hover:from-blue-200 group-hover:to-indigo-200 transition-all duration-300">
                 <PlayCircle className="h-8 w-8 text-blue-600" />
@@ -178,7 +177,7 @@ export default function HomePage() {
           </Card>
 
           {/* Portfolio Feature */}
-          <Card className={cn("group border-0 shadow-xl", getHoverClasses('both'))}>
+          <Card className="group hover:shadow-2xl transition-all duration-500 border-0 shadow-xl transform hover:scale-105">
             <CardHeader className="pb-4">
               <div className="p-4 bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl inline-block mb-4 group-hover:from-green-200 group-hover:to-emerald-200 transition-all duration-300">
                 <TrendingUp className="h-8 w-8 text-green-600" />
@@ -199,7 +198,7 @@ export default function HomePage() {
           </Card>
 
           {/* Heatmap Feature */}
-          <Card className={cn("group border-0 shadow-xl", getHoverClasses('both'))}>
+          <Card className="group hover:shadow-2xl transition-all duration-500 border-0 shadow-xl transform hover:scale-105">
             <CardHeader className="pb-4">
               <div className="p-4 bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl inline-block mb-4 group-hover:from-purple-200 group-hover:to-pink-200 transition-all duration-300">
                 <BarChart3 className="h-8 w-8 text-purple-600" />
@@ -220,7 +219,7 @@ export default function HomePage() {
           </Card>
 
           {/* Guide Feature */}
-          <Card className={cn("group border-0 shadow-xl", getHoverClasses('both'))}>
+          <Card className="group hover:shadow-2xl transition-all duration-500 border-0 shadow-xl transform hover:scale-105">
             <CardHeader className="pb-4">
               <div className="p-4 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl inline-block mb-4 group-hover:from-indigo-200 group-hover:to-purple-200 transition-all duration-300">
                 <BookOpen className="h-8 w-8 text-indigo-600" />
@@ -241,7 +240,7 @@ export default function HomePage() {
           </Card>
 
           {/* Import Feature */}
-          <Card className={cn("group border-0 shadow-xl", getHoverClasses('both'))}>
+          <Card className="group hover:shadow-2xl transition-all duration-500 border-0 shadow-xl transform hover:scale-105">
             <CardHeader className="pb-4">
               <div className="p-4 bg-gradient-to-br from-orange-100 to-red-100 rounded-2xl inline-block mb-4 group-hover:from-orange-200 group-hover:to-red-200 transition-all duration-300">
                 <Upload className="h-8 w-8 text-orange-600" />
@@ -262,7 +261,7 @@ export default function HomePage() {
           </Card>
 
           {/* Management Feature */}
-          <Card className={cn("group border-0 shadow-xl", getHoverClasses('both'))}>
+          <Card className="group hover:shadow-2xl transition-all duration-500 border-0 shadow-xl transform hover:scale-105">
             <CardHeader className="pb-4">
               <div className="p-4 bg-gradient-to-br from-red-100 to-pink-100 rounded-2xl inline-block mb-4 group-hover:from-red-200 group-hover:to-pink-200 transition-all duration-300">
                 <Settings className="h-8 w-8 text-red-600" />
