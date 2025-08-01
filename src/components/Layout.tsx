@@ -73,18 +73,6 @@ const navigationItems: NavigationItem[] = [
     description: 'Achievement and analytics' 
   },
   { 
-    name: 'Import', 
-    href: '/import', 
-    icon: Upload, 
-    description: 'Import quiz questions' 
-  },
-  { 
-    name: 'Manage', 
-    href: '/manage', 
-    icon: Database, 
-    description: 'Manage quiz questions' 
-  },
-  { 
     name: 'Guide', 
     href: '/guide', 
     icon: HelpCircle, 

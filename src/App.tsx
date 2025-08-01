@@ -12,8 +12,6 @@ import HeatmapPage from './pages/Heatmap'
 import PortfolioPage from './pages/Portfolio'
 import GuidePage from './pages/Guide'
 import ProfilePage from './pages/Profile'
-import ImportQuestionsPage from './pages/ImportQuestions'
-import QuestionManagementPage from './pages/QuestionManagement'
 import Layout from './components/Layout'
 import { Toaster } from 'sonner'
 
@@ -31,8 +29,6 @@ export default function App() {
               <Route path="/portfolio" element={<PortfolioPage />} />
               <Route path="/guide" element={<GuidePage />} />
               <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/import" element={<ImportQuestionsPage />} />
-              <Route path="/manage" element={<QuestionManagementPage />} />
             </Routes>
           </Layout>
           <Toaster position="top-right" />
