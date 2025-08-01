@@ -1,5 +1,5 @@
 /**
- * Type definitions for GCP learning application
+ * Type definitions for GCP Quiz application
  */
 
 export interface Question {
@@ -19,30 +19,10 @@ export interface UserAnswer {
   timestamp: Date;
 }
 
-export interface KeywordStats {
-  [keyword: string]: {
-    [date: string]: number; // số lần trả lời sai
-  };
-}
-
-export interface Portfolio {
-  [keyword: string]: {
-    totalQuestions: number;
-    correctAnswers: number;
-    accuracy: number;
-    lastUpdated: Date;
-  };
-}
-
 export interface AppState {
   questions: Question[];
   userAnswers: UserAnswer[];
-  keywordStats: KeywordStats;
-  portfolio: Portfolio;
-  currentQuiz: {
-    questions: Question[];
-    currentIndex: number;
-    startTime: Date | null;
-    answers: UserAnswer[];
-  } | null;
+  currentQuestionIndex: number;
+  quizStarted: boolean;
+  quizCompleted: boolean;
 }
