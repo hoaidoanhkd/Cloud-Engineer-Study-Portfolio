@@ -52,17 +52,12 @@ export default function GCPQuizPage() {
   const [showReview, setShowReview] = useState(false);
   const [reviewIndex, setReviewIndex] = useState(0);
 
-  // Shuffle questions for randomization
-  const shuffledQuestions = useMemo(() => {
-    const shuffled = [...gcpQuestions];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
+  // Use all questions without shuffling to maintain order
+  const allQuestions = useMemo(() => {
+    return gcpQuestions;
   }, []);
 
-  const currentQuestion = shuffledQuestions[currentQuestionIndex];
+  const currentQuestion = allQuestions[currentQuestionIndex];
 
   /**
    * Start the quiz
@@ -106,7 +101,7 @@ export default function GCPQuizPage() {
 
     setUserAnswers(prev => [...prev, userAnswer]);
 
-    if (currentQuestionIndex < shuffledQuestions.length - 1) {
+    if (currentQuestionIndex < allQuestions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
       setSelectedAnswer([]);
     } else {
@@ -186,22 +181,22 @@ export default function GCPQuizPage() {
                 GCP Associate Cloud Engineer Quiz
               </CardTitle>
               <CardDescription className="text-lg text-slate-600">
-                Test your knowledge with {gcpQuestions.length} carefully curated questions
+                Test your knowledge with all {allQuestions.length} carefully curated questions
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="text-center p-4 bg-blue-50 rounded-lg">
-                  <div className="text-2xl font-bold text-blue-600">{gcpQuestions.length}</div>
+                  <div className="text-2xl font-bold text-blue-600">{allQuestions.length}</div>
                   <div className="text-sm text-blue-600">Total Questions</div>
                 </div>
                 <div className="text-center p-4 bg-green-50 rounded-lg">
-                  <div className="text-2xl font-bold text-green-600">Multiple</div>
-                  <div className="text-sm text-green-600">Question Types</div>
+                  <div className="text-2xl font-bold text-green-600">Complete</div>
+                  <div className="text-sm text-green-600">Full Coverage</div>
                 </div>
                 <div className="text-center p-4 bg-purple-50 rounded-lg">
-                  <div className="text-2xl font-bold text-purple-600">Real-time</div>
-                  <div className="text-sm text-purple-600">Progress Tracking</div>
+                  <div className="text-2xl font-bold text-purple-600">All Topics</div>
+                  <div className="text-sm text-purple-600">GCP Services</div>
                 </div>
               </div>
               
@@ -211,7 +206,7 @@ export default function GCPQuizPage() {
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
               >
                 <PlayCircle className="mr-2 h-5 w-5" />
-                Start Quiz
+                Start Complete Quiz
               </Button>
             </CardContent>
           </Card>
@@ -234,7 +229,7 @@ export default function GCPQuizPage() {
                 Quiz Completed!
               </CardTitle>
               <CardDescription className="text-lg text-slate-600">
-                Great job! Here's your performance summary
+                Great job! You've completed all {allQuestions.length} questions
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -276,7 +271,7 @@ export default function GCPQuizPage() {
                   size="lg"
                 >
                   <Eye className="mr-2 h-5 w-5" />
-                  Review Answers
+                  Review All Answers
                 </Button>
                 <Button 
                   onClick={handleReset}
@@ -297,7 +292,7 @@ export default function GCPQuizPage() {
   // Review mode
   if (showReview) {
     const reviewAnswer = userAnswers[reviewIndex];
-    const reviewQuestion = shuffledQuestions.find(q => q.id === reviewAnswer.questionId);
+    const reviewQuestion = allQuestions.find(q => q.id === reviewAnswer.questionId);
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-4">
@@ -432,7 +427,7 @@ export default function GCPQuizPage() {
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center">
                 <Brain className="mr-2 h-5 w-5" />
-                GCP Quiz
+                GCP Quiz - Complete Set
               </CardTitle>
               <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-2">
@@ -444,13 +439,13 @@ export default function GCPQuizPage() {
                 <div className="flex items-center space-x-2">
                   <BarChart3 className="h-4 w-4 text-slate-500" />
                   <span className="text-sm font-medium text-slate-600">
-                    {currentQuestionIndex + 1} / {shuffledQuestions.length}
+                    {currentQuestionIndex + 1} / {allQuestions.length}
                   </span>
                 </div>
               </div>
             </div>
             <Progress 
-              value={((currentQuestionIndex + 1) / shuffledQuestions.length) * 100} 
+              value={((currentQuestionIndex + 1) / allQuestions.length) * 100} 
               className="h-2" 
             />
           </CardHeader>
@@ -538,7 +533,7 @@ export default function GCPQuizPage() {
                   (Array.isArray(selectedAnswer) && selectedAnswer.length === 0)}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
               >
-                {currentQuestionIndex === shuffledQuestions.length - 1 ? 'Finish Quiz' : 'Next Question'}
+                {currentQuestionIndex === allQuestions.length - 1 ? 'Finish Complete Quiz' : 'Next Question'}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
