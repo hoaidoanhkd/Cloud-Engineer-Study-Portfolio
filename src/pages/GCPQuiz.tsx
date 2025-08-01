@@ -51,6 +51,8 @@ export default function GCPQuizPage() {
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [showReview, setShowReview] = useState(false);
   const [reviewIndex, setReviewIndex] = useState(0);
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [answeredQuestions, setAnsweredQuestions] = useState<Set<number>>(new Set());
 
   // Use all questions without shuffling to maintain order
   const allQuestions = useMemo(() => {
@@ -80,7 +82,7 @@ export default function GCPQuizPage() {
   };
 
   /**
-   * Submit answer and move to next question
+   * Submit answer and handle feedback
    */
   const handleSubmitAnswer = () => {
     if (!currentQuestion) return;
@@ -96,12 +98,20 @@ export default function GCPQuizPage() {
     };
 
     setUserAnswers((prev: UserAnswer[]) => [...prev, userAnswer]);
+    setAnsweredQuestions((prev: Set<number>) => new Set([...prev, currentQuestion.id]));
 
-    if (currentQuestionIndex < allQuestions.length - 1) {
-      setCurrentQuestionIndex((prev: number) => prev + 1);
-      setSelectedAnswer([]);
+    if (isCorrect) {
+      // If correct, automatically move to next question
+      if (currentQuestionIndex < allQuestions.length - 1) {
+        setCurrentQuestionIndex((prev: number) => prev + 1);
+        setSelectedAnswer([]);
+        setShowAnswer(false);
+      } else {
+        setQuizFinished(true);
+      }
     } else {
-      setQuizFinished(true);
+      // If incorrect, show the correct answer
+      setShowAnswer(true);
     }
   };
 
@@ -148,6 +158,8 @@ export default function GCPQuizPage() {
     setStartTime(null);
     setShowReview(false);
     setReviewIndex(0);
+    setShowAnswer(false);
+    setAnsweredQuestions(new Set());
   };
 
   /**
@@ -464,22 +476,52 @@ export default function GCPQuizPage() {
                 value={selectedAnswer as string}
                 onValueChange={handleAnswerChange}
                 className="space-y-3"
+                disabled={showAnswer}
               >
                 {currentQuestion.options.map((option, index) => {
                   const optionLetter = String.fromCharCode(65 + index);
+                  const isSelected = selectedAnswer === optionLetter;
+                  const isCorrect = currentQuestion.correctAnswer === optionLetter;
+                  
                   return (
                     <div key={index} className="flex items-center space-x-2">
-                      <RadioGroupItem value={optionLetter} id={`option-${index}`} />
-                      <Label htmlFor={`option-${index}`} className="flex-1 cursor-pointer">
+                      <RadioGroupItem 
+                        value={optionLetter} 
+                        id={`option-${index}`}
+                        disabled={showAnswer}
+                      />
+                      <Label 
+                        htmlFor={`option-${index}`} 
+                        className={cn(
+                          "flex-1 cursor-pointer",
+                          showAnswer && isCorrect && "text-green-700 font-medium",
+                          showAnswer && isSelected && !isCorrect && "text-red-700 font-medium"
+                        )}
+                      >
                         <span className="font-medium text-slate-600 w-6">
                           {optionLetter}.
                         </span>
                         <span>{option}</span>
+                        {showAnswer && isCorrect && <CheckCircle className="ml-2 h-4 w-4 text-green-600 inline" />}
+                        {showAnswer && isSelected && !isCorrect && <XCircle className="ml-2 h-4 w-4 text-red-600 inline" />}
                       </Label>
                     </div>
                   );
                 })}
               </RadioGroup>
+
+              {/* Show correct answer when wrong */}
+              {showAnswer && (
+                <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <CheckCircle className="h-5 w-5 text-green-600" />
+                    <div className="font-medium text-green-900">Đáp án đúng:</div>
+                  </div>
+                  <div className="text-green-700">
+                    {currentQuestion.correctAnswer}: {currentQuestion.options[currentQuestion.correctAnswer.charCodeAt(0) - 65]}
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="flex justify-between">
@@ -491,15 +533,33 @@ export default function GCPQuizPage() {
                 Reset Quiz
               </Button>
               
-              <Button
-                onClick={handleSubmitAnswer}
-                disabled={!selectedAnswer || 
-                  (Array.isArray(selectedAnswer) && selectedAnswer.length === 0)}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-              >
-                {currentQuestionIndex === allQuestions.length - 1 ? 'Finish Quiz' : 'Next Question'}
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              {!showAnswer ? (
+                <Button
+                  onClick={handleSubmitAnswer}
+                  disabled={!selectedAnswer || 
+                    (Array.isArray(selectedAnswer) && selectedAnswer.length === 0)}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                >
+                  Trả lời
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    if (currentQuestionIndex < allQuestions.length - 1) {
+                      setCurrentQuestionIndex((prev: number) => prev + 1);
+                      setSelectedAnswer([]);
+                      setShowAnswer(false);
+                    } else {
+                      setQuizFinished(true);
+                    }
+                  }}
+                  className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700"
+                >
+                  {currentQuestionIndex === allQuestions.length - 1 ? 'Kết thúc' : 'Tiếp tục'}
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              )}
             </div>
           </CardContent>
         </Card>
