@@ -12,7 +12,7 @@ export const gcpQuestions: Question[] = [
     options: [
       "A. Generate a new SSH key pair. Give the private key to each member of your team. Configure the public key in the metadata of each instance.",
       "B. Ask each member of the team to generate a new SSH key pair and to send you their public key. Use a configuration management tool to deploy those keys on each instance.",
-      "C. Ask each member of the team to generate a new SSH key pair and to add the public key to their Google account. Grant the ג€compute.osAdminLoginג€ role to the Google group corresponding to this team.",
+      "C. Ask each member of the team to generate a new SSH key pair and to add the public key to their Google account. Grant the compute.osAdminLogin role to the Google group corresponding to this team.",
       "D. Generate a new SSH key pair. Give the private key to each member of your team. Configure the public key as a project-wide public SSH key in your Cloud Platform project and allow project-wide public SSH keys on each instance."
     ],
     correctAnswer: "C"
@@ -197,7 +197,7 @@ export const gcpQuestions: Question[] = [
     id: 18,
     question: "You need to set up a policy so that videos stored in a specific Cloud Storage Regional bucket are moved to Coldline after 90 days, and then deleted after one year from their creation. How should you set up the policy?",
     options: [
-      "A. Use Cloud Storage Object Lifecycle Management using Age conditions with SetStorageClass and Delete actions. Set the SetStorageClass action to 90 days and the Delete action to 275 days (365 ג€\\" 90)",
+      "A. Use Cloud Storage Object Lifecycle Management using Age conditions with SetStorageClass and Delete actions. Set the SetStorageClass action to 90 days and the Delete action to 275 days (365 \\" 90)",
       "B. Use Cloud Storage Object Lifecycle Management using Age conditions with SetStorageClass and Delete actions. Set the SetStorageClass action to 90 days and the Delete action to 365 days.",
       "C. Use gsutil rewrite and set the Delete action to 275 days (365-90).",
       "D. Use gsutil rewrite and set the Delete action to 365 days."
@@ -244,7 +244,7 @@ export const gcpQuestions: Question[] = [
       "A. Use granular logging statements within a Deployment Manager template authored in Python.",
       "B. Monitor activity of the Deployment Manager execution on the Stackdriver Logging page of the GCP Console.",
       "C. Execute the Deployment Manager template against a separate project with the same configuration, and monitor for failures.",
-      "D. Execute the Deployment Manager template using the ג€\\"-preview option in the same project, and observe the state of interdependent resources."
+      "D. Execute the Deployment Manager template using the \\"-preview option in the same project, and observe the state of interdependent resources."
     ],
     correctAnswer: "D"
   },
@@ -431,7 +431,7 @@ export const gcpQuestions: Question[] = [
       "A. Enable the Node Auto-Repair feature for your GKE cluster.",
       "B. Enable the Node Auto-Upgrades feature for your GKE cluster.",
       "C. Select the latest available cluster version for your GKE cluster.",
-      "D. Select ג€Container-Optimized OS (cos)ג€ as a node image for your GKE cluster."
+      "D. Select Container-Optimized OS (cos) as a node image for your GKE cluster."
     ],
     correctAnswer: "B"
   },
@@ -582,10 +582,10 @@ export const gcpQuestions: Question[] = [
     id: 53,
     question: "Your company has a 3-tier solution running on Compute Engine. The configuration of the current infrastructure is shown below.Each tier has a service account that is associated with all instances within it. You need to enable communication on TCP port 8080 between tiers as follows:* Instances in tier #1 must communicate with tier #2.* Instances in tier #2 must communicate with tier #3.What should you do?",
     options: [
-      "A. 1. Create an ingress firewall rule with the following settings: ג€¢ Targets: all instances ג€¢ Source filter: IP ranges (with the range set to 10.0.2.0/24) ג€¢ Protocols: allow all 2. Create an ingress firewall rule with the following settings: ג€¢ Targets: all instances ג€¢ Source filter: IP ranges (with the range set to 10.0.1.0/24) ג€¢ Protocols: allow all",
-      "B. 1. Create an ingress firewall rule with the following settings: ג€¢ Targets: all instances with tier #2 service account ג€¢ Source filter: all instances with tier #1 service account ג€¢ Protocols: allow TCP:8080 2. Create an ingress firewall rule with the following settings: ג€¢ Targets: all instances with tier #3 service account ג€¢ Source filter: all instances with tier #2 service account ג€¢ Protocols: allow TCP: 8080",
-      "C. 1. Create an ingress firewall rule with the following settings: ג€¢ Targets: all instances with tier #2 service account ג€¢ Source filter: all instances with tier #1 service account ג€¢ Protocols: allow all 2. Create an ingress firewall rule with the following settings: ג€¢ Targets: all instances with tier #3 service account ג€¢ Source filter: all instances with tier #2 service account ג€¢ Protocols: allow all",
-      "D. 1. Create an egress firewall rule with the following settings: ג€¢ Targets: all instances ג€¢ Source filter: IP ranges (with the range set to 10.0.2.0/24) ג€¢ Protocols: allow TCP: 8080 2. Create an egress firewall rule with the following settings: ג€¢ Targets: all instances ג€¢ Source filter: IP ranges (with the range set to 10.0.1.0/24) ג€¢ Protocols: allow TCP: 8080"
+      "A. 1. Create an ingress firewall rule with the following settings:  Targets: all instances  Source filter: IP ranges (with the range set to 10.0.2.0/24)  Protocols: allow all 2. Create an ingress firewall rule with the following settings:  Targets: all instances  Source filter: IP ranges (with the range set to 10.0.1.0/24)  Protocols: allow all",
+      "B. 1. Create an ingress firewall rule with the following settings:  Targets: all instances with tier #2 service account  Source filter: all instances with tier #1 service account  Protocols: allow TCP:8080 2. Create an ingress firewall rule with the following settings:  Targets: all instances with tier #3 service account  Source filter: all instances with tier #2 service account  Protocols: allow TCP: 8080",
+      "C. 1. Create an ingress firewall rule with the following settings:  Targets: all instances with tier #2 service account  Source filter: all instances with tier #1 service account  Protocols: allow all 2. Create an ingress firewall rule with the following settings:  Targets: all instances with tier #3 service account  Source filter: all instances with tier #2 service account  Protocols: allow all",
+      "D. 1. Create an egress firewall rule with the following settings:  Targets: all instances  Source filter: IP ranges (with the range set to 10.0.2.0/24)  Protocols: allow TCP: 8080 2. Create an egress firewall rule with the following settings:  Targets: all instances  Source filter: IP ranges (with the range set to 10.0.1.0/24)  Protocols: allow TCP: 8080"
     ],
     correctAnswer: "B"
   },
@@ -890,7 +890,7 @@ export const gcpQuestions: Question[] = [
     id: 81,
     question: "You are operating a Google Kubernetes Engine (GKE) cluster for your company where different teams can run non-production workloads. Your Machine Learning(ML) team needs access to Nvidia Tesla P100 GPUs to train their models. You want to minimize effort and cost. What should you do?",
     options: [
-      "A. Ask your ML team to add the ג€accelerator: gpuג€ annotation to their pod specification.",
+      "A. Ask your ML team to add the accelerator: gpu annotation to their pod specification.",
       "B. Recreate all the nodes of the GKE cluster to enable GPUs on all of them.",
       "C. Create your own Kubernetes cluster on top of Compute Engine with nodes that have GPUs. Dedicate this cluster to your ML team.",
       "D. Add a new, GPU-enabled, node pool to the GKE cluster. Ask your ML team to add the cloud.google.com/gke -accelerator: nvidia-tesla-p100 nodeSelector to their pod specification."
@@ -1264,9 +1264,9 @@ export const gcpQuestions: Question[] = [
     id: 116,
     question: "You are configuring service accounts for an application that spans multiple projects. Virtual machines (VMs) running in the web-applications project need access to BigQuery datasets in crm-databases-proj. You want to follow Google-recommended practices to give access to the service account in the web-applications project. What should you do?",
     options: [
-      "A. Give ג€project ownerג€ for web-applications appropriate roles to crm-databases-proj.",
-      "B. Give ג€project ownerג€ role to crm-databases-proj and the web-applications project.",
-      "C. Give ג€project ownerג€ role to crm-databases-proj and bigquery.dataViewer role to web-applications.",
+      "A. Give project owner for web-applications appropriate roles to crm-databases-proj.",
+      "B. Give project owner role to crm-databases-proj and the web-applications project.",
+      "C. Give project owner role to crm-databases-proj and bigquery.dataViewer role to web-applications.",
       "D. Give bigquery.dataViewer role to crm-databases-proj and appropriate roles to web-applications."
     ],
     correctAnswer: "D"
@@ -1363,8 +1363,8 @@ export const gcpQuestions: Question[] = [
     id: 125,
     question: "Your company publishes large files on an Apache web server that runs on a Compute Engine instance. The Apache web server is not the only application running in the project. You want to receive an email when the egress network costs for the server exceed 100 dollars for the current month as measured by Google Cloud.What should you do?",
     options: [
-      "A. Set up a budget alert on the project with an amount of 100 dollars, a threshold of 100%, and notification type of ג€email.ג€",
-      "B. Set up a budget alert on the billing account with an amount of 100 dollars, a threshold of 100%, and notification type of ג€email.ג€",
+      "A. Set up a budget alert on the project with an amount of 100 dollars, a threshold of 100%, and notification type of email.",
+      "B. Set up a budget alert on the billing account with an amount of 100 dollars, a threshold of 100%, and notification type of email.",
       "C. Export the billing data to BigQuery. Create a Cloud Function that uses BigQuery to sum the egress network costs of the exported billing data for the Apache web server for the current month and sends an email if it is over 100 dollars. Schedule the Cloud Function using Cloud Scheduler to run hourly.",
       "D. Use the Cloud Logging Agent to export the Apache web server logs to Cloud Logging. Create a Cloud Function that uses BigQuery to parse the HTTP response log data in Cloud Logging for the current month and sends an email if the size of all HTTP responses, multiplied by current Google Cloud egress prices, totals over 100 dollars. Schedule the Cloud Function using Cloud Scheduler to run hourly."
     ],
@@ -1507,9 +1507,9 @@ export const gcpQuestions: Question[] = [
     question: "You have downloaded and installed the gcloud command line interface (CLI) and have authenticated with your Google Account. Most of your Compute Engine instances in your project run in the europe-west1-d zone. You want to avoid having to specify this zone with each CLI command when managing these instances.What should you do?",
     options: [
       "A. Set the europe-west1-d zone as the default zone using the gcloud config subcommand.",
-      "B. In the Settings page for Compute Engine under Default location, set the zone to europeג€\\"west1-d.",
-      "C. In the CLI installation directory, create a file called default.conf containing zone=europeג€\\"west1ג€\\"d.",
-      "D. Create a Metadata entry on the Compute Engine page with key compute/zone and value europeג€\\"west1ג€\\"d."
+      "B. In the Settings page for Compute Engine under Default location, set the zone to europe\\"west1-d.",
+      "C. In the CLI installation directory, create a file called default.conf containing zone=europe\\"west1\\"d.",
+      "D. Create a Metadata entry on the Compute Engine page with key compute/zone and value europe\\"west1\\"d."
     ],
     correctAnswer: "A"
   },
@@ -1572,8 +1572,8 @@ export const gcpQuestions: Question[] = [
     id: 144,
     question: "You have a Compute Engine instance hosting an application used between 9 AM and 6 PM on weekdays. You want to back up this instance daily for disaster recovery purposes. You want to keep the backups for 30 days. You want the Google-recommended solution with the least management overhead and the least number of services. What should you do?",
     options: [
-      "A. 1. Update your instances\\' metadata to add the following value: snapshotג€\\"schedule: 0 1 * * * 2. Update your instances\\' metadata to add the following value: snapshotג€\\"retention: 30",
-      "B. 1. In the Cloud Console, go to the Compute Engine Disks page and select your instance\\'s disk. 2. In the Snapshot Schedule section, select Create Schedule and configure the following parameters: - Schedule frequency: Daily - Start time: 1:00 AM ג€\\" 2:00 AM - Autodelete snapshots after: 30 days",
+      "A. 1. Update your instances\\' metadata to add the following value: snapshot\\"schedule: 0 1 * * * 2. Update your instances\\' metadata to add the following value: snapshot\\"retention: 30",
+      "B. 1. In the Cloud Console, go to the Compute Engine Disks page and select your instance\\'s disk. 2. In the Snapshot Schedule section, select Create Schedule and configure the following parameters: - Schedule frequency: Daily - Start time: 1:00 AM \\" 2:00 AM - Autodelete snapshots after: 30 days",
       "C. 1. Create a Cloud Function that creates a snapshot of your instance\\'s disk. 2. Create a Cloud Function that deletes snapshots that are older than 30 days. 3. Use Cloud Scheduler to trigger both Cloud Functions daily at 1:00 AM.",
       "D. 1. Create a bash script in the instance that copies the content of the disk to Cloud Storage. 2. Create a bash script in the instance that deletes data older than 30 days in the backup Cloud Storage bucket. 3. Configure the instance\\'s crontab to execute these scripts daily at 1:00 AM."
     ],
@@ -1584,9 +1584,9 @@ export const gcpQuestions: Question[] = [
     question: "Your existing application running in Google Kubernetes Engine (GKE) consists of multiple pods running on four GKE n1`\\"standard`\\"2 nodes. You need to deploy additional pods requiring n2`\\"highmem`\\"16 nodes without any downtime. What should you do?",
     options: [
       "A. Use gcloud container clusters upgrade. Deploy the new services.",
-      "B. Create a new Node Pool and specify machine type n2ג€\\"highmemג€\\"16. Deploy the new pods.",
-      "C. Create a new cluster with n2ג€\\"highmemג€\\"16 nodes. Redeploy the pods and delete the old cluster.",
-      "D. Create a new cluster with both n1ג€\\"standardג€\\"2 and n2ג€\\"highmemג€\\"16 nodes. Redeploy the pods and delete the old cluster."
+      "B. Create a new Node Pool and specify machine type n2\\"highmem\\"16. Deploy the new pods.",
+      "C. Create a new cluster with n2\\"highmem\\"16 nodes. Redeploy the pods and delete the old cluster.",
+      "D. Create a new cluster with both n1\\"standard\\"2 and n2\\"highmem\\"16 nodes. Redeploy the pods and delete the old cluster."
     ],
     correctAnswer: "B"
   },
@@ -1605,10 +1605,10 @@ export const gcpQuestions: Question[] = [
     id: 147,
     question: "You are hosting an application from Compute Engine virtual machines (VMs) in us`\\"central1`\\"a. You want to adjust your design to support the failure of a singleCompute Engine zone, eliminate downtime, and minimize cost. What should you do?",
     options: [
-      "A. ג€\\" Create Compute Engine resources in usג€\\"central1ג€\\"b. ג€\\" Balance the load across both usג€\\"central1ג€\\"a and usג€\\"central1ג€\\"b.",
-      "B. ג€\\" Create a Managed Instance Group and specify usג€\\"central1ג€\\"a as the zone. ג€\\" Configure the Health Check with a short Health Interval.",
-      "C. ג€\\" Create an HTTP(S) Load Balancer. ג€\\" Create one or more global forwarding rules to direct traffic to your VMs.",
-      "D. ג€\\" Perform regular backups of your application. ג€\\" Create a Cloud Monitoring Alert and be notified if your application becomes unavailable. ג€\\" Restore from backups when notified."
+      "A. \\" Create Compute Engine resources in us\\"central1\\"b. \\" Balance the load across both us\\"central1\\"a and us\\"central1\\"b.",
+      "B. \\" Create a Managed Instance Group and specify us\\"central1\\"a as the zone. \\" Configure the Health Check with a short Health Interval.",
+      "C. \\" Create an HTTP(S) Load Balancer. \\" Create one or more global forwarding rules to direct traffic to your VMs.",
+      "D. \\" Perform regular backups of your application. \\" Create a Cloud Monitoring Alert and be notified if your application becomes unavailable. \\" Restore from backups when notified."
     ],
     correctAnswer: "A"
   },
@@ -1619,7 +1619,7 @@ export const gcpQuestions: Question[] = [
       "A. In the console, validate which SSH keys have been stored as project-wide keys.",
       "B. Navigate to Identity-Aware Proxy and check the permissions for these resources.",
       "C. Enable Audit Logs on the IAM & admin page for all resources, and validate the results.",
-      "D. Use the command gcloud projects getג€\\"iamג€\\"policy to view the current role assignments."
+      "D. Use the command gcloud projects get\\"iam\\"policy to view the current role assignments."
     ],
     correctAnswer: "D"
   },
@@ -1715,7 +1715,7 @@ export const gcpQuestions: Question[] = [
     id: 157,
     question: "You are deploying a production application on Compute Engine. You want to prevent anyone from accidentally destroying the instance by clicking the wrong button. What should you do?",
     options: [
-      "A. Disable the flag ג€Delete boot disk when instance is deleted.ג€",
+      "A. Disable the flag Delete boot disk when instance is deleted.",
       "B. Enable delete protection on the instance.",
       "C. Disable Automatic restart on the instance.",
       "D. Enable Preemptibility on the instance."
@@ -1792,7 +1792,7 @@ export const gcpQuestions: Question[] = [
     id: 164,
     question: "You have experimented with Google Cloud using your own credit card and expensed the costs to your company. Your company wants to streamline the billing process and charge the costs of your projects to their monthly invoice. What should you do?",
     options: [
-      "A. Grant the financial team the IAM role of ג€Billing Account Userג€ on the billing account linked to your credit card.",
+      "A. Grant the financial team the IAM role of Billing Account User on the billing account linked to your credit card.",
       "B. Set up BigQuery billing export and grant your financial department IAM access to query the data.",
       "C. Create a ticket with Google Billing Support to ask them to send the invoice to your company.",
       "D. Change the billing account of your projects to the billing account of your company."
@@ -1837,7 +1837,7 @@ export const gcpQuestions: Question[] = [
     question: "You are working for a hospital that stores its medical images in an on-premises data room. The hospital wants to use Cloud Storage for archival storage of these images. The hospital wants an automated process to upload any new medical images to Cloud Storage. You need to design and implement a solution. What should you do?",
     options: [
       "A. Create a Pub/Sub topic, and enable a Cloud Storage trigger for the Pub/Sub topic. Create an application that sends all medical images to the Pub/Sub topic.",
-      "B. Deploy a Dataflow job from the batch template, ג€Datastore to Cloud Storage.ג€ Schedule the batch job on the desired interval.",
+      "B. Deploy a Dataflow job from the batch template, Datastore to Cloud Storage. Schedule the batch job on the desired interval.",
       "C. Create a script that uses the gsutil command line interface to synchronize the on-premises storage with Cloud Storage. Schedule the script as a cron job.",
       "D. In the Cloud Console, go to Cloud Storage. Upload the relevant images to the appropriate bucket."
     ],
@@ -1860,8 +1860,8 @@ export const gcpQuestions: Question[] = [
     options: [
       "A. Use the command gcloud auth login and point it to the private key.",
       "B. Use the command gcloud auth activate-service-account and point it to the private key.",
-      "C. Place the private key file in the installation directory of the Cloud SDK and rename it to ג€credentials.jsonג€.",
-      "D. Place the private key file in your home directory and rename it to ג€GOOGLE_APPLICATION_CREDENTIALSג€."
+      "C. Place the private key file in the installation directory of the Cloud SDK and rename it to credentials.json.",
+      "D. Place the private key file in your home directory and rename it to GOOGLE_APPLICATION_CREDENTIALS."
     ],
     correctAnswer: "B"
   },
@@ -2208,7 +2208,7 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 202,
-    question: "You have an application that runs on Compute Engine VM instances in a custom Virtual Private Cloud (VPC). Your company’s security policies only allow the use of internal IP addresses on VM instances and do not let VM instances connect to the internet. You need to ensure that the application can access a file hosted in a Cloud Storage bucket within your project. What should you do?",
+    question: "You have an application that runs on Compute Engine VM instances in a custom Virtual Private Cloud (VPC). Your companys security policies only allow the use of internal IP addresses on VM instances and do not let VM instances connect to the internet. You need to ensure that the application can access a file hosted in a Cloud Storage bucket within your project. What should you do?",
     options: [
       "A. Enable Private Service Access on the Cloud Storage Bucket.",
       "B. Add storage.googleapis.com to the list of restricted services in a VPC Service Controls perimeter and add your project to the list of protected projects.",
@@ -2222,9 +2222,9 @@ export const gcpQuestions: Question[] = [
     question: "Your company completed the acquisition of a startup and is now merging the IT systems of both companies. The startup had a production Google Cloud project in their organization. You need to move this project into your organization and ensure that the project is billed to your organization. You want to accomplish this task with minimal effort. What should you do?",
     options: [
       "A. Use the projects.move method to move the project to your organization. Update the billing account of the project to that of your organization.",
-      "B. Ensure that you have an Organization Administrator Identity and Access Management (IAM) role assigned to you in both organizations. Navigate to the Resource Manager in the startup’s Google Cloud organization, and drag the project to your company\\'s organization.",
-      "C. Create a Private Catalog for the Google Cloud Marketplace, and upload the resources of the startup\\'s production project to the Catalog. Share the Catalog with your organization, and deploy the resources in your company’s project.",
-      "D. Create an infrastructure-as-code template for all resources in the project by using Terraform, and deploy that template to a new project in your organization. Delete the project from the startup’s Google Cloud organization."
+      "B. Ensure that you have an Organization Administrator Identity and Access Management (IAM) role assigned to you in both organizations. Navigate to the Resource Manager in the startups Google Cloud organization, and drag the project to your company\\'s organization.",
+      "C. Create a Private Catalog for the Google Cloud Marketplace, and upload the resources of the startup\\'s production project to the Catalog. Share the Catalog with your organization, and deploy the resources in your companys project.",
+      "D. Create an infrastructure-as-code template for all resources in the project by using Terraform, and deploy that template to a new project in your organization. Delete the project from the startups Google Cloud organization."
     ],
     correctAnswer: "A"
   },
@@ -2254,10 +2254,10 @@ export const gcpQuestions: Question[] = [
     id: 206,
     question: "You have two subnets (subnet-a and subnet-b) in the default VPC. Your database servers are running in subnet-a. Your application servers and web servers are running in subnet-b. You want to configure a firewall rule that only allows database traffic from the application servers to the database servers. What should you do?",
     options: [
-      "A. • Create service accounts sa-app and sa-db.• Associate service account sa-app with the application servers and the service account sa-db with the database servers.• Create an ingress firewall rule to allow network traffic from source service account sa-app to target service account sa-db.",
-      "B. • Create network tags app-server and db-server.• Add the app-server tag to the application servers and the db-server tag to the database servers.• Create an egress firewall rule to allow network traffic from source network tag app-server to target network tag db-server.",
-      "C. • Create a service account sa-app and a network tag db-server.• Associate the service account sa-app with the application servers and the network tag db-server with the database servers.• Create an ingress firewall rule to allow network traffic from source VPC IP addresses and target the subnet-a IP addresses.",
-      "D. • Create a network tag app-server and service account sa-db.• Add the tag to the application servers and associate the service account with the database servers.• Create an egress firewall rule to allow network traffic from source network tag app-server to target service account sa-db."
+      "A.  Create service accounts sa-app and sa-db. Associate service account sa-app with the application servers and the service account sa-db with the database servers. Create an ingress firewall rule to allow network traffic from source service account sa-app to target service account sa-db.",
+      "B.  Create network tags app-server and db-server. Add the app-server tag to the application servers and the db-server tag to the database servers. Create an egress firewall rule to allow network traffic from source network tag app-server to target network tag db-server.",
+      "C.  Create a service account sa-app and a network tag db-server. Associate the service account sa-app with the application servers and the network tag db-server with the database servers. Create an ingress firewall rule to allow network traffic from source VPC IP addresses and target the subnet-a IP addresses.",
+      "D.  Create a network tag app-server and service account sa-db. Add the tag to the application servers and associate the service account with the database servers. Create an egress firewall rule to allow network traffic from source network tag app-server to target service account sa-db."
     ],
     correctAnswer: "A"
   },
@@ -2285,7 +2285,7 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 209,
-    question: "Your continuous integration and delivery (CI/CD) server can’t execute Google Cloud actions in a specific project because of permission issues. You need to validate whether the used service account has the appropriate roles in the specific project.What should you do?",
+    question: "Your continuous integration and delivery (CI/CD) server cant execute Google Cloud actions in a specific project because of permission issues. You need to validate whether the used service account has the appropriate roles in the specific project.What should you do?",
     options: [
       "A. Open the Google Cloud console, and check the Identity and Access Management (IAM) roles assigned to the service account at the project or inherited from the folder or organization levels.",
       "B. Open the Google Cloud console, and check the organization policies.",
@@ -2318,7 +2318,7 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 212,
-    question: "You are running a web application on Cloud Run for a few hundred users. Some of your users complain that the initial web page of the application takes much longer to load than the following pages. You want to follow Google’s recommendations to mitigate the issue. What should you do?",
+    question: "You are running a web application on Cloud Run for a few hundred users. Some of your users complain that the initial web page of the application takes much longer to load than the following pages. You want to follow Googles recommendations to mitigate the issue. What should you do?",
     options: [
       "A. Set the minimum number of instances for your Cloud Run service to 3.",
       "B. Set the concurrency number to 1 for your Cloud Run service.",
@@ -2351,12 +2351,12 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 215,
-    question: "Your company requires all developers to have the same permissions, regardless of the Google Cloud project they are working on. Your company’s security policy also restricts developer permissions to Compute Engine, Cloud Functions, and Cloud SQL. You want to implement the security policy with minimal effort. What should you do?",
+    question: "Your company requires all developers to have the same permissions, regardless of the Google Cloud project they are working on. Your companys security policy also restricts developer permissions to Compute Engine, Cloud Functions, and Cloud SQL. You want to implement the security policy with minimal effort. What should you do?",
     options: [
-      "A. • Create a custom role with Compute Engine, Cloud Functions, and Cloud SQL permissions in one project within the Google Cloud organization.• Copy the role across all projects created within the organization with the gcloud iam roles copy command.• Assign the role to developers in those projects.",
-      "B. • Add all developers to a Google group in Google Groups for Workspace.• Assign the predefined role of Compute Admin to the Google group at the Google Cloud organization level.",
-      "C. • Add all developers to a Google group in Cloud Identity.• Assign predefined roles for Compute Engine, Cloud Functions, and Cloud SQL permissions to the Google group for each project in the Google Cloud organization.",
-      "D. • Add all developers to a Google group in Cloud Identity.• Create a custom role with Compute Engine, Cloud Functions, and Cloud SQL permissions at the Google Cloud organization level.• Assign the custom role to the Google group."
+      "A.  Create a custom role with Compute Engine, Cloud Functions, and Cloud SQL permissions in one project within the Google Cloud organization. Copy the role across all projects created within the organization with the gcloud iam roles copy command. Assign the role to developers in those projects.",
+      "B.  Add all developers to a Google group in Google Groups for Workspace. Assign the predefined role of Compute Admin to the Google group at the Google Cloud organization level.",
+      "C.  Add all developers to a Google group in Cloud Identity. Assign predefined roles for Compute Engine, Cloud Functions, and Cloud SQL permissions to the Google group for each project in the Google Cloud organization.",
+      "D.  Add all developers to a Google group in Cloud Identity. Create a custom role with Compute Engine, Cloud Functions, and Cloud SQL permissions at the Google Cloud organization level. Assign the custom role to the Google group."
     ],
     correctAnswer: "D"
   },
@@ -2395,7 +2395,7 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 219,
-    question: "You are planning to migrate the following on-premises data management solutions to Google Cloud:• One MySQL cluster for your main database• Apache Kafka for your event streaming platform• One Cloud SQL for PostgreSQL database for your analytical and reporting needsYou want to implement Google-recommended solutions for the migration. You need to ensure that the new solutions provide global scalability and require minimal operational and infrastructure management. What should you do?",
+    question: "You are planning to migrate the following on-premises data management solutions to Google Cloud: One MySQL cluster for your main database Apache Kafka for your event streaming platform One Cloud SQL for PostgreSQL database for your analytical and reporting needsYou want to implement Google-recommended solutions for the migration. You need to ensure that the new solutions provide global scalability and require minimal operational and infrastructure management. What should you do?",
     options: [
       "A. Migrate from MySQL to Cloud SQL, from Kafka to Pub/Sub, and from Cloud SQL for PostgreSQL to BigQuery.",
       "B. Migrate from MySQL to Cloud Spanner, from Kafka to Pub/Sub, and from Cloud SQL for PostgreSQL to BigQuery.",
@@ -2439,7 +2439,7 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 223,
-    question: "Your company is using Google Workspace to manage employee accounts. Anticipated growth will increase the number of personnel from 100 employees to 1,000 employees within 2 years. Most employees will need access to your company’s Google Cloud account. The systems and processes will need to support 10x growth without performance degradation, unnecessary complexity, or security issues. What should you do?",
+    question: "Your company is using Google Workspace to manage employee accounts. Anticipated growth will increase the number of personnel from 100 employees to 1,000 employees within 2 years. Most employees will need access to your companys Google Cloud account. The systems and processes will need to support 10x growth without performance degradation, unnecessary complexity, or security issues. What should you do?",
     options: [
       "A. Migrate the users to Active Directory. Connect the Human Resources system to Active Directory. Turn on Google Cloud Directory Sync (GCDS) for Cloud Identity. Turn on Identity Federation from Cloud Identity to Active Directory.",
       "B. Organize the users in Cloud Identity into groups. Enforce multi-factor authentication in Cloud Identity.",
@@ -2530,8 +2530,8 @@ export const gcpQuestions: Question[] = [
     question: "You have deployed an application on a single Compute Engine instance. The application writes logs to disk. Users start reporting errors with the application. You want to diagnose the problem. What should you do?",
     options: [
       "A. Navigate to Cloud Logging and view the application logs.",
-      "B. Configure a health check on the instance and set a “consecutive successes” Healthy threshold value of 1.",
-      "C. Connect to the instance’s serial console and read the application logs.",
+      "B. Configure a health check on the instance and set a consecutive successes Healthy threshold value of 1.",
+      "C. Connect to the instances serial console and read the application logs.",
       "D. Install and configure the Ops agent and view the logs from Cloud Logging."
     ],
     correctAnswer: "D"
@@ -2571,7 +2571,7 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 235,
-    question: "The DevOps group in your organization needs full control of Compute Engine resources in your development project. However, they should not have permission to create or update any other resources in the project. You want to follow Google’s recommendations for setting permissions for the DevOps group. What should you do?",
+    question: "The DevOps group in your organization needs full control of Compute Engine resources in your development project. However, they should not have permission to create or update any other resources in the project. You want to follow Googles recommendations for setting permissions for the DevOps group. What should you do?",
     options: [
       "A. Grant the basic role roles/viewer and the predefined role roles/compute.admin to the DevOps group.",
       "B. Create an IAM policy and grant all compute.instanceAdmin.* permissions to the policy. Attach the policy to the DevOps group.",
@@ -2617,7 +2617,7 @@ export const gcpQuestions: Question[] = [
     id: 239,
     question: "You are responsible for a web application on Compute Engine. You want your support team to be notified automatically if users experience high latency for at least 5 minutes. You need a Google-recommended solution with no development cost. What should you do?",
     options: [
-      "A. Export Cloud Monitoring metrics to BigQuery and use a Looker Studio dashboard to monitor your web application’s latency.",
+      "A. Export Cloud Monitoring metrics to BigQuery and use a Looker Studio dashboard to monitor your web applications latency.",
       "B. Create an alert policy to send a notification when the HTTP response latency exceeds the specified threshold.",
       "C. Implement an App Engine service which invokes the Cloud Monitoring API and sends a notification in case of anomalies.",
       "D. Use the Cloud Monitoring dashboard to observe latency and take the necessary actions when the response latency exceeds the specified threshold."
@@ -2637,7 +2637,7 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 241,
-    question: "You used the gcloud container clusters command to create two Google Cloud Kubernetes (GKE) clusters: prod-cluster and dev-cluster.• prod-cluster is a standard cluster.• dev-cluster is an auto-pilot cluster.When you run the kubectl get nodes command, you only see the nodes from prod-cluster. Which commands should you run to check the node status for dev-cluster?",
+    question: "You used the gcloud container clusters command to create two Google Cloud Kubernetes (GKE) clusters: prod-cluster and dev-cluster. prod-cluster is a standard cluster. dev-cluster is an auto-pilot cluster.When you run the kubectl get nodes command, you only see the nodes from prod-cluster. Which commands should you run to check the node status for dev-cluster?",
     options: [
       "A. gcloud container clusters get-credentials dev-clusterkubectl get nodes",
       "B. gcloud container clusters update -generate-password dev-cluster kubectl get nodes",
@@ -2648,7 +2648,7 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 242,
-    question: "You recently discovered that your developers are using many service account keys during their development process. While you work on a long term improvement, you need to quickly implement a process to enforce short-lived service account credentials in your company. You have the following requirements:• All service accounts that require a key should be created in a centralized project called pj-sa.• Service account keys should only be valid for one day.You need a Google-recommended solution that minimizes cost. What should you do?",
+    question: "You recently discovered that your developers are using many service account keys during their development process. While you work on a long term improvement, you need to quickly implement a process to enforce short-lived service account credentials in your company. You have the following requirements: All service accounts that require a key should be created in a centralized project called pj-sa. Service account keys should only be valid for one day.You need a Google-recommended solution that minimizes cost. What should you do?",
     options: [
       "A. Implement a Cloud Run job to rotate all service account keys periodically in pj-sa. Enforce an org policy to deny service account key creation with an exception to pj-sa.",
       "B. Implement a Kubernetes CronJob to rotate all service account keys periodically. Disable attachment of service accounts to resources in all projects with an exception to pj-sa.",
@@ -2670,12 +2670,12 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 244,
-    question: "You have a Bigtable instance that consists of three nodes that store personally identifiable information (PII) data. You need to log all read or write operations, including any metadata or configuration reads of this database table, in your company’s Security Information and Event Management (SIEM) system. What should you do?",
+    question: "You have a Bigtable instance that consists of three nodes that store personally identifiable information (PII) data. You need to log all read or write operations, including any metadata or configuration reads of this database table, in your companys Security Information and Event Management (SIEM) system. What should you do?",
     options: [
-      "A. • Navigate to Cloud Monitoring in the Google Cloud console, and create a custom monitoring job for the Bigtable instance to track all changes.• Create an alert by using webhook endpoints, with the SIEM endpoint as a receiver.",
-      "B. • Navigate to the Audit Logs page in the Google Cloud console, and enable Admin Write logs for the Bigtable instance.• Create a Cloud Functions instance to export logs from Cloud Logging to your SIEM.",
-      "C. • Navigate to the Audit Logs page in the Google Cloud console, and enable Data Read, Data Write and Admin Read logs for the Bigtable instance.• Create a Pub/Sub topic as a Cloud Logging sink destination, and add your SIEM as a subscriber to the topic.",
-      "D. • Install the Ops Agent on the Bigtable instance during configuration.• Create a service account with read permissions for the Bigtable instance.• Create a custom Dataflow job with this service account to export logs to the company’s SIEM system."
+      "A.  Navigate to Cloud Monitoring in the Google Cloud console, and create a custom monitoring job for the Bigtable instance to track all changes. Create an alert by using webhook endpoints, with the SIEM endpoint as a receiver.",
+      "B.  Navigate to the Audit Logs page in the Google Cloud console, and enable Admin Write logs for the Bigtable instance. Create a Cloud Functions instance to export logs from Cloud Logging to your SIEM.",
+      "C.  Navigate to the Audit Logs page in the Google Cloud console, and enable Data Read, Data Write and Admin Read logs for the Bigtable instance. Create a Pub/Sub topic as a Cloud Logging sink destination, and add your SIEM as a subscriber to the topic.",
+      "D.  Install the Ops Agent on the Bigtable instance during configuration. Create a service account with read permissions for the Bigtable instance. Create a custom Dataflow job with this service account to export logs to the companys SIEM system."
     ],
     correctAnswer: "C"
   },
@@ -2692,7 +2692,7 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 246,
-    question: "Your company wants to migrate their on-premises workloads to Google Cloud. The current on-premises workloads consist of:• A Flask web application• A backend API• A scheduled long-running background job for ETL and reportingYou need to keep operational costs low. You want to follow Google-recommended practices to migrate these workloads to serverless solutions on Google Cloud. What should you do?",
+    question: "Your company wants to migrate their on-premises workloads to Google Cloud. The current on-premises workloads consist of: A Flask web application A backend API A scheduled long-running background job for ETL and reportingYou need to keep operational costs low. You want to follow Google-recommended practices to migrate these workloads to serverless solutions on Google Cloud. What should you do?",
     options: [
       "A. Migrate the web application to App Engine and the backend API to Cloud Run. Use Cloud Tasks to run your background job on Compute Engine.",
       "B. Migrate the web application to App Engine and the backend API to Cloud Run. Use Cloud Tasks to run your background job on Cloud Run.",
@@ -2705,10 +2705,10 @@ export const gcpQuestions: Question[] = [
     id: 247,
     question: "Your company is moving its continuous integration and delivery (CI/CD) pipeline to Compute Engine instances. The pipeline will manage the entire cloud infrastructure through code. How can you ensure that the pipeline has appropriate permissions while your system is following security best practices?",
     options: [
-      "A. • Attach a single service account to the compute instances.• Add minimal rights to the service account.• Allow the service account to impersonate a Cloud Identity user with elevated permissions to create, update, or delete resources.",
-      "B. • Add a step for human approval to the CI/CD pipeline before the execution of the infrastructure provisioning.• Use the human approvals IAM account for the provisioning.",
-      "C. • Attach a single service account to the compute instances.• Add all required Identity and Access Management (IAM) permissions to this service account to create, update, or delete resources.",
-      "D. • Create multiple service accounts, one for each pipeline with the appropriate minimal Identity and Access Management (IAM) permissions.• Use a secret manager service to store the key files of the service accounts.• Allow the CI/CD pipeline to request the appropriate secrets during the execution of the pipeline."
+      "A.  Attach a single service account to the compute instances. Add minimal rights to the service account. Allow the service account to impersonate a Cloud Identity user with elevated permissions to create, update, or delete resources.",
+      "B.  Add a step for human approval to the CI/CD pipeline before the execution of the infrastructure provisioning. Use the human approvals IAM account for the provisioning.",
+      "C.  Attach a single service account to the compute instances. Add all required Identity and Access Management (IAM) permissions to this service account to create, update, or delete resources.",
+      "D.  Create multiple service accounts, one for each pipeline with the appropriate minimal Identity and Access Management (IAM) permissions. Use a secret manager service to store the key files of the service accounts. Allow the CI/CD pipeline to request the appropriate secrets during the execution of the pipeline."
     ],
     correctAnswer: "A"
   },
@@ -2736,7 +2736,7 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 250,
-    question: "You need to migrate invoice documents stored on-premises to Cloud Storage. The documents have the following storage requirements:• Documents must be kept for five years.• Up to five revisions of the same invoice document must be stored, to allow for corrections.• Documents older than 365 days should be moved to lower cost storage tiers.You want to follow Google-recommended practices to minimize your operational and development costs. What should you do?",
+    question: "You need to migrate invoice documents stored on-premises to Cloud Storage. The documents have the following storage requirements: Documents must be kept for five years. Up to five revisions of the same invoice document must be stored, to allow for corrections. Documents older than 365 days should be moved to lower cost storage tiers.You want to follow Google-recommended practices to minimize your operational and development costs. What should you do?",
     options: [
       "A. Enable retention policies on the bucket, and use Cloud Scheduler to invoke a Cloud Function to move or delete your documents based on their metadata.",
       "B. Enable retention policies on the bucket, use lifecycle rules to change the storage classes of the objects, set the number of versions, and delete old files.",
@@ -2782,10 +2782,10 @@ export const gcpQuestions: Question[] = [
     id: 254,
     question: "Your company\\'s security vulnerability management policy wants a member of the security team to have visibility into vulnerabilities and other OS metadata for a specific Compute Engine instance. This Compute Engine instance hosts a critical application in your Google Cloud project. You need to implement your company\\'s security vulnerability management policy. What should you do?",
     options: [
-      "A. • Ensure that the Ops Agent is installed on the Compute Engine instance.• Create a custom metric in the Cloud Monitoring dashboard.• Provide the security team member with access to this dashboard.",
-      "B. • Ensure that the Ops Agent is installed on the Compute Engine instance.• Provide the security team member roles/osconfig.inventoryViewer permission.",
-      "C. • Ensure that the OS Config agent is installed on the Compute Engine instance.• Provide the security team member roles/osconfig.vulnerabilityReportViewer permission.",
-      "D. • Ensure that the OS Config agent is installed on the Compute Engine instance.• Create a log sink to BigQuery dataset.• Provide the security team member with access to this dataset."
+      "A.  Ensure that the Ops Agent is installed on the Compute Engine instance. Create a custom metric in the Cloud Monitoring dashboard. Provide the security team member with access to this dashboard.",
+      "B.  Ensure that the Ops Agent is installed on the Compute Engine instance. Provide the security team member roles/osconfig.inventoryViewer permission.",
+      "C.  Ensure that the OS Config agent is installed on the Compute Engine instance. Provide the security team member roles/osconfig.vulnerabilityReportViewer permission.",
+      "D.  Ensure that the OS Config agent is installed on the Compute Engine instance. Create a log sink to BigQuery dataset. Provide the security team member with access to this dataset."
     ],
     correctAnswer: "C"
   },
@@ -2890,7 +2890,7 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 264,
-    question: "The core business of your company is to rent out construction equipment at large scale. All the equipment that is being rented out has been equipped with multiple sensors that send event information every few seconds. These signals can vary from engine status, distance traveled, fuel level, and more. Customers are billed based on the consumption monitored by these sensors. You expect high throughput – up to thousands of events per hour per device – and need to retrieve consistent data based on the time of the event. Storing and retrieving individual signals should be atomic. What should you do?",
+    question: "The core business of your company is to rent out construction equipment at large scale. All the equipment that is being rented out has been equipped with multiple sensors that send event information every few seconds. These signals can vary from engine status, distance traveled, fuel level, and more. Customers are billed based on the consumption monitored by these sensors. You expect high throughput  up to thousands of events per hour per device  and need to retrieve consistent data based on the time of the event. Storing and retrieving individual signals should be atomic. What should you do?",
     options: [
       "A. Create files in Cloud Storage as data comes in.",
       "B. Create a file in Filestore per device, and append new data to that file.",
@@ -2912,7 +2912,7 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 266,
-    question: "You are planning to migrate your on-premises data to Google Cloud. The data includes:• 200 TB of video files in SAN storage• Data warehouse data stored on Amazon Redshift• 20 GB of PNG files stored on an S3 bucketYou need to load the video files into a Cloud Storage bucket, transfer the data warehouse data into BigQuery, and load the PNG files into a second Cloud Storage bucket. You want to follow Google-recommended practices and avoid writing any code for the migration. What should you do?",
+    question: "You are planning to migrate your on-premises data to Google Cloud. The data includes: 200 TB of video files in SAN storage Data warehouse data stored on Amazon Redshift 20 GB of PNG files stored on an S3 bucketYou need to load the video files into a Cloud Storage bucket, transfer the data warehouse data into BigQuery, and load the PNG files into a second Cloud Storage bucket. You want to follow Google-recommended practices and avoid writing any code for the migration. What should you do?",
     options: [
       "A. Use gcloud storage for the video files, Dataflow for the data warehouse data, and Storage Transfer Service for the PNG files.",
       "B. Use Transfer Appliance for the videos, BigQuery Data Transfer Service for the data warehouse data, and Storage Transfer Service for the PNG files.",
@@ -2945,7 +2945,7 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 269,
-    question: "You are deploying an application on Google Cloud that requires a relational database for storage. To satisfy your company’s security policies, your application must connect to your database through an encrypted and authenticated connection that requires minimal management and integrates with Identity and Access Management (IAM). What should you do?",
+    question: "You are deploying an application on Google Cloud that requires a relational database for storage. To satisfy your companys security policies, your application must connect to your database through an encrypted and authenticated connection that requires minimal management and integrates with Identity and Access Management (IAM). What should you do?",
     options: [
       "A. Deploy a Cloud SQL database with the SSL mode set to encrypted only, configure SSL/TLS client certificates, and configure a database user and password.",
       "B. Deploy a Cloud SQL database with the SSL mode set to encrypted only, configure SSL/TLS client certificates, and configure IAM database authentication.",
@@ -2967,18 +2967,18 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 271,
-    question: "Your company is running a critical workload on a single Compute Engine VM instance. Your company\\'s disaster recovery policies require you to back up the entire instance’s disk data every day. The backups must be retained for 7 days. You must configure a backup solution that complies with your company’s security policies and requires minimal setup and configuration. What should you do?",
+    question: "Your company is running a critical workload on a single Compute Engine VM instance. Your company\\'s disaster recovery policies require you to back up the entire instances disk data every day. The backups must be retained for 7 days. You must configure a backup solution that complies with your companys security policies and requires minimal setup and configuration. What should you do?",
     options: [
       "A. Configure the instance to use persistent disk asynchronous replication.",
       "B. Configure daily scheduled persistent disk snapshots with a retention period of 7 days.",
       "C. Configure Cloud Scheduler to trigger a Cloud Function each day that creates a new machine image and deletes machine images that are older than 7 days.",
-      "D. Configure a bash script using gsutil to run daily through a cron job. Copy the disk’s files to a Cloud Storage bucket with archive storage class and an object lifecycle rule to delete the objects after 7 days."
+      "D. Configure a bash script using gsutil to run daily through a cron job. Copy the disks files to a Cloud Storage bucket with archive storage class and an object lifecycle rule to delete the objects after 7 days."
     ],
     correctAnswer: "B"
   },
   {
     id: 272,
-    question: "Your company requires that Google Cloud products are created with a specific configuration to comply with your company’s security policies. You need to implement a mechanism that will allow software engineers at your company to deploy and update Google Cloud products in a preconfigured and approved manner. What should you do?",
+    question: "Your company requires that Google Cloud products are created with a specific configuration to comply with your companys security policies. You need to implement a mechanism that will allow software engineers at your company to deploy and update Google Cloud products in a preconfigured and approved manner. What should you do?",
     options: [
       "A. Create Java packages that utilize the Google Cloud Client Libraries for Java to configure Google Cloud products. Store and share the packages in a source code repository.",
       "B. Create bash scripts that utilize the Google Cloud CLI to configure Google Cloud products. Store and share the bash scripts in a source code repository.",
@@ -3003,9 +3003,9 @@ export const gcpQuestions: Question[] = [
     question: "You are deploying a web application using Compute Engine. You created a managed instance group (MIG) to host the application. You want to follow Google-recommended practices to implement a secure and highly available solution. What should you do?",
     options: [
       "A. Use SSL proxy load balancing for the MIG and an A record in your DNS private zone with the load balancer\\'s IP address.",
-      "B. Use SSL proxy load balancing for the MIG and a CNAME record in your DNS public zone with the load balancer’s IP address.",
-      "C. Use HTTP(S) load balancing for the MIG and a CNAME record in your DNS private zone with the load balancer’s IP address.",
-      "D. Use HTTP(S) load balancing for the MIG and an A record in your DNS public zone with the load balancer’s IP address."
+      "B. Use SSL proxy load balancing for the MIG and a CNAME record in your DNS public zone with the load balancers IP address.",
+      "C. Use HTTP(S) load balancing for the MIG and a CNAME record in your DNS private zone with the load balancers IP address.",
+      "D. Use HTTP(S) load balancing for the MIG and an A record in your DNS public zone with the load balancers IP address."
     ],
     correctAnswer: "D"
   },
@@ -3176,7 +3176,7 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 290,
-    question: "Your company would like to store invoices and other financial documents in Google Cloud. You need to identify a Google-managed solution to store this information for your company. You must ensure that the documents are kept for a duration of three years. Your company’s analysts need frequent access to invoices from the past six months. After six months, invoices should be archived for audit purposes only. You want to minimize costs and follow Google-recommended practices. What should you do?",
+    question: "Your company would like to store invoices and other financial documents in Google Cloud. You need to identify a Google-managed solution to store this information for your company. You must ensure that the documents are kept for a duration of three years. Your companys analysts need frequent access to invoices from the past six months. After six months, invoices should be archived for audit purposes only. You want to minimize costs and follow Google-recommended practices. What should you do?",
     options: [
       "A. Use Cloud Storage with Object Lifecycle Management to change the object storage class to Coldline after six months.",
       "B. Use Cloud Storage with Object Lifecycle Management to change the object storage class to Standard after six months.",
@@ -3209,7 +3209,7 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 293,
-    question: "You work for a financial services company that operates as a stock market broker. Your company is planning to migrate to Google Cloud. You need to plan the network design in Google Cloud. Your design must:• Minimize the latency between all production systems.• Minimize costs related to your development environment.What should you do?",
+    question: "You work for a financial services company that operates as a stock market broker. Your company is planning to migrate to Google Cloud. You need to plan the network design in Google Cloud. Your design must: Minimize the latency between all production systems. Minimize costs related to your development environment.What should you do?",
     options: [
       "A. Create a VPC in the Standard Tier and one in the Premium Tier. Deploy production workloads in the Standard Tier and development workloads in the Premium Tier.",
       "B. Create a VPC in the Standard Tier and one in the Premium Tier. Deploy development workloads in the Standard Tier and production workloads in the Premium Tier.",
@@ -3264,7 +3264,7 @@ export const gcpQuestions: Question[] = [
   },
   {
     id: 298,
-    question: "You are managing the security configuration of your company’s Google Cloud organization. The Operations team needs specific permissions on both a Google Kubernetes Engine (GKE) cluster and a Cloud SQL instance. Two predefined Identity and Access Management (IAM) roles exist that contain a subset of the permissions needed by the team. You need to configure the necessary IAM permissions for this team while following Google-recommended practices. What should you do?",
+    question: "You are managing the security configuration of your companys Google Cloud organization. The Operations team needs specific permissions on both a Google Kubernetes Engine (GKE) cluster and a Cloud SQL instance. Two predefined Identity and Access Management (IAM) roles exist that contain a subset of the permissions needed by the team. You need to configure the necessary IAM permissions for this team while following Google-recommended practices. What should you do?",
     options: [
       "A. Create a custom IAM role that combines the permissions from the two relevant predefined roles.",
       "B. Grant the team the two predefined IAM roles.",
@@ -3293,7 +3293,7 @@ export const gcpQuestions: Question[] = [
       "C. Migrate your data to Firebase.",
       "D. Migrate your data to Bigtable."
     ],
-    correctAnswer: "A"
+    correctAnswer: "C"
   },
   {
     id: 301,
@@ -3304,7 +3304,7 @@ export const gcpQuestions: Question[] = [
       "C. Use Cloud Run and GPU as a platform to run the fine-tuning jobs.",
       "D. Use Google Kubernetes Engine (GKE) and hardware accelerators as a platform to run the fine-tuning jobs."
     ],
-    correctAnswer: "D"
+    correctAnswer: "B"
   },
   {
     id: 302,
