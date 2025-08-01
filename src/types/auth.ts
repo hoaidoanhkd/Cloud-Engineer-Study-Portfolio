@@ -3,18 +3,14 @@
  */
 
 export interface User {
-  id: string;
+  id: number;
   email: string;
   name: string;
   avatar?: string;
-  joinDate: Date;
-  totalQuizzes: number;
-  totalCorrect: number;
-  totalTime: number; // in minutes
   level: number;
   xp: number;
-  streak: number; // consecutive days
-  achievements: string[];
+  streak: number;
+  joinDate: Date;
 }
 
 export interface AuthState {

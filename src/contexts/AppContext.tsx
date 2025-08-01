@@ -1,13 +1,10 @@
 /**
- * Global application context for managing quiz state, portfolio, and statistics
+ * Global application context for managing quiz state and statistics
  */
 
 import React, { createContext, useContext, useReducer, ReactNode } from 'react';
 import { AppState, Question, UserAnswer, Portfolio, KeywordStats } from '../types';
-import { mockQuestions } from '../data/mockData';
 import { useAuth } from './AuthContext';
-import '../data/demoUser'; // Initialize demo user
-import { databaseService, DatabaseQuestion } from '../services/database';
 
 interface AppContextType {
   state: AppState;
@@ -16,11 +13,6 @@ interface AppContextType {
   submitAnswer: (questionId: number, selectedAnswer: string) => void;
   updatePortfolio: (keywords: string[], isCorrect: boolean) => void;
   getKeywordHeatmapData: () => any[];
-  // Question management functions
-  addQuestions: (questions: Question[]) => void;
-  updateQuestion: (question: Question) => void;
-  deleteQuestion: (questionId: number) => void;
-  refreshQuestions: () => Promise<void>;
 }
 
 type AppAction =
@@ -28,32 +20,7 @@ type AppAction =
   | { type: 'SUBMIT_ANSWER'; payload: UserAnswer }
   | { type: 'UPDATE_PORTFOLIO'; payload: { keywords: string[]; isCorrect: boolean } }
   | { type: 'NEXT_QUESTION' }
-  | { type: 'FINISH_QUIZ' }
-  | { type: 'ADD_QUESTIONS'; payload: { questions: Question[] } }
-  | { type: 'UPDATE_QUESTION'; payload: { question: Question } }
-  | { type: 'DELETE_QUESTION'; payload: { questionId: number } }
-  | { type: 'LOAD_QUESTIONS'; payload: { questions: Question[] } };
-
-/**
- * Load questions from SQLite database
- */
-const loadQuestionsFromDatabase = async (): Promise<Question[]> => {
-  try {
-    const dbQuestions = await databaseService.getAllQuestions();
-    return dbQuestions
-      .filter(q => q.question && q.options && q.correct_answer && q.topic) // Validate required fields
-      .map((q: DatabaseQuestion) => ({
-        ...q,
-        keywords: Array.isArray(q.keywords) ? q.keywords : [],
-        options: Array.isArray(q.options) ? q.options : [],
-        created_at: new Date(q.created_at),
-        updated_at: new Date(q.updated_at)
-      }));
-  } catch (error) {
-    console.error('Error loading questions from database:', error);
-    return mockQuestions;
-  }
-};
+  | { type: 'FINISH_QUIZ' };
 
 /**
  * Load user answers from localStorage
@@ -99,30 +66,11 @@ const loadPortfolioFromStorage = (): Portfolio => {
  */
 const loadKeywordStatsFromStorage = (): KeywordStats => {
   try {
-    const stored = localStorage.getItem('gcp-quiz-stats');
+    const stored = localStorage.getItem('gcp-quiz-keyword-stats');
     return stored ? JSON.parse(stored) : {};
   } catch (error) {
     console.error('Error loading keyword stats from storage:', error);
     return {};
-  }
-};
-
-const initialState: AppState = {
-  questions: [], // Will be loaded asynchronously
-  userAnswers: loadUserAnswersFromStorage(),
-  keywordStats: loadKeywordStatsFromStorage(),
-  portfolio: loadPortfolioFromStorage(),
-  currentQuiz: null,
-};
-
-/**
- * Save questions to localStorage
- */
-const saveQuestionsToStorage = (questions: Question[]) => {
-  try {
-    localStorage.setItem('gcp-quiz-questions', JSON.stringify(questions));
-  } catch (error) {
-    console.error('Error saving questions to storage:', error);
   }
 };
 
@@ -153,7 +101,7 @@ const savePortfolioToStorage = (portfolio: Portfolio) => {
  */
 const saveKeywordStatsToStorage = (stats: KeywordStats) => {
   try {
-    localStorage.setItem('gcp-quiz-stats', JSON.stringify(stats));
+    localStorage.setItem('gcp-quiz-keyword-stats', JSON.stringify(stats));
   } catch (error) {
     console.error('Error saving keyword stats to storage:', error);
   }
@@ -161,63 +109,66 @@ const saveKeywordStatsToStorage = (stats: KeywordStats) => {
 
 function appReducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
-    case 'LOAD_QUESTIONS':
-      return {
-        ...state,
-        questions: action.payload.questions,
-      };
-
-    case 'ADD_QUESTIONS': {
-      const newQuestions = [...state.questions, ...action.payload.questions];
-      return {
-        ...state,
-        questions: newQuestions,
-      };
-    }
-
-    case 'UPDATE_QUESTION': {
-      const updatedQuestions = state.questions.map(q =>
-        q.id === action.payload.question.id ? action.payload.question : q
-      );
-      return {
-        ...state,
-        questions: updatedQuestions,
-      };
-    }
-
-    case 'DELETE_QUESTION': {
-      const filteredQuestions = state.questions.filter(q => q.id !== action.payload.questionId);
-      return {
-        ...state,
-        questions: filteredQuestions,
-      };
-    }
-
     case 'START_QUIZ':
       return {
         ...state,
         currentQuiz: {
-          questions: action.payload.questions || [],
+          questions: action.payload.questions,
           currentIndex: 0,
-          startTime: new Date(),
           answers: [],
-        },
+          startTime: new Date()
+        }
       };
 
     case 'SUBMIT_ANSWER':
-      if (!state.currentQuiz) return state;
+      const updatedAnswers = [...state.userAnswers];
+      const existingIndex = updatedAnswers.findIndex(a => a.questionId === action.payload.questionId);
       
-      const newAnswers = [...state.currentQuiz.answers, action.payload];
-      const allUserAnswers = [...state.userAnswers, action.payload];
-      saveUserAnswersToStorage(allUserAnswers);
+      if (existingIndex >= 0) {
+        updatedAnswers[existingIndex] = action.payload;
+      } else {
+        updatedAnswers.push(action.payload);
+      }
+      
+      saveUserAnswersToStorage(updatedAnswers);
       
       return {
         ...state,
-        userAnswers: allUserAnswers,
-        currentQuiz: {
+        userAnswers: updatedAnswers,
+        currentQuiz: state.currentQuiz ? {
           ...state.currentQuiz,
-          answers: newAnswers,
-        },
+          answers: [...state.currentQuiz.answers, action.payload]
+        } : null
+      };
+
+    case 'UPDATE_PORTFOLIO':
+      const { keywords, isCorrect } = action.payload;
+      const updatedPortfolio = { ...state.portfolio };
+      
+      keywords.forEach(keyword => {
+        if (!updatedPortfolio[keyword]) {
+          updatedPortfolio[keyword] = {
+            totalQuestions: 0,
+            correctAnswers: 0,
+            accuracy: 0,
+            lastUpdated: new Date()
+          };
+        }
+        
+        updatedPortfolio[keyword].totalQuestions++;
+        if (isCorrect) {
+          updatedPortfolio[keyword].correctAnswers++;
+        }
+        updatedPortfolio[keyword].accuracy = 
+          (updatedPortfolio[keyword].correctAnswers / updatedPortfolio[keyword].totalQuestions) * 100;
+        updatedPortfolio[keyword].lastUpdated = new Date();
+      });
+      
+      savePortfolioToStorage(updatedPortfolio);
+      
+      return {
+        ...state,
+        portfolio: updatedPortfolio
       };
 
     case 'NEXT_QUESTION':
@@ -227,52 +178,14 @@ function appReducer(state: AppState, action: AppAction): AppState {
         ...state,
         currentQuiz: {
           ...state.currentQuiz,
-          currentIndex: state.currentQuiz.currentIndex + 1,
-        },
-      };
-
-    case 'UPDATE_PORTFOLIO':
-      const { keywords, isCorrect } = action.payload;
-      const today = new Date().toISOString().split('T')[0];
-      
-      const newPortfolio = { ...state.portfolio };
-      const newKeywordStats = { ...state.keywordStats };
-      
-      keywords.forEach(keyword => {
-        // Update portfolio
-        if (!newPortfolio[keyword]) {
-          newPortfolio[keyword] = { credit: 100, growth: 0, lastUpdated: new Date() };
+          currentIndex: state.currentQuiz.currentIndex + 1
         }
-        
-        const multiplier = isCorrect ? 1.05 : 0.95;
-        const oldCredit = newPortfolio[keyword].credit;
-        newPortfolio[keyword].credit *= multiplier;
-        newPortfolio[keyword].growth = ((newPortfolio[keyword].credit - oldCredit) / oldCredit) * 100;
-        newPortfolio[keyword].lastUpdated = new Date();
-        
-        // Update keyword stats (only for wrong answers)
-        if (!isCorrect) {
-          if (!newKeywordStats[keyword]) {
-            newKeywordStats[keyword] = {};
-          }
-          newKeywordStats[keyword][today] = (newKeywordStats[keyword][today] || 0) + 1;
-        }
-      });
-      
-      // Save to localStorage
-      savePortfolioToStorage(newPortfolio);
-      saveKeywordStatsToStorage(newKeywordStats);
-      
-      return {
-        ...state,
-        portfolio: newPortfolio,
-        keywordStats: newKeywordStats,
       };
 
     case 'FINISH_QUIZ':
       return {
         ...state,
-        currentQuiz: null,
+        currentQuiz: null
       };
 
     default:
@@ -283,43 +196,37 @@ function appReducer(state: AppState, action: AppAction): AppState {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(appReducer, initialState);
-
-  // Load questions from database on mount
-  React.useEffect(() => {
-    loadQuestionsFromDatabase()
-      .then(questions => {
-        dispatch({ type: 'LOAD_QUESTIONS', payload: { questions } });
-      })
-      .catch(error => {
-        console.error('Failed to load questions:', error);
-        dispatch({ type: 'LOAD_QUESTIONS', payload: { questions: [] } });
-      });
-  }, []);
-
-
+  const { state: authState } = useAuth();
+  
+  const [state, dispatch] = useReducer(appReducer, {
+    questions: [],
+    userAnswers: loadUserAnswersFromStorage(),
+    portfolio: loadPortfolioFromStorage(),
+    keywordStats: loadKeywordStatsFromStorage(),
+    currentQuiz: null
+  });
 
   const submitAnswer = (questionId: number, selectedAnswer: string) => {
     const question = state.questions.find(q => q.id === questionId);
-    if (!question) {
-      console.error('Question not found:', questionId);
-      return;
-    }
+    if (!question) return;
 
-    const isCorrect = selectedAnswer.trim() === question.correct_answer.trim();
+    const isCorrect = question.correct_answer === selectedAnswer;
+    
     const userAnswer: UserAnswer = {
       questionId,
       selectedAnswer,
       isCorrect,
-      timestamp: new Date(),
+      timestamp: new Date()
     };
 
     dispatch({ type: 'SUBMIT_ANSWER', payload: userAnswer });
     
     // Update portfolio with question keywords
-    const keywords = Array.isArray(question.keywords) ? question.keywords : [];
-    if (keywords.length > 0) {
-      dispatch({ type: 'UPDATE_PORTFOLIO', payload: { keywords, isCorrect } });
+    if (question.keywords && Array.isArray(question.keywords)) {
+      dispatch({ 
+        type: 'UPDATE_PORTFOLIO', 
+        payload: { keywords: question.keywords, isCorrect } 
+      });
     }
   };
 
@@ -328,102 +235,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const getKeywordHeatmapData = () => {
-    const heatmapData = [];
-    const keywords = Object.keys(state.keywordStats);
-    
-    keywords.forEach(keyword => {
-      const dates = Object.keys(state.keywordStats[keyword]);
-      dates.forEach(date => {
-        heatmapData.push({
-          keyword,
-          date,
-          value: state.keywordStats[keyword][date],
-        });
-      });
-    });
-    
-    return heatmapData;
-  };
-
-  const addQuestions = async (questions: Question[]) => {
-    try {
-      // Reload all questions from database to ensure sync
-      const allQuestions = await databaseService.getAllQuestions();
-      const formattedQuestions = allQuestions.map(q => ({
-        ...q,
-        created_at: new Date(q.created_at),
-        updated_at: new Date(q.updated_at)
-      }));
-      
-      // Update state with fresh data from database
-      dispatch({ type: 'LOAD_QUESTIONS', payload: { questions: formattedQuestions } });
-    } catch (error) {
-      console.error('Failed to reload questions:', error);
-    }
-  };
-
-  const refreshQuestions = async () => {
-    try {
-      const questions = await loadQuestionsFromDatabase();
-      dispatch({ type: 'LOAD_QUESTIONS', payload: { questions } });
-      return questions;
-    } catch (error) {
-      console.error('Failed to refresh questions:', error);
-      return [];
-    }
-  };
-
-  const updateQuestion = async (question: Question) => {
-    try {
-      // Update in database
-      await databaseService.updateQuestion({
-        ...question,
-        created_at: question.created_at?.toISOString() || new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      });
-      
-      // Reload all questions from database to ensure sync
-      const allQuestions = await databaseService.getAllQuestions();
-      const formattedQuestions = allQuestions.map(q => ({
-        ...q,
-        created_at: new Date(q.created_at),
-        updated_at: new Date(q.updated_at)
-      }));
-      
-      // Update state with fresh data from database
-      dispatch({ type: 'LOAD_QUESTIONS', payload: { questions: formattedQuestions } });
-    } catch (error) {
-      console.error('Failed to update question:', error);
-    }
-  };
-
-  const deleteQuestion = async (questionId: number) => {
-    try {
-      console.log('AppContext: Deleting question ID:', questionId);
-      
-      // Delete from database
-      const success = await databaseService.deleteQuestion(questionId);
-      console.log('Database delete result:', success);
-      
-      if (success) {
-        // Reload all questions from database to ensure sync
-        const allQuestions = await databaseService.getAllQuestions();
-        const formattedQuestions = allQuestions.map(q => ({
-          ...q,
-          created_at: new Date(q.created_at),
-          updated_at: new Date(q.updated_at)
-        }));
-        
-        // Update state with fresh data from database
-        dispatch({ type: 'LOAD_QUESTIONS', payload: { questions: formattedQuestions } });
-        console.log('Questions reloaded from database successfully');
-      } else {
-        throw new Error('Database delete returned false');
-      }
-    } catch (error) {
-      console.error('Failed to delete question:', error);
-      throw error; // Re-throw to handle in UI
-    }
+    return Object.entries(state.portfolio).map(([keyword, stats]) => ({
+      keyword,
+      totalQuestions: stats.totalQuestions,
+      correctAnswers: stats.correctAnswers,
+      accuracy: stats.accuracy,
+      lastUpdated: stats.lastUpdated
+    }));
   };
 
   return (
@@ -432,11 +250,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       dispatch,
       submitAnswer,
       updatePortfolio,
-      getKeywordHeatmapData,
-      addQuestions,
-      updateQuestion,
-      deleteQuestion,
-      refreshQuestions,
+      getKeywordHeatmapData
     }}>
       {children}
     </AppContext.Provider>

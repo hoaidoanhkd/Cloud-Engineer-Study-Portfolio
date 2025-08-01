@@ -4,16 +4,12 @@
 
 export interface Question {
   id: number;
-  topic: string;
-  question: string;
+  text: string;
   options: string[];
-  correct_answer: string;
-  explanation: string;
-  keywords: string[];
-  difficulty: 'beginner' | 'intermediate' | 'advanced';
-  created_at?: Date;
-  updated_at?: Date;
-  status?: 'active' | 'inactive' | 'draft';
+  correctAnswer: string;
+  type: 'radio' | 'checkbox';
+  topic?: string;
+  keywords?: string[];
 }
 
 export interface UserAnswer {
@@ -31,18 +27,11 @@ export interface KeywordStats {
 
 export interface Portfolio {
   [keyword: string]: {
-    credit: number;
-    growth: number; // % tăng trưởng
+    totalQuestions: number;
+    correctAnswers: number;
+    accuracy: number;
     lastUpdated: Date;
   };
-}
-
-export interface QuizResult {
-  totalQuestions: number;
-  correctAnswers: number;
-  score: number;
-  timeSpent: number;
-  weakKeywords: string[];
 }
 
 export interface AppState {
