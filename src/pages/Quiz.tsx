@@ -205,6 +205,7 @@ export default function QuizPage() {
   const handleSubmitAnswer = (answer?: string | string[]) => {
     if (answer) {
       const currentQuestion = filteredQuestions[currentQuestionIndex];
+
       setUserAnswers(prev => ({
         ...prev,
         [currentQuestion.id]: answer
@@ -493,6 +494,8 @@ export default function QuizPage() {
     const reviewQuestion = filteredQuestions[reviewIndex];
     const userAnswer = userAnswers[reviewQuestion.id];
     
+
+    
     // Calculate if answer is correct
     let isCorrect = false;
     if (userAnswer) {
@@ -506,6 +509,8 @@ export default function QuizPage() {
                    userAnswers.length === correctAnswers.length;
       }
     }
+    
+
 
     return (
       <div className="container mx-auto px-4 py-8 max-w-4xl">
@@ -555,12 +560,17 @@ export default function QuizPage() {
                <h3 className="text-lg font-semibold">{reviewQuestion.text}</h3>
                
                                {/* Show user's answer */}
-                {userAnswer && (
+                {userAnswer ? (
                   <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
                     <p className="text-sm font-medium text-blue-800 mb-1">Your Answer:</p>
                     <p className="text-blue-700">
                       {Array.isArray(userAnswer) ? userAnswer.join(', ') : userAnswer}
                     </p>
+                  </div>
+                ) : (
+                  <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg">
+                    <p className="text-sm font-medium text-gray-800 mb-1">Your Answer:</p>
+                    <p className="text-gray-700">No answer provided</p>
                   </div>
                 )}
                 
@@ -576,9 +586,16 @@ export default function QuizPage() {
                  {reviewQuestion.options.map((option, index) => {
                    const optionLetter = String.fromCharCode(65 + index);
                    const isSelected = reviewQuestion.type === 'radio' 
-                     ? userAnswer === optionLetter
-                     : Array.isArray(userAnswer) && userAnswer.includes(optionLetter);
+                     ? safeUserAnswer === optionLetter
+                     : Array.isArray(safeUserAnswer) && safeUserAnswer.includes(optionLetter);
                    const isCorrectOption = reviewQuestion.correctAnswer.includes(optionLetter);
+                   
+                   // Handle undefined userAnswer
+                   const safeUserAnswer = userAnswer || '';
+                   
+
+                   
+
                    
                    return (
                      <div
