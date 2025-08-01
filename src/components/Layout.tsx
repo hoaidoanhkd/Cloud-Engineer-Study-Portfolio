@@ -55,6 +55,12 @@ const navigationItems: NavigationItem[] = [
     description: 'Practice questions and tests' 
   },
   { 
+    name: 'GCP Quiz', 
+    href: '/gcp-quiz', 
+    icon: Brain, 
+    description: 'GCP Cloud Engineer Exam Practice' 
+  },
+  { 
     name: 'Heatmap', 
     href: '/heatmap', 
     icon: BarChart3, 
