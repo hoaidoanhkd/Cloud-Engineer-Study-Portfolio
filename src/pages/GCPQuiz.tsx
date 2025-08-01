@@ -85,12 +85,8 @@ export default function GCPQuizPage() {
   const handleSubmitAnswer = () => {
     if (!currentQuestion) return;
 
-    const isCorrect = currentQuestion.type === 'radio' 
-      ? selectedAnswer === currentQuestion.correctAnswer
-      : Array.isArray(selectedAnswer) && 
-        Array.isArray(currentQuestion.correctAnswer.split(',')) &&
-        selectedAnswer.length === currentQuestion.correctAnswer.split(',').length &&
-        selectedAnswer.every(answer => currentQuestion.correctAnswer.split(',').includes(answer));
+    // For now, all questions are single choice (radio)
+    const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
 
     const userAnswer: UserAnswer = {
       questionId: currentQuestion.id,
@@ -99,10 +95,10 @@ export default function GCPQuizPage() {
       timestamp: new Date()
     };
 
-    setUserAnswers(prev => [...prev, userAnswer]);
+    setUserAnswers((prev: UserAnswer[]) => [...prev, userAnswer]);
 
     if (currentQuestionIndex < allQuestions.length - 1) {
-      setCurrentQuestionIndex(prev => prev + 1);
+      setCurrentQuestionIndex((prev: number) => prev + 1);
       setSelectedAnswer([]);
     } else {
       setQuizFinished(true);
@@ -114,7 +110,7 @@ export default function GCPQuizPage() {
    */
   const getQuizStats = (): QuizStats => {
     const total = userAnswers.length;
-    const correct = userAnswers.filter(answer => answer.isCorrect).length;
+    const correct = userAnswers.filter((answer: UserAnswer) => answer.isCorrect).length;
     const incorrect = total - correct;
     const percentage = total > 0 ? (correct / total) * 100 : 0;
     const timeSpent = startTime ? Math.floor((new Date().getTime() - startTime.getTime()) / 1000) : 0;
@@ -159,9 +155,9 @@ export default function GCPQuizPage() {
    */
   const handleReviewNavigation = (direction: 'prev' | 'next') => {
     if (direction === 'prev' && reviewIndex > 0) {
-      setReviewIndex(prev => prev - 1);
+      setReviewIndex((prev: number) => prev - 1);
     } else if (direction === 'next' && reviewIndex < userAnswers.length - 1) {
-      setReviewIndex(prev => prev + 1);
+      setReviewIndex((prev: number) => prev + 1);
     }
   };
 
@@ -456,7 +452,7 @@ export default function GCPQuizPage() {
                   Question {currentQuestionIndex + 1}
                 </Badge>
                 <Badge variant="outline">
-                  {currentQuestion.type === 'radio' ? 'Single Choice' : 'Multiple Choice'}
+                  Single Choice
                 </Badge>
               </div>
               
@@ -464,58 +460,26 @@ export default function GCPQuizPage() {
                 {currentQuestion.text}
               </div>
 
-              {currentQuestion.type === 'radio' ? (
-                <RadioGroup
-                  value={selectedAnswer as string}
-                  onValueChange={handleAnswerChange}
-                  className="space-y-3"
-                >
-                  {currentQuestion.options.map((option, index) => {
-                    const optionLetter = String.fromCharCode(65 + index);
-                    return (
-                      <div key={index} className="flex items-center space-x-2">
-                        <RadioGroupItem value={optionLetter} id={`option-${index}`} />
-                        <Label htmlFor={`option-${index}`} className="flex-1 cursor-pointer">
-                          <span className="font-medium text-slate-600 w-6">
-                            {optionLetter}.
-                          </span>
-                          <span>{option}</span>
-                        </Label>
-                      </div>
-                    );
-                  })}
-                </RadioGroup>
-              ) : (
-                <div className="space-y-3">
-                  {currentQuestion.options.map((option, index) => {
-                    const optionLetter = String.fromCharCode(65 + index);
-                    const isSelected = Array.isArray(selectedAnswer) && 
-                      selectedAnswer.includes(optionLetter);
-                    
-                    return (
-                      <div key={index} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={`option-${index}`}
-                          checked={isSelected}
-                          onCheckedChange={(checked) => {
-                            if (checked) {
-                              handleAnswerChange([...selectedAnswer as string[], optionLetter]);
-                            } else {
-                              handleAnswerChange((selectedAnswer as string[]).filter(a => a !== optionLetter));
-                            }
-                          }}
-                        />
-                        <Label htmlFor={`option-${index}`} className="flex-1 cursor-pointer">
-                          <span className="font-medium text-slate-600 w-6">
-                            {optionLetter}.
-                          </span>
-                          <span>{option}</span>
-                        </Label>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
+              <RadioGroup
+                value={selectedAnswer as string}
+                onValueChange={handleAnswerChange}
+                className="space-y-3"
+              >
+                {currentQuestion.options.map((option, index) => {
+                  const optionLetter = String.fromCharCode(65 + index);
+                  return (
+                    <div key={index} className="flex items-center space-x-2">
+                      <RadioGroupItem value={optionLetter} id={`option-${index}`} />
+                      <Label htmlFor={`option-${index}`} className="flex-1 cursor-pointer">
+                        <span className="font-medium text-slate-600 w-6">
+                          {optionLetter}.
+                        </span>
+                        <span>{option}</span>
+                      </Label>
+                    </div>
+                  );
+                })}
+              </RadioGroup>
             </div>
 
             <div className="flex justify-between">
@@ -533,7 +497,7 @@ export default function GCPQuizPage() {
                   (Array.isArray(selectedAnswer) && selectedAnswer.length === 0)}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
               >
-                {currentQuestionIndex === allQuestions.length - 1 ? 'Finish Complete Quiz' : 'Next Question'}
+                {currentQuestionIndex === allQuestions.length - 1 ? 'Finish Quiz' : 'Next Question'}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
