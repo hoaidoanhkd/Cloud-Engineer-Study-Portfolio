@@ -602,32 +602,17 @@ You are planning to migrate your on-premises VMs to Google Cloud. You need to se
 </div>
 </form>
 
+<script src="../quiz-common.js"></script>
 <script>
 const correctAnswers = ['D', 'D', 'A', 'C', 'B', 'C', 'B', 'D', 'A', 'A', 'C', 'D', 'A', 'D', 'A', 'B', 'A', 'D', 'C', 'B', 'B', 'D', 'C', 'D', 'A', 'B', 'A', 'A', 'C', 'B', 'C', 'B', 'B', 'C', 'B', 'D', 'B', 'A', 'B', 'A', 'D', 'C', 'B', 'B', 'B', 'C', 'B', 'B', 'D', 'A', 'D', 'D'];
 
 const total = 52;
+const partName = 'Part 6 (Questions 251-302)';
 
-    for (let i = 1; i <= total; i++) {
-      const radios = document.getElementsByName(`q${i}`);
-      radios.forEach(radio => {
-        radio.addEventListener('change', function() {
-          radios.forEach(r => {
-            const label = r.parentElement;
-            label.style.fontWeight = "normal";
-            label.style.color = "black";
-          });
-
-          const label = this.parentElement;
-          if (this.value === correctAnswers[i - 1]) {
-            label.style.color = "green";
-            label.style.fontWeight = "bold";
-          } else {
-            label.style.color = "red";
-            label.style.fontWeight = "bold";
-          }
-        });
-      });
-    }
+// Khởi tạo quiz khi trang load
+document.addEventListener('DOMContentLoaded', function() {
+    initializeQuiz(correctAnswers, total, partName, 251);
+});
 </script>
 </body>
 </html>

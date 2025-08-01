@@ -243,6 +243,12 @@
                     <p>Câu hỏi 251 - 302<br/>Advanced Topics</p>
                     <a href="quiz-parts/part6-questions-251-302.html" class="quiz-link">Bắt đầu</a>
                 </div>
+                
+                <div class="quiz-card" style="border: 2px solid #ea4335;">
+                    <h3>🔥 Câu Khó</h3>
+                    <p>Ôn tập các câu hỏi khó<br/>đã được đánh dấu</p>
+                    <a href="difficult-questions.html" class="quiz-link" style="background: linear-gradient(135deg, #ea4335 0%, #fbbc04 100%);">Xem câu khó</a>
+                </div>
             </div>
             
             <div class="stats">
@@ -264,6 +270,10 @@
                         <span class="stat-number">100%</span>
                         <div class="stat-label">Miễn phí</div>
                     </div>
+                    <div class="stat-item">
+                        <span id="difficultCount" class="stat-number">0</span>
+                        <div class="stat-label">Câu khó đã đánh dấu</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -272,5 +282,34 @@
             <p>© 2024 GCP Exam Practice - Học tập hiệu quả, thành công trong kỳ thi!</p>
         </div>
     </div>
+
+    <script>
+        // Hiển thị số lượng câu khó đã đánh dấu
+        function updateDifficultCount() {
+            const stored = localStorage.getItem('difficultQuestions');
+            const questions = stored ? JSON.parse(stored) : [];
+            const countElement = document.getElementById('difficultCount');
+            if (countElement) {
+                countElement.textContent = questions.length;
+                
+                // Thêm hiệu ứng màu nếu có câu khó
+                if (questions.length > 0) {
+                    countElement.style.color = '#ea4335';
+                } else {
+                    countElement.style.color = '#4285f4';
+                }
+            }
+        }
+
+        // Cập nhật khi trang load
+        document.addEventListener('DOMContentLoaded', updateDifficultCount);
+        
+        // Cập nhật khi có thay đổi trong localStorage (từ tab khác)
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'difficultQuestions') {
+                updateDifficultCount();
+            }
+        });
+    </script>
 </body>
 </html>

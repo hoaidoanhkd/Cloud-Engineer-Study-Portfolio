@@ -577,32 +577,17 @@ Your organization has strict requirements to control access to Google Cloud proj
 </div>
 </form>
 
+<script src="../quiz-common.js"></script>
 <script>
 const correctAnswers = ['A', 'C', 'B', 'A', 'A', 'B', 'B', 'B', 'C', 'C', 'B', 'A', 'D', 'C', 'A', 'A', 'A', 'C', 'A', 'B', 'A', 'C', 'B', 'A', 'A', 'D', 'A', 'A', 'B', 'C', 'D', 'A', 'B', 'A', 'C', 'A', 'C', 'A', 'A', 'B', 'D', 'D', 'A', 'D', 'D', 'B', 'C', 'C', 'C', 'D'];
 
 const total = 50;
+const partName = 'Part 2 (Questions 51-100)';
 
-    for (let i = 1; i <= total; i++) {
-      const radios = document.getElementsByName(`q${i}`);
-      radios.forEach(radio => {
-        radio.addEventListener('change', function() {
-          radios.forEach(r => {
-            const label = r.parentElement;
-            label.style.fontWeight = "normal";
-            label.style.color = "black";
-          });
-
-          const label = this.parentElement;
-          if (this.value === correctAnswers[i - 1]) {
-            label.style.color = "green";
-            label.style.fontWeight = "bold";
-          } else {
-            label.style.color = "red";
-            label.style.fontWeight = "bold";
-          }
-        });
-      });
-    }
+// Khởi tạo quiz khi trang load
+document.addEventListener('DOMContentLoaded', function() {
+    initializeQuiz(correctAnswers, total, partName, 51);
+});
 </script>
 </body>
 </html>

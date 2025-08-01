@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>GCP Exam Practice - Câu Khó</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ea4335 0%, #fbbc04 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.4);
+        }
+        
+        .clear-btn {
+            background: linear-gradient(135deg, #ea4335 0%, #fbbc04 100%);
+        }
+        
+        .stats-bar {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .stats-bar h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .stats-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ea4335;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        .empty-state .icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .empty-state p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .question-item {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ea4335;
+            transition: all 0.3s ease;
+        }
+        
+        .question-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .question-number {
+            background: #ea4335;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .question-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 6px 15px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .remove-btn {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .remove-btn:hover {
+            background: #ffeaa7;
+        }
+        
+        .practice-btn {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .practice-btn:hover {
+            background: #bee5eb;
+        }
+        
+        .question-text {
+            color: #333;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        
+        .question-source {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .nav-buttons {
+                justify-content: center;
+            }
+            
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .question-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔥 Câu Khó Đã Đánh Dấu</h1>
+            <p>Tập trung ôn tập những câu hỏi bạn thấy khó nhất</p>
+        </div>
+        
+        <div class="content">
+            <div class="nav-buttons">
+                <a href="index.html" class="nav-btn">🏠 Về trang chủ</a>
+                <button id="clearAllBtn" class="nav-btn clear-btn">🗑️ Xóa tất cả</button>
+                <button id="exportBtn" class="nav-btn">📤 Xuất danh sách</button>
+            </div>
+            
+            <div class="stats-bar">
+                <h3>Tổng số câu khó đã đánh dấu</h3>
+                <span id="totalCount" class="stats-number">0</span>
+            </div>
+            
+            <div id="emptyState" class="empty-state">
+                <div class="icon">📚</div>
+                <h3>Chưa có câu khó nào được đánh dấu</h3>
+                <p>Khi bạn làm quiz, hãy nhấn nút "⭐ Đánh dấu câu khó" để lưu những câu hỏi khó vào đây. Điều này sẽ giúp bạn tập trung ôn tập những phần cần cải thiện nhất.</p>
+            </div>
+            
+            <div id="questionsList"></div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2024 GCP Exam Practice - Ôn tập thông minh, thành công chắc chắn!</p>
+        </div>
+    </div>
+
+    <script>
+        // Lấy danh sách câu khó từ localStorage
+        function getDifficultQuestions() {
+            const stored = localStorage.getItem('difficultQuestions');
+            return stored ? JSON.parse(stored) : [];
+        }
+        
+        // Lưu danh sách câu khó vào localStorage
+        function saveDifficultQuestions(questions) {
+            localStorage.setItem('difficultQuestions', JSON.stringify(questions));
+        }
+        
+        // Xóa một câu khó
+        function removeDifficultQuestion(questionId) {
+            const questions = getDifficultQuestions();
+            const filtered = questions.filter(q => q.id !== questionId);
+            saveDifficultQuestions(filtered);
+            displayDifficultQuestions();
+        }
+        
+        // Xóa tất cả câu khó
+        function clearAllDifficultQuestions() {
+            if (confirm('Bạn có chắc chắn muốn xóa tất cả câu khó đã đánh dấu?')) {
+                localStorage.removeItem('difficultQuestions');
+                displayDifficultQuestions();
+            }
+        }
+        
+        // Xuất danh sách câu khó
+        function exportDifficultQuestions() {
+            const questions = getDifficultQuestions();
+            if (questions.length === 0) {
+                alert('Không có câu khó nào để xuất!');
+                return;
+            }
+            
+            let exportText = "DANH SÁCH CÂU KHÓ GCP EXAM PRACTICE\n";
+            exportText += "=" + "=".repeat(50) + "\n\n";
+            
+            questions.forEach((q, index) => {
+                exportText += `${index + 1}. Câu ${q.questionNumber} (${q.source})\n`;
+                exportText += `${q.text}\n\n`;
+            });
+            
+            exportText += `\nTổng cộng: ${questions.length} câu khó\n`;
+            exportText += `Xuất lúc: ${new Date().toLocaleString('vi-VN')}\n`;
+            
+            // Tạo file và download
+            const blob = new Blob([exportText], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `gcp-cau-kho-${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        // Hiển thị danh sách câu khó
+        function displayDifficultQuestions() {
+            const questions = getDifficultQuestions();
+            const totalCountEl = document.getElementById('totalCount');
+            const emptyStateEl = document.getElementById('emptyState');
+            const questionsListEl = document.getElementById('questionsList');
+            
+            totalCountEl.textContent = questions.length;
+            
+            if (questions.length === 0) {
+                emptyStateEl.style.display = 'block';
+                questionsListEl.innerHTML = '';
+                return;
+            }
+            
+            emptyStateEl.style.display = 'none';
+            
+            // Sắp xếp theo số câu hỏi
+            questions.sort((a, b) => a.questionNumber - b.questionNumber);
+            
+            questionsListEl.innerHTML = questions.map(q => `
+                <div class="question-item">
+                    <div class="question-header">
+                        <span class="question-number">Câu ${q.questionNumber}</span>
+                        <div class="question-actions">
+                            <button class="action-btn practice-btn" onclick="goToQuestion(${q.questionNumber}, '${q.source}')">
+                                🎯 Làm lại
+                            </button>
+                            <button class="action-btn remove-btn" onclick="removeDifficultQuestion('${q.id}')">
+                                ❌ Bỏ đánh dấu
+                            </button>
+                        </div>
+                    </div>
+                    <div class="question-text">${q.text}</div>
+                    <div class="question-source">📍 Nguồn: ${q.source}</div>
+                </div>
+            `).join('');
+        }
+        
+        // Chuyển đến câu hỏi trong quiz
+        function goToQuestion(questionNumber, source) {
+            // Xác định file quiz dựa trên số câu hỏi
+            let quizFile = '';
+            if (questionNumber >= 1 && questionNumber <= 50) {
+                quizFile = 'quiz-parts/part1-questions-1-50.html';
+            } else if (questionNumber >= 51 && questionNumber <= 100) {
+                quizFile = 'quiz-parts/part2-questions-51-100.html';
+            } else if (questionNumber >= 101 && questionNumber <= 150) {
+                quizFile = 'quiz-parts/part3-questions-101-150.html';
+            } else if (questionNumber >= 151 && questionNumber <= 200) {
+                quizFile = 'quiz-parts/part4-questions-151-200.html';
+            } else if (questionNumber >= 201 && questionNumber <= 250) {
+                quizFile = 'quiz-parts/part5-questions-201-250.html';
+            } else if (questionNumber >= 251 && questionNumber <= 302) {
+                quizFile = 'quiz-parts/part6-questions-251-302.html';
+            }
+            
+            if (quizFile) {
+                // Chuyển đến trang quiz và cuộn đến câu hỏi
+                window.location.href = `${quizFile}#question${questionNumber}`;
+            }
+        }
+        
+        // Event listeners
+        document.getElementById('clearAllBtn').addEventListener('click', clearAllDifficultQuestions);
+        document.getElementById('exportBtn').addEventListener('click', exportDifficultQuestions);
+        
+        // Hiển thị danh sách khi trang load
+        document.addEventListener('DOMContentLoaded', displayDifficultQuestions);
+    </script>
+</body>
+</html>

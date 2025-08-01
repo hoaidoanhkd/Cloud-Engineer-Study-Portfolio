@@ -5,13 +5,35 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>GCP Exam Practice - Part 1 (Questions 1-50)</title>
-<style>
+  <style>
     body { font-family: Arial, sans-serif; margin: 40px; }
-    .question { margin-bottom: 30px; }
+    .question { margin-bottom: 30px; position: relative; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; }
     .answers input { margin-right: 10px; }
     .submit-btn { margin-top: 20px; }
     strong.keyword { font-weight: bold; color: darkblue; }
     .part-info { background-color: #f0f8ff; padding: 15px; border-radius: 5px; margin-bottom: 30px; }
+    .question-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+    .difficult-btn { 
+      background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%); 
+      border: none; 
+      padding: 8px 15px; 
+      border-radius: 20px; 
+      cursor: pointer; 
+      font-size: 12px; 
+      font-weight: bold; 
+      color: #333; 
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .difficult-btn:hover { 
+      transform: translateY(-2px); 
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+    }
+    .difficult-btn.marked { 
+      background: linear-gradient(135deg, #ea4335 0%, #fbbc04 100%); 
+      color: white; 
+    }
+    .question-content { flex: 1; }
   </style>
 </head>
 <body>
@@ -24,10 +46,15 @@
   </div>
 </div>
 <form id="quizForm">
-<div class="question">
+<div class="question" id="question1">
+<div class="question-header">
+<div class="question-content">
 <p><strong>Question 1:</strong> <strong class="keyword"></strong>
 
 Every employee of your company has a Google account. Your operational team needs to manage a large number of instances on Compute Engine. Each member of this team needs only administrative access to the servers. Your security team wants to ensure that the deployment of credentials is operationally efficient and must be able to determine who accessed a given instance. What should you do?</p>
+</div>
+<button class="difficult-btn" onclick="toggleDifficultQuestion(1, 'Part 1 (Questions 1-50)')">⭐ Đánh dấu câu khó</button>
+</div>
 <div class="answers">
 <label><input name="q1" type="radio" value="A"/> A. Generate a new SSH key pair. Give the private key to each member of your team. Configure the public key in the metadata of each instance.</label><br/>
 <label><input name="q1" type="radio" value="B"/> B. Ask each member of the team to generate a new SSH key pair and to send you their public key. Use a configuration management tool to deploy those keys on each instance.</label><br/>
@@ -576,32 +603,17 @@ You have production and test workloads that you want to deploy on Compute Engine
 </div>
 </form>
 
+<script src="../quiz-common.js"></script>
 <script>
 const correctAnswers = ['C', 'B', 'A', 'C', 'D', 'D', 'D', 'A', 'D', 'A', 'A', 'C', 'D', 'B', 'B', 'B', 'D', 'B', 'A', 'D', 'A', 'D', 'D', 'A', 'A', 'C', 'B', 'B', 'A', 'B', 'A', 'C', 'A', 'C', 'B', 'C', 'D', 'B', 'B', 'A', 'B', 'B', 'D', 'C', 'C', 'D', 'A', 'C', 'D', 'A'];
 
 const total = 50;
+const partName = 'Part 1 (Questions 1-50)';
 
-    for (let i = 1; i <= total; i++) {
-      const radios = document.getElementsByName(`q${i}`);
-      radios.forEach(radio => {
-        radio.addEventListener('change', function() {
-          radios.forEach(r => {
-            const label = r.parentElement;
-            label.style.fontWeight = "normal";
-            label.style.color = "black";
-          });
-
-          const label = this.parentElement;
-          if (this.value === correctAnswers[i - 1]) {
-            label.style.color = "green";
-            label.style.fontWeight = "bold";
-          } else {
-            label.style.color = "red";
-            label.style.fontWeight = "bold";
-          }
-        });
-      });
-    }
+// Khởi tạo quiz khi trang load
+document.addEventListener('DOMContentLoaded', function() {
+    initializeQuiz(correctAnswers, total, partName, 1);
+});
 </script>
 </body>
 </html>
