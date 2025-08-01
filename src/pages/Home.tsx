@@ -9,20 +9,26 @@ import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { 
   BookOpen, 
+  TrendingUp, 
+  Target, 
+  BarChart3, 
   PlayCircle,
-  Brain,
-  BarChart3,
-  Target,
-  Activity,
   Trophy,
-  Star,
-  Zap,
+  Users,
   Clock,
+  Zap,
+  Star,
+  Activity,
+  Award,
+  Eye,
+  FileText,
+  Settings,
+  Upload,
+  Database,
+  Brain,
   CheckCircle,
   XCircle,
-  TrendingUp,
-  Award,
-  Eye
+  HelpCircle
 } from 'lucide-react';
 import { gcpQuestions } from '../data/gcpQuestions';
 
@@ -78,24 +84,24 @@ export default function HomePage() {
                 <BookOpen className="h-10 w-10 sm:h-12 sm:w-12 text-white" />
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
-                GCP Quiz App
+                GCP Learning Hub
               </h1>
             </div>
             <p className="text-xl sm:text-2xl text-slate-600 max-w-4xl mx-auto mb-10 px-4 leading-relaxed">
-              Master Google Cloud Platform with our comprehensive quiz system. 
-              Practice with <span className="font-semibold text-blue-600">302 carefully curated questions</span> covering all GCP topics.
+              Master Google Cloud Platform with our interactive quiz system. 
+              Track your progress like an investment portfolio and visualize your learning journey.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
               <Link to="/quiz">
                 <Button size="lg" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 text-lg px-8 py-6">
                   <PlayCircle className="h-6 w-6 mr-3" />
-                  Start Custom Quiz
+                  Start Quiz
                 </Button>
               </Link>
-              <Link to="/gcp-quiz">
+              <Link to="/portfolio">
                 <Button size="lg" variant="outline" className="border-2 border-slate-300 hover:border-slate-400 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-lg px-8 py-6">
-                  <Brain className="h-6 w-6 mr-3" />
-                  Full GCP Quiz
+                  <TrendingUp className="h-6 w-6 mr-3" />
+                  View Portfolio
                 </Button>
               </Link>
             </div>
@@ -109,7 +115,7 @@ export default function HomePage() {
           <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <CardContent className="p-8 text-center">
               <div className="p-4 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl inline-block mb-6">
-                <BookOpen className="h-8 w-8 text-blue-600" />
+                <Database className="h-8 w-8 text-blue-600" />
               </div>
               <div className="text-4xl font-bold text-slate-900 mb-2">{totalQuestions}</div>
               <div className="text-lg text-slate-600 font-medium">Total Questions</div>
@@ -121,18 +127,18 @@ export default function HomePage() {
               <div className="p-4 bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl inline-block mb-6">
                 <Target className="h-8 w-8 text-green-600" />
               </div>
-              <div className="text-4xl font-bold text-slate-900 mb-2">{stats.totalAnswered}</div>
-              <div className="text-lg text-slate-600 font-medium">Questions Answered</div>
+              <div className="text-4xl font-bold text-slate-900 mb-2">{stats.accuracy}%</div>
+              <div className="text-lg text-slate-600 font-medium">Accuracy Rate</div>
             </CardContent>
           </Card>
 
           <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <CardContent className="p-8 text-center">
               <div className="p-4 bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl inline-block mb-6">
-                <CheckCircle className="h-8 w-8 text-purple-600" />
+                <TrendingUp className="h-8 w-8 text-purple-600" />
               </div>
-              <div className="text-4xl font-bold text-slate-900 mb-2">{stats.correctAnswers}</div>
-              <div className="text-lg text-slate-600 font-medium">Correct Answers</div>
+              <div className="text-4xl font-bold text-slate-900 mb-2">15</div>
+              <div className="text-lg text-slate-600 font-medium">Portfolio Items</div>
             </CardContent>
           </Card>
 
@@ -141,8 +147,8 @@ export default function HomePage() {
               <div className="p-4 bg-gradient-to-br from-yellow-100 to-orange-100 rounded-2xl inline-block mb-6">
                 <Activity className="h-8 w-8 text-yellow-600" />
               </div>
-              <div className="text-4xl font-bold text-slate-900 mb-2">{stats.accuracy}%</div>
-              <div className="text-lg text-slate-600 font-medium">Accuracy Rate</div>
+              <div className="text-4xl font-bold text-slate-900 mb-2">{stats.totalAnswered}</div>
+              <div className="text-lg text-slate-600 font-medium">Questions Answered</div>
             </CardContent>
           </Card>
         </div>
@@ -155,43 +161,43 @@ export default function HomePage() {
               <div className="p-4 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl inline-block mb-4 group-hover:from-blue-200 group-hover:to-indigo-200 transition-all duration-300">
                 <PlayCircle className="h-8 w-8 text-blue-600" />
               </div>
-              <CardTitle className="text-2xl font-bold">Custom Quiz</CardTitle>
+              <CardTitle className="text-2xl font-bold">Interactive Quiz</CardTitle>
               <CardDescription className="text-lg">
-                Create personalized quizzes with topic filtering and customizable question counts.
+                Take comprehensive quizzes on various GCP topics with instant feedback and explanations.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <Link to="/quiz">
                 <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all duration-300 text-lg py-6">
-                  Start Custom Quiz
+                  Start Quiz
                   <PlayCircle className="h-5 w-5 ml-2" />
                 </Button>
               </Link>
             </CardContent>
           </Card>
 
-          {/* Full GCP Quiz Feature */}
+          {/* Portfolio Feature */}
           <Card className="group hover:shadow-2xl transition-all duration-500 border-0 shadow-xl transform hover:scale-105">
             <CardHeader className="pb-4">
               <div className="p-4 bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl inline-block mb-4 group-hover:from-green-200 group-hover:to-emerald-200 transition-all duration-300">
-                <Brain className="h-8 w-8 text-green-600" />
+                <TrendingUp className="h-8 w-8 text-green-600" />
               </div>
-              <CardTitle className="text-2xl font-bold">Full GCP Quiz</CardTitle>
+              <CardTitle className="text-2xl font-bold">Learning Portfolio</CardTitle>
               <CardDescription className="text-lg">
-                Take the complete 302-question GCP exam simulation with all topics covered.
+                Track your knowledge like an investment portfolio with performance metrics and growth tracking.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Link to="/gcp-quiz">
+              <Link to="/portfolio">
                 <Button variant="outline" className="w-full border-2 border-green-300 hover:border-green-400 shadow-lg hover:shadow-xl transition-all duration-300 text-lg py-6">
-                  Start Full Quiz
-                  <Brain className="h-5 w-5 ml-2" />
+                  View Portfolio
+                  <TrendingUp className="h-5 w-5 ml-2" />
                 </Button>
               </Link>
             </CardContent>
           </Card>
 
-          {/* Progress Heatmap Feature */}
+          {/* Heatmap Feature */}
           <Card className="group hover:shadow-2xl transition-all duration-500 border-0 shadow-xl transform hover:scale-105">
             <CardHeader className="pb-4">
               <div className="p-4 bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl inline-block mb-4 group-hover:from-purple-200 group-hover:to-pink-200 transition-all duration-300">
@@ -207,6 +213,69 @@ export default function HomePage() {
                 <Button variant="outline" className="w-full border-2 border-purple-300 hover:border-purple-400 shadow-lg hover:shadow-xl transition-all duration-300 text-lg py-6">
                   View Heatmap
                   <Eye className="h-5 w-5 ml-2" />
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          {/* Guide Feature */}
+          <Card className="group hover:shadow-2xl transition-all duration-500 border-0 shadow-xl transform hover:scale-105">
+            <CardHeader className="pb-4">
+              <div className="p-4 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl inline-block mb-4 group-hover:from-indigo-200 group-hover:to-purple-200 transition-all duration-300">
+                <BookOpen className="h-8 w-8 text-indigo-600" />
+              </div>
+              <CardTitle className="text-2xl font-bold">Study Guide</CardTitle>
+              <CardDescription className="text-lg">
+                Access comprehensive study materials and best practices for GCP certification.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Link to="/guide">
+                <Button variant="outline" className="w-full border-2 border-indigo-300 hover:border-indigo-400 shadow-lg hover:shadow-xl transition-all duration-300 text-lg py-6">
+                  Read Guide
+                  <BookOpen className="h-5 w-5 ml-2" />
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          {/* Import Feature */}
+          <Card className="group hover:shadow-2xl transition-all duration-500 border-0 shadow-xl transform hover:scale-105">
+            <CardHeader className="pb-4">
+              <div className="p-4 bg-gradient-to-br from-orange-100 to-red-100 rounded-2xl inline-block mb-4 group-hover:from-orange-200 group-hover:to-red-200 transition-all duration-300">
+                <Upload className="h-8 w-8 text-orange-600" />
+              </div>
+              <CardTitle className="text-2xl font-bold">Import Questions</CardTitle>
+              <CardDescription className="text-lg">
+                Upload your own questions from JSON or CSV files to expand the quiz database.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Link to="/import">
+                <Button variant="outline" className="w-full border-2 border-orange-300 hover:border-orange-400 shadow-lg hover:shadow-xl transition-all duration-300 text-lg py-6">
+                  Import Questions
+                  <Upload className="h-5 w-5 ml-2" />
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          {/* Management Feature */}
+          <Card className="group hover:shadow-2xl transition-all duration-500 border-0 shadow-xl transform hover:scale-105">
+            <CardHeader className="pb-4">
+              <div className="p-4 bg-gradient-to-br from-red-100 to-pink-100 rounded-2xl inline-block mb-4 group-hover:from-red-200 group-hover:to-pink-200 transition-all duration-300">
+                <Settings className="h-8 w-8 text-red-600" />
+              </div>
+              <CardTitle className="text-2xl font-bold">Question Management</CardTitle>
+              <CardDescription className="text-lg">
+                Manage your question database, edit existing questions, and organize content.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Link to="/manage">
+                <Button variant="outline" className="w-full border-2 border-red-300 hover:border-red-400 shadow-lg hover:shadow-xl transition-all duration-300 text-lg py-6">
+                  Manage Questions
+                  <Settings className="h-5 w-5 ml-2" />
                 </Button>
               </Link>
             </CardContent>
@@ -262,21 +331,21 @@ export default function HomePage() {
         {/* Call to Action */}
         <div className="mt-20 text-center">
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-12 text-white shadow-2xl">
-            <h2 className="text-4xl font-bold mb-6">Ready to master GCP?</h2>
+            <h2 className="text-4xl font-bold mb-6">Ready to level up your GCP skills?</h2>
             <p className="text-xl mb-8 opacity-90 leading-relaxed">
-              Practice with <span className="font-bold">302 carefully curated questions</span> covering all GCP topics
+              Join thousands of professionals mastering Google Cloud Platform
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
               <Link to="/quiz">
                 <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 text-lg px-8 py-6">
                   <PlayCircle className="h-6 w-6 mr-3" />
-                  Start Custom Quiz
+                  Start Your Journey
                 </Button>
               </Link>
-              <Link to="/gcp-quiz">
+              <Link to="/guide">
                 <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-blue-600 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 text-lg px-8 py-6">
-                  <Brain className="h-6 w-6 mr-3" />
-                  Take Full Quiz
+                  <FileText className="h-6 w-6 mr-3" />
+                  Read Study Guide
                 </Button>
               </Link>
             </div>

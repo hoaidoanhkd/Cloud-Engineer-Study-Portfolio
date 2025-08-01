@@ -8,6 +8,8 @@ import {
   Home, 
   FileText, 
   BarChart3, 
+  TrendingUp, 
+  HelpCircle,
   Brain,
   LogIn,
   Menu,
@@ -15,7 +17,9 @@ import {
   ChevronDown,
   User,
   Settings,
-  Bell
+  Bell,
+  Upload,
+  Database
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { useAuth } from '../contexts/AuthContext';
@@ -48,20 +52,32 @@ const navigationItems: NavigationItem[] = [
     name: 'Quiz', 
     href: '/quiz', 
     icon: FileText, 
-    description: 'Custom quiz with topic filtering' 
+    description: 'Practice questions and tests' 
   },
   { 
     name: 'GCP Quiz', 
     href: '/gcp-quiz', 
     icon: Brain, 
-    description: 'Full 302-question GCP exam' 
+    description: 'GCP Cloud Engineer Exam Practice' 
   },
   { 
     name: 'Heatmap', 
     href: '/heatmap', 
     icon: BarChart3, 
     description: 'Visual progress tracking' 
-  }
+  },
+  { 
+    name: 'Portfolio', 
+    href: '/portfolio', 
+    icon: TrendingUp, 
+    description: 'Achievement and analytics' 
+  },
+  { 
+    name: 'Guide', 
+    href: '/guide', 
+    icon: HelpCircle, 
+    description: 'Study materials and resources' 
+  },
 ];
 
 export default function Layout({ children }: LayoutProps) {
@@ -120,7 +136,7 @@ export default function Layout({ children }: LayoutProps) {
               </div>
               <div className="hidden sm:block">
                 <h1 className="text-lg lg:text-xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
-                  GCP Quiz App
+                  GCP Learning Hub
                 </h1>
                 <p className="text-xs lg:text-sm text-slate-600 font-medium">
                   Associate Cloud Engineer
@@ -265,7 +281,7 @@ export default function Layout({ children }: LayoutProps) {
       {/* Footer */}
       <footer className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Brand */}
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
@@ -273,7 +289,7 @@ export default function Layout({ children }: LayoutProps) {
                   <Brain className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg">GCP Quiz App</h3>
+                  <h3 className="font-bold text-lg">GCP Learning Hub</h3>
                   <p className="text-slate-400 text-sm">Associate Cloud Engineer</p>
                 </div>
               </div>
@@ -287,9 +303,21 @@ export default function Layout({ children }: LayoutProps) {
             <div>
               <h4 className="font-semibold mb-4">Learning</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link to="/quiz" className="text-slate-400 hover:text-white transition-colors">Custom Quiz</Link></li>
-                <li><Link to="/gcp-quiz" className="text-slate-400 hover:text-white transition-colors">Full GCP Quiz</Link></li>
+                <li><Link to="/quiz" className="text-slate-400 hover:text-white transition-colors">Practice Quiz</Link></li>
                 <li><Link to="/heatmap" className="text-slate-400 hover:text-white transition-colors">Progress Heatmap</Link></li>
+                <li><Link to="/guide" className="text-slate-400 hover:text-white transition-colors">Study Guide</Link></li>
+                <li><Link to="/portfolio" className="text-slate-400 hover:text-white transition-colors">Portfolio</Link></li>
+              </ul>
+            </div>
+
+            {/* Tools */}
+            <div>
+              <h4 className="font-semibold mb-4">Tools</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="text-slate-400 hover:text-white transition-colors">Cloud Calculator</a></li>
+                <li><a href="#" className="text-slate-400 hover:text-white transition-colors">Architecture Designer</a></li>
+                <li><a href="#" className="text-slate-400 hover:text-white transition-colors">Cost Optimizer</a></li>
+                <li><a href="#" className="text-slate-400 hover:text-white transition-colors">Practice Simulator</a></li>
               </ul>
             </div>
 
@@ -307,7 +335,7 @@ export default function Layout({ children }: LayoutProps) {
 
           <div className="border-t border-slate-800 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center">
             <p className="text-slate-400 text-sm">
-              © 2024 GCP Quiz App. All rights reserved.
+              © 2024 GCP Learning Hub. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 sm:mt-0">
               <a href="#" className="text-slate-400 hover:text-white text-sm transition-colors">Privacy</a>
