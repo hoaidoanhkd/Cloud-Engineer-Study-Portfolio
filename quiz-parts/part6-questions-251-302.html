@@ -506,10 +506,10 @@ You work for a financial services company that operates as a stock market broker
 
 Your company was recently impacted by a service disruption that caused multiple Dataflow jobs to get stuck, resulting in significant downtime in downstream applications and revenue loss. You were able to resolve the issue by identifying and fixing an error you found in the code. You need to design a solution with minimal management effort to identify when jobs are stuck in the future to ensure that this issue does not occur again. What should you do?</p>
 <div class="answers">
-<label><input name="q295" type="radio" value="A"/> A. Update the Dataflow job configurations to send messages to a Pub/Sub topic when there are delays. Configure a backup Dataflow job to process jobs that are delayed. Use Cloud Tasks to trigger an alert when messages are pushed to the Pub/Sub topic.</label><br/>
-<label><input name="q295" type="radio" value="B"/> B. Set up Cloud Monitoring alerts on the data freshness metric for the Dataflow jobs to receive a notification when a certain threshold is reached.</label><br/>
-<label><input name="q295" type="radio" value="C"/> C. Set up Error Reporting to identify stack traces that indicate slowdowns in Dataflow jobs. Set up alerts based on these log entries.</label><br/>
-<label><input name="q295" type="radio" value="D"/> D. Use the Personalized Service Health dashboard to identify issues with Dataflow jobs across regions.</label>
+<label><input name="q44" type="radio" value="A"/> A. Update the Dataflow job configurations to send messages to a Pub/Sub topic when there are delays. Configure a backup Dataflow job to process jobs that are delayed. Use Cloud Tasks to trigger an alert when messages are pushed to the Pub/Sub topic.</label><br/>
+<label><input name="q44" type="radio" value="B"/> B. Set up Cloud Monitoring alerts on the data freshness metric for the Dataflow jobs to receive a notification when a certain threshold is reached.</label><br/>
+<label><input name="q44" type="radio" value="C"/> C. Set up Error Reporting to identify stack traces that indicate slowdowns in Dataflow jobs. Set up alerts based on these log entries.</label><br/>
+<label><input name="q44" type="radio" value="D"/> D. Use the Personalized Service Health dashboard to identify issues with Dataflow jobs across regions.</label>
 </div>
 </div>
 <div class="question">
@@ -517,10 +517,10 @@ Your company was recently impacted by a service disruption that caused multiple 
 
 You have an application running inside a Compute Engine instance. You want to provide the application with secure access to a BigQuery dataset. You must ensure that credentials are only valid for a short period of time, and your application will only have access to the intended BigQuery dataset. You want to follow Google-recommended practices and minimize your operational costs. What should you do?</p>
 <div class="answers">
-<label><input name="q297" type="radio" value="A"/> A. Attach a new service account to the instance every hour, and grant the service account the BigQuery Data Viewer IAM role on the project.</label><br/>
-<label><input name="q297" type="radio" value="B"/> B. Attach a custom service account to the instance, and grant the service account the BigQuery Data Viewer IAM role on the dataset.</label><br/>
-<label><input name="q297" type="radio" value="C"/> C. Attach a new service account to the instance every hour, and grant the service account the BigQuery Data Viewer IAM role on the dataset.</label><br/>
-<label><input name="q297" type="radio" value="D"/> D. Attach a custom service account to the instance, and grant the service account the BigQuery Data Viewer IAM role on the project.</label>
+<label><input name="q45" type="radio" value="A"/> A. Attach a new service account to the instance every hour, and grant the service account the BigQuery Data Viewer IAM role on the project.</label><br/>
+<label><input name="q45" type="radio" value="B"/> B. Attach a custom service account to the instance, and grant the service account the BigQuery Data Viewer IAM role on the dataset.</label><br/>
+<label><input name="q45" type="radio" value="C"/> C. Attach a new service account to the instance every hour, and grant the service account the BigQuery Data Viewer IAM role on the dataset.</label><br/>
+<label><input name="q45" type="radio" value="D"/> D. Attach a custom service account to the instance, and grant the service account the BigQuery Data Viewer IAM role on the project.</label>
 </div>
 </div>
 <div class="question">
@@ -528,10 +528,10 @@ You have an application running inside a Compute Engine instance. You want to pr
 
 Your company is seeking a scalable solution to retain and explore application logs hosted on Compute Engine. You must be able to analyze your logs with SQL queries, and you want to be able to create charts to identify patterns and trends in your logs over time. You want to follow Google-recommended practices and minimize your operational costs. What should you do?</p>
 <div class="answers">
-<label><input name="q300" type="radio" value="A"/> A. Use a custom script to push your application logs to BigQuery for exploration.</label><br/>
-<label><input name="q300" type="radio" value="B"/> B. Ingest your application logs to Cloud Logging by using Ops Agent, and explore your logs in Logs Explorer.</label><br/>
-<label><input name="q300" type="radio" value="C"/> C. Ingest your application logs to Cloud Logging by using Ops Agent, and explore your logs with Log Analytics.</label><br/>
-<label><input name="q300" type="radio" value="D"/> D. Use a custom script to push your application logs to Cloud SQL for exploration.</label>
+<label><input name="q46" type="radio" value="A"/> A. Use a custom script to push your application logs to BigQuery for exploration.</label><br/>
+<label><input name="q46" type="radio" value="B"/> B. Ingest your application logs to Cloud Logging by using Ops Agent, and explore your logs in Logs Explorer.</label><br/>
+<label><input name="q46" type="radio" value="C"/> C. Ingest your application logs to Cloud Logging by using Ops Agent, and explore your logs with Log Analytics.</label><br/>
+<label><input name="q46" type="radio" value="D"/> D. Use a custom script to push your application logs to Cloud SQL for exploration.</label>
 </div>
 </div>
 <div class="question">
@@ -539,10 +539,10 @@ Your company is seeking a scalable solution to retain and explore application lo
 
 You are deploying an application to Google Kubernetes Engine (GKE). The application needs to make API calls to a private Cloud Storage bucket. You need to configure your application Pods to authenticate to the Cloud Storage API, but your organization policy prevents the usage of service account keys. You want to follow Google-recommended practices. What should you do?</p>
 <div class="answers">
-<label><input name="q301" type="radio" value="A"/> A. Create the GKE cluster with Workload Identity Federation. Configure the default node service account to access the bucket. Deploy the application into the cluster so the application can use the node service account permissions. Use Identity and Access Management (IAM) to grant the service account access to the bucket.</label><br/>
-<label><input name="q301" type="radio" value="B"/> B. Create the GKE cluster with Workload Identity Federation. Create a Google service account and a Kubernetes ServiceAccount, and configure both service accounts to use Workload Identity Federation. Attach the Kubernetes ServiceAccount to the application Pods and configure the Google service account to access the bucket with Identity and Access Management (IAM).</label><br/>
-<label><input name="q301" type="radio" value="C"/> C. Create the GKE cluster and deploy the application. Request a security exception to create a Google service account key. Set the constraints/iam.serviceAccountKeyExpiryHours organization policy to 24 hours.</label><br/>
-<label><input name="q301" type="radio" value="D"/> D. Create the GKE cluster and deploy the application. Request a security exception to create a Google service account key. Set the constraints/iam.serviceAccountKeyExpiryHours organization policy to 8 hours.</label>
+<label><input name="q47" type="radio" value="A"/> A. Create the GKE cluster with Workload Identity Federation. Configure the default node service account to access the bucket. Deploy the application into the cluster so the application can use the node service account permissions. Use Identity and Access Management (IAM) to grant the service account access to the bucket.</label><br/>
+<label><input name="q47" type="radio" value="B"/> B. Create the GKE cluster with Workload Identity Federation. Create a Google service account and a Kubernetes ServiceAccount, and configure both service accounts to use Workload Identity Federation. Attach the Kubernetes ServiceAccount to the application Pods and configure the Google service account to access the bucket with Identity and Access Management (IAM).</label><br/>
+<label><input name="q47" type="radio" value="C"/> C. Create the GKE cluster and deploy the application. Request a security exception to create a Google service account key. Set the constraints/iam.serviceAccountKeyExpiryHours organization policy to 24 hours.</label><br/>
+<label><input name="q47" type="radio" value="D"/> D. Create the GKE cluster and deploy the application. Request a security exception to create a Google service account key. Set the constraints/iam.serviceAccountKeyExpiryHours organization policy to 8 hours.</label>
 </div>
 </div>
 <div class="question">
@@ -550,10 +550,10 @@ You are deploying an application to Google Kubernetes Engine (GKE). The applicat
 
 You are managing the security configuration of your company’s Google Cloud organization. The Operations team needs specific permissions on both a Google Kubernetes Engine (GKE) cluster and a Cloud SQL instance. Two predefined Identity and Access Management (IAM) roles exist that contain a subset of the permissions needed by the team. You need to configure the necessary IAM permissions for this team while following Google-recommended practices. What should you do?</p>
 <div class="answers">
-<label><input name="q303" type="radio" value="A"/> A. Create a custom IAM role that combines the permissions from the two relevant predefined roles.</label><br/>
-<label><input name="q303" type="radio" value="B"/> B. Grant the team the two predefined IAM roles.</label><br/>
-<label><input name="q303" type="radio" value="C"/> C. Create a custom IAM role that includes only the required permissions from the predefined roles.</label><br/>
-<label><input name="q303" type="radio" value="D"/> D. Grant the team the IAM roles of Kubernetes Engine Admin and Cloud SQL Admin.</label>
+<label><input name="q48" type="radio" value="A"/> A. Create a custom IAM role that combines the permissions from the two relevant predefined roles.</label><br/>
+<label><input name="q48" type="radio" value="B"/> B. Grant the team the two predefined IAM roles.</label><br/>
+<label><input name="q48" type="radio" value="C"/> C. Create a custom IAM role that includes only the required permissions from the predefined roles.</label><br/>
+<label><input name="q48" type="radio" value="D"/> D. Grant the team the IAM roles of Kubernetes Engine Admin and Cloud SQL Admin.</label>
 </div>
 </div>
 <div class="question">
@@ -561,10 +561,10 @@ You are managing the security configuration of your company’s Google Cloud org
 
 You are planning to deploy an application to Google Cloud. Your application processes asynchronous events from Google services and must be accessible from the public Internet. You need to identify how to deploy your application. You want to follow a standardized process while minimizing development costs. You also want to have no costs when your workloads are not in use. What should you do?</p>
 <div class="answers">
-<label><input name="q305" type="radio" value="A"/> A. Deploy your code to GKE. Use Pub/Sub for event delivery.</label><br/>
-<label><input name="q305" type="radio" value="B"/> B. Deploy your code to Compute Engine. Use Pub/Sub for event delivery.</label><br/>
-<label><input name="q305" type="radio" value="C"/> C. Deploy your code to GKE. Use Eventarc for event delivery.</label><br/>
-<label><input name="q305" type="radio" value="D"/> D. Deploy your code to Cloud Run. Use Eventarc for event delivery.</label>
+<label><input name="q49" type="radio" value="A"/> A. Deploy your code to GKE. Use Pub/Sub for event delivery.</label><br/>
+<label><input name="q49" type="radio" value="B"/> B. Deploy your code to Compute Engine. Use Pub/Sub for event delivery.</label><br/>
+<label><input name="q49" type="radio" value="C"/> C. Deploy your code to GKE. Use Eventarc for event delivery.</label><br/>
+<label><input name="q49" type="radio" value="D"/> D. Deploy your code to Cloud Run. Use Eventarc for event delivery.</label>
 </div>
 </div>
 <div class="question">
@@ -572,10 +572,10 @@ You are planning to deploy an application to Google Cloud. Your application proc
 
 You need to migrate multiple PostgreSQL databases from your on-premises data center to Google Cloud. You want to significantly improve the performance of your databases while minimizing changes to your data schema and application code. You expect to exceed 150 TB of data per geographical region. You want to follow Google-recommended practices and minimize your operational costs. What should you do?</p>
 <div class="answers">
-<label><input name="q311" type="radio" value="A"/> A. Migrate your data to AlloyDB.</label><br/>
-<label><input name="q311" type="radio" value="B"/> B. Migrate your data to Spanner.</label><br/>
-<label><input name="q311" type="radio" value="C"/> C. Migrate your data to Firebase.</label><br/>
-<label><input name="q311" type="radio" value="D"/> D. Migrate your data to Bigtable.</label>
+<label><input name="q50" type="radio" value="A"/> A. Migrate your data to AlloyDB.</label><br/>
+<label><input name="q50" type="radio" value="B"/> B. Migrate your data to Spanner.</label><br/>
+<label><input name="q50" type="radio" value="C"/> C. Migrate your data to Firebase.</label><br/>
+<label><input name="q50" type="radio" value="D"/> D. Migrate your data to Bigtable.</label>
 </div>
 </div>
 <div class="question">
@@ -583,10 +583,10 @@ You need to migrate multiple PostgreSQL databases from your on-premises data cen
 
 Your company's machine learning team requires a scalable and flexible platform to fine-tune large language models utilizing a large volume of proprietary data on Google Cloud. You are tasked with building a solution for this team. What should you do?</p>
 <div class="answers">
-<label><input name="q312" type="radio" value="A"/> A. Use Dataflow as a platform to run the fine-tuning jobs</label><br/>
-<label><input name="q312" type="radio" value="B"/> B. Use a Compute Engine managed instance group as a platform to deploy Jupyter Notebooks and run fine-tuning jobs.</label><br/>
-<label><input name="q312" type="radio" value="C"/> C. Use Cloud Run and GPU as a platform to run the fine-tuning jobs.</label><br/>
-<label><input name="q312" type="radio" value="D"/> D. Use Google Kubernetes Engine (GKE) and hardware accelerators as a platform to run the fine-tuning jobs.</label>
+<label><input name="q51" type="radio" value="A"/> A. Use Dataflow as a platform to run the fine-tuning jobs</label><br/>
+<label><input name="q51" type="radio" value="B"/> B. Use a Compute Engine managed instance group as a platform to deploy Jupyter Notebooks and run fine-tuning jobs.</label><br/>
+<label><input name="q51" type="radio" value="C"/> C. Use Cloud Run and GPU as a platform to run the fine-tuning jobs.</label><br/>
+<label><input name="q51" type="radio" value="D"/> D. Use Google Kubernetes Engine (GKE) and hardware accelerators as a platform to run the fine-tuning jobs.</label>
 </div>
 </div>
 <div class="question">
@@ -594,16 +594,16 @@ Your company's machine learning team requires a scalable and flexible platform t
 
 You are planning to migrate your on-premises VMs to Google Cloud. You need to set up a landing zone in Google Cloud before migrating the VMs. You must ensure that all VM in your production environment can communicate with each other through private IP addresses. You need to allow all VMs in your Google Cloud organization to accept connections on specific TCP ports. You want to follow Google-recommended practices, and you need to minimize your operational costs. What should you do?</p>
 <div class="answers">
-<label><input name="q317" type="radio" value="A"/> A. Create individual VPCs per Google Cloud project. Peer all he VPC together. Apply organization policies on the organization level.</label><br/>
-<label><input name="q317" type="radio" value="B"/> B. Create individual VPCs for each Google Cloud project. Peer ail ne VPCs together. Apply hierarchical firewall policies on the organization level.</label><br/>
-<label><input name="q317" type="radio" value="C"/> C. Create a host VPC project with each production project as its service project. Apply organization policies on the organization level.</label><br/>
-<label><input name="q317" type="radio" value="D"/> D. Create a host VPC project with each production project as its service project. Apply hierarchical firewall policies on the organization level.</label>
+<label><input name="q52" type="radio" value="A"/> A. Create individual VPCs per Google Cloud project. Peer all he VPC together. Apply organization policies on the organization level.</label><br/>
+<label><input name="q52" type="radio" value="B"/> B. Create individual VPCs for each Google Cloud project. Peer ail ne VPCs together. Apply hierarchical firewall policies on the organization level.</label><br/>
+<label><input name="q52" type="radio" value="C"/> C. Create a host VPC project with each production project as its service project. Apply organization policies on the organization level.</label><br/>
+<label><input name="q52" type="radio" value="D"/> D. Create a host VPC project with each production project as its service project. Apply hierarchical firewall policies on the organization level.</label>
 </div>
 </div>
 </form>
 
 <script>
-const correctAnswers = ['D', 'D', 'A', 'C', 'B', 'C', 'B', 'D', 'A', 'A', 'C', 'D', 'A', 'D', 'A', 'B', 'A', 'D', 'C', 'B', 'B', 'D', 'C', 'D', 'A', 'B', 'A', 'A', 'C', 'B', 'C', 'B', 'B', 'C', 'B', 'D', 'B', 'A', 'B', 'A', 'D', 'C', 'B', 'B', 'C', 'C', 'B', 'B', 'D', 'C', 'B', 'D'];
+const correctAnswers = ['D', 'D', 'A', 'C', 'B', 'C', 'B', 'D', 'A', 'A', 'C', 'D', 'A', 'D', 'A', 'B', 'A', 'D', 'C', 'B', 'B', 'D', 'C', 'D', 'A', 'B', 'A', 'A', 'C', 'B', 'C', 'B', 'B', 'C', 'B', 'D', 'B', 'A', 'B', 'A', 'D', 'C', 'B', 'B', 'B', 'C', 'B', 'B', 'D', 'A', 'D', 'D'];
 
 const total = 52;
 
