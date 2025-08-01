@@ -120,6 +120,42 @@ export default function QuizPage() {
   const [reviewMode, setReviewMode] = useState(false);
   const [reviewIndex, setReviewIndex] = useState(0);
 
+  // Load quiz state from localStorage
+  useEffect(() => {
+    const savedState = localStorage.getItem('gcp-quiz-state');
+    if (savedState) {
+      try {
+        const state = JSON.parse(savedState);
+        if (state.quizStarted && !state.quizCompleted) {
+          setQuizStarted(state.quizStarted);
+          setCurrentQuestionIndex(state.currentQuestionIndex);
+          setUserAnswers(state.userAnswers);
+          setStartTime(state.startTime);
+          setFilteredQuestions(state.filteredQuestions);
+          setQuestionCount(state.questionCount);
+        }
+      } catch (error) {
+        console.error('Error loading quiz state:', error);
+      }
+    }
+  }, []);
+
+  // Save quiz state to localStorage
+  useEffect(() => {
+    if (quizStarted) {
+      const state = {
+        quizStarted,
+        currentQuestionIndex,
+        userAnswers,
+        startTime,
+        filteredQuestions,
+        questionCount,
+        quizCompleted
+      };
+      localStorage.setItem('gcp-quiz-state', JSON.stringify(state));
+    }
+  }, [quizStarted, currentQuestionIndex, userAnswers, startTime, filteredQuestions, questionCount, quizCompleted]);
+
   // Initialize questions with topics and keywords
   useEffect(() => {
     const questionsWithMetadata = gcpQuestions.map(q => ({
@@ -128,7 +164,9 @@ export default function QuizPage() {
       keywords: extractKeywords(q.text)
     }));
     setQuestions(questionsWithMetadata);
-    setFilteredQuestions(questionsWithMetadata);
+    if (!quizStarted) {
+      setFilteredQuestions(questionsWithMetadata);
+    }
   }, []);
 
   /**
@@ -272,6 +310,22 @@ export default function QuizPage() {
     setUserAnswers({});
     setReviewMode(false);
     setReviewIndex(0);
+    // Clear localStorage
+    localStorage.removeItem('gcp-quiz-state');
+  };
+
+  const handleResetQuiz = () => {
+    setQuizStarted(false);
+    setQuizCompleted(false);
+    setCurrentQuestionIndex(0);
+    setUserAnswers({});
+    setReviewMode(false);
+    setReviewIndex(0);
+    setSelectedTopic('all');
+    setSelectedKeyword('all');
+    setQuestionCount(10);
+    // Clear localStorage
+    localStorage.removeItem('gcp-quiz-state');
   };
 
   const currentQuestion = filteredQuestions[currentQuestionIndex];
@@ -284,15 +338,22 @@ export default function QuizPage() {
           {/* Quiz Configuration */}
           <div className="lg:col-span-2">
             <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BookOpen className="h-5 w-5" />
-                  GCP Quiz Configuration
-                </CardTitle>
-                <CardDescription>
-                  Configure your quiz settings and select topics to focus on
-                </CardDescription>
-              </CardHeader>
+                             <CardHeader>
+                 <CardTitle className="flex items-center gap-2">
+                   <BookOpen className="h-5 w-5" />
+                   GCP Quiz Configuration
+                 </CardTitle>
+                 <CardDescription>
+                   Configure your quiz settings and select topics to focus on
+                 </CardDescription>
+                 {quizStarted && (
+                   <div className="mt-2 p-2 bg-blue-50 border border-blue-200 rounded-lg">
+                     <p className="text-sm text-blue-800">
+                       <strong>Quiz in progress:</strong> Question {currentQuestionIndex + 1} of {filteredQuestions.length}
+                     </p>
+                   </div>
+                 )}
+               </CardHeader>
               <CardContent className="space-y-6">
                 {/* Question Count */}
                 <div className="space-y-2">
@@ -353,14 +414,23 @@ export default function QuizPage() {
                   </Select>
                 </div>
 
-                <Button 
-                  onClick={handleStartQuiz}
-                  className="w-full"
-                  disabled={filteredQuestions.length === 0}
-                >
-                  <PlayCircle className="h-4 w-4 mr-2" />
-                  Start Quiz ({questionCount} questions)
-                </Button>
+                                 <div className="flex gap-2">
+                   <Button 
+                     onClick={handleStartQuiz}
+                     className="flex-1"
+                     disabled={filteredQuestions.length === 0}
+                   >
+                     <PlayCircle className="h-4 w-4 mr-2" />
+                     Start Quiz ({questionCount} questions)
+                   </Button>
+                   <Button 
+                     onClick={handleResetQuiz}
+                     variant="outline"
+                     size="sm"
+                   >
+                     <RotateCcw className="h-4 w-4" />
+                   </Button>
+                 </div>
               </CardContent>
             </Card>
           </div>
@@ -473,17 +543,21 @@ export default function QuizPage() {
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex justify-center gap-4">
-              <Button onClick={() => setReviewMode(true)} variant="outline">
-                <Eye className="h-4 w-4 mr-2" />
-                Review Answers
-              </Button>
-              <Button onClick={handleFinishQuiz}>
-                <Home className="h-4 w-4 mr-2" />
-                Back to Quiz Setup
-              </Button>
-            </div>
+                         {/* Action Buttons */}
+             <div className="flex justify-center gap-4">
+               <Button onClick={() => setReviewMode(true)} variant="outline">
+                 <Eye className="h-4 w-4 mr-2" />
+                 Review Answers
+               </Button>
+               <Button onClick={handleFinishQuiz}>
+                 <Home className="h-4 w-4 mr-2" />
+                 Back to Quiz Setup
+               </Button>
+               <Button onClick={handleResetQuiz} variant="outline">
+                 <RotateCcw className="h-4 w-4 mr-2" />
+                 Reset Quiz
+               </Button>
+             </div>
           </CardContent>
         </Card>
       </div>
@@ -623,12 +697,16 @@ export default function QuizPage() {
                </div>
             </div>
 
-            <div className="flex justify-center">
-              <Button onClick={handleFinishQuiz}>
-                <Home className="h-4 w-4 mr-2" />
-                Back to Quiz Setup
-              </Button>
-            </div>
+                         <div className="flex justify-center gap-4">
+               <Button onClick={handleFinishQuiz}>
+                 <Home className="h-4 w-4 mr-2" />
+                 Back to Quiz Setup
+               </Button>
+               <Button onClick={handleResetQuiz} variant="outline">
+                 <RotateCcw className="h-4 w-4 mr-2" />
+                 Reset Quiz
+               </Button>
+             </div>
           </CardContent>
         </Card>
       </div>
@@ -706,24 +784,35 @@ export default function QuizPage() {
             )}
           </div>
 
-          <div className="flex justify-between">
-            <Button
-              onClick={() => setCurrentQuestionIndex(currentQuestionIndex - 1)}
-              disabled={currentQuestionIndex === 0}
-              variant="outline"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Previous
-            </Button>
-            
-            <Button
-              onClick={handleNextQuestion}
-              disabled={!userAnswers[currentQuestion.id]}
-            >
-              {currentQuestionIndex === filteredQuestions.length - 1 ? 'Finish Quiz' : 'Next Question'}
-              <ArrowRight className="h-4 w-4 ml-2" />
-            </Button>
-          </div>
+                     <div className="flex justify-between items-center">
+             <div className="flex gap-2">
+               <Button
+                 onClick={() => setCurrentQuestionIndex(currentQuestionIndex - 1)}
+                 disabled={currentQuestionIndex === 0}
+                 variant="outline"
+               >
+                 <ArrowLeft className="h-4 w-4 mr-2" />
+                 Previous
+               </Button>
+               
+               <Button
+                 onClick={handleNextQuestion}
+                 disabled={!userAnswers[currentQuestion.id]}
+               >
+                 {currentQuestionIndex === filteredQuestions.length - 1 ? 'Finish Quiz' : 'Next Question'}
+                 <ArrowRight className="h-4 w-4 ml-2" />
+               </Button>
+             </div>
+             
+             <Button
+               onClick={handleResetQuiz}
+               variant="outline"
+               size="sm"
+             >
+               <RotateCcw className="h-4 w-4 mr-2" />
+               Reset
+             </Button>
+           </div>
         </CardContent>
       </Card>
     </div>
