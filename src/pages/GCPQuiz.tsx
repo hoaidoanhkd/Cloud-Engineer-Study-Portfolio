@@ -8,32 +8,146 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { CheckCircle, XCircle, AlertCircle } from 'lucide-react';
+import { CheckCircle, XCircle, AlertCircle, Shuffle, RotateCcw } from 'lucide-react';
 import { gcpQuestions, Question } from '@/data/gcpQuestions';
 
+// Fisher-Yates shuffle algorithm
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
+// GCP Topics mapping
+const gcpTopics = {
+  'compute': 'Compute Engine & GKE',
+  'storage': 'Cloud Storage & Databases',
+  'networking': 'Networking & Security',
+  'iam': 'Identity & Access Management',
+  'monitoring': 'Monitoring & Logging',
+  'billing': 'Billing & Cost Management',
+  'deployment': 'Deployment & DevOps',
+  'data': 'Data & Analytics',
+  'ai': 'AI & Machine Learning',
+  'serverless': 'Serverless & App Engine'
+};
+
+// Extract topic from question text
+const extractTopic = (questionText: string): string => {
+  const text = questionText.toLowerCase();
+  
+  if (text.includes('compute engine') || text.includes('gke') || text.includes('kubernetes') || text.includes('vm')) {
+    return 'compute';
+  } else if (text.includes('cloud storage') || text.includes('bigquery') || text.includes('cloud sql') || text.includes('spanner') || text.includes('bigtable')) {
+    return 'storage';
+  } else if (text.includes('vpc') || text.includes('network') || text.includes('firewall') || text.includes('load balancer')) {
+    return 'networking';
+  } else if (text.includes('iam') || text.includes('service account') || text.includes('role') || text.includes('permission')) {
+    return 'iam';
+  } else if (text.includes('monitoring') || text.includes('logging') || text.includes('stackdriver')) {
+    return 'monitoring';
+  } else if (text.includes('billing') || text.includes('cost') || text.includes('pricing')) {
+    return 'billing';
+  } else if (text.includes('deployment') || text.includes('terraform') || text.includes('deployment manager')) {
+    return 'deployment';
+  } else if (text.includes('data') || text.includes('analytics') || text.includes('pub/sub')) {
+    return 'data';
+  } else if (text.includes('ai') || text.includes('machine learning') || text.includes('ml')) {
+    return 'ai';
+  } else if (text.includes('app engine') || text.includes('cloud run') || text.includes('functions')) {
+    return 'serverless';
+  }
+  
+  return 'general';
+};
+
+// Extract keywords from question text
+const extractKeywords = (questionText: string): string[] => {
+  const keywords = [];
+  const text = questionText.toLowerCase();
+  
+  // Common GCP services and concepts
+  const commonKeywords = [
+    'compute engine', 'cloud storage', 'bigquery', 'cloud sql', 'spanner', 'bigtable',
+    'vpc', 'firewall', 'load balancer', 'iam', 'service account', 'monitoring',
+    'logging', 'billing', 'deployment', 'terraform', 'kubernetes', 'gke',
+    'app engine', 'cloud run', 'functions', 'pub/sub', 'dataflow', 'dataproc'
+  ];
+  
+  for (const keyword of commonKeywords) {
+    if (text.includes(keyword)) {
+      keywords.push(keyword);
+    }
+  }
+  
+  return keywords.slice(0, 3); // Limit to 3 keywords
+};
+
+interface ShuffledQuestion extends Question {
+  shuffledOptions: string[];
+  shuffledOptionIndices: number[];
+  topic: string;
+  keywords: string[];
+}
+
 const GCPQuiz: React.FC = () => {
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<ShuffledQuestion[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [isShuffled, setIsShuffled] = useState(false);
 
-
-
+  // Initialize questions with shuffled options
   useEffect(() => {
-    setQuestions(gcpQuestions);
+    const shuffledQuestions = gcpQuestions.map(q => {
+      const topic = extractTopic(q.text);
+      const keywords = extractKeywords(q.text);
+      
+      // Create shuffled options with their original indices
+      const optionIndices = Array.from({ length: q.options.length }, (_, i) => i);
+      const shuffledIndices = shuffleArray(optionIndices);
+      const shuffledOptions = shuffledIndices.map(index => q.options[index]);
+      
+      return {
+        ...q,
+        shuffledOptions,
+        shuffledOptionIndices: shuffledIndices,
+        topic,
+        keywords
+      };
+    });
+    
+    setQuestions(shuffledQuestions);
     setLoading(false);
   }, []);
 
   const handleAnswer = (answer: string | string[]) => {
     const updatedQuestions = [...questions];
-    updatedQuestions[currentQuestion].userAnswer = answer;
+    const currentQ = updatedQuestions[currentQuestion];
+    
+    // Convert shuffled answer back to original format
+    let originalAnswer: string | string[];
+    if (Array.isArray(answer)) {
+      originalAnswer = answer.map(ans => {
+        const shuffledIndex = currentQ.shuffledOptions.findIndex(opt => opt.startsWith(ans));
+        return String.fromCharCode(65 + currentQ.shuffledOptionIndices[shuffledIndex]);
+      });
+    } else {
+      const shuffledIndex = currentQ.shuffledOptions.findIndex(opt => opt.startsWith(answer));
+      originalAnswer = String.fromCharCode(65 + currentQ.shuffledOptionIndices[shuffledIndex]);
+    }
+    
+    updatedQuestions[currentQuestion].userAnswer = originalAnswer;
     
     if (updatedQuestions[currentQuestion].type === 'radio') {
-      updatedQuestions[currentQuestion].isCorrect = answer === updatedQuestions[currentQuestion].correctAnswer;
+      updatedQuestions[currentQuestion].isCorrect = originalAnswer === updatedQuestions[currentQuestion].correctAnswer;
     } else {
       const correctAnswers = updatedQuestions[currentQuestion].correctAnswer.split(',');
-      const userAnswers = Array.isArray(answer) ? answer : [answer];
+      const userAnswers = Array.isArray(originalAnswer) ? originalAnswer : [originalAnswer];
       updatedQuestions[currentQuestion].isCorrect = 
         correctAnswers.every(ans => userAnswers.includes(ans)) && 
         userAnswers.length === correctAnswers.length;
@@ -63,10 +177,50 @@ const GCPQuiz: React.FC = () => {
   };
 
   const resetQuiz = () => {
-    setQuestions(gcpQuestions.map(q => ({ ...q, userAnswer: undefined, isCorrect: undefined })));
+    const shuffledQuestions = gcpQuestions.map(q => {
+      const topic = extractTopic(q.text);
+      const keywords = extractKeywords(q.text);
+      
+      const optionIndices = Array.from({ length: q.options.length }, (_, i) => i);
+      const shuffledIndices = shuffleArray(optionIndices);
+      const shuffledOptions = shuffledIndices.map(index => q.options[index]);
+      
+      return {
+        ...q,
+        shuffledOptions,
+        shuffledOptionIndices: shuffledIndices,
+        topic,
+        keywords,
+        userAnswer: undefined,
+        isCorrect: undefined
+      };
+    });
+    
+    setQuestions(shuffledQuestions);
     setCurrentQuestion(0);
     setShowResults(false);
     setScore(0);
+    setIsShuffled(true);
+  };
+
+  const shuffleCurrentQuestion = () => {
+    const updatedQuestions = [...questions];
+    const currentQ = updatedQuestions[currentQuestion];
+    
+    // Re-shuffle options for current question
+    const optionIndices = Array.from({ length: currentQ.options.length }, (_, i) => i);
+    const shuffledIndices = shuffleArray(optionIndices);
+    const shuffledOptions = shuffledIndices.map(index => currentQ.options[index]);
+    
+    updatedQuestions[currentQuestion] = {
+      ...currentQ,
+      shuffledOptions,
+      shuffledOptionIndices: shuffledIndices,
+      userAnswer: undefined,
+      isCorrect: undefined
+    };
+    
+    setQuestions(updatedQuestions);
   };
 
   const getProgressPercentage = () => {
@@ -125,7 +279,12 @@ const GCPQuiz: React.FC = () => {
                       <XCircle className="text-red-500 mt-1" size={20} />
                     )}
                     <div className="flex-1">
-                      <p className="font-medium">Question {index + 1}</p>
+                      <div className="flex items-center gap-2 mb-1">
+                        <p className="font-medium">Question {index + 1}</p>
+                        <Badge variant="outline" className="text-xs">
+                          {gcpTopics[question.topic as keyof typeof gcpTopics] || 'General'}
+                        </Badge>
+                      </div>
                       <p className="text-sm text-muted-foreground">{question.text}</p>
                     </div>
                   </div>
@@ -135,6 +294,7 @@ const GCPQuiz: React.FC = () => {
 
             <div className="flex justify-center gap-4">
               <Button onClick={resetQuiz} variant="outline">
+                <RotateCcw className="h-4 w-4 mr-2" />
                 Retake Quiz
               </Button>
             </div>
@@ -157,6 +317,22 @@ const GCPQuiz: React.FC = () => {
             </Badge>
           </div>
           <Progress value={getProgressPercentage()} className="w-full" />
+          
+          {/* Topic and Keywords */}
+          <div className="flex items-center gap-4 mt-4">
+            <Badge variant="outline" className="bg-blue-50 text-blue-700">
+              {gcpTopics[currentQ.topic as keyof typeof gcpTopics] || 'General'}
+            </Badge>
+            {currentQ.keywords.length > 0 && (
+              <div className="flex gap-2">
+                {currentQ.keywords.map((keyword, index) => (
+                  <Badge key={index} variant="secondary" className="text-xs">
+                    {keyword}
+                  </Badge>
+                ))}
+              </div>
+            )}
+          </div>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-4">
@@ -164,13 +340,23 @@ const GCPQuiz: React.FC = () => {
             
             {currentQ.type === 'radio' ? (
               <RadioGroup
-                value={currentQ.userAnswer as string || ''}
-                onValueChange={handleAnswer}
+                value={currentQ.userAnswer ? 
+                  currentQ.shuffledOptions.findIndex(opt => 
+                    opt.startsWith(String.fromCharCode(65 + currentQ.shuffledOptionIndices.indexOf(
+                      currentQ.userAnswer.charCodeAt(0) - 65
+                    )))
+                  ).toString() : ''
+                }
+                onValueChange={(value) => {
+                  const optionIndex = parseInt(value);
+                  const answer = getOptionLabel(optionIndex);
+                  handleAnswer(answer);
+                }}
                 className="space-y-3"
               >
-                {currentQ.options.map((option, index) => (
+                {currentQ.shuffledOptions.map((option, index) => (
                   <div key={index} className="flex items-center space-x-2">
-                    <RadioGroupItem value={getOptionLabel(index)} id={`option-${index}`} />
+                    <RadioGroupItem value={index.toString()} id={`option-${index}`} />
                     <Label htmlFor={`option-${index}`} className="flex-1 cursor-pointer">
                       <span className="font-medium mr-2">{getOptionLabel(index)}.</span>
                       {option}
@@ -180,16 +366,23 @@ const GCPQuiz: React.FC = () => {
               </RadioGroup>
             ) : (
               <div className="space-y-3">
-                {currentQ.options.map((option, index) => (
+                {currentQ.shuffledOptions.map((option, index) => (
                   <div key={index} className="flex items-center space-x-2">
                     <Checkbox
                       id={`option-${index}`}
-                      checked={Array.isArray(currentQ.userAnswer) && currentQ.userAnswer.includes(getOptionLabel(index))}
+                      checked={Array.isArray(currentQ.userAnswer) && 
+                        currentQ.userAnswer.some(ans => {
+                          const originalIndex = currentQ.shuffledOptionIndices[index];
+                          return ans === String.fromCharCode(65 + originalIndex);
+                        })
+                      }
                       onCheckedChange={(checked) => {
+                        const originalIndex = currentQ.shuffledOptionIndices[index];
+                        const answer = String.fromCharCode(65 + originalIndex);
                         const currentAnswers = Array.isArray(currentQ.userAnswer) ? currentQ.userAnswer : [];
                         const newAnswers = checked
-                          ? [...currentAnswers, getOptionLabel(index)]
-                          : currentAnswers.filter(ans => ans !== getOptionLabel(index));
+                          ? [...currentAnswers, answer]
+                          : currentAnswers.filter(ans => ans !== answer);
                         handleAnswer(newAnswers);
                       }}
                     />
@@ -215,13 +408,24 @@ const GCPQuiz: React.FC = () => {
           <Separator />
 
           <div className="flex justify-between">
-            <Button
-              onClick={previousQuestion}
-              disabled={currentQuestion === 0}
-              variant="outline"
-            >
-              Previous
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                onClick={previousQuestion}
+                disabled={currentQuestion === 0}
+                variant="outline"
+              >
+                Previous
+              </Button>
+              
+              <Button
+                onClick={shuffleCurrentQuestion}
+                variant="outline"
+                size="sm"
+              >
+                <Shuffle className="h-4 w-4 mr-2" />
+                Shuffle Options
+              </Button>
+            </div>
             
             <Button
               onClick={nextQuestion}
