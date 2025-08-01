@@ -537,48 +537,73 @@ export default function QuizPage() {
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                {isCorrect ? (
-                  <CheckCircle className="text-green-500" size={20} />
-                ) : (
-                  <XCircle className="text-red-500" size={20} />
+                         <div className="space-y-4">
+               <div className="flex items-center gap-2">
+                 {isCorrect ? (
+                   <CheckCircle className="text-green-500" size={20} />
+                 ) : (
+                   <XCircle className="text-red-500" size={20} />
+                 )}
+                 <Badge variant="outline">
+                   {gcpTopics[reviewQuestion.topic as keyof typeof gcpTopics] || 'General'}
+                 </Badge>
+                 <Badge variant={isCorrect ? "default" : "destructive"} className="ml-auto">
+                   {isCorrect ? "Correct" : "Incorrect"}
+                 </Badge>
+               </div>
+               
+               <h3 className="text-lg font-semibold">{reviewQuestion.text}</h3>
+               
+                               {/* Show user's answer */}
+                {userAnswer && (
+                  <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                    <p className="text-sm font-medium text-blue-800 mb-1">Your Answer:</p>
+                    <p className="text-blue-700">
+                      {Array.isArray(userAnswer) ? userAnswer.join(', ') : userAnswer}
+                    </p>
+                  </div>
                 )}
-                <Badge variant="outline">
-                  {gcpTopics[reviewQuestion.topic as keyof typeof gcpTopics] || 'General'}
-                </Badge>
-              </div>
+                
+                {/* Show correct answer */}
+                <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
+                  <p className="text-sm font-medium text-green-800 mb-1">Correct Answer:</p>
+                  <p className="text-green-700">
+                    {reviewQuestion.correctAnswer}
+                  </p>
+                </div>
               
-              <h3 className="text-lg font-semibold">{reviewQuestion.text}</h3>
-              
-              <div className="space-y-2">
-                {reviewQuestion.options.map((option, index) => {
-                  const optionLetter = String.fromCharCode(65 + index);
-                  const isSelected = reviewQuestion.type === 'radio' 
-                    ? userAnswer === optionLetter
-                    : Array.isArray(userAnswer) && userAnswer.includes(optionLetter);
-                  const isCorrectOption = reviewQuestion.correctAnswer.includes(optionLetter);
-                  
-                  return (
-                    <div
-                      key={index}
-                      className={cn(
-                        "p-3 rounded-lg border",
-                        isCorrectOption && "bg-green-50 border-green-200",
-                        isSelected && !isCorrectOption && "bg-red-50 border-red-200",
-                        isSelected && isCorrectOption && "bg-green-50 border-green-200"
-                      )}
-                    >
-                      <div className="flex items-center gap-2">
-                        <span className="font-medium">{optionLetter}.</span>
-                        <span>{option}</span>
-                        {isCorrectOption && <CheckCircle className="text-green-500 ml-auto" size={16} />}
-                        {isSelected && !isCorrectOption && <XCircle className="text-red-500 ml-auto" size={16} />}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+                             <div className="space-y-2">
+                 {reviewQuestion.options.map((option, index) => {
+                   const optionLetter = String.fromCharCode(65 + index);
+                   const isSelected = reviewQuestion.type === 'radio' 
+                     ? userAnswer === optionLetter
+                     : Array.isArray(userAnswer) && userAnswer.includes(optionLetter);
+                   const isCorrectOption = reviewQuestion.correctAnswer.includes(optionLetter);
+                   
+                   return (
+                     <div
+                       key={index}
+                       className={cn(
+                         "p-3 rounded-lg border",
+                         isCorrectOption && "bg-green-50 border-green-200",
+                         isSelected && !isCorrectOption && "bg-red-50 border-red-200",
+                         isSelected && isCorrectOption && "bg-green-50 border-green-200",
+                         !isSelected && !isCorrectOption && "bg-gray-50 border-gray-200"
+                       )}
+                     >
+                       <div className="flex items-center gap-2">
+                         <span className="font-medium">{optionLetter}.</span>
+                         <span>{option}</span>
+                         <div className="ml-auto flex items-center gap-2">
+                           {isCorrectOption && <CheckCircle className="text-green-500" size={16} />}
+                           {isSelected && !isCorrectOption && <XCircle className="text-red-500" size={16} />}
+                           {isSelected && isCorrectOption && <CheckCircle className="text-green-500" size={16} />}
+                         </div>
+                       </div>
+                     </div>
+                   );
+                 })}
+               </div>
             </div>
 
             <div className="flex justify-center">
