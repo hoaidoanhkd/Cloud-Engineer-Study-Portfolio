@@ -5,8 +5,42 @@ module.exports = {
   theme: {
     container: {
       center: true,
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '4rem',
+        xl: '5rem',
+        '2xl': '6rem',
+      },
+      screens: {
+        '2xl': '1400px',
+      },
     },
     extend: {
+      fontFamily: {
+        sans: [
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'Oxygen',
+          'Ubuntu',
+          'Cantarell',
+          'Fira Sans',
+          'Droid Sans',
+          'Helvetica Neue',
+          'sans-serif',
+        ],
+      },
+      screens: {
+        'xs': '475px',
+        '3xl': '1600px',
+      },
+      spacing: {
+        '18': '4.5rem',
+        '88': '22rem',
+        '128': '32rem',
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
@@ -81,10 +115,50 @@ module.exports = {
             height: '0',
           },
         },
+        'fade-in': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(10px)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+        },
+        'slide-in': {
+          '0%': {
+            transform: 'translateX(-100%)',
+          },
+          '100%': {
+            transform: 'translateX(0)',
+          },
+        },
+        'slide-up': {
+          '0%': {
+            transform: 'translateY(100%)',
+          },
+          '100%': {
+            transform: 'translateY(0)',
+          },
+        },
+        'scale-in': {
+          '0%': {
+            opacity: '0',
+            transform: 'scale(0.9)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'scale(1)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'fade-in': 'fade-in 0.3s ease-out',
+        'slide-in': 'slide-in 0.3s ease-out',
+        'slide-up': 'slide-up 0.3s ease-out',
+        'scale-in': 'scale-in 0.2s ease-out',
       },
     },
   },
