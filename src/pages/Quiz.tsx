@@ -202,7 +202,7 @@ export default function QuizPage() {
     setQuizCompleted(false);
   };
 
-  const handleSubmitAnswer = (answer?: string) => {
+  const handleSubmitAnswer = (answer?: string | string[]) => {
     if (answer) {
       const currentQuestion = filteredQuestions[currentQuestionIndex];
       setUserAnswers(prev => ({
@@ -229,6 +229,7 @@ export default function QuizPage() {
       if (q.type === 'radio') {
         return userAnswer === q.correctAnswer;
       } else {
+        // For checkbox questions
         const correctAnswers = q.correctAnswer.split(',');
         const userAnswers = Array.isArray(userAnswer) ? userAnswer : [userAnswer];
         return correctAnswers.every(ans => userAnswers.includes(ans)) && 
@@ -491,11 +492,20 @@ export default function QuizPage() {
   if (reviewMode) {
     const reviewQuestion = filteredQuestions[reviewIndex];
     const userAnswer = userAnswers[reviewQuestion.id];
-    const isCorrect = reviewQuestion.type === 'radio' 
-      ? userAnswer === reviewQuestion.correctAnswer
-      : Array.isArray(userAnswer) && 
-        reviewQuestion.correctAnswer.split(',').every(ans => userAnswer.includes(ans)) &&
-        userAnswer.length === reviewQuestion.correctAnswer.split(',').length;
+    
+    // Calculate if answer is correct
+    let isCorrect = false;
+    if (userAnswer) {
+      if (reviewQuestion.type === 'radio') {
+        isCorrect = userAnswer === reviewQuestion.correctAnswer;
+      } else {
+        // For checkbox questions
+        const correctAnswers = reviewQuestion.correctAnswer.split(',');
+        const userAnswers = Array.isArray(userAnswer) ? userAnswer : [userAnswer];
+        isCorrect = correctAnswers.every(ans => userAnswers.includes(ans)) && 
+                   userAnswers.length === correctAnswers.length;
+      }
+    }
 
     return (
       <div className="container mx-auto px-4 py-8 max-w-4xl">
@@ -640,10 +650,7 @@ export default function QuizPage() {
                         const newAnswers = e.target.checked
                           ? [...currentAnswers, String.fromCharCode(65 + index)]
                           : currentAnswers.filter(ans => ans !== String.fromCharCode(65 + index));
-                        setUserAnswers(prev => ({
-                          ...prev,
-                          [currentQuestion.id]: newAnswers
-                        }));
+                        handleSubmitAnswer(newAnswers);
                       }}
                       className="h-4 w-4"
                     />
