@@ -120,9 +120,68 @@ export const getStatusColor = (status: string): string => {
 };
 
 /**
+ * Get gradient classes for cards
+ */
+export const getGradientClasses = (type: 'blue' | 'green' | 'purple' | 'orange' | 'pink' | 'indigo'): string => {
+  switch (type) {
+    case 'blue':
+      return 'bg-gradient-to-br from-blue-50 to-indigo-50';
+    case 'green':
+      return 'bg-gradient-to-br from-green-50 to-emerald-50';
+    case 'purple':
+      return 'bg-gradient-to-br from-purple-50 to-pink-50';
+    case 'orange':
+      return 'bg-gradient-to-br from-orange-50 to-red-50';
+    case 'pink':
+      return 'bg-gradient-to-br from-pink-50 to-rose-50';
+    case 'indigo':
+      return 'bg-gradient-to-br from-indigo-50 to-blue-50';
+    default:
+      return 'bg-gradient-to-br from-slate-50 to-gray-50';
+  }
+};
+
+/**
+ * Get hover effect classes
+ */
+export const getHoverClasses = (type: 'scale' | 'shadow' | 'both'): string => {
+  switch (type) {
+    case 'scale':
+      return 'transform hover:scale-105 transition-transform duration-300';
+    case 'shadow':
+      return 'hover:shadow-xl transition-shadow duration-300';
+    case 'both':
+      return 'transform hover:scale-105 hover:shadow-xl transition-all duration-300';
+    default:
+      return '';
+  }
+};
+
+/**
  * Truncate text to specified length
  */
 export const truncate = (text: string, length: number = 50): string => {
   if (text.length <= length) return text;
   return text.slice(0, length) + '...';
+};
+
+/**
+ * Generate random ID
+ */
+export const generateId = (): string => {
+  return Math.random().toString(36).substr(2, 9);
+};
+
+/**
+ * Debounce function
+ */
+export const debounce = <T extends (...args: any[]) => any>(
+  func: T,
+  wait: number
+): ((...args: Parameters<T>) => void) => {
+  let timeout: NodeJS.Timeout;
+  return (...args: Parameters<T>) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
 };
