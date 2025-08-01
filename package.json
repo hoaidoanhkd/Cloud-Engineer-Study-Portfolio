@@ -1,10 +1,24 @@
 {
   "name": "gcp-quiz-app",
   "version": "1.0.0",
+  "description": "Interactive GCP Quiz Application for Associate Cloud Engineer certification",
+  "keywords": ["gcp", "quiz", "cloud", "education", "react", "typescript"],
+  "author": "GCP Learning Hub Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/gcp-quiz-app.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint src --ext ts,tsx --fix",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "analyze": "vite build --mode analyze"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.11",
