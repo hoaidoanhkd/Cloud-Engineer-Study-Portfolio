@@ -8,18 +8,8 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { CheckCircle, XCircle, AlertCircle, Shuffle, RotateCcw } from 'lucide-react';
+import { CheckCircle, XCircle, AlertCircle, RotateCcw } from 'lucide-react';
 import { gcpQuestions, Question } from '@/data/gcpQuestions';
-
-// Fisher-Yates shuffle algorithm
-const shuffleArray = <T,>(array: T[]): T[] => {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-};
 
 // GCP Topics mapping
 const gcpTopics = {
@@ -86,40 +76,28 @@ const extractKeywords = (questionText: string): string[] => {
   return keywords.slice(0, 3); // Limit to 3 keywords
 };
 
-interface ShuffledQuestion extends Question {
-  shuffledOptions: string[];
-  shuffledOptionIndices: number[];
+interface EnhancedQuestion extends Question {
   topic: string;
   keywords: string[];
 }
 
 const GCPQuiz: React.FC = () => {
-  const [questions, setQuestions] = useState<ShuffledQuestion[]>([]);
+  const [questions, setQuestions] = useState<EnhancedQuestion[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [isShuffled, setIsShuffled] = useState(false);
 
-  // Initialize questions with shuffled options
   useEffect(() => {
-    const shuffledQuestions = gcpQuestions.map(q => {
-      const topic = extractTopic(q.text);
-      const keywords = extractKeywords(q.text);
-      
-      // Create shuffled options with their original indices
-      const optionIndices = Array.from({ length: q.options.length }, (_, i) => i);
-      const shuffledIndices = shuffleArray(optionIndices);
-      const shuffledOptions = shuffledIndices.map(index => q.options[index]);
-      
-      return {
-        ...q,
-        shuffledOptions,
-        shuffledOptionIndices: shuffledIndices,
-        topic,
-        keywords
-      };
-    });
+    // Initialize questions with topics and keywords
+    const enhancedQuestions = gcpQuestions.map(q => ({
+      ...q,
+      topic: extractTopic(q.text),
+      keywords: extractKeywords(q.text)
+    }));
+    
+    // Shuffle questions order
+    const shuffledQuestions = enhancedQuestions.sort(() => Math.random() - 0.5);
     
     setQuestions(shuffledQuestions);
     setLoading(false);
@@ -129,28 +107,17 @@ const GCPQuiz: React.FC = () => {
     const updatedQuestions = [...questions];
     const currentQ = updatedQuestions[currentQuestion];
     
-    // Convert shuffled answer back to original format
-    let originalAnswer: string | string[];
-    if (Array.isArray(answer)) {
-      originalAnswer = answer.map(ans => {
-        const shuffledIndex = currentQ.shuffledOptions.findIndex(opt => opt.startsWith(ans));
-        return String.fromCharCode(65 + currentQ.shuffledOptionIndices[shuffledIndex]);
-      });
-    } else {
-      const shuffledIndex = currentQ.shuffledOptions.findIndex(opt => opt.startsWith(answer));
-      originalAnswer = String.fromCharCode(65 + currentQ.shuffledOptionIndices[shuffledIndex]);
-    }
+    currentQ.userAnswer = answer;
     
-    updatedQuestions[currentQuestion].userAnswer = originalAnswer;
-    
-    if (updatedQuestions[currentQuestion].type === 'radio') {
-      updatedQuestions[currentQuestion].isCorrect = originalAnswer === updatedQuestions[currentQuestion].correctAnswer;
+    // Check if answer is correct
+    if (currentQ.type === 'radio') {
+      currentQ.isCorrect = answer === currentQ.correctAnswer;
     } else {
-      const correctAnswers = updatedQuestions[currentQuestion].correctAnswer.split(',');
-      const userAnswers = Array.isArray(originalAnswer) ? originalAnswer : [originalAnswer];
-      updatedQuestions[currentQuestion].isCorrect = 
-        correctAnswers.every(ans => userAnswers.includes(ans)) && 
-        userAnswers.length === correctAnswers.length;
+      // For checkbox questions
+      const correctAnswers = currentQ.correctAnswer.split(',');
+      const userAnswers = Array.isArray(answer) ? answer : [answer];
+      currentQ.isCorrect = correctAnswers.every(ans => userAnswers.includes(ans)) && 
+                          userAnswers.length === correctAnswers.length;
     }
     
     setQuestions(updatedQuestions);
@@ -177,50 +144,21 @@ const GCPQuiz: React.FC = () => {
   };
 
   const resetQuiz = () => {
-    const shuffledQuestions = gcpQuestions.map(q => {
-      const topic = extractTopic(q.text);
-      const keywords = extractKeywords(q.text);
-      
-      const optionIndices = Array.from({ length: q.options.length }, (_, i) => i);
-      const shuffledIndices = shuffleArray(optionIndices);
-      const shuffledOptions = shuffledIndices.map(index => q.options[index]);
-      
-      return {
-        ...q,
-        shuffledOptions,
-        shuffledOptionIndices: shuffledIndices,
-        topic,
-        keywords,
-        userAnswer: undefined,
-        isCorrect: undefined
-      };
-    });
+    const enhancedQuestions = gcpQuestions.map(q => ({
+      ...q,
+      topic: extractTopic(q.text),
+      keywords: extractKeywords(q.text),
+      userAnswer: undefined,
+      isCorrect: undefined
+    }));
+    
+    // Shuffle questions order again
+    const shuffledQuestions = enhancedQuestions.sort(() => Math.random() - 0.5);
     
     setQuestions(shuffledQuestions);
     setCurrentQuestion(0);
     setShowResults(false);
     setScore(0);
-    setIsShuffled(true);
-  };
-
-  const shuffleCurrentQuestion = () => {
-    const updatedQuestions = [...questions];
-    const currentQ = updatedQuestions[currentQuestion];
-    
-    // Re-shuffle options for current question
-    const optionIndices = Array.from({ length: currentQ.options.length }, (_, i) => i);
-    const shuffledIndices = shuffleArray(optionIndices);
-    const shuffledOptions = shuffledIndices.map(index => currentQ.options[index]);
-    
-    updatedQuestions[currentQuestion] = {
-      ...currentQ,
-      shuffledOptions,
-      shuffledOptionIndices: shuffledIndices,
-      userAnswer: undefined,
-      isCorrect: undefined
-    };
-    
-    setQuestions(updatedQuestions);
   };
 
   const getProgressPercentage = () => {
@@ -340,23 +278,16 @@ const GCPQuiz: React.FC = () => {
             
             {currentQ.type === 'radio' ? (
               <RadioGroup
-                value={currentQ.userAnswer ? 
-                  currentQ.shuffledOptions.findIndex(opt => 
-                    opt.startsWith(String.fromCharCode(65 + currentQ.shuffledOptionIndices.indexOf(
-                      currentQ.userAnswer.charCodeAt(0) - 65
-                    )))
-                  ).toString() : ''
-                }
+                value={currentQ.userAnswer as string || ''}
                 onValueChange={(value) => {
-                  const optionIndex = parseInt(value);
-                  const answer = getOptionLabel(optionIndex);
+                  const answer = value;
                   handleAnswer(answer);
                 }}
                 className="space-y-3"
               >
-                {currentQ.shuffledOptions.map((option, index) => (
+                {currentQ.options.map((option, index) => (
                   <div key={index} className="flex items-center space-x-2">
-                    <RadioGroupItem value={index.toString()} id={`option-${index}`} />
+                    <RadioGroupItem value={getOptionLabel(index)} id={`option-${index}`} />
                     <Label htmlFor={`option-${index}`} className="flex-1 cursor-pointer">
                       <span className="font-medium mr-2">{getOptionLabel(index)}.</span>
                       {option}
@@ -366,19 +297,15 @@ const GCPQuiz: React.FC = () => {
               </RadioGroup>
             ) : (
               <div className="space-y-3">
-                {currentQ.shuffledOptions.map((option, index) => (
+                {currentQ.options.map((option, index) => (
                   <div key={index} className="flex items-center space-x-2">
                     <Checkbox
                       id={`option-${index}`}
                       checked={Array.isArray(currentQ.userAnswer) && 
-                        currentQ.userAnswer.some(ans => {
-                          const originalIndex = currentQ.shuffledOptionIndices[index];
-                          return ans === String.fromCharCode(65 + originalIndex);
-                        })
+                        currentQ.userAnswer.includes(getOptionLabel(index))
                       }
                       onCheckedChange={(checked) => {
-                        const originalIndex = currentQ.shuffledOptionIndices[index];
-                        const answer = String.fromCharCode(65 + originalIndex);
+                        const answer = getOptionLabel(index);
                         const currentAnswers = Array.isArray(currentQ.userAnswer) ? currentQ.userAnswer : [];
                         const newAnswers = checked
                           ? [...currentAnswers, answer]
@@ -408,24 +335,13 @@ const GCPQuiz: React.FC = () => {
           <Separator />
 
           <div className="flex justify-between">
-            <div className="flex gap-2">
-              <Button
-                onClick={previousQuestion}
-                disabled={currentQuestion === 0}
-                variant="outline"
-              >
-                Previous
-              </Button>
-              
-              <Button
-                onClick={shuffleCurrentQuestion}
-                variant="outline"
-                size="sm"
-              >
-                <Shuffle className="h-4 w-4 mr-2" />
-                Shuffle Options
-              </Button>
-            </div>
+            <Button
+              onClick={previousQuestion}
+              disabled={currentQuestion === 0}
+              variant="outline"
+            >
+              Previous
+            </Button>
             
             <Button
               onClick={nextQuestion}
