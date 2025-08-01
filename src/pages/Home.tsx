@@ -29,13 +29,25 @@ export default function Home() {
   const getStats = () => {
     try {
       const stats = localStorage.getItem('gcp-quiz-stats');
-      return stats ? JSON.parse(stats) : {
+      const defaultStats = {
         totalQuestions: 0,
         correctAnswers: 0,
         totalAttempts: 0,
         averageScore: 0,
         lastQuizDate: null,
         topics: {}
+      };
+      
+      if (!stats) return defaultStats;
+      
+      const parsedStats = JSON.parse(stats);
+      return {
+        totalQuestions: parsedStats.totalQuestions || 0,
+        correctAnswers: parsedStats.correctAnswers || 0,
+        totalAttempts: parsedStats.totalAttempts || 0,
+        averageScore: parsedStats.averageScore || 0,
+        lastQuizDate: parsedStats.lastQuizDate || null,
+        topics: parsedStats.topics || {}
       };
     } catch {
       return {
@@ -165,7 +177,7 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold text-slate-900 mb-2">
-                  {stats.averageScore.toFixed(1)}%
+                  {(stats.averageScore || 0).toFixed(1)}%
                 </div>
                 <p className="text-sm text-slate-600">Per quiz session</p>
               </CardContent>
