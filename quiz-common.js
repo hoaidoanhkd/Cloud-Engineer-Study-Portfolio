@@ -711,3 +711,16 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(enhancedStyles);
 });
+
+// Export classes and functions for module usage
+export {
+    QuizDataManager,
+    QuestionManager,
+    ProgressTracker,
+    UIComponents,
+    QuizInitializer,
+    getDifficultQuestions,
+    saveDifficultQuestions,
+    toggleDifficultQuestion,
+    showNotification
+};

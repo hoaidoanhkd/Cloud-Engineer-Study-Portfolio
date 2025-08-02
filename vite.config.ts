@@ -9,8 +9,7 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'quiz-parts/index.html'),
-        instructions: resolve(__dirname, 'index.html'),
+        main: resolve(__dirname, 'index.html'),
         difficult: resolve(__dirname, 'difficult-questions.html'),
         difficultQuiz: resolve(__dirname, 'quiz-parts/difficult-questions-quiz.html')
       }
