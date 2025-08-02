@@ -5,6 +5,27 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>GCP Exam Practice - Hướng Dẫn Sử Dụng</title>
     <style>
+        :root {
+            --primary-color: #4285f4;
+            --primary-dark: #1a73e8;
+            --secondary-color: #34a853;
+            --accent-color: #fbbc04;
+            --danger-color: #ea4335;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --text-light: #9aa0a6;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-accent: #e8f0fe;
+            --border-color: #dadce0;
+            --shadow-light: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-medium: 0 4px 12px rgba(0,0,0,0.15);
+            --shadow-heavy: 0 8px 25px rgba(0,0,0,0.15);
+            --border-radius: 12px;
+            --border-radius-lg: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,76 +33,188 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Google Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            color: var(--text-primary);
+            line-height: 1.6;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            background: var(--bg-primary);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-heavy);
             overflow: hidden;
+            position: relative;
         }
         
         .header {
-            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
-            padding: 40px;
+            padding: 60px 40px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
         }
         
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 300;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
         }
         
         .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            font-size: 1.25rem;
+            opacity: 0.95;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
         }
         
         .content {
-            padding: 40px;
+            padding: 50px 40px;
         }
         
         .intro {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, var(--bg-accent) 0%, var(--bg-secondary) 100%);
+            padding: 50px;
+            border-radius: var(--border-radius);
+            border-left: 6px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .intro::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(66, 133, 244, 0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .intro-content {
+            position: relative;
+            z-index: 1;
         }
         
         .intro h2 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+            font-weight: 500;
         }
         
         .intro p {
-            color: #666;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
             font-size: 1.1rem;
-            line-height: 1.6;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-medium);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-heavy);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #2d8f47 100%);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger-color) 0%, #d32f2f 100%);
         }
         
         .quiz-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
         }
         
         .quiz-card {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 30px;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 35px;
             text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            transition: var(--transition);
             position: relative;
             overflow: hidden;
+            box-shadow: var(--shadow-light);
         }
         
         .quiz-card::before {
@@ -91,105 +224,269 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #4285f4, #34a853, #fbbc04, #ea4335);
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color), var(--danger-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .quiz-card:hover::before {
+            transform: scaleX(1);
         }
         
         .quiz-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-            border-color: #4285f4;
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+            border-color: var(--primary-color);
+        }
+        
+        .quiz-icon {
+            font-size: 3rem;
+            margin-bottom: 25px;
+            display: block;
         }
         
         .quiz-card h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+            font-weight: 600;
         }
         
         .quiz-card p {
-            color: #666;
-            margin-bottom: 20px;
-            line-height: 1.5;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-size: 1.1rem;
         }
         
         .quiz-link {
-            display: inline-block;
-            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
             color: white;
             text-decoration: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
             text-transform: uppercase;
             font-size: 0.9rem;
             letter-spacing: 0.5px;
+            box-shadow: var(--shadow-light);
         }
         
         .quiz-link:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.4);
+            box-shadow: var(--shadow-medium);
         }
         
         .stats {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 30px;
+            background: linear-gradient(135deg, var(--bg-accent) 0%, var(--bg-secondary) 100%);
+            border-radius: var(--border-radius);
+            padding: 50px;
             text-align: center;
-            margin-top: 30px;
+            margin-top: 40px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color), var(--danger-color));
         }
         
         .stats h3 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            font-weight: 600;
         }
         
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 30px;
         }
         
         .stat-item {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background: var(--bg-primary);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
         }
         
         .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #4285f4;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
             display: block;
+            margin-bottom: 10px;
+            line-height: 1;
         }
         
         .stat-label {
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 5px;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 500;
         }
         
         .footer {
-            background: #333;
+            background: var(--text-primary);
             color: white;
             text-align: center;
+            padding: 30px;
+            font-size: 1rem;
+            font-weight: 300;
+        }
+        
+        .feature-highlights {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 1px solid #ffeaa7;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            margin-bottom: 40px;
+            border-left: 6px solid #856404;
+        }
+        
+        .feature-highlights h3 {
+            margin-bottom: 25px;
+            color: #856404;
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .feature-item {
+            background: rgba(255, 255, 255, 0.7);
             padding: 20px;
-            font-size: 0.9rem;
+            border-radius: var(--border-radius);
+            border-left: 4px solid #856404;
+        }
+        
+        .feature-item h4 {
+            color: #856404;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .feature-item p {
+            color: #856404;
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
         
         @media (max-width: 768px) {
+            .header {
+                padding: 40px 20px;
+            }
+            
             .header h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
+            }
+            
+            .header p {
+                font-size: 1.1rem;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .intro {
+                padding: 30px 20px;
+            }
+            
+            .intro h2 {
+                font-size: 1.8rem;
             }
             
             .quiz-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .quiz-card {
+                padding: 25px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .stats {
+                padding: 30px 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .stat-item {
+                padding: 20px;
+            }
+            
+            .stat-number {
+                font-size: 2.2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
             }
             
             .content {
+                padding: 20px 15px;
+            }
+            
+            .intro {
+                padding: 25px 15px;
+            }
+            
+            .quiz-card {
                 padding: 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-item {
+                padding: 15px;
             }
         }
     </style>
@@ -197,54 +494,86 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>📖 GCP Exam Practice</h1>
-            <p>Hướng dẫn sử dụng và thông tin về hệ thống luyện tập GCP</p>
+            <div class="header-content">
+                <h1>📖 GCP Exam Practice</h1>
+                <p>Hướng dẫn sử dụng và thông tin về hệ thống luyện tập GCP</p>
+            </div>
         </div>
         
         <div class="content">
             <div class="intro">
-                <h2>🎯 Bắt đầu luyện tập ngay</h2>
-                <p>Hệ thống luyện tập GCP hoàn chỉnh với 302 câu hỏi được chia thành 6 phần để học tập hiệu quả.</p>
-                <div style="margin-top: 20px;">
-                    <a href="quiz-parts/index.html" class="quiz-link" style="margin-right: 15px;">🚀 Vào trang chính</a>
-                    <a href="difficult-questions.html" class="quiz-link" style="background: linear-gradient(135deg, #ea4335 0%, #fbbc04 100%);">🔥 Xem câu hỏi khó</a>
+                <div class="intro-content">
+                    <h2>🎯 Bắt đầu luyện tập ngay</h2>
+                    <p>Hệ thống luyện tập GCP hoàn chỉnh với 302 câu hỏi được chia thành 6 phần để học tập hiệu quả. Được thiết kế để giúp bạn chuẩn bị tốt nhất cho kỳ thi Google Cloud Platform.</p>
+                    <div class="action-buttons">
+                        <a href="quiz-parts/index.html" class="btn">🚀 Vào trang chính</a>
+                        <a href="difficult-questions.html" class="btn btn-danger">🔥 Xem câu hỏi khó</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-highlights">
+                <h3>✨ Tính năng nổi bật</h3>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <h4>📊 Phản hồi tức thì</h4>
+                        <p>Nhận kết quả ngay lập tức khi chọn đáp án, giúp học tập hiệu quả hơn.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>⭐ Đánh dấu câu khó</h4>
+                        <p>Lưu lại những câu hỏi khó để ôn tập sau, tối ưu hóa quá trình học.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>📱 Responsive Design</h4>
+                        <p>Giao diện tối ưu cho mọi thiết bị, từ desktop đến mobile.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🎯 Nội dung cập nhật</h4>
+                        <p>Bộ câu hỏi được cập nhật theo chuẩn mới nhất của GCP.</p>
+                    </div>
                 </div>
             </div>
             
             <div class="quiz-grid">
                 <div class="quiz-card">
-                    <h3>📚 Phần 1</h3>
-                    <p>Câu hỏi 1 - 50<br/>Kiến thức cơ bản về GCP</p>
+                    <span class="quiz-icon">📚</span>
+                    <h3>Phần 1: Nền tảng GCP</h3>
+                    <p>Câu hỏi 1 - 50<br/>Kiến thức cơ bản về GCP, IAM và các dịch vụ nền tảng</p>
                     <a href="quiz-parts/part1-questions-1-50.html" class="quiz-link">Bắt đầu</a>
                 </div>
                 
                 <div class="quiz-card">
-                    <h3>🔧 Phần 2</h3>
-                    <p>Câu hỏi 51 - 100<br/>Compute Engine & Networking</p>
+                    <span class="quiz-icon">🔧</span>
+                    <h3>Phần 2: Compute & Networking</h3>
+                    <p>Câu hỏi 51 - 100<br/>Compute Engine, mạng và cân bằng tải</p>
                     <a href="quiz-parts/part2-questions-51-100.html" class="quiz-link">Bắt đầu</a>
                 </div>
                 
                 <div class="quiz-card">
-                    <h3>💾 Phần 3</h3>
-                    <p>Câu hỏi 101 - 150<br/>Storage & Databases</p>
+                    <span class="quiz-icon">⚙️</span>
+                    <h3>Phần 3: Containers & Orchestration</h3>
+                    <p>Câu hỏi 101 - 150<br/>Kubernetes Engine, containers và điều phối</p>
                     <a href="quiz-parts/part3-questions-101-150.html" class="quiz-link">Bắt đầu</a>
                 </div>
                 
                 <div class="quiz-card">
-                    <h3>🔐 Phần 4</h3>
-                    <p>Câu hỏi 151 - 200<br/>Security & Identity</p>
+                    <span class="quiz-icon">💾</span>
+                    <h3>Phần 4: Storage & Databases</h3>
+                    <p>Câu hỏi 151 - 200<br/>Lưu trữ, cơ sở dữ liệu và dịch vụ dữ liệu</p>
                     <a href="quiz-parts/part4-questions-151-200.html" class="quiz-link">Bắt đầu</a>
                 </div>
                 
                 <div class="quiz-card">
-                    <h3>📊 Phần 5</h3>
-                    <p>Câu hỏi 201 - 250<br/>Monitoring & Analytics</p>
+                    <span class="quiz-icon">🔐</span>
+                    <h3>Phần 5: Security & Operations</h3>
+                    <p>Câu hỏi 201 - 250<br/>Bảo mật, giám sát và vận hành</p>
                     <a href="quiz-parts/part5-questions-201-250.html" class="quiz-link">Bắt đầu</a>
                 </div>
                 
                 <div class="quiz-card">
-                    <h3>🎯 Phần 6</h3>
-                    <p>Câu hỏi 251 - 302<br/>Advanced Topics</p>
+                    <span class="quiz-icon">🎯</span>
+                    <h3>Phần 6: Advanced Topics</h3>
+                    <p>Câu hỏi 251 - 302<br/>Chủ đề nâng cao và kịch bản tổng hợp</p>
                     <a href="quiz-parts/part6-questions-251-302.html" class="quiz-link">Bắt đầu</a>
                 </div>
             </div>
@@ -277,6 +606,33 @@
         </div>
     </div>
 
-
+    <script>
+    // Add interactive elements
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add hover effects to quiz cards
+        const quizCards = document.querySelectorAll('.quiz-card');
+        quizCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // Add hover effects to stat items
+        const statItems = document.querySelectorAll('.stat-item');
+        statItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.05)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    });
+    </script>
 </body>
 </html>

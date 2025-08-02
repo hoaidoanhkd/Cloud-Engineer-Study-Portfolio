@@ -5,6 +5,27 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>GCP Exam Practice - Câu Hỏi Khó</title>
     <style>
+        :root {
+            --primary-color: #4285f4;
+            --primary-dark: #1a73e8;
+            --secondary-color: #34a853;
+            --accent-color: #fbbc04;
+            --danger-color: #ea4335;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --text-light: #9aa0a6;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-accent: #e8f0fe;
+            --border-color: #dadce0;
+            --shadow-light: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-medium: 0 4px 12px rgba(0,0,0,0.15);
+            --shadow-heavy: 0 8px 25px rgba(0,0,0,0.15);
+            --border-radius: 12px;
+            --border-radius-lg: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,184 +33,366 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Google Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            color: var(--text-primary);
+            line-height: 1.6;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            background: var(--bg-primary);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-heavy);
             overflow: hidden;
+            position: relative;
         }
         
         .header {
-            background: linear-gradient(135deg, #ea4335 0%, #fbbc04 100%);
+            background: linear-gradient(135deg, var(--danger-color) 0%, var(--accent-color) 100%);
             color: white;
-            padding: 40px;
+            padding: 60px 40px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
         }
         
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 300;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
         }
         
         .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            font-size: 1.25rem;
+            opacity: 0.95;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
         }
         
         .content {
-            padding: 40px;
+            padding: 50px 40px;
         }
         
         .stats-bar {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border: 1px solid #dee2e6;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--bg-accent) 0%, var(--bg-secondary) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 40px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stats-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--danger-color), var(--accent-color));
         }
         
         .stats-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #ea4335;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--danger-color);
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .stats-label {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 500;
         }
         
         .difficult-questions {
             display: grid;
-            gap: 20px;
+            gap: 25px;
+            margin-bottom: 40px;
         }
         
         .question-card {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 12px;
-            padding: 25px;
-            transition: all 0.3s ease;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .question-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--danger-color) 0%, var(--accent-color) 100%);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .question-card:hover::before {
+            transform: scaleY(1);
         }
         
         .question-card:hover {
-            border-color: #ea4335;
-            box-shadow: 0 4px 12px rgba(234, 67, 53, 0.1);
+            border-color: var(--danger-color);
+            box-shadow: var(--shadow-medium);
+            transform: translateY(-2px);
         }
         
         .question-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            gap: 15px;
         }
         
         .question-number {
-            background: #ea4335;
+            background: linear-gradient(135deg, var(--danger-color) 0%, var(--accent-color) 100%);
             color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
             font-size: 14px;
+            box-shadow: var(--shadow-light);
         }
         
         .question-source {
-            background: #4285f4;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 6px 12px;
-            border-radius: 15px;
+            padding: 8px 16px;
+            border-radius: 20px;
             font-size: 12px;
-            font-weight: 500;
+            font-weight: 600;
+            box-shadow: var(--shadow-light);
         }
         
         .question-text {
             font-size: 16px;
-            line-height: 1.6;
-            color: #333;
-            margin-bottom: 15px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-weight: 400;
         }
         
         .question-timestamp {
-            font-size: 12px;
-            color: #666;
+            font-size: 13px;
+            color: var(--text-light);
             font-style: italic;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .remove-btn {
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            background: linear-gradient(135deg, var(--danger-color) 0%, #d32f2f 100%);
             color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
+            padding: 12px 24px;
+            border-radius: 25px;
             cursor: pointer;
-            font-size: 12px;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow-light);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .remove-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
         }
         
         .empty-state {
             text-align: center;
-            padding: 60px 20px;
-            color: #666;
+            padding: 80px 20px;
+            color: var(--text-secondary);
+            background: linear-gradient(135deg, var(--bg-accent) 0%, var(--bg-secondary) 100%);
+            border-radius: var(--border-radius);
+            border: 2px dashed var(--border-color);
+        }
+        
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
         }
         
         .empty-state h3 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 15px;
-            color: #333;
+            color: var(--text-primary);
+            font-weight: 600;
         }
         
         .empty-state p {
             font-size: 1.1rem;
             margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
         }
         
         .back-btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
             color: white;
             text-decoration: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow-medium);
         }
         
         .back-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.4);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-heavy);
+        }
+        
+        .navigation-bar {
+            background: linear-gradient(135deg, var(--bg-accent) 0%, var(--bg-secondary) 100%);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-primary);
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--border-color);
+        }
+        
+        .nav-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
         }
         
         .footer {
-            background: #333;
+            background: var(--text-primary);
             color: white;
             text-align: center;
-            padding: 20px;
-            font-size: 0.9rem;
+            padding: 30px;
+            font-size: 1rem;
+            font-weight: 300;
         }
         
         @media (max-width: 768px) {
+            .header {
+                padding: 40px 20px;
+            }
+            
             .header h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
+            }
+            
+            .header p {
+                font-size: 1.1rem;
             }
             
             .content {
-                padding: 20px;
+                padding: 30px 20px;
             }
             
             .question-header {
                 flex-direction: column;
                 gap: 10px;
+            }
+            
+            .navigation-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
+            
+            .stats-number {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+            
+            .question-card {
+                padding: 20px;
+            }
+            
+            .stats-bar {
+                padding: 20px;
+            }
+            
+            .empty-state {
+                padding: 40px 15px;
+            }
+            
+            .empty-state h3 {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -197,14 +400,23 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🔥 Câu Hỏi Khó</h1>
-            <p>Danh sách các câu hỏi bạn đã đánh dấu là khó để ôn tập</p>
+            <div class="header-content">
+                <h1>🔥 Câu Hỏi Khó</h1>
+                <p>Danh sách các câu hỏi bạn đã đánh dấu là khó để ôn tập</p>
+            </div>
         </div>
         
         <div class="content">
+            <div class="navigation-bar">
+                <div class="nav-links">
+                    <a href="quiz-parts/index.html" class="nav-link">🏠 Trang chủ</a>
+                    <a href="index.html" class="nav-link">📖 Hướng dẫn</a>
+                </div>
+            </div>
+            
             <div class="stats-bar">
-                <div class="stats-number" id="totalDifficult">0</div>
-                <div>câu hỏi khó đã đánh dấu</div>
+                <span class="stats-number" id="totalDifficult">0</span>
+                <div class="stats-label">câu hỏi khó đã đánh dấu</div>
             </div>
             
             <div class="difficult-questions" id="difficultQuestionsList">
@@ -212,9 +424,10 @@
             </div>
             
             <div class="empty-state" id="emptyState" style="display: none;">
-                <h3>📚 Chưa có câu hỏi khó nào</h3>
-                <p>Bạn chưa đánh dấu câu hỏi nào là khó. Hãy bắt đầu làm quiz và đánh dấu những câu hỏi bạn gặp khó khăn!</p>
-                <a href="index.html" class="back-btn">🏠 Về trang chủ</a>
+                <div class="empty-state-icon">📚</div>
+                <h3>Chưa có câu hỏi khó nào</h3>
+                <p>Bạn chưa đánh dấu câu hỏi nào là khó. Hãy bắt đầu làm quiz và đánh dấu những câu hỏi bạn gặp khó khăn để ôn tập sau!</p>
+                <a href="quiz-parts/index.html" class="back-btn">🚀 Bắt đầu làm quiz</a>
             </div>
         </div>
         
@@ -240,18 +453,77 @@
                 const updatedQuestions = questions.filter(q => q.id !== questionId);
                 localStorage.setItem('difficultQuestions', JSON.stringify(updatedQuestions));
                 loadDifficultQuestions();
+                
+                // Show success notification
+                showNotification('Đã xóa câu hỏi khỏi danh sách!', 'success');
             } catch (error) {
                 console.error('Error removing question:', error);
+                showNotification('Có lỗi xảy ra khi xóa câu hỏi!', 'error');
             }
         }
 
         function formatTimestamp(timestamp) {
             try {
                 const date = new Date(timestamp);
-                return date.toLocaleString('vi-VN');
+                return date.toLocaleString('vi-VN', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
             } catch (error) {
                 return 'Không xác định';
             }
+        }
+
+        function showNotification(message, type) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 25px;
+                border-radius: 8px;
+                color: white;
+                font-weight: 500;
+                z-index: 1000;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            `;
+            
+            let background;
+            switch(type) {
+                case 'success':
+                    background = 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)';
+                    break;
+                case 'error':
+                    background = 'linear-gradient(135deg, #f44336 0%, #d32f2f 100%)';
+                    break;
+                default:
+                    background = 'linear-gradient(135deg, #2196F3 0%, #1976D2 100%)';
+            }
+            
+            notification.style.background = background;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
         }
 
         function loadDifficultQuestions() {
@@ -282,6 +554,7 @@
                     </div>
                     <div class="question-text">${question.text}</div>
                     <div class="question-timestamp">
+                        <span>🕒</span>
                         Đánh dấu lúc: ${formatTimestamp(question.timestamp)}
                     </div>
                     <button class="remove-btn" onclick="removeDifficultQuestion('${question.id}')">
@@ -294,6 +567,18 @@
         // Load questions when page loads
         document.addEventListener('DOMContentLoaded', function() {
             loadDifficultQuestions();
+            
+            // Add some interactive effects
+            const questionCards = document.querySelectorAll('.question-card');
+            questionCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px) scale(1.01)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
         });
     </script>
 </body>
