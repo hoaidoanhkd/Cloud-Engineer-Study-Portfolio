@@ -41,7 +41,7 @@ function toggleDifficultQuestion(questionNumber, source) {
     if (existingIndex > -1) {
         // Xóa câu khó
         questions.splice(existingIndex, 1);
-        button.textContent = '⭐ Đánh dấu câu khó';
+        button.innerHTML = '⭐';
         button.classList.remove('marked');
         showNotification('Đã bỏ đánh dấu câu khó!', 'info');
     } else {
@@ -53,7 +53,7 @@ function toggleDifficultQuestion(questionNumber, source) {
             source: source,
             timestamp: new Date().toISOString()
         });
-        button.textContent = '🔥 Đã đánh dấu';
+        button.innerHTML = '🔥';
         button.classList.add('marked');
         showNotification('Đã đánh dấu câu khó!', 'success');
     }
@@ -169,7 +169,8 @@ function addDifficultButtons(total, partName, startNumber = 1) {
                 
                 const button = document.createElement('button');
                 button.className = 'difficult-btn';
-                button.textContent = '⭐ Đánh dấu câu khó';
+                button.innerHTML = '⭐';
+                button.title = 'Đánh dấu câu khó';
                 button.onclick = () => toggleDifficultQuestion(actualQuestionNumber, partName);
                 
                 header.appendChild(content);
