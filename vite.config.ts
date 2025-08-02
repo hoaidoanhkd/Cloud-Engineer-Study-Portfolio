@@ -11,7 +11,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'quiz-parts/index.html'),
         instructions: resolve(__dirname, 'index.html'),
-        difficult: resolve(__dirname, 'difficult-questions.html')
+        difficult: resolve(__dirname, 'difficult-questions.html'),
+        difficultQuiz: resolve(__dirname, 'quiz-parts/difficult-questions-quiz.html')
       }
     },
     sourcemap: true,

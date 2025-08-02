@@ -573,6 +573,16 @@
                     <span class="question-count">52 câu</span>
                 </div>
             </a>
+            
+            <a href="difficult-questions-quiz.html" class="quiz-part" style="border-color: #ea4335; background: linear-gradient(135deg, rgba(234, 67, 53, 0.05) 0%, rgba(251, 188, 4, 0.05) 100%);">
+                <span class="part-icon">🔥</span>
+                <div class="part-title">🔥 Câu Hỏi Khó</div>
+                <div class="part-description">Làm lại những câu hỏi bạn đã đánh dấu là khó. Củng cố kiến thức và vượt qua những thách thức!</div>
+                <div class="part-stats">
+                    <span>Câu hỏi khó</span>
+                    <span class="question-count" id="difficultCount">0 câu</span>
+                </div>
+            </a>
         </div>
         
         <div class="stats-summary">
@@ -583,7 +593,7 @@
                     <div class="stat-label">Tổng câu hỏi</div>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">6</span>
+                    <span class="stat-number">7</span>
                     <div class="stat-label">Phần quiz</div>
                 </div>
                 <div class="stat-item">
@@ -602,6 +612,7 @@
     </div>
 </div>
 
+<script src="../quiz-common.js"></script>
 <script>
 // Add some interactive elements
 document.addEventListener('DOMContentLoaded', function() {
@@ -623,6 +634,29 @@ document.addEventListener('DOMContentLoaded', function() {
         part.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0) scale(1)';
         });
+    });
+    
+    // Update difficult questions count
+    function updateDifficultCount() {
+        try {
+            const difficultQuestions = getDifficultQuestions();
+            const difficultCountElement = document.getElementById('difficultCount');
+            if (difficultCountElement) {
+                difficultCountElement.textContent = `${difficultQuestions.length} câu`;
+            }
+        } catch (error) {
+            console.error('Error updating difficult count:', error);
+        }
+    }
+    
+    // Update count on page load
+    updateDifficultCount();
+    
+    // Update count when localStorage changes
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'difficultQuestions') {
+            updateDifficultCount();
+        }
     });
 });
 </script>
