@@ -315,6 +315,13 @@
             border-color: var(--danger-color) !important;
         }
         
+        .selected {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1976d2 100%) !important;
+            color: white !important;
+            border-color: var(--primary-color) !important;
+            box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+        }
+        
         .empty-state {
             text-align: center;
             padding: 80px 20px;
@@ -570,22 +577,15 @@
                      // Reset all answers in this question
                      const labels = questionDiv.querySelectorAll('.answers label');
                      labels.forEach(label => {
-                         label.classList.remove('correct', 'incorrect');
+                         label.classList.remove('correct', 'incorrect', 'selected');
                      });
                      
-                     // Mark selected answer (temporarily)
+                     // Highlight selected answer (without marking as incorrect)
                      const selectedLabel = this.closest('label');
-                     selectedLabel.classList.add('incorrect');
+                     selectedLabel.classList.add('selected');
                      
-                     // Show notification
-                     showNotification('Đây là câu hỏi khó! Hãy xem lại trong part gốc để kiểm tra đáp án.', 'info');
-                     
-                     // Auto-refresh page after 3 seconds to update difficult count
-                     setTimeout(() => {
-                         if (this.checked) {
-                             location.reload();
-                         }
-                     }, 3000);
+                     // Show helpful notification
+                     showNotification('Bạn đã chọn một đáp án. Hãy xem lại trong part gốc để kiểm tra đáp án chính xác.', 'info');
                  });
              });
         }
