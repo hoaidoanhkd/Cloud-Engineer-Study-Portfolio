@@ -9,7 +9,9 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'quiz-parts/index.html')
+        main: resolve(__dirname, 'quiz-parts/index.html'),
+        instructions: resolve(__dirname, 'index.html'),
+        difficult: resolve(__dirname, 'difficult-questions.html')
       }
     },
     sourcemap: true,
@@ -26,27 +28,39 @@ export default defineConfig({
   },
   plugins: [
     {
-      name: 'copy-quiz-parts',
+      name: 'copy-additional-files',
       writeBundle() {
-        // Copy quiz-parts directory to dist
-        const sourceDir = resolve(__dirname, 'quiz-parts');
-        const targetDir = resolve(__dirname, 'dist/quiz-parts');
+        const distDir = resolve(__dirname, 'dist');
+        if (!existsSync(distDir)) {
+          mkdirSync(distDir, { recursive: true });
+        }
         
-        if (existsSync(sourceDir)) {
-          if (!existsSync(targetDir)) {
-            mkdirSync(targetDir, { recursive: true });
+        // Copy quiz-common.js to dist root
+        const commonJsSource = resolve(__dirname, 'quiz-common.js');
+        const commonJsTarget = resolve(distDir, 'quiz-common.js');
+        if (existsSync(commonJsSource)) {
+          copyFileSync(commonJsSource, commonJsTarget);
+          console.log('✓ Copied quiz-common.js to dist/');
+        }
+        
+        // Copy quiz-parts directory to dist
+        const quizPartsSourceDir = resolve(__dirname, 'quiz-parts');
+        const quizPartsTargetDir = resolve(__dirname, 'dist/quiz-parts');
+        if (existsSync(quizPartsSourceDir)) {
+          if (!existsSync(quizPartsTargetDir)) {
+            mkdirSync(quizPartsTargetDir, { recursive: true });
           }
           
-          const files = readdirSync(sourceDir);
+          const files = readdirSync(quizPartsSourceDir);
           files.forEach(file => {
             if (file.endsWith('.html') || file.endsWith('.md')) {
               copyFileSync(
-                resolve(sourceDir, file),
-                resolve(targetDir, file)
+                resolve(quizPartsSourceDir, file),
+                resolve(quizPartsTargetDir, file)
               );
             }
           });
-          console.log('✓ Copied quiz-parts to dist/');
+          console.log('✓ Copied quiz-parts HTML/MD to dist/quiz-parts/');
         }
       }
     }
