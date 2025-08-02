@@ -163,6 +163,54 @@
         font-size: 12px;
       }
     }
+
+    /* Enhanced answer feedback styles */
+    .answers label.selected-correct {
+        background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%) !important;
+        border-color: var(--secondary-color) !important;
+        color: var(--secondary-color) !important;
+        transform: translateX(5px) !important;
+        box-shadow: 0 4px 12px rgba(52, 168, 83, 0.2) !important;
+    }
+    
+    .answers label.selected-correct::before {
+        background: var(--secondary-color) !important;
+    }
+    
+    .answers label.selected-incorrect {
+        background: linear-gradient(135deg, #f8e8e8 0%, #f5d7d7 100%) !important;
+        border-color: var(--danger-color) !important;
+        color: var(--danger-color) !important;
+        transform: translateX(5px) !important;
+        box-shadow: 0 4px 12px rgba(234, 67, 53, 0.2) !important;
+    }
+    
+    .answers label.selected-incorrect::before {
+        background: var(--danger-color) !important;
+    }
+    
+    .answers label.correct {
+        background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%) !important;
+        border-color: var(--secondary-color) !important;
+        color: var(--secondary-color) !important;
+        box-shadow: 0 4px 12px rgba(52, 168, 83, 0.2) !important;
+    }
+    
+    .answers label.correct::before {
+        background: var(--secondary-color) !important;
+    }
+    
+    /* Disabled state for answered questions */
+    .answers input[type="radio"]:disabled + label {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+    
+    .answers input[type="radio"]:disabled + label:hover {
+        transform: none;
+        background: var(--bg-secondary);
+        border-color: var(--border-color);
+    }
   </style>
 </head>
 <body>
@@ -729,14 +777,14 @@ You need to migrate invoice documents stored on-premises to Cloud Storage. The d
 
         <script src="../quiz-common.js" type="module"></script>
 <script>
-const correctAnswers = ['D', 'C', 'A', 'A', 'C', 'A', 'B', 'A', 'A', 'B', 'A', 'A', 'A', 'B', 'D', 'B', 'C', 'B', 'B', 'D', 'B', 'B', 'B', 'D', 'C', 'D', 'D', 'A', 'D', 'B', 'D', 'B', 'D', 'D', 'A', 'A', 'B', 'B', 'B', 'D', 'A', 'C', 'D', 'C', 'A', 'B', 'A', 'A', 'B', 'D'];
+window.correctAnswers = ['D', 'C', 'A', 'A', 'C', 'A', 'B', 'A', 'A', 'B', 'A', 'A', 'A', 'B', 'D', 'B', 'C', 'B', 'B', 'D', 'B', 'B', 'B', 'D', 'C', 'D', 'D', 'A', 'D', 'B', 'D', 'B', 'D', 'D', 'A', 'A', 'B', 'B', 'B', 'D', 'A', 'C', 'D', 'C', 'A', 'B', 'A', 'A', 'B', 'D'];
 
 const total = 50;
 const partName = 'Part 5 (Questions 201-250)';
 
 // Khởi tạo quiz khi trang load
 document.addEventListener('DOMContentLoaded', function() {
-    initializeQuiz(correctAnswers, total, partName, 201);
+    initializeQuiz(window.correctAnswers, total, partName, 201);
 });
 </script>
 </body>

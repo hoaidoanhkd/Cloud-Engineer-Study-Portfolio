@@ -163,6 +163,54 @@
         font-size: 12px;
       }
     }
+
+    /* Enhanced answer feedback styles */
+    .answers label.selected-correct {
+        background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%) !important;
+        border-color: var(--secondary-color) !important;
+        color: var(--secondary-color) !important;
+        transform: translateX(5px) !important;
+        box-shadow: 0 4px 12px rgba(52, 168, 83, 0.2) !important;
+    }
+    
+    .answers label.selected-correct::before {
+        background: var(--secondary-color) !important;
+    }
+    
+    .answers label.selected-incorrect {
+        background: linear-gradient(135deg, #f8e8e8 0%, #f5d7d7 100%) !important;
+        border-color: var(--danger-color) !important;
+        color: var(--danger-color) !important;
+        transform: translateX(5px) !important;
+        box-shadow: 0 4px 12px rgba(234, 67, 53, 0.2) !important;
+    }
+    
+    .answers label.selected-incorrect::before {
+        background: var(--danger-color) !important;
+    }
+    
+    .answers label.correct {
+        background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%) !important;
+        border-color: var(--secondary-color) !important;
+        color: var(--secondary-color) !important;
+        box-shadow: 0 4px 12px rgba(52, 168, 83, 0.2) !important;
+    }
+    
+    .answers label.correct::before {
+        background: var(--secondary-color) !important;
+    }
+    
+    /* Disabled state for answered questions */
+    .answers input[type="radio"]:disabled + label {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+    
+    .answers input[type="radio"]:disabled + label:hover {
+        transform: none;
+        background: var(--bg-secondary);
+        border-color: var(--border-color);
+    }
   </style>
 </head>
 <body>
@@ -755,14 +803,14 @@ You are planning to migrate your on-premises VMs to Google Cloud. You need to se
 
         <script src="../quiz-common.js" type="module"></script>
 <script>
-const correctAnswers = ['D', 'D', 'A', 'C', 'B', 'C', 'B', 'D', 'A', 'A', 'C', 'D', 'A', 'D', 'A', 'B', 'A', 'D', 'C', 'B', 'B', 'D', 'C', 'D', 'A', 'B', 'A', 'A', 'C', 'B', 'C', 'B', 'B', 'C', 'B', 'D', 'B', 'A', 'B', 'A', 'D', 'C', 'B', 'B', 'B', 'C', 'B', 'B', 'D', 'A', 'D', 'D'];
+window.correctAnswers = ['D', 'D', 'A', 'C', 'B', 'C', 'B', 'D', 'A', 'A', 'C', 'D', 'A', 'D', 'A', 'B', 'A', 'D', 'C', 'B', 'B', 'D', 'C', 'D', 'A', 'B', 'A', 'A', 'C', 'B', 'C', 'B', 'B', 'C', 'B', 'D', 'B', 'A', 'B', 'A', 'D', 'C', 'B', 'B', 'B', 'C', 'B', 'B', 'D', 'A', 'D', 'D'];
 
 const total = 52;
 const partName = 'Part 6 (Questions 251-302)';
 
 // Khởi tạo quiz khi trang load
 document.addEventListener('DOMContentLoaded', function() {
-    initializeQuiz(correctAnswers, total, partName, 251);
+    initializeQuiz(window.correctAnswers, total, partName, 251);
 });
 </script>
 </body>
