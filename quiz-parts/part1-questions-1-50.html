@@ -254,6 +254,54 @@
         background: var(--danger-color);
     }
     
+    /* Enhanced answer feedback styles */
+    .answers label.selected-correct {
+        background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%) !important;
+        border-color: var(--secondary-color) !important;
+        color: var(--secondary-color) !important;
+        transform: translateX(5px) !important;
+        box-shadow: 0 4px 12px rgba(52, 168, 83, 0.2) !important;
+    }
+    
+    .answers label.selected-correct::before {
+        background: var(--secondary-color) !important;
+    }
+    
+    .answers label.selected-incorrect {
+        background: linear-gradient(135deg, #f8e8e8 0%, #f5d7d7 100%) !important;
+        border-color: var(--danger-color) !important;
+        color: var(--danger-color) !important;
+        transform: translateX(5px) !important;
+        box-shadow: 0 4px 12px rgba(234, 67, 53, 0.2) !important;
+    }
+    
+    .answers label.selected-incorrect::before {
+        background: var(--danger-color) !important;
+    }
+    
+    .answers label.correct {
+        background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%) !important;
+        border-color: var(--secondary-color) !important;
+        color: var(--secondary-color) !important;
+        box-shadow: 0 4px 12px rgba(52, 168, 83, 0.2) !important;
+    }
+    
+    .answers label.correct::before {
+        background: var(--secondary-color) !important;
+    }
+    
+    /* Disabled state for answered questions */
+    .answers input[type="radio"]:disabled + label {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+    
+    .answers input[type="radio"]:disabled + label:hover {
+        transform: none;
+        background: var(--bg-secondary);
+        border-color: var(--border-color);
+    }
+    
     .question-number {
         background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
         color: white;
@@ -1263,11 +1311,11 @@
 <script src="../quiz-common.js"></script>
 <script>
     // Correct answers for Part 1
-    const correctAnswers = ['C', 'B', 'A', 'C', 'D', 'D', 'D', 'A', 'D', 'A', 'A', 'C', 'D', 'B', 'B', 'B', 'D', 'B', 'A', 'D', 'A', 'D', 'D', 'A', 'A', 'C', 'B', 'B', 'A', 'B', 'A', 'C', 'A', 'C', 'B', 'C', 'D', 'B', 'B', 'A', 'B', 'B', 'D', 'C', 'C', 'D', 'A', 'C', 'D', 'A'];
+    window.correctAnswers = ['C', 'B', 'A', 'C', 'D', 'D', 'D', 'A', 'D', 'A', 'A', 'C', 'D', 'B', 'B', 'B', 'D', 'B', 'A', 'D', 'A', 'D', 'D', 'A', 'A', 'C', 'B', 'B', 'A', 'B', 'A', 'C', 'A', 'C', 'B', 'C', 'D', 'B', 'B', 'A', 'B', 'B', 'D', 'C', 'C', 'D', 'A', 'C', 'D', 'A'];
     
     // Initialize quiz when page loads
     document.addEventListener('DOMContentLoaded', function() {
-        initializeQuiz(correctAnswers, 50, 'Part 1 (Questions 1-50)', 1);
+        initializeQuiz(window.correctAnswers, 50, 'Part 1 (Questions 1-50)', 1);
         
         // Update progress bar
         updateProgressBar();

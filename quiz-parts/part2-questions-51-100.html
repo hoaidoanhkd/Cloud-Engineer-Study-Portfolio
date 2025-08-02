@@ -32,6 +32,41 @@
     }
     .answers label:hover { background-color: #f5f5f5; }
     
+    /* Enhanced answer feedback styles */
+    .answers label.selected-correct {
+        background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%) !important;
+        border-color: #34a853 !important;
+        color: #34a853 !important;
+        transform: translateX(5px) !important;
+        box-shadow: 0 4px 12px rgba(52, 168, 83, 0.2) !important;
+    }
+    
+    .answers label.selected-incorrect {
+        background: linear-gradient(135deg, #f8e8e8 0%, #f5d7d7 100%) !important;
+        border-color: #ea4335 !important;
+        color: #ea4335 !important;
+        transform: translateX(5px) !important;
+        box-shadow: 0 4px 12px rgba(234, 67, 53, 0.2) !important;
+    }
+    
+    .answers label.correct {
+        background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%) !important;
+        border-color: #34a853 !important;
+        color: #34a853 !important;
+        box-shadow: 0 4px 12px rgba(52, 168, 83, 0.2) !important;
+    }
+    
+    /* Disabled state for answered questions */
+    .answers input[type="radio"]:disabled + label {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+    
+    .answers input[type="radio"]:disabled + label:hover {
+        transform: none;
+        background-color: #f5f5f5;
+    }
+    
     .submit-btn { margin-top: 20px; }
     strong.keyword { font-weight: bold; color: darkblue; }
     
@@ -730,14 +765,14 @@ Your organization has strict requirements to control access to Google Cloud proj
 
 <script src="../quiz-common.js"></script>
 <script>
-const correctAnswers = ['A', 'C', 'B', 'A', 'A', 'B', 'B', 'B', 'C', 'C', 'B', 'A', 'D', 'C', 'A', 'A', 'A', 'C', 'A', 'B', 'A', 'C', 'B', 'A', 'A', 'D', 'A', 'A', 'B', 'C', 'D', 'A', 'B', 'A', 'C', 'A', 'C', 'A', 'A', 'B', 'D', 'D', 'A', 'D', 'D', 'B', 'C', 'C', 'C', 'D'];
+window.correctAnswers = ['A', 'C', 'B', 'A', 'A', 'B', 'B', 'B', 'C', 'C', 'B', 'A', 'D', 'C', 'A', 'A', 'A', 'C', 'A', 'B', 'A', 'C', 'B', 'A', 'A', 'D', 'A', 'A', 'B', 'C', 'D', 'A', 'B', 'A', 'C', 'A', 'C', 'A', 'A', 'B', 'D', 'D', 'A', 'D', 'D', 'B', 'C', 'C', 'C', 'D'];
 
 const total = 50;
 const partName = 'Part 2 (Questions 51-100)';
 
 // Khởi tạo quiz khi trang load
 document.addEventListener('DOMContentLoaded', function() {
-    initializeQuiz(correctAnswers, total, partName, 51);
+    initializeQuiz(window.correctAnswers, total, partName, 51);
 });
 </script>
 </body>

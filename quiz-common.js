@@ -556,7 +556,16 @@ class QuizInitializer {
                 const questionElement = this.closest('[id^="question"]');
                 if (questionElement) {
                     const questionNumber = questionElement.id.replace('question', '');
-                    const isCorrect = this.value === 'correct'; // This would need to be determined based on your answer structure
+                    
+                    // Get the correct answer for this question
+                    const questionIndex = parseInt(questionNumber) - startNumber;
+                    const correctAnswer = window.correctAnswers ? window.correctAnswers[questionIndex] : null;
+                    
+                    // Check if the selected answer is correct
+                    const isCorrect = this.value === correctAnswer;
+                    
+                    // Apply visual feedback
+                    QuizInitializer.applyAnswerFeedback(questionElement, this, isCorrect, correctAnswer);
                     
                     ProgressTracker.recordAnswer(questionNumber, isCorrect);
                     
@@ -613,6 +622,40 @@ class QuizInitializer {
         const difficultElements = document.querySelectorAll('[id*="difficult"], [id*="Difficult"]');
         difficultElements.forEach(element => {
             element.textContent = stats.difficultQuestions;
+        });
+    }
+
+    static applyAnswerFeedback(questionElement, selectedRadio, isCorrect, correctAnswer) {
+        // Remove any existing feedback classes
+        const allLabels = questionElement.querySelectorAll('.answers label');
+        allLabels.forEach(label => {
+            label.classList.remove('correct', 'incorrect', 'selected-correct', 'selected-incorrect');
+        });
+        
+        // Add feedback to the selected answer
+        const selectedLabel = selectedRadio.nextElementSibling;
+        if (selectedLabel) {
+            if (isCorrect) {
+                selectedLabel.classList.add('selected-correct');
+                UIComponents.showNotification('🎉 Đáp án đúng!', 'success', 2000);
+            } else {
+                selectedLabel.classList.add('selected-incorrect');
+                UIComponents.showNotification('❌ Đáp án sai!', 'error', 2000);
+            }
+        }
+        
+        // Show the correct answer if user selected wrong answer
+        if (!isCorrect && correctAnswer) {
+            const correctLabel = questionElement.querySelector(`input[value="${correctAnswer}"] + label`);
+            if (correctLabel) {
+                correctLabel.classList.add('correct');
+            }
+        }
+        
+        // Disable all radio buttons in this question to prevent multiple selections
+        const radioButtons = questionElement.querySelectorAll('input[type="radio"]');
+        radioButtons.forEach(radio => {
+            radio.disabled = true;
         });
     }
 }
