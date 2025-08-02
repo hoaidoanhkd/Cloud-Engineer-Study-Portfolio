@@ -205,11 +205,6 @@
             <div class="intro">
                 <h2>Chọn phần bạn muốn luyện tập</h2>
                 <p>Bộ câu hỏi được chia thành 6 phần, mỗi phần khoảng 50 câu hỏi để bạn có thể học từng bước một cách hiệu quả.</p>
-                <div style="text-align: center; margin: 20px 0;">
-                    <a href="quiz-parts/index.html" style="display: inline-block; background: linear-gradient(135deg, #4285f4 0%, #34a853 100%); color: white; text-decoration: none; padding: 12px 24px; border-radius: 25px; font-weight: 500; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: all 0.3s ease;">
-                        📋 Xem danh sách chi tiết các phần
-                    </a>
-                </div>
             </div>
             
             <div class="quiz-grid">
@@ -248,12 +243,6 @@
                     <p>Câu hỏi 251 - 302<br/>Advanced Topics</p>
                     <a href="quiz-parts/part6-questions-251-302.html" class="quiz-link">Bắt đầu</a>
                 </div>
-                
-                <div class="quiz-card" style="border: 2px solid #ea4335;">
-                    <h3>🔥 Câu Khó</h3>
-                    <p>Ôn tập các câu hỏi khó<br/>đã được đánh dấu</p>
-                    <a href="difficult-questions.html" class="quiz-link" style="background: linear-gradient(135deg, #ea4335 0%, #fbbc04 100%);">Xem câu khó</a>
-                </div>
             </div>
             
             <div class="stats">
@@ -275,10 +264,6 @@
                         <span class="stat-number">100%</span>
                         <div class="stat-label">Miễn phí</div>
                     </div>
-                    <div class="stat-item">
-                        <span id="difficultCount" class="stat-number">0</span>
-                        <div class="stat-label">Câu khó đã đánh dấu</div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -288,33 +273,6 @@
         </div>
     </div>
 
-    <script>
-        // Hiển thị số lượng câu khó đã đánh dấu
-        function updateDifficultCount() {
-            const stored = localStorage.getItem('difficultQuestions');
-            const questions = stored ? JSON.parse(stored) : [];
-            const countElement = document.getElementById('difficultCount');
-            if (countElement) {
-                countElement.textContent = questions.length;
-                
-                // Thêm hiệu ứng màu nếu có câu khó
-                if (questions.length > 0) {
-                    countElement.style.color = '#ea4335';
-                } else {
-                    countElement.style.color = '#4285f4';
-                }
-            }
-        }
 
-        // Cập nhật khi trang load
-        document.addEventListener('DOMContentLoaded', updateDifficultCount);
-        
-        // Cập nhật khi có thay đổi trong localStorage (từ tab khác)
-        window.addEventListener('storage', function(e) {
-            if (e.key === 'difficultQuestions') {
-                updateDifficultCount();
-            }
-        });
-    </script>
 </body>
 </html>
