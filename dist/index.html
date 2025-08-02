@@ -1,276 +1,205 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>GCP Exam Practice - Trang Chủ</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
-            color: white;
-            padding: 40px;
-            text-align: center;
-        }
-        
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 300;
-        }
-        
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-        
-        .content {
-            padding: 40px;
-        }
-        
-        .intro {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        .intro h2 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-        }
-        
-        .intro p {
-            color: #666;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-        
-        .quiz-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-        
-        .quiz-card {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .quiz-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #4285f4, #34a853, #fbbc04, #ea4335);
-        }
-        
-        .quiz-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-            border-color: #4285f4;
-        }
-        
-        .quiz-card h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.4rem;
-        }
-        
-        .quiz-card p {
-            color: #666;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-        
-        .quiz-link {
-            display: inline-block;
-            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
-            color: white;
-            text-decoration: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-        }
-        
-        .quiz-link:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.4);
-        }
-        
-        .stats {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
-            margin-top: 30px;
-        }
-        
-        .stats h3 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-        }
-        
-        .stat-item {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #4285f4;
-            display: block;
-        }
-        
-        .stat-label {
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 5px;
-        }
-        
-        .footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            font-size: 0.9rem;
-        }
-        
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .quiz-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .content {
-                padding: 20px;
-            }
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCP Quiz Modern - Advanced Practice Platform</title>
+    <meta name="description" content="Modern GCP certification practice platform with advanced features, progress tracking, and comprehensive analytics.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/assets/main-CxZDBXj0.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/main-D9Tjgs6z.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🚀 GCP Exam Practice</h1>
-            <p>Luyện tập kiểm tra Google Cloud Platform - Chia thành các phần để học dễ dàng hơn</p>
+    <!-- Theme Toggle -->
+    <div id="theme-toggle-container"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content container">
+            <h1>🚀 GCP Quiz Modern</h1>
+            <p>Advanced Google Cloud Platform Certification Practice</p>
+            <div class="header-stats" id="header-stats">
+                <!-- Dynamic stats will be inserted here -->
+            </div>
         </div>
-        
-        <div class="content">
-            <div class="intro">
-                <h2>Chọn phần bạn muốn luyện tập</h2>
-                <p>Bộ câu hỏi được chia thành 6 phần, mỗi phần khoảng 50 câu hỏi để bạn có thể học từng bước một cách hiệu quả.</p>
-            </div>
-            
-            <div class="quiz-grid">
-                <div class="quiz-card">
-                    <h3>📚 Phần 1</h3>
-                    <p>Câu hỏi 1 - 50<br/>Kiến thức cơ bản về GCP</p>
-                    <a href="quiz-parts/part1-questions-1-50.html" class="quiz-link">Bắt đầu</a>
-                </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <div class="card">
+                <h2>Welcome to Your Advanced GCP Practice Platform</h2>
+                <p>Experience a modern, feature-rich quiz platform designed to help you master Google Cloud Platform concepts with intelligent progress tracking, detailed analytics, and personalized learning paths.</p>
                 
-                <div class="quiz-card">
-                    <h3>🔧 Phần 2</h3>
-                    <p>Câu hỏi 51 - 100<br/>Compute Engine & Networking</p>
-                    <a href="quiz-parts/part2-questions-51-100.html" class="quiz-link">Bắt đầu</a>
-                </div>
-                
-                <div class="quiz-card">
-                    <h3>💾 Phần 3</h3>
-                    <p>Câu hỏi 101 - 150<br/>Storage & Databases</p>
-                    <a href="quiz-parts/part3-questions-101-150.html" class="quiz-link">Bắt đầu</a>
-                </div>
-                
-                <div class="quiz-card">
-                    <h3>🔐 Phần 4</h3>
-                    <p>Câu hỏi 151 - 200<br/>Security & Identity</p>
-                    <a href="quiz-parts/part4-questions-151-200.html" class="quiz-link">Bắt đầu</a>
-                </div>
-                
-                <div class="quiz-card">
-                    <h3>📊 Phần 5</h3>
-                    <p>Câu hỏi 201 - 250<br/>Monitoring & Analytics</p>
-                    <a href="quiz-parts/part5-questions-201-250.html" class="quiz-link">Bắt đầu</a>
-                </div>
-                
-                <div class="quiz-card">
-                    <h3>🎯 Phần 6</h3>
-                    <p>Câu hỏi 251 - 302<br/>Advanced Topics</p>
-                    <a href="quiz-parts/part6-questions-251-302.html" class="quiz-link">Bắt đầu</a>
-                </div>
-            </div>
-            
-            <div class="stats">
-                <h3>📈 Thống kê tổng quan</h3>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <span class="stat-number">302</span>
-                        <div class="stat-label">Tổng câu hỏi</div>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">📊</div>
+                        <h3>Advanced Analytics</h3>
+                        <p>Track your progress with detailed performance metrics and improvement trends</p>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">6</span>
-                        <div class="stat-label">Phần học</div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Smart Practice</h3>
+                        <p>Focus on your weak areas with intelligent question recommendations</p>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">~50</span>
-                        <div class="stat-label">Câu/phần</div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⏱️</div>
+                        <h3>Exam Simulation</h3>
+                        <p>Practice with real exam conditions including time limits and constraints</p>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">100%</span>
-                        <div class="stat-label">Miễn phí</div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📱</div>
+                        <h3>Modern Interface</h3>
+                        <p>Enjoy a beautiful, responsive design that works on all devices</p>
                     </div>
                 </div>
             </div>
+        </section>
+
+        <!-- Quick Stats -->
+        <section class="stats-section" id="stats-section">
+            <!-- Dynamic stats cards will be inserted here -->
+        </section>
+
+        <!-- Quiz Modes -->
+        <section class="quiz-modes-section">
+            <h2>Choose Your Practice Mode</h2>
+            <div class="quiz-modes-grid">
+                <!-- Practice Mode -->
+                <div class="quiz-mode-card card" data-mode="practice">
+                    <div class="mode-icon">📚</div>
+                    <h3>Practice Mode</h3>
+                    <p>Learn at your own pace with immediate feedback and detailed explanations</p>
+                    <ul class="mode-features">
+                        <li>✅ Immediate feedback</li>
+                        <li>✅ Detailed explanations</li>
+                        <li>✅ No time pressure</li>
+                        <li>✅ Bookmark questions</li>
+                    </ul>
+                    <button class="btn btn-primary mode-btn" data-mode="practice">
+                        Start Practice
+                    </button>
+                </div>
+
+                <!-- Exam Mode -->
+                <div class="quiz-mode-card card" data-mode="exam">
+                    <div class="mode-icon">⏰</div>
+                    <h3>Exam Simulation</h3>
+                    <p>Experience real exam conditions with time limits and no immediate feedback</p>
+                    <ul class="mode-features">
+                        <li>⏱️ Timed sessions</li>
+                        <li>🔒 No immediate feedback</li>
+                        <li>📋 Final results only</li>
+                        <li>🎯 Real exam experience</li>
+                    </ul>
+                    <button class="btn btn-primary mode-btn" data-mode="exam">
+                        Start Exam
+                    </button>
+                </div>
+
+                <!-- Review Mode -->
+                <div class="quiz-mode-card card" data-mode="review">
+                    <div class="mode-icon">🔍</div>
+                    <h3>Review Mode</h3>
+                    <p>Focus on questions you've answered incorrectly or bookmarked</p>
+                    <ul class="mode-features">
+                        <li>❌ Incorrect questions</li>
+                        <li>⭐ Bookmarked questions</li>
+                        <li>📈 Targeted improvement</li>
+                        <li>💡 Smart recommendations</li>
+                    </ul>
+                    <button class="btn btn-primary mode-btn" data-mode="review">
+                        Review Questions
+                    </button>
+                </div>
+
+                <!-- Custom Mode -->
+                <div class="quiz-mode-card card" data-mode="custom">
+                    <div class="mode-icon">⚙️</div>
+                    <h3>Custom Practice</h3>
+                    <p>Create your own practice session with specific categories and settings</p>
+                    <ul class="mode-features">
+                        <li>🎛️ Custom filters</li>
+                        <li>📊 Category selection</li>
+                        <li>🔢 Question count</li>
+                        <li>🎲 Randomization options</li>
+                    </ul>
+                    <button class="btn btn-primary mode-btn" data-mode="custom">
+                        Customize Session
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Activity -->
+        <section class="recent-activity-section">
+            <h2>Recent Activity</h2>
+            <div class="activity-container" id="recent-activity">
+                <!-- Dynamic recent activity will be inserted here -->
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions-section">
+            <h2>Quick Actions</h2>
+            <div class="actions-grid">
+                <button class="action-card card" id="view-bookmarks">
+                    <div class="action-icon">⭐</div>
+                    <h3>View Bookmarks</h3>
+                    <p>Review your saved questions</p>
+                </button>
+                
+                <button class="action-card card" id="view-stats">
+                    <div class="action-icon">📊</div>
+                    <h3>Detailed Stats</h3>
+                    <p>Analyze your performance</p>
+                </button>
+                
+                <button class="action-card card" id="export-data">
+                    <div class="action-icon">📤</div>
+                    <h3>Export Data</h3>
+                    <p>Download your progress</p>
+                </button>
+                
+                <button class="action-card card" id="settings">
+                    <div class="action-icon">⚙️</div>
+                    <h3>Settings</h3>
+                    <p>Customize your experience</p>
+                </button>
+            </div>
+        </section>
+
+        <!-- Continue Session -->
+        <section class="continue-session-section" id="continue-session" style="display: none;">
+            <div class="card">
+                <h2>Continue Your Session</h2>
+                <p>You have an unfinished quiz session. Would you like to continue where you left off?</p>
+                <div class="session-info" id="session-info">
+                    <!-- Session details will be inserted here -->
+                </div>
+                <div class="session-actions">
+                    <button class="btn btn-primary" id="continue-btn">Continue Session</button>
+                    <button class="btn btn-secondary" id="new-session-btn">Start New Session</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 GCP Quiz Modern. Advanced practice platform for Google Cloud certification.</p>
+            <div class="footer-links">
+                <a href="#" id="about-link">About</a>
+                <a href="#" id="privacy-link">Privacy</a>
+                <a href="#" id="help-link">Help</a>
+            </div>
         </div>
-        
-        <div class="footer">
-            <p>© 2024 GCP Exam Practice - Học tập hiệu quả, thành công trong kỳ thi!</p>
-        </div>
-    </div>
+    </footer>
+
+    <!-- Scripts -->
 </body>
 </html>

@@ -29,7 +29,7 @@ export interface QuizSession {
   id: string;
   startTime: Date;
   endTime?: Date;
-  mode: 'practice' | 'exam' | 'review';
+  mode: 'practice' | 'exam' | 'review' | 'difficult';
   timeLimit?: number;
   questions: Question[];
   answers: UserAnswer[];

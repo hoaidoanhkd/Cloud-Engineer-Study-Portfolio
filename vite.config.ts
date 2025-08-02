@@ -8,10 +8,7 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'src/index.html'),
-        quiz: resolve(__dirname, 'src/quiz.html'),
-        results: resolve(__dirname, 'src/results.html'),
-        difficult: resolve(__dirname, 'src/difficult.html')
+        main: resolve(__dirname, 'src/index.html')
       }
     },
     sourcemap: true,
