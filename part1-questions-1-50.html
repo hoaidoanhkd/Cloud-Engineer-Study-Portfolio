@@ -182,7 +182,7 @@
 
 Every employee of your company has a Google account. Your operational team needs to manage a large number of instances on Compute Engine. Each member of this team needs only administrative access to the servers. Your security team wants to ensure that the deployment of credentials is operationally efficient and must be able to determine who accessed a given instance. What should you do?</p>
 </div>
-<button class="difficult-btn" onclick="toggleDifficultQuestion(1, 'Part 1 (Questions 1-50)')">⭐ Đánh dấu câu khó</button>
+<button class="difficult-btn" data-question="1">⭐ Đánh dấu câu khó</button>
 </div>
 <div class="answers">
 <label><input name="q1" type="radio" value="A"/> A. Generate a new SSH key pair. Give the private key to each member of your team. Configure the public key in the metadata of each instance.</label><br/>
@@ -742,7 +742,42 @@ const partName = 'Part 1 (Questions 1-50)';
 // Khởi tạo quiz khi trang load
 document.addEventListener('DOMContentLoaded', function() {
     initializeQuiz(correctAnswers, total, partName, 1);
+    
+    // Xử lý nút đánh dấu câu khó để không scroll lên đầu
+    const difficultButtons = document.querySelectorAll('.difficult-btn');
+    difficultButtons.forEach(function(button) {
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); // Ngăn chặn hành vi mặc định
+            e.stopPropagation(); // Ngăn chặn event bubbling
+            
+            // Lưu vị trí scroll hiện tại
+            const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Thực hiện toggle đánh dấu câu khó
+            const questionNumber = this.getAttribute('data-question') || this.textContent.match(/\d+/)?.[0];
+            if (questionNumber) {
+                toggleDifficultQuestion(questionNumber, partName);
+            }
+            
+            // Khôi phục vị trí scroll
+            setTimeout(function() {
+                window.scrollTo(0, currentScrollPosition);
+            }, 10);
+        });
+    });
 });
+
+// Hàm fallback nếu quiz-common.js không load được
+function toggleDifficultQuestion(questionNumber, partName) {
+    const button = event.target;
+    if (button.classList.contains('marked')) {
+        button.classList.remove('marked');
+        button.textContent = '⭐ Đánh dấu câu khó';
+    } else {
+        button.classList.add('marked');
+        button.textContent = '🔥 Đã đánh dấu';
+    }
+}
 </script>
 </body>
 </html>

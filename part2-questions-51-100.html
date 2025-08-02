@@ -738,7 +738,42 @@ const partName = 'Part 2 (Questions 51-100)';
 // Khởi tạo quiz khi trang load
 document.addEventListener('DOMContentLoaded', function() {
     initializeQuiz(correctAnswers, total, partName, 51);
+    
+    // Xử lý nút đánh dấu câu khó để không scroll lên đầu
+    const difficultButtons = document.querySelectorAll('.difficult-btn');
+    difficultButtons.forEach(function(button) {
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); // Ngăn chặn hành vi mặc định
+            e.stopPropagation(); // Ngăn chặn event bubbling
+            
+            // Lưu vị trí scroll hiện tại
+            const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Thực hiện toggle đánh dấu câu khó
+            const questionNumber = this.getAttribute('data-question') || this.textContent.match(/\d+/)?.[0];
+            if (questionNumber) {
+                toggleDifficultQuestion(questionNumber, partName);
+            }
+            
+            // Khôi phục vị trí scroll
+            setTimeout(function() {
+                window.scrollTo(0, currentScrollPosition);
+            }, 10);
+        });
+    });
 });
+
+// Hàm fallback nếu quiz-common.js không load được
+function toggleDifficultQuestion(questionNumber, partName) {
+    const button = event.target;
+    if (button.classList.contains('marked')) {
+        button.classList.remove('marked');
+        button.textContent = '⭐ Đánh dấu câu khó';
+    } else {
+        button.classList.add('marked');
+        button.textContent = '🔥 Đã đánh dấu';
+    }
+}
 </script>
 </body>
 </html>
