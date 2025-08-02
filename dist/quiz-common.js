@@ -38,6 +38,14 @@ function toggleDifficultQuestion(questionNumber, source) {
     const questionText = questionTextElement.textContent.trim();
     const button = questionElement.querySelector('.difficult-btn');
     
+    // Lấy các đáp án A, B, C, D từ câu hỏi
+    const answerLabels = questionElement.querySelectorAll('.answers label');
+    const answers = [];
+    answerLabels.forEach((label, index) => {
+        const answerText = label.textContent.trim();
+        answers.push(answerText);
+    });
+    
     if (existingIndex > -1) {
         // Xóa câu khó
         questions.splice(existingIndex, 1);
@@ -50,6 +58,7 @@ function toggleDifficultQuestion(questionNumber, source) {
             id: questionId,
             questionNumber: questionNumber,
             text: questionText,
+            answers: answers, // Lưu các đáp án A, B, C, D
             source: source,
             timestamp: new Date().toISOString()
         });

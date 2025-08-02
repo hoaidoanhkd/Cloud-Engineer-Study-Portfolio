@@ -528,8 +528,8 @@
              container.innerHTML = difficultQuestions.map((question, index) => {
                  const questionNumber = index + 1;
                  
-                 // Tạo placeholder answers (vì chúng ta không có đáp án thực tế trong localStorage)
-                 const answers = [
+                 // Sử dụng đáp án thực tế nếu có, nếu không thì dùng placeholder
+                 const answers = question.answers || [
                      'A. [Đáp án A - Vui lòng xem lại trong part gốc]',
                      'B. [Đáp án B - Vui lòng xem lại trong part gốc]',
                      'C. [Đáp án C - Vui lòng xem lại trong part gốc]',
