@@ -574,7 +574,7 @@
                      const questionDiv = this.closest('.question');
                      const questionNumber = questionDiv.id.replace('question', '');
                      
-                     // Reset all answers in this question
+                     // Reset all answers in this specific question only
                      const labels = questionDiv.querySelectorAll('.answers label');
                      labels.forEach(label => {
                          label.classList.remove('correct', 'incorrect', 'selected');
@@ -585,7 +585,7 @@
                      selectedLabel.classList.add('selected');
                      
                      // Show helpful notification
-                     showNotification('Bạn đã chọn một đáp án. Hãy xem lại trong part gốc để kiểm tra đáp án chính xác.', 'info');
+                     showNotification(`Bạn đã chọn đáp án cho câu ${questionNumber}. Hãy xem lại trong part gốc để kiểm tra đáp án chính xác.`, 'info');
                  });
              });
         }
