@@ -18,7 +18,13 @@ function saveDifficultQuestions(questions) {
     }
 }
 
-function toggleDifficultQuestion(questionNumber, source) {
+function toggleDifficultQuestion(questionNumber, source, event) {
+    // Ngăn chặn hành vi mặc định và scroll về đầu trang
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+    
     const questions = getDifficultQuestions();
     const questionId = `q${questionNumber}_${source}`;
     const existingIndex = questions.findIndex(q => q.id === questionId);
@@ -26,13 +32,13 @@ function toggleDifficultQuestion(questionNumber, source) {
     const questionElement = document.getElementById(`question${questionNumber}`);
     if (!questionElement) {
         console.error(`Question element with id 'question${questionNumber}' not found`);
-        return;
+        return false;
     }
     
     const questionTextElement = questionElement.querySelector('.question-content p, p');
     if (!questionTextElement) {
         console.error(`Question text element not found for question ${questionNumber}`);
-        return;
+        return false;
     }
     
     const questionText = questionTextElement.textContent.trim();
@@ -76,6 +82,8 @@ function toggleDifficultQuestion(questionNumber, source) {
         
         updatePartStats('', startNumber, total);
     }
+    
+    return false; // Ngăn chặn hành vi mặc định
 }
 
 function showNotification(message, type) {
