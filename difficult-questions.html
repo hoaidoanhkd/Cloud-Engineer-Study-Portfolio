@@ -79,6 +79,155 @@
             background: linear-gradient(135deg, #ea4335 0%, #fbbc04 100%);
         }
         
+        .study-btn {
+            background: linear-gradient(135deg, #34a853 0%, #4caf50 100%);
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-btn {
+            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            margin-top: 5px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .dropdown-content a:first-child {
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .dropdown-content a:last-child {
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .study-mode {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 2px solid #34a853;
+        }
+        
+        .study-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .study-header h3 {
+            color: #34a853;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .study-header p {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .study-question {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid #34a853;
+            min-height: 150px;
+        }
+        
+        .study-question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .study-question-number {
+            background: #34a853;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .study-question-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .study-question-source {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .study-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .study-control-btn {
+            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .study-control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+        }
+        
+        .study-control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .study-progress {
+            font-weight: bold;
+            color: #34a853;
+            font-size: 1.1rem;
+        }
+        
         .stats-bar {
             background: #f8f9fa;
             border-radius: 12px;
@@ -224,6 +373,34 @@
             
             .nav-buttons {
                 justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+            }
+            
+            .dropdown {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .dropdown-btn {
+                width: 100%;
+            }
+            
+            .dropdown-content {
+                width: 100%;
+                position: relative;
+                display: block;
+                box-shadow: none;
+                border: 1px solid #e0e0e0;
+                margin-top: 10px;
+                position: static;
             }
             
             .question-header {
@@ -234,6 +411,25 @@
             .question-actions {
                 width: 100%;
                 justify-content: flex-start;
+            }
+            
+            .study-controls {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .study-control-btn {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .study-mode {
+                padding: 20px;
+            }
+            
+            .study-question {
+                padding: 20px;
             }
         }
     </style>
@@ -248,6 +444,18 @@
         <div class="content">
             <div class="nav-buttons">
                 <a href="index.html" class="nav-btn">🏠 Về trang chủ</a>
+                <div class="dropdown">
+                    <button class="nav-btn dropdown-btn">📚 Đi đến Quiz Parts</button>
+                    <div class="dropdown-content">
+                        <a href="quiz-parts/part1-questions-1-50.html">📖 Phần 1 (1-50)</a>
+                        <a href="quiz-parts/part2-questions-51-100.html">🔧 Phần 2 (51-100)</a>
+                        <a href="quiz-parts/part3-questions-101-150.html">💾 Phần 3 (101-150)</a>
+                        <a href="quiz-parts/part4-questions-151-200.html">🔐 Phần 4 (151-200)</a>
+                        <a href="quiz-parts/part5-questions-201-250.html">📊 Phần 5 (201-250)</a>
+                        <a href="quiz-parts/part6-questions-251-302.html">🎯 Phần 6 (251-302)</a>
+                    </div>
+                </div>
+                <button id="studyModeBtn" class="nav-btn study-btn">🎯 Chế độ ôn tập</button>
                 <button id="clearAllBtn" class="nav-btn clear-btn">🗑️ Xóa tất cả</button>
                 <button id="exportBtn" class="nav-btn">📤 Xuất danh sách</button>
             </div>
@@ -261,6 +469,20 @@
                 <div class="icon">📚</div>
                 <h3>Chưa có câu khó nào được đánh dấu</h3>
                 <p>Khi bạn làm quiz, hãy nhấn nút "⭐ Đánh dấu câu khó" để lưu những câu hỏi khó vào đây. Điều này sẽ giúp bạn tập trung ôn tập những phần cần cải thiện nhất.</p>
+            </div>
+            
+            <div id="studyMode" class="study-mode" style="display: none;">
+                <div class="study-header">
+                    <h3>🎯 Chế độ ôn tập</h3>
+                    <p>Tập trung ôn tập từng câu một cách có hệ thống</p>
+                </div>
+                <div id="studyQuestion" class="study-question"></div>
+                <div class="study-controls">
+                    <button id="prevBtn" class="study-control-btn">⬅️ Câu trước</button>
+                    <span id="studyProgress" class="study-progress">1/0</span>
+                    <button id="nextBtn" class="study-control-btn">Câu tiếp ➡️</button>
+                </div>
+                <button id="exitStudyBtn" class="nav-btn clear-btn">❌ Thoát chế độ ôn tập</button>
             </div>
             
             <div id="questionsList"></div>
@@ -393,9 +615,95 @@
             }
         }
         
+        // Chế độ ôn tập
+        let studyMode = false;
+        let currentStudyIndex = 0;
+        let studyQuestions = [];
+        
+        function enterStudyMode() {
+            const questions = getDifficultQuestions();
+            if (questions.length === 0) {
+                alert('Không có câu khó nào để ôn tập!');
+                return;
+            }
+            
+            studyMode = true;
+            studyQuestions = [...questions].sort((a, b) => a.questionNumber - b.questionNumber);
+            currentStudyIndex = 0;
+            
+            document.getElementById('studyMode').style.display = 'block';
+            document.getElementById('questionsList').style.display = 'none';
+            document.getElementById('emptyState').style.display = 'none';
+            
+            displayStudyQuestion();
+        }
+        
+        function exitStudyMode() {
+            studyMode = false;
+            document.getElementById('studyMode').style.display = 'none';
+            document.getElementById('questionsList').style.display = 'block';
+            displayDifficultQuestions();
+        }
+        
+        function displayStudyQuestion() {
+            if (studyQuestions.length === 0) return;
+            
+            const question = studyQuestions[currentStudyIndex];
+            const studyQuestionEl = document.getElementById('studyQuestion');
+            const studyProgressEl = document.getElementById('studyProgress');
+            
+            studyQuestionEl.innerHTML = `
+                <div class="study-question-header">
+                    <span class="study-question-number">Câu ${question.questionNumber}</span>
+                    <button class="action-btn practice-btn" onclick="goToQuestion(${question.questionNumber}, '${question.source}')">
+                        🎯 Làm trong Quiz
+                    </button>
+                </div>
+                <div class="study-question-text">${question.text}</div>
+                <div class="study-question-source">📍 Nguồn: ${question.source}</div>
+            `;
+            
+            studyProgressEl.textContent = `${currentStudyIndex + 1}/${studyQuestions.length}`;
+            
+            // Cập nhật trạng thái nút
+            document.getElementById('prevBtn').disabled = currentStudyIndex === 0;
+            document.getElementById('nextBtn').disabled = currentStudyIndex === studyQuestions.length - 1;
+        }
+        
+        function nextStudyQuestion() {
+            if (currentStudyIndex < studyQuestions.length - 1) {
+                currentStudyIndex++;
+                displayStudyQuestion();
+            }
+        }
+        
+        function prevStudyQuestion() {
+            if (currentStudyIndex > 0) {
+                currentStudyIndex--;
+                displayStudyQuestion();
+            }
+        }
+        
         // Event listeners
         document.getElementById('clearAllBtn').addEventListener('click', clearAllDifficultQuestions);
         document.getElementById('exportBtn').addEventListener('click', exportDifficultQuestions);
+        document.getElementById('studyModeBtn').addEventListener('click', enterStudyMode);
+        document.getElementById('exitStudyBtn').addEventListener('click', exitStudyMode);
+        document.getElementById('nextBtn').addEventListener('click', nextStudyQuestion);
+        document.getElementById('prevBtn').addEventListener('click', prevStudyQuestion);
+        
+        // Keyboard shortcuts cho chế độ ôn tập
+        document.addEventListener('keydown', function(e) {
+            if (studyMode) {
+                if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
+                    prevStudyQuestion();
+                } else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') {
+                    nextStudyQuestion();
+                } else if (e.key === 'Escape') {
+                    exitStudyMode();
+                }
+            }
+        });
         
         // Hiển thị danh sách khi trang load
         document.addEventListener('DOMContentLoaded', displayDifficultQuestions);
