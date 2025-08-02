@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCP Quiz Modern - Advanced Practice Platform</title>
+    <meta name="description" content="Modern GCP certification practice platform with advanced features, progress tracking, and comprehensive analytics.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/components.css">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div id="theme-toggle-container"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content container">
+            <h1>🚀 GCP Quiz Modern</h1>
+            <p>Advanced Google Cloud Platform Certification Practice</p>
+            <div class="header-stats" id="header-stats">
+                <!-- Dynamic stats will be inserted here -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <div class="card">
+                <h2>Welcome to Your Advanced GCP Practice Platform</h2>
+                <p>Experience a modern, feature-rich quiz platform designed to help you master Google Cloud Platform concepts with intelligent progress tracking, detailed analytics, and personalized learning paths.</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">📊</div>
+                        <h3>Advanced Analytics</h3>
+                        <p>Track your progress with detailed performance metrics and improvement trends</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Smart Practice</h3>
+                        <p>Focus on your weak areas with intelligent question recommendations</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⏱️</div>
+                        <h3>Exam Simulation</h3>
+                        <p>Practice with real exam conditions including time limits and constraints</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📱</div>
+                        <h3>Modern Interface</h3>
+                        <p>Enjoy a beautiful, responsive design that works on all devices</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Stats -->
+        <section class="stats-section" id="stats-section">
+            <!-- Dynamic stats cards will be inserted here -->
+        </section>
+
+        <!-- Quiz Modes -->
+        <section class="quiz-modes-section">
+            <h2>Choose Your Practice Mode</h2>
+            <div class="quiz-modes-grid">
+                <!-- Practice Mode -->
+                <div class="quiz-mode-card card" data-mode="practice">
+                    <div class="mode-icon">📚</div>
+                    <h3>Practice Mode</h3>
+                    <p>Learn at your own pace with immediate feedback and detailed explanations</p>
+                    <ul class="mode-features">
+                        <li>✅ Immediate feedback</li>
+                        <li>✅ Detailed explanations</li>
+                        <li>✅ No time pressure</li>
+                        <li>✅ Bookmark questions</li>
+                    </ul>
+                    <button class="btn btn-primary mode-btn" data-mode="practice">
+                        Start Practice
+                    </button>
+                </div>
+
+                <!-- Exam Mode -->
+                <div class="quiz-mode-card card" data-mode="exam">
+                    <div class="mode-icon">⏰</div>
+                    <h3>Exam Simulation</h3>
+                    <p>Experience real exam conditions with time limits and no immediate feedback</p>
+                    <ul class="mode-features">
+                        <li>⏱️ Timed sessions</li>
+                        <li>🔒 No immediate feedback</li>
+                        <li>📋 Final results only</li>
+                        <li>🎯 Real exam experience</li>
+                    </ul>
+                    <button class="btn btn-primary mode-btn" data-mode="exam">
+                        Start Exam
+                    </button>
+                </div>
+
+                <!-- Review Mode -->
+                <div class="quiz-mode-card card" data-mode="review">
+                    <div class="mode-icon">🔍</div>
+                    <h3>Review Mode</h3>
+                    <p>Focus on questions you've answered incorrectly or bookmarked</p>
+                    <ul class="mode-features">
+                        <li>❌ Incorrect questions</li>
+                        <li>⭐ Bookmarked questions</li>
+                        <li>📈 Targeted improvement</li>
+                        <li>💡 Smart recommendations</li>
+                    </ul>
+                    <button class="btn btn-primary mode-btn" data-mode="review">
+                        Review Questions
+                    </button>
+                </div>
+
+                <!-- Custom Mode -->
+                <div class="quiz-mode-card card" data-mode="custom">
+                    <div class="mode-icon">⚙️</div>
+                    <h3>Custom Practice</h3>
+                    <p>Create your own practice session with specific categories and settings</p>
+                    <ul class="mode-features">
+                        <li>🎛️ Custom filters</li>
+                        <li>📊 Category selection</li>
+                        <li>🔢 Question count</li>
+                        <li>🎲 Randomization options</li>
+                    </ul>
+                    <button class="btn btn-primary mode-btn" data-mode="custom">
+                        Customize Session
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Activity -->
+        <section class="recent-activity-section">
+            <h2>Recent Activity</h2>
+            <div class="activity-container" id="recent-activity">
+                <!-- Dynamic recent activity will be inserted here -->
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions-section">
+            <h2>Quick Actions</h2>
+            <div class="actions-grid">
+                <button class="action-card card" id="view-bookmarks">
+                    <div class="action-icon">⭐</div>
+                    <h3>View Bookmarks</h3>
+                    <p>Review your saved questions</p>
+                </button>
+                
+                <button class="action-card card" id="view-stats">
+                    <div class="action-icon">📊</div>
+                    <h3>Detailed Stats</h3>
+                    <p>Analyze your performance</p>
+                </button>
+                
+                <button class="action-card card" id="export-data">
+                    <div class="action-icon">📤</div>
+                    <h3>Export Data</h3>
+                    <p>Download your progress</p>
+                </button>
+                
+                <button class="action-card card" id="settings">
+                    <div class="action-icon">⚙️</div>
+                    <h3>Settings</h3>
+                    <p>Customize your experience</p>
+                </button>
+            </div>
+        </section>
+
+        <!-- Continue Session -->
+        <section class="continue-session-section" id="continue-session" style="display: none;">
+            <div class="card">
+                <h2>Continue Your Session</h2>
+                <p>You have an unfinished quiz session. Would you like to continue where you left off?</p>
+                <div class="session-info" id="session-info">
+                    <!-- Session details will be inserted here -->
+                </div>
+                <div class="session-actions">
+                    <button class="btn btn-primary" id="continue-btn">Continue Session</button>
+                    <button class="btn btn-secondary" id="new-session-btn">Start New Session</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 GCP Quiz Modern. Advanced practice platform for Google Cloud certification.</p>
+            <div class="footer-links">
+                <a href="#" id="about-link">About</a>
+                <a href="#" id="privacy-link">Privacy</a>
+                <a href="#" id="help-link">Help</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="./main.ts"></script>
+</body>
+</html>
