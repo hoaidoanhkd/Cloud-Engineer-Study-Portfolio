@@ -2,7 +2,7 @@
   "name": "gcp-quiz-modern",
   "version": "2.0.0",
   "description": "Modern GCP Quiz Application with Advanced Features",
-  "main": "index.html",
+  "main": "quiz-parts/index.html",
   "type": "module",
   "scripts": {
     "dev": "vite",

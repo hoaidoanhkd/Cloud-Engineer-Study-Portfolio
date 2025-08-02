@@ -28,17 +28,17 @@ python3 -m http.server 8080
 ```
 
 ### Truy cập ứng dụng:
-- **Trang chủ**: `http://localhost:8080/`
-- **Danh sách 6 phần**: `http://localhost:8080/quiz-parts/`
+- **Trang chủ chính**: `http://localhost:8080/quiz-parts/`
+- **Hướng dẫn sử dụng**: `http://localhost:8080/`
 - **Câu hỏi khó**: `http://localhost:8080/difficult-questions.html`
 
 ## 📁 Cấu trúc dự án
 
 ```
 /
-├── index.html                          # Trang chủ chính
+├── index.html                          # Trang hướng dẫn sử dụng
 ├── quiz-parts/                         # Thư mục chứa 6 phần quiz
-│   ├── index.html                     # Danh sách các phần
+│   ├── index.html                     # Trang chủ chính (danh sách 6 phần)
 │   ├── part1-questions-1-50.html      # Phần 1
 │   ├── part2-questions-51-100.html    # Phần 2
 │   ├── part3-questions-101-150.html   # Phần 3
