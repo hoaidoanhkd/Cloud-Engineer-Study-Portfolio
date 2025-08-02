@@ -4,9 +4,8 @@
   "description": "GCP Exam Practice - Static HTML Website",
   "main": "index.html",
   "scripts": {
-    "start": "npx http-server -p $PORT -o",
-    "build": "echo 'Static site - no build required'",
-    "dev": "npx http-server -p 3000 -o"
+    "build": "node build.js",
+    "start": "npx http-server -p $PORT -o"
   },
   "keywords": [
     "gcp",
