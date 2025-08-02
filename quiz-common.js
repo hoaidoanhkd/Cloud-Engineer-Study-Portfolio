@@ -1,11 +1,21 @@
 // Chức năng quản lý câu khó - Common cho tất cả quiz parts
 function getDifficultQuestions() {
-    const stored = localStorage.getItem('difficultQuestions');
-    return stored ? JSON.parse(stored) : [];
+    try {
+        const stored = localStorage.getItem('difficultQuestions');
+        return stored ? JSON.parse(stored) : [];
+    } catch (error) {
+        console.error('Error reading from localStorage:', error);
+        return [];
+    }
 }
 
 function saveDifficultQuestions(questions) {
-    localStorage.setItem('difficultQuestions', JSON.stringify(questions));
+    try {
+        localStorage.setItem('difficultQuestions', JSON.stringify(questions));
+    } catch (error) {
+        console.error('Error writing to localStorage:', error);
+        showNotification('Không thể lưu dữ liệu. Vui lòng kiểm tra quyền truy cập.', 'error');
+    }
 }
 
 function toggleDifficultQuestion(questionNumber, source) {
@@ -14,7 +24,18 @@ function toggleDifficultQuestion(questionNumber, source) {
     const existingIndex = questions.findIndex(q => q.id === questionId);
     
     const questionElement = document.getElementById(`question${questionNumber}`);
-    const questionText = questionElement.querySelector('.question-content p, p').textContent.trim();
+    if (!questionElement) {
+        console.error(`Question element with id 'question${questionNumber}' not found`);
+        return;
+    }
+    
+    const questionTextElement = questionElement.querySelector('.question-content p, p');
+    if (!questionTextElement) {
+        console.error(`Question text element not found for question ${questionNumber}`);
+        return;
+    }
+    
+    const questionText = questionTextElement.textContent.trim();
     const button = questionElement.querySelector('.difficult-btn');
     
     if (existingIndex > -1) {
@@ -61,11 +82,31 @@ function showNotification(message, type) {
     // Tạo thông báo nhỏ với hiệu ứng đẹp hơn
     const notification = document.createElement('div');
     notification.className = 'notification';
+    
+    let background, icon;
+    switch(type) {
+        case 'success':
+            background = 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)';
+            icon = '✅';
+            break;
+        case 'error':
+            background = 'linear-gradient(135deg, #f44336 0%, #d32f2f 100%)';
+            icon = '❌';
+            break;
+        case 'warning':
+            background = 'linear-gradient(135deg, #ff9800 0%, #f57c00 100%)';
+            icon = '⚠️';
+            break;
+        default:
+            background = 'linear-gradient(135deg, #2196F3 0%, #1976D2 100%)';
+            icon = 'ℹ️';
+    }
+    
     notification.style.cssText = `
         position: fixed;
         top: 20px;
         right: 20px;
-        background: ${type === 'success' ? 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)' : 'linear-gradient(135deg, #2196F3 0%, #1976D2 100%)'};
+        background: ${background};
         color: white;
         padding: 15px 25px;
         border-radius: 25px;
@@ -75,10 +116,10 @@ function showNotification(message, type) {
         font-size: 14px;
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255,255,255,0.2);
+        max-width: 300px;
+        word-wrap: break-word;
     `;
     
-    // Thêm icon cho notification
-    const icon = type === 'success' ? '✅' : 'ℹ️';
     notification.innerHTML = `${icon} ${message}`;
     
     document.body.appendChild(notification);
@@ -196,6 +237,26 @@ function updatePartStats(partName, startNumber, total) {
 
 // Khởi tạo quiz với chức năng đánh dấu câu khó
 function initializeQuiz(correctAnswers, total, partName, startNumber = 1) {
+    // Validation
+    if (!Array.isArray(correctAnswers) || correctAnswers.length !== total) {
+        console.error('Invalid correctAnswers array or length mismatch');
+        return;
+    }
+    
+    if (typeof total !== 'number' || total <= 0) {
+        console.error('Invalid total parameter');
+        return;
+    }
+    
+    if (typeof partName !== 'string' || partName.trim() === '') {
+        console.error('Invalid partName parameter');
+        return;
+    }
+    
+    if (typeof startNumber !== 'number' || startNumber < 1) {
+        console.error('Invalid startNumber parameter');
+        return;
+    }
     // Thêm CSS
     const style = document.createElement('style');
     style.textContent = `
@@ -366,21 +427,55 @@ function initializeQuiz(correctAnswers, total, partName, startNumber = 1) {
     // Logic quiz gốc
     for (let i = 1; i <= total; i++) {
         const radios = document.getElementsByName(`q${i}`);
+        if (radios.length === 0) {
+            console.warn(`No radio buttons found for question ${i}`);
+            continue;
+        }
+        
         radios.forEach(radio => {
             radio.addEventListener('change', function() {
+                // Reset all labels
                 radios.forEach(r => {
                     const label = r.parentElement;
-                    label.style.fontWeight = "normal";
-                    label.style.color = "black";
+                    if (label) {
+                        label.style.fontWeight = "normal";
+                        label.style.color = "black";
+                        label.style.backgroundColor = "transparent";
+                    }
                 });
 
                 const label = this.parentElement;
-                if (this.value === correctAnswers[i - 1]) {
+                if (!label) {
+                    console.error(`Label not found for radio button in question ${i}`);
+                    return;
+                }
+                
+                const correctAnswer = correctAnswers[i - 1];
+                if (!correctAnswer) {
+                    console.error(`No correct answer defined for question ${i}`);
+                    return;
+                }
+                
+                if (this.value === correctAnswer) {
                     label.style.color = "green";
                     label.style.fontWeight = "bold";
+                    label.style.backgroundColor = "rgba(76, 175, 80, 0.1)";
                 } else {
                     label.style.color = "red";
                     label.style.fontWeight = "bold";
+                    label.style.backgroundColor = "rgba(244, 67, 54, 0.1)";
+                    
+                    // Highlight correct answer
+                    radios.forEach(r => {
+                        if (r.value === correctAnswer) {
+                            const correctLabel = r.parentElement;
+                            if (correctLabel) {
+                                correctLabel.style.color = "green";
+                                correctLabel.style.fontWeight = "bold";
+                                correctLabel.style.backgroundColor = "rgba(76, 175, 80, 0.1)";
+                            }
+                        }
+                    });
                 }
             });
         });
