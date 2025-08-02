@@ -5,7 +5,6 @@ export class QuizManager {
   private currentSession: QuizSession | null = null;
   private questions: Question[] = [];
   private settings: QuizSettings;
-  private timers: Map<string, number> = new Map();
   private questionStartTime: number = 0;
 
   constructor() {
