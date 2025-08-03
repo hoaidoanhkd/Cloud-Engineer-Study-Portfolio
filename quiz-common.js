@@ -75,7 +75,11 @@ function toggleDifficultQuestion(questionNumber, source, event) {
         questions.splice(existingIndex, 1);
         button.textContent = '⭐ Đánh dấu câu khó';
         button.classList.remove('marked');
-        showNotification('Đã bỏ đánh dấu câu khó!', 'info');
+        // Thêm hiệu ứng nhỏ
+        button.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            button.style.transform = 'scale(1)';
+        }, 150);
     } else {
         // Thêm câu khó
         questions.push({
@@ -88,7 +92,11 @@ function toggleDifficultQuestion(questionNumber, source, event) {
         });
         button.textContent = '🔥 Đã đánh dấu';
         button.classList.add('marked');
-        showNotification('Đã đánh dấu câu khó!', 'success');
+        // Thêm hiệu ứng nhỏ
+        button.style.transform = 'scale(1.1)';
+        setTimeout(() => {
+            button.style.transform = 'scale(1.05)';
+        }, 150);
     }
     
     saveDifficultQuestions(questions);
@@ -100,24 +108,6 @@ function toggleDifficultQuestion(questionNumber, source, event) {
     
     // Ngăn chặn scroll về đầu
     return false;
-}
-    
-    // Cập nhật thống kê part nếu có
-    const partStatsElement = document.getElementById('partStatsNumber');
-    if (partStatsElement) {
-        // Lấy thông tin part từ trang hiện tại
-        const currentUrl = window.location.href;
-        let startNumber = 1, total = 50;
-        
-        if (currentUrl.includes('part1')) { startNumber = 1; total = 50; }
-        else if (currentUrl.includes('part2')) { startNumber = 51; total = 50; }
-        else if (currentUrl.includes('part3')) { startNumber = 101; total = 50; }
-        else if (currentUrl.includes('part4')) { startNumber = 151; total = 50; }
-        else if (currentUrl.includes('part5')) { startNumber = 201; total = 50; }
-        else if (currentUrl.includes('part6')) { startNumber = 251; total = 52; }
-        
-        updatePartStats('', startNumber, total);
-    }
 }
 
 function showNotification(message, type) {
@@ -350,6 +340,7 @@ function initializeQuiz(correctAnswers, total, partName, startNumber = 1) {
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
+            transform: scale(1);
         }
         .difficult-btn::before {
             content: '';
@@ -376,6 +367,7 @@ function initializeQuiz(correctAnswers, total, partName, startNumber = 1) {
             color: white; 
             box-shadow: 0 3px 8px rgba(234, 67, 53, 0.3);
             animation: pulse 2s infinite;
+            transform: scale(1.05);
         }
         .difficult-btn.marked:hover {
             box-shadow: 0 6px 16px rgba(234, 67, 53, 0.4);
