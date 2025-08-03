@@ -18,7 +18,13 @@ function saveDifficultQuestions(questions) {
     }
 }
 
-function toggleDifficultQuestion(questionNumber, source) {
+function toggleDifficultQuestion(questionNumber, source, event) {
+    // Ngăn chặn default behavior để không scroll về đầu
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+    
     const questions = getDifficultQuestions();
     const questionId = `q${questionNumber}_${source}`;
     const existingIndex = questions.findIndex(q => q.id === questionId);
@@ -82,6 +88,10 @@ function toggleDifficultQuestion(questionNumber, source) {
     }
     
     saveDifficultQuestions(questions);
+    
+    // Ngăn chặn scroll về đầu
+    return false;
+}
     
     // Cập nhật thống kê part nếu có
     const partStatsElement = document.getElementById('partStatsNumber');
@@ -191,9 +201,10 @@ function addDifficultButtons(total, partName, startNumber = 1) {
                 content.appendChild(questionP.cloneNode(true));
                 
                 const button = document.createElement('button');
+                button.type = 'button';
                 button.className = 'difficult-btn';
                 button.textContent = '⭐ Đánh dấu câu khó';
-                button.onclick = () => toggleDifficultQuestion(actualQuestionNumber, partName);
+                button.onclick = (event) => toggleDifficultQuestion(actualQuestionNumber, partName, event);
                 
                 header.appendChild(content);
                 header.appendChild(button);
@@ -317,6 +328,8 @@ function initializeQuiz(correctAnswers, total, partName, startNumber = 1) {
             white-space: nowrap;
             position: relative;
             overflow: hidden;
+            outline: none;
+            user-select: none;
         }
         .difficult-btn::before {
             content: '';
