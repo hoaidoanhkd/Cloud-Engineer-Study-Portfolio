@@ -1,58 +1,346 @@
 <!DOCTYPE html>
 <html lang="vi">
-
-
-
 <head>
   <meta charset="UTF-8">
-  <title>Keyword & Mẹo nhớ nhanh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📚 Keywords & Quick Tips (251-317) - Cloud Engineer Study</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #333;
+      line-height: 1.6;
     }
+
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 0.5rem;
+      text-align: center;
+      box-shadow: 0 1px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header h1 {
+      color: #2d3748;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header .subtitle {
+      color: #718096;
+      font-size: 0.8rem;
+      margin: 0.2rem 0 0 0;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.3rem;
+    }
+
+    .stat-item {
+      background: rgba(102, 126, 234, 0.1);
+      padding: 0.2rem 0.5rem;
+      border-radius: 10px;
+      color: #667eea;
+      font-weight: 500;
+      font-size: 0.7rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .back-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
     .card {
-      border: 1px solid #ccc;
-      border-left: 6px solid #007bff;
-      border-radius: 6px;
-      padding: 15px;
-      margin-bottom: 20px;
-      background: #f9f9f9;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      border-left: 8px solid #667eea;
+      position: relative;
+      overflow: hidden;
     }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+
     .card h2 {
-      margin-top: 0;
-      font-size: 20px;
-      color: #007bff;
+      margin: 0 0 1rem 0;
+      font-size: 1.3rem;
+      color: #2d3748;
+      font-weight: 700;
+      line-height: 1.4;
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 10px;
+      margin: 1rem 0;
       background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
+
     th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
+      border: 1px solid #e2e8f0;
+      padding: 1rem;
       vertical-align: top;
-    }
-    th {
-      background-color: #f2f2f2;
       text-align: left;
     }
+
+    th {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    td {
+      background: #f8fafc;
+      font-size: 0.95rem;
+    }
+
     .tip {
-      margin-top: 10px;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: linear-gradient(135deg, #e6f0ff, #f0f8ff);
+      border-radius: 10px;
+      border-left: 6px solid #667eea;
       font-style: italic;
-      color: #333;
-      background: #e6f0ff;
-      padding: 10px;
-      border-left: 4px solid #007bff;
+      color: #2d3748;
+      font-weight: 500;
+    }
+
+    .tip strong {
+      color: #667eea;
+    }
+
+    .floating-nav {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 50px;
+      padding: 1rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
+
+    .floating-nav a {
+      display: block;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .floating-nav a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      z-index: 1001;
+      transition: width 0.3s ease;
+    }
+
+                   @media (max-width: 768px) {
+        .header {
+          padding: 0.4rem 0.8rem;
+        }
+        
+        .header h1 {
+          font-size: 1.1rem;
+        }
+        
+        .header .subtitle {
+          font-size: 0.75rem;
+        }
+        
+        .stats {
+          gap: 0.4rem;
+          margin-top: 0.2rem;
+        }
+        
+        .stat-item {
+          font-size: 0.65rem;
+          padding: 0.15rem 0.4rem;
+        }
+      
+      .container {
+        padding: 0.5rem;
+      }
+      
+      .card {
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+      
+      .card h2 {
+        font-size: 1.1rem;
+      }
+      
+      th, td {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+      }
+      
+      .tip {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+      }
+      
+      .floating-nav {
+        bottom: 1rem;
+        right: 1rem;
+      }
+      
+      table {
+        font-size: 0.85rem;
+      }
+      
+      th, td {
+        padding: 0.5rem;
+      }
+    }
+
+                   @media (max-width: 480px) {
+        .header {
+          padding: 0.3rem 0.5rem;
+        }
+        
+        .header h1 {
+          font-size: 1rem;
+          margin: 0;
+        }
+        
+        .header .subtitle {
+          font-size: 0.7rem;
+          margin: 0.1rem 0 0 0;
+        }
+        
+        .stats {
+          flex-direction: row;
+          gap: 0.3rem;
+          justify-content: center;
+          margin-top: 0.15rem;
+        }
+        
+        .stat-item {
+          font-size: 0.6rem;
+          padding: 0.1rem 0.3rem;
+        }
+       
+       .card h2 {
+         font-size: 1rem;
+       }
+       
+       table {
+         font-size: 0.8rem;
+       }
+       
+       th, td {
+         padding: 0.4rem;
+       }
+     }
+
+    /* Mobile table improvements */
+    @media (max-width: 600px) {
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      
+      th, td {
+        min-width: 120px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="progress-bar" id="progressBar"></div>
+  
+  <div class="header">
+    <h1>📚 Keywords & Quick Tips</h1>
+    <div class="subtitle">Câu hỏi 251-317 - Google Cloud Platform</div>
+    <div class="stats">
+      <div class="stat-item">📊 67 câu hỏi</div>
+      <div class="stat-item">⏱️ 2-3 giờ học</div>
+      <div class="stat-item">🎯 Quan trọng</div>
+    </div>
+  </div>
 
+  <div class="container">
+    <a href="index.html" class="back-btn">← Quay lại Trang chủ</a>
 
-<div class="card">
+    <div class="card">
   <h2>Câu 251 – Bảo mật proxy credentials với gcloud CLI</h2>
   <table>
     <tr><th>Ý chính</th><th>Từ khóa</th></tr>
@@ -671,6 +959,86 @@
 
 
 
-</div>
+    </div>
+  </div>
+
+  <div class="floating-nav">
+    <a href="index.html" title="Trang chủ">🏠</a>
+  </div>
+
+  <script>
+    // Progress bar functionality
+    function updateProgressBar() {
+      const scrollTop = window.pageYOffset;
+      const docHeight = document.body.offsetHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      document.getElementById('progressBar').style.width = scrollPercent + '%';
+    }
+
+    // Smooth scrolling for anchor links
+    function smoothScroll(target) {
+      const element = document.querySelector(target);
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+
+    // Add card hover effects
+    function addCardEffects() {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-5px)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+        });
+      });
+    }
+
+    // Add click tracking
+    function addClickTracking() {
+      document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function() {
+          console.log('Clicked:', this.href);
+          this.style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 150);
+        });
+      });
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+      addCardEffects();
+      addClickTracking();
+      
+      // Add loading animation
+      document.body.style.opacity = '0';
+      setTimeout(() => {
+        document.body.style.transition = 'opacity 0.5s ease';
+        document.body.style.opacity = '1';
+      }, 100);
+    });
+
+    // Update progress bar on scroll
+    window.addEventListener('scroll', updateProgressBar);
+
+    // Add scroll effect to header
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('.header');
+      const scrolled = window.pageYOffset;
+      if (scrolled > 100) {
+        header.style.background = 'rgba(255, 255, 255, 0.98)';
+      } else {
+        header.style.background = 'rgba(255, 255, 255, 0.95)';
+      }
+    });
+  </script>
 </body>
 </html>
