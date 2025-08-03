@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎓 GCP Study Guide - Keywords & Quick Tips (251-317)</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #333;
+    }
+
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header h1 {
+      color: #4a5568;
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .header .subtitle {
+      text-align: center;
+      color: #718096;
+      font-size: 1rem;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem 0;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      padding: 0.75rem 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 25px;
+      font-size: 1rem;
+      width: 300px;
+      max-width: 100%;
+      transition: all 0.3s ease;
+    }
+
+    .search-box:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .filter-btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 25px;
+      background: #667eea;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn:hover {
+      background: #5a67d8;
+      transform: translateY(-2px);
+    }
+
+    .filter-btn.active {
+      background: #4c51bf;
+    }
+
+    .progress-bar {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 1rem 2rem;
+      margin: 1rem 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-bar-bg {
+      background: #e2e8f0;
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      background: linear-gradient(90deg, #48bb78, #38a169);
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      border-left: 6px solid #667eea;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+    }
+
+    .card h2 {
+      color: #2d3748;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card h2::before {
+      content: '📚';
+      font-size: 1.5rem;
+    }
+
+    .card.hidden {
+      display: none;
+    }
+
+    .card.completed {
+      border-left-color: #48bb78;
+    }
+
+    .card.completed h2::before {
+      content: '✅';
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    th {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      background: white;
+      color: #4a5568;
+    }
+
+    tr:hover td {
+      background: #f7fafc;
+    }
+
+    .tip {
+      background: linear-gradient(135deg, #e6fffa, #b2f5ea);
+      border-left: 4px solid #38b2ac;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      position: relative;
+    }
+
+    .tip::before {
+      content: '💡';
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      background: white;
+      padding: 5px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+    }
+
+    .tip strong {
+      color: #2c7a7b;
+      font-weight: 600;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      justify-content: flex-end;
+    }
+
+    .action-btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .mark-complete {
+      background: #48bb78;
+      color: white;
+    }
+
+    .mark-complete:hover {
+      background: #38a169;
+    }
+
+    .mark-incomplete {
+      background: #e53e3e;
+      color: white;
+    }
+
+    .mark-incomplete:hover {
+      background: #c53030;
+    }
+
+    .highlight {
+      background: #fef5e7;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      border: 1px solid #f6ad55;
+    }
+
+    .keyword {
+      background: #ebf8ff;
+      color: #2b6cb0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-weight: 600;
+      border: 1px solid #bee3f8;
+    }
+
+    .stats {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #667eea;
+    }
+
+    .stat-label {
+      color: #718096;
+      font-size: 0.9rem;
+    }
+
+    .floating-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .floating-btn:hover {
+      transform: scale(1.1);
+      background: #5a67d8;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0.5rem;
+      }
+      
+      .header {
+        padding: 0.5rem 1rem;
+      }
+      
+      .header h1 {
+        font-size: 1.5rem;
+        margin-bottom: 0.25rem;
+      }
+      
+      .header .subtitle {
+        font-size: 0.9rem;
+      }
+      
+      .controls {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0.5rem 0;
+      }
+      
+      .search-box {
+        width: 100%;
+        max-width: 280px;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+      }
+      
+      .filter-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        min-width: 120px;
+      }
+      
+      .progress-bar {
+        padding: 0.75rem 1rem;
+        margin: 0.5rem 0;
+      }
+      
+      .stats {
+        padding: 0.75rem 1rem;
+        gap: 0.5rem;
+      }
+      
+      .stat-number {
+        font-size: 1.5rem;
+      }
+      
+      .stat-label {
+        font-size: 0.8rem;
+      }
+      
+      .card {
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 10px;
+      }
+      
+      .card h2 {
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+      }
+      
+      .card h2::before {
+        font-size: 1.2rem;
+      }
+      
+      table {
+        margin: 0.75rem 0;
+        font-size: 0.85rem;
+      }
+      
+      th, td {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+        word-wrap: break-word;
+      }
+      
+      .tip {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+        margin-top: 0.75rem;
+      }
+      
+      .tip::before {
+        font-size: 1rem;
+        top: -8px;
+        left: 8px;
+        padding: 3px;
+      }
+      
+      .card-actions {
+        margin-top: 0.75rem;
+        justify-content: center;
+      }
+      
+      .action-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+        border-radius: 15px;
+      }
+      
+      .review-summary {
+        padding: 1rem;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+      
+      .summary-item {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+      
+      .summary-label {
+        font-size: 0.85rem;
+        margin-bottom: 0;
+      }
+      
+      .summary-value {
+        font-size: 1rem;
+      }
+      
+      .review-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin: 1rem 0;
+      }
+      
+      .review-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+        width: 100%;
+        max-width: 250px;
+      }
+      
+      .floating-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+        bottom: 1rem;
+        right: 1rem;
+      }
+      
+      /* Mobile-specific improvements */
+      .keyword, .highlight {
+        padding: 0.1rem 0.3rem;
+        font-size: 0.8rem;
+        border-radius: 3px;
+      }
+      
+      /* Better table scrolling on mobile */
+      .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0.75rem 0;
+      }
+      
+      table {
+        min-width: 300px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0.25rem;
+      }
+      
+      .header {
+        padding: 0.25rem 0.5rem;
+      }
+      
+      .header h1 {
+        font-size: 1.3rem;
+      }
+      
+      .header .subtitle {
+        font-size: 0.8rem;
+      }
+      
+      .card {
+        padding: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+      
+      .card h2 {
+        font-size: 1rem;
+      }
+      
+      th, td {
+        padding: 0.4rem;
+        font-size: 0.8rem;
+      }
+      
+      .search-box {
+        max-width: 250px;
+        font-size: 0.85rem;
+      }
+      
+      .filter-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+        min-width: 100px;
+      }
+    }
+
+    .night-mode {
+      background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    }
+
+    .night-mode .header {
+      background: rgba(26, 32, 44, 0.95);
+      color: white;
+    }
+
+    .night-mode .card {
+      background: rgba(45, 55, 72, 0.95);
+      color: #e2e8f0;
+    }
+
+    .night-mode th {
+      background: linear-gradient(135deg, #4a5568, #2d3748);
+    }
+
+    .night-mode td {
+      background: rgba(45, 55, 72, 0.8);
+      color: #e2e8f0;
+    }
+
+    /* Review Card Styles */
+    .review-summary {
+      background: linear-gradient(135deg, #f7fafc, #edf2f7);
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .summary-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .summary-label {
+      font-size: 0.9rem;
+      color: #718096;
+      margin-bottom: 0.5rem;
+    }
+
+    .summary-value {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #2d3748;
+    }
+
+    .review-actions {
+      display: flex;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .review-btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .review-btn.primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+
+    .review-btn.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .review-btn.secondary {
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+      border: 2px solid #667eea;
+    }
+
+    .review-btn.secondary:hover {
+      background: #667eea;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .status-pending {
+      color: #e53e3e;
+      font-weight: 600;
+    }
+
+    .status-completed {
+      color: #38a169;
+      font-weight: 600;
+    }
+
+    .status-in-progress {
+      color: #d69e2e;
+      font-weight: 600;
+    }
+
+    /* Night mode for review elements */
+    .night-mode .review-summary {
+      background: linear-gradient(135deg, rgba(45, 55, 72, 0.8), rgba(26, 32, 44, 0.8));
+    }
+
+    .night-mode .summary-value {
+      color: #e2e8f0;
+    }
+
+    .night-mode .review-btn.secondary {
+      background: rgba(102, 126, 234, 0.2);
+      border-color: #667eea;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🎓 GCP Study Guide</h1>
+    <div class="subtitle">Keywords & Quick Tips (251-317) - Interactive Learning Experience</div>
+    
+    <div class="controls">
+      <input type="text" class="search-box" placeholder="🔍 Tìm kiếm từ khóa..." id="searchBox">
+      <button class="filter-btn active" data-filter="all">📖 Tất cả</button>
+      <button class="filter-btn" data-filter="completed">✅ Đã học</button>
+      <button class="filter-btn" data-filter="pending">⏳ Chưa học</button>
+      <button class="filter-btn" id="nightMode">🌙 Chế độ tối</button>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-info">
+        <span>Tiến độ học tập</span>
+        <span id="progressText">0/69 câu hỏi</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-number" id="totalCards">69</div>
+        <div class="stat-label">Tổng câu hỏi</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="completedCards">0</div>
+        <div class="stat-label">Đã hoàn thành</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="pendingCards">69</div>
+        <div class="stat-label">Chưa học</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="content">
+
+    <!-- Thẻ Keyword Tổng Quan - Trang Chủ -->
+    <div class="card">
+      <h2>🏠 Trang Chủ - Tổng Quan GCP Keywords</h2>
+      <div class="table-container">
+        <table>
+          <tr><th>Danh Mục</th><th>Từ Khóa Chính</th><th>Mô Tả</th></tr>
+          <tr><td>🖥️ Compute</td><td><strong>Compute Engine, GKE, Cloud Run, App Engine</strong></td><td>Dịch vụ máy tính và container</td></tr>
+          <tr><td>🗄️ Storage</td><td><strong>Cloud Storage, BigQuery, Cloud SQL, Bigtable</strong></td><td>Lưu trữ dữ liệu và database</td></tr>
+          <tr><td>🌐 Networking</td><td><strong>VPC, Load Balancer, Cloud CDN, Cloud Armor</strong></td><td>Mạng và bảo mật</td></tr>
+          <tr><td>🔐 Security</td><td><strong>IAM, Cloud KMS, Secret Manager, VPC Service Controls</strong></td><td>Bảo mật và quản lý quyền</td></tr>
+          <tr><td>📊 Monitoring</td><td><strong>Cloud Monitoring, Cloud Logging, Error Reporting</strong></td><td>Giám sát và logging</td></tr>
+          <tr><td>🤖 AI/ML</td><td><strong>Vertex AI, AutoML, TensorFlow, BigQuery ML</strong></td><td>Trí tuệ nhân tạo và machine learning</td></tr>
+        </table>
+      </div>
+      <div class="tip"><strong>Mẹo nhớ nhanh:</strong> GCP có 6 nhóm dịch vụ chính: Compute, Storage, Networking, Security, Monitoring, AI/ML. Mỗi nhóm có các dịch vụ chuyên biệt cho từng use case.</div>
+    </div>
+
+    <!-- Thẻ Keyword Chuyên Sâu -->
+    <div class="card">
+      <h2>🎯 Keywords Chuyên Sâu - Best Practices</h2>
+      <div class="table-container">
+        <table>
+          <tr><th>Chủ Đề</th><th>Keywords Quan Trọng</th><th>Ứng Dụng</th></tr>
+          <tr><td>🏗️ Architecture</td><td><strong>Multi-region, High Availability, Disaster Recovery</strong></td><td>Thiết kế hệ thống có tính sẵn sàng cao</td></tr>
+          <tr><td>💰 Cost Optimization</td><td><strong>Committed Use Discounts, Spot Instances, Resource Optimization</strong></td><td>Tối ưu chi phí vận hành</td></tr>
+          <tr><td>🔒 Security Best Practices</td><td><strong>Zero Trust, Defense in Depth, Least Privilege</strong></td><td>Bảo mật theo chuẩn industry</td></tr>
+          <tr><td>📈 Scalability</td><td><strong>Auto Scaling, Load Balancing, Horizontal Scaling</strong></td><td>Khả năng mở rộng hệ thống</td></tr>
+          <tr><td>🔄 DevOps</td><td><strong>CI/CD, Infrastructure as Code, GitOps</strong></td><td>Phát triển và triển khai tự động</td></tr>
+          <tr><td>📊 Data Analytics</td><td><strong>Data Lake, Data Warehouse, Real-time Processing</strong></td><td>Phân tích dữ liệu quy mô lớn</td></tr>
+        </table>
+      </div>
+      <div class="tip"><strong>Mẹo nhớ nhanh:</strong> 6 nguyên tắc chính: Architecture (HA), Cost (Optimization), Security (Zero Trust), Scalability (Auto), DevOps (CI/CD), Analytics (Real-time).</div>
+    </div>
+
+    <!-- Thẻ Review Keywords - Ôn Tập Phần 6 -->
+    <div class="card">
+      <h2>📚 Review Keywords - Ôn Tập Phần 6 (251-317)</h2>
+      <div class="table-container">
+        <table>
+          <tr><th>Nhóm Chủ Đề</th><th>Keywords Chính</th><th>Số Câu Hỏi</th><th>Trạng Thái</th></tr>
+          <tr><td>🔐 Bảo Mật & IAM</td><td><strong>Proxy Credentials, OS Config, Vulnerability Report, SSH Keys, IAM Roles</strong></td><td>5 câu</td><td><span class="status-pending">⏳ Chưa học</span></td></tr>
+          <tr><td>🖥️ Compute & GKE</td><td><strong>Spot VM, Standard VM, GKE Autopilot, MIG, StatefulSet, VPA</strong></td><td>8 câu</td><td><span class="status-pending">⏳ Chưa học</span></td></tr>
+          <tr><td>☁️ Serverless & Cloud Run</td><td><strong>Cloud Run, Gradual Rollout, Traffic Splitting, Eventarc, Serverless VPC</strong></td><td>6 câu</td><td><span class="status-pending">⏳ Chưa học</span></td></tr>
+          <tr><td>🗄️ Database & Storage</td><td><strong>Cloud Spanner, AlloyDB, BigQuery, Cloud Storage, Object Lifecycle</strong></td><td>7 câu</td><td><span class="status-pending">⏳ Chưa học</span></td></tr>
+          <tr><td>🌐 Networking & VPC</td><td><strong>VPC Peering, Shared VPC, Internal LB, Private Service Connect, Subnet</strong></td><td>6 câu</td><td><span class="status-pending">⏳ Chưa học</span></td></tr>
+          <tr><td>📊 Monitoring & Logging</td><td><strong>Cloud Logging, Log Analytics, Pub/Sub, Dataflow, Cloud Monitoring</strong></td><td>5 câu</td><td><span class="status-pending">⏳ Chưa học</span></td></tr>
+          <tr><td>🔄 Migration & Transfer</td><td><strong>Transfer Appliance, BigQuery Transfer, Storage Transfer, Landing Zone</strong></td><td>4 câu</td><td><span class="status-pending">⏳ Chưa học</span></td></tr>
+          <tr><td>🤖 AI/ML & Data Processing</td><td><strong>Speech-to-Text, Bigtable, Sensor Data, Fine-tune LLM, GPU/TPU</strong></td><td>5 câu</td><td><span class="status-pending">⏳ Chưa học</span></td></tr>
+        </table>
+      </div>
+      
+      <div class="review-summary">
+        <div class="summary-item">
+          <span class="summary-label">📈 Tổng câu hỏi:</span>
+          <span class="summary-value">46 câu hỏi chính</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">🎯 Mục tiêu:</span>
+          <span class="summary-value">Nắm vững keywords GCP nâng cao</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">⏱️ Thời gian ôn tập:</span>
+          <span class="summary-value">2-3 giờ</span>
+        </div>
+      </div>
+
+      <div class="review-actions">
+        <button class="review-btn primary" onclick="startReview()">🚀 Bắt Đầu Ôn Tập</button>
+        <button class="review-btn secondary" onclick="showRandomQuestion()">🎲 Câu Hỏi Ngẫu Nhiên</button>
+        <button class="review-btn secondary" onclick="showWeakestArea()">📊 Khu Vực Yếu Nhất</button>
+      </div>
+
+      <div class="tip">
+        <strong>💡 Chiến lược ôn tập:</strong><br>
+        1. <strong>Học theo nhóm</strong>: Tập trung vào 1 nhóm chủ đề mỗi ngày<br>
+        2. <strong>Thực hành keywords</strong>: Viết lại các từ khóa quan trọng<br>
+        3. <strong>Liên hệ thực tế</strong>: Áp dụng vào các use case cụ thể<br>
+        4. <strong>Ôn tập định kỳ</strong>: Review lại sau 1 tuần và 1 tháng
+      </div>
+    </div>
+
+
+<div class="card">
+  <h2>Câu 251 – Bảo mật proxy credentials với gcloud CLI</h2>
+  <div class="table-container">
+    <table>
+      <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+      <tr><td>Mục tiêu</td><td><strong>Không để lộ proxy credentials</strong> trong <strong>gcloud CLI logs</strong></td></tr>
+      <tr><td>Yêu cầu</td><td><strong>Không ghi credentials nhạy cảm</strong> vào cấu hình hoặc log</td></tr>
+      <tr><td>Giải pháp</td><td><strong>Environment variables</strong>: <code>CLOUDSDK_PROXY_USERNAME</code> và <code>CLOUDSDK_PROXY_PASSWORD</code></td></tr>
+    </table>
+  </div>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Proxy credentials nhạy cảm → đặt qua <strong>environment variable</strong> để tránh log.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 252 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td><strong>Ứng dụng GKE</strong>, <strong>fault-tolerant</strong> có thể downtime, <strong>critical</strong> luôn phải sẵn sàng</td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Tối ưu chi phí</strong>, đảm bảo <strong>high availability</strong> cho phần quan trọng</td></tr>
+    <tr><td>Giải pháp</td><td><strong>2 node pool</strong>: Spot VM cho <strong>fault-tolerant</strong>, Standard VM cho <strong>critical</strong></td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Workload quan trọng → <strong>Standard VM</strong>, workload chịu lỗi → <strong>Spot VM</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 253 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td><strong>Triển khai ứng dụng serverless</strong>, kiểm thử <strong>phiên bản mới</strong> với <strong>một phần traffic</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Traffic splitting</strong>, kiểm thử an toàn, dễ rollback</td></tr>
+    <tr><td>Giải pháp</td><td><strong>Cloud Run</strong> hỗ trợ <strong>gradual rollout</strong>, chia traffic theo phần trăm</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Test version serverless → <strong>Cloud Run + gradual rollout</strong> để chia traffic theo %.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 254 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td><strong>Bảo mật</strong>: security team xem <strong>vulnerability + OS metadata</strong> của VM</td></tr>
+    <tr><td>Yêu cầu</td><td>Cài đúng <strong>agent</strong>, cấp đúng <strong>IAM role</strong> để xem báo cáo lỗ hổng</td></tr>
+    <tr><td>Giải pháp</td><td>Cài <strong>OS Config agent</strong> + gán <strong>roles/osconfig.vulnerabilityReportViewer</strong></td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Muốn xem lỗ hổng OS → cài <strong>OS Config agent</strong> + gán quyền viewer cho <strong>vulnerability report</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 255 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Triển khai <strong>Cloud Run revision mới</strong> mà <strong>giảm rủi ro ảnh hưởng khách hàng</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Không thay đổi phía client</strong>, rollback dễ, không phát sinh chi phí mới</td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>gradual rollout + traffic splitting</strong> giữa các revision</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Triển khai Cloud Run an toàn → <strong>gradual rollout + chia traffic</strong> để dễ rollback.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 256 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td><strong>Consultant không có Google account</strong> cần truy cập <strong>Compute Engine (Linux VM)</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Bảo mật</strong>, không dùng IAM/gcloud, nhưng vẫn truy cập được qua VPN</td></tr>
+    <tr><td>Giải pháp</td><td><strong>Consultant tạo SSH key</strong>, gửi <strong>public key</strong>, admin gán vào instance</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Không có Google account → dùng SSH key → thêm <strong>public key</strong> vào VM, consultant dùng <strong>private key</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 257 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Giám sát <strong>thay đổi firewall</strong> và <strong>tạo instance</strong> trong GCP</td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Đơn giản</strong>, có cảnh báo khi có hành vi bất thường</td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>log-based metrics</strong> từ <strong>Cloud Logging</strong> và thiết lập <strong>alert</strong></td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Muốn theo dõi thay đổi nhanh, gọn → <strong>Cloud Logging filter</strong> + <strong>log-based metric</strong> + alert.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 258 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>VM ở <strong>web-applications</strong> truy cập <strong>BigQuery dataset</strong> ở <strong>crm-databases</strong></td></tr>
+    <tr><td>Yêu cầu</td><td>Cấp quyền đúng cho <strong>service account</strong>, tuân theo <strong>least privilege</strong></td></tr>
+    <tr><td>Giải pháp</td><td>Gán <strong>roles/bigquery.dataViewer</strong> cho SA từ <strong>web-applications</strong> trên dataset ở <strong>crm-databases</strong></td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Truy cập BigQuery cross-project → cấp quyền <strong>Viewer</strong> cho SA truy cập đúng dataset.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 259 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Thêm <strong>VM</strong> giao tiếp với <strong>Dataproc cluster</strong> khi <strong>subnet hết IP</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Nhanh gọn</strong>, <strong>ít thao tác</strong>, tránh tạo VPC mới nếu không cần</td></tr>
+    <tr><td>Giải pháp</td><td><strong>Mở rộng subnet</strong> từ <code>/25</code> thành <code>/24</code> để có thêm IP</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Subnet hết IP → <strong>mở rộng CIDR</strong> là cách nhanh và gọn nhất.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 260 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Xây dựng backend lưu <strong>transaction</strong> toàn cầu từ <strong>web + mobile</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>High availability</strong>, <strong>scalable</strong>, hỗ trợ <strong>SQL</strong> query cho team phân tích</td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>multi-region Cloud Spanner</strong> – mạnh về <strong>OLTP</strong>, SQL, HA, scale cao</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Transaction toàn cầu + HA + SQL → chọn <strong>Cloud Spanner</strong> (OLTP scale tốt + multi-region).</div>
+</div>
+
+<div class="card">
+  <h2>Câu 261 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Đảm bảo <strong>SRE team</strong> có quyền giống nhau ở cả 2 <strong>Google Cloud Organizations</strong></td></tr>
+    <tr><td>Yêu cầu</td><td>Dùng lại <strong>custom role</strong> từ org cũ sang org mới</td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <code>gcloud iam roles copy</code> với <strong>Organization ID</strong> của công ty startup làm đích</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Custom role dùng lại ở org khác → dùng <code>gcloud iam roles copy</code> đến <strong>Organization ID</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 262 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Tự động <strong>trích xuất text từ audio</strong> khi file được đẩy lên <strong>Cloud Storage</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Fully managed</strong>, <strong>serverless</strong>, <strong>có xác thực</strong>, đúng <strong>Google-recommended</strong></td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>Cloud Function</strong> triggered từ bucket để gọi <strong>Speech-to-Text API</strong></td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Audio vào bucket → <strong>Cloud Function</strong> gọi <strong>Speech API</strong> = chuẩn serverless.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 263 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Tạo <strong>website bảo mật</strong>, có <strong>autoscaling</strong>, và <strong>phân phối nội dung tĩnh từ Cloud Storage</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>HTTPS</strong>, <strong>load balancing</strong>, tích hợp <strong>Cloud Storage backend</strong></td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>external HTTP(S) load balancer</strong> + <strong>managed SSL</strong> + <strong>URL map → Cloud Storage</strong></td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Web bảo mật, scale tốt, phân phối tĩnh → dùng <strong>external LB + URL map + Cloud Storage backend</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 264 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Xử lý <strong>sensor data tốc độ cao</strong>, cần <strong>đọc ghi atomic</strong>, theo <strong>timestamp</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>High throughput</strong>, <strong>consistency theo thời gian</strong>, <strong>atomic write</strong></td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>Bigtable</strong> + tạo <strong>row key theo timestamp</strong> để scale & truy cập tuần tự</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Sensor gửi nhiều → dùng <strong>Bigtable</strong> + <strong>timestamp row key</strong> để scale và đọc đúng thời gian.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 265 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Dùng <strong>gcloud CLI</strong> để liệt kê <strong>VM instances</strong> sau khi mới cài đặt</td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Xác thực người dùng</strong> + <strong>cấu hình project mặc định</strong></td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <code>gcloud auth login</code> để đăng nhập và <code>gcloud config set project</code> để chọn project mặc định</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Mới cài gcloud → <strong>auth login</strong> + <strong>set project</strong> là 2 bước bắt buộc để dùng lệnh list.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 266 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Di chuyển <strong>video SAN (200 TB)</strong>, <strong>Redshift</strong>, và <strong>PNG từ S3</strong> lên Google Cloud</td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Không viết code</strong>, tuân theo <strong>Google best practice</strong></td></tr>
+    <tr><td>Giải pháp</td><td><strong>Transfer Appliance</strong> (video), <strong>BigQuery Data Transfer Service</strong> (Redshift), <strong>Storage Transfer Service</strong> (PNG từ S3)</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Dữ liệu lớn → <strong>Transfer Appliance</strong>, Redshift → <strong>BQ Transfer</strong>, S3 → <strong>Storage Transfer</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 267 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Triển khai <strong>Kubernetes manifest</strong> với <strong>kiểm soát đầy đủ</strong> nhưng <strong>giảm cấu hình hạ tầng</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Kubernetes control</strong>, không muốn tự quản lý node</td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>GKE Autopilot</strong> – triển khai manifest dễ dàng, không cần quản lý node</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Dùng <strong>manifest</strong> + muốn kiểm soát + không lo node → chọn <strong>GKE Autopilot</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 269 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Kết nối <strong>Cloud SQL</strong> bằng cách <strong>mã hóa + xác thực bằng IAM</strong>, ít quản lý</td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Encrypted</strong>, <strong>authenticated</strong>, <strong>IAM tích hợp</strong>, không dùng username/password nếu có thể</td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>Cloud SQL Auth Proxy</strong> + <strong>IAM database authentication</strong></td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Muốn bảo mật + ít quản lý + dùng IAM → <strong>Cloud SQL Auth Proxy + IAM auth</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 270 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Kết nối <strong>vpc-a (frontend)</strong> với <strong>vpc-b (backend)</strong> ở <strong>2 project khác nhau</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Chi phí thấp</strong>, <strong>hiệu quả</strong>, theo <strong>Google-recommended</strong></td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>VPC Network Peering</strong> giữa vpc-a và vpc-b</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> 2 VPC khác project → dùng <strong>VPC Peering</strong>: nhanh – rẻ – chuẩn GCP.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 271 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Backup <strong>Compute Engine VM</strong> mỗi ngày, giữ trong <strong>7 ngày</strong>, cho workload quan trọng</td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Bảo mật</strong>, <strong>tự động hóa</strong>, <strong>ít cấu hình</strong>, đúng chuẩn GCP</td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>scheduled persistent disk snapshot</strong> với <strong>retention = 7 ngày</strong></td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Backup disk đơn giản nhất → dùng <strong>scheduled snapshot</strong> + <strong>retention = 7</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 272 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Đảm bảo <strong>GCP product</strong> được triển khai theo <strong>cấu hình chuẩn</strong> của công ty</td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Chuẩn hóa</strong>, <strong>dễ dùng lại</strong>, <strong>dễ chia sẻ</strong>, <strong>bảo mật</strong></td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>Terraform module</strong> với <strong>Google Cloud Provider</strong>, chia sẻ qua repo code</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Chuẩn hóa cấu hình GCP → dùng <strong>Terraform module chia sẻ</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 273 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Quản lý <strong>org policy + log sink</strong> theo <strong>phòng ban</strong>, tránh bị xóa bởi <strong>Project Owner</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Phân tách rõ theo team</strong>, <strong>project owner không được sửa cấu hình bảo mật</strong></td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>Folders theo department</strong> và cấu hình <strong>org policies + log sink tại folder</strong></td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Không muốn Project Owner gỡ → quản lý bằng <strong>Folder</strong> + cấu hình trên <strong>Folder</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 274 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Triển khai <strong>web app</strong> bằng <strong>MIG</strong> cần <strong>bảo mật + HA</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>HTTPS</strong>, sử dụng <strong>Load Balancer</strong>, công khai qua <strong>DNS public</strong></td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>HTTP(S) Load Balancer</strong> + <strong>A record</strong> trỏ tới IP LB trong <strong>DNS public</strong></td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Web app public + HA → dùng <strong>HTTP(S) LB</strong> + <strong>A record DNS public</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 275 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Đảm bảo <strong>microservice GKE</strong> có cấu hình <strong>CPU/memory đúng mức</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Tự động điều chỉnh</strong> resource requests và limits, không phải số lượng replica</td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>Vertical Pod Autoscaler (VPA)</strong> cho mỗi microservice để điều chỉnh đúng CPU/memory</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Sai <strong>CPU/memory limit</strong> → dùng <strong>VPA</strong> để chỉnh cho đúng.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 276 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Chuẩn đoán lỗi <strong>quotaExceeded</strong> khi truy vấn <strong>BigQuery</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Phân tích lỗi chính xác</strong>, không vượt hạn mức truy vấn</td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>INFORMATION_SCHEMA views</strong> để xem lịch sử truy vấn, slot usage<br>Dùng <strong>Cloud Audit Logs</strong> để tìm lỗi liên quan quotaExceeded</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Quota lỗi → kiểm tra bằng <strong>INFORMATION_SCHEMA</strong> + lỗi trong <strong>Audit Logs</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 277 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Chạy <strong>stateless app</strong> trên <strong>VM</strong>, cần <strong>tự động scale theo lưu lượng</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Không dùng container</strong>, <strong>không serverless</strong>, chạy trực tiếp trên VM</td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>Managed Instance Group</strong> và cấu hình <strong>autoscaling</strong></td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> App stateless chạy trên <strong>VM</strong> → dùng <strong>MIG + autoscaling</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 278 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Cloud Run kết nối Cloud SQL nhưng bị lỗi <strong>API quota</strong> vào giờ cao điểm</td></tr>
+    <tr><td>Vấn đề</td><td><strong>Scale quá nhanh</strong> → quá nhiều instance tạo quá nhiều kết nối tới Cloud SQL</td></tr>
+    <tr><td>Giải pháp</td><td>Giới hạn <strong>maximum number of Cloud Run instances</strong> để kiểm soát số kết nối</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Cloud Run scale quá gây lỗi quota → chỉnh giới hạn <strong>max instance</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 279 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Triển khai <strong>stateless web app</strong> với <strong>internal IP</strong>, truy cập từ <strong>VPC/on-prem</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Dễ cập nhật</strong> nhiều lần/ngày, <strong>tối thiểu quản lý hạ tầng</strong>, private-only traffic</td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>Cloud Run</strong> kết hợp với <strong>Private Service Connect</strong> để cung cấp endpoint nội bộ</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> App nội bộ + ít quản lý → <strong>Cloud Run + Private Service Connect</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 280 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Phân tích <strong>Cloud Logging</strong> bằng <strong>SQL</strong> theo best practice</td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Không xuất log thủ công</strong>, dùng <strong>tích hợp chính thức</strong> từ Google</td></tr>
+    <tr><td>Giải pháp</td><td><strong>Enable Log Analytics</strong> cho log bucket và tạo <strong>linked dataset</strong> trong BigQuery</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Muốn query log bằng SQL → bật <strong>Log Analytics</strong> trong log bucket.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 281 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Triển khai app yêu cầu <strong>I/O rất nhanh</strong> và <strong>tự động phục hồi khi fail</strong></td></tr>
+    <tr><td>Yêu cầu</td><td>Dùng <strong>Hyperdisk Extreme</strong> cho hiệu năng cao nhất + <strong>Stateful MIG</strong> để giữ dữ liệu khi fail</td></tr>
+    <tr><td>Giải pháp</td><td>Tạo instance template dùng <strong>Hyperdisk Extreme</strong>, chạy trên <strong>stateful managed instance group</strong></td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Disk nhanh nhất → <strong>Hyperdisk Extreme</strong>, giữ lại dữ liệu → <strong>stateful MIG</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 282 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>VM trong VPC cần có <strong>static IP</strong> để các dịch vụ khác trong VPC giao tiếp</td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Giảm chi phí</strong>, <strong>IP nội bộ</strong>, theo <strong>Google-recommended</strong></td></tr>
+    <tr><td>Giải pháp</td><td><strong>Promote IP hiện tại thành static internal IP</strong>, không dùng external IP</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Giao tiếp nội bộ VPC → dùng static <strong>internal IP</strong>, không dùng external IP.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 283 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Triển khai app GKE production, đảm bảo <strong>high availability</strong></td></tr>
+    <tr><td>Yêu cầu</td><td>GKE <strong>multi-zonal</strong> trong cùng region để tăng tính sẵn sàng</td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <code>--node-locations</code> để cập nhật cluster thành <strong>multi-zonal</strong></td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> GKE cần <strong>HA</strong> → thêm <code>node-locations</code> khác zone → thành <strong>multi-zonal</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 284 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Kiểm tra quyền của <strong>service account</strong> truy cập <strong>BigQuery</strong> từ local trước khi deploy</td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Không dùng key</strong>, <strong>bảo mật cao</strong>, <strong>theo best practice</strong></td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>gcloud CLI</strong> với <strong>service account impersonation</strong> để test truy cập BigQuery</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Test quyền <strong>Service Account</strong> → dùng <strong>impersonation</strong>, không tạo key.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 285 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Chỉ cho <strong>email công ty</strong> truy cập GCP, phân quyền <strong>theo phòng ban</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Chặn email ngoài</strong>, <strong>phân quyền theo nhóm</strong>, <strong>chi phí thấp</strong>, theo <strong>Google-recommended</strong></td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>Google Groups + IAM</strong> để phân quyền, thêm <strong>Organization Policy</strong> để chặn email không thuộc công ty</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Phân quyền theo <strong>nhóm</strong> + chặn email ngoài → <strong>Group + Org Policy</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 286 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Cho <strong>Cloud Run</strong> truy cập <strong>private API</strong> trên <strong>GKE</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Không expose internet</strong>, truy cập nội bộ <strong>qua VPC</strong>, theo best practice</td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>Internal Load Balancer</strong> trên GKE + <strong>Serverless VPC Connector</strong> từ Cloud Run</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Cloud Run gọi API nội bộ GKE → <strong>Internal LB</strong> + <strong>Serverless VPC Connector</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 287 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Gửi <strong>log Cloud Logging</strong> sang <strong>SaaS tool ngoài</strong> với <strong>độ trễ thấp</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Real-time streaming</strong>, tích hợp với <strong>Pub/Sub</strong>, hỗ trợ đa nền tảng</td></tr>
+    <tr><td>Giải pháp</td><td><strong>Cloud Logging sink</strong> → <strong>Pub/Sub</strong> → SaaS tool subscribe topic nhận log</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Log cần đẩy real-time → <strong>Logging sink → Pub/Sub → tool ngoài</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 288 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Triển khai <strong>database + backend app</strong> trên <strong>GKE</strong>, không mất dữ liệu, tự scale</td></tr>
+    <tr><td>Yêu cầu</td><td><strong>DB phải có trạng thái ổn định</strong> (stateful), <strong>backend scale theo nhu cầu</strong>, ít thao tác thủ công</td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>StatefulSet</strong> cho DB, bật <strong>Cluster Autoscaler</strong> để tự thêm node</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> DB cần trạng thái ổn định → <strong>StatefulSet</strong>, workload biến động → <strong>Cluster Autoscaler</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 289 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Nhận thông báo khi <strong>file trong Cloud Storage</strong> bị thay đổi</td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Thông báo real-time</strong>, <strong>giảm thao tác thủ công</strong>, tuân thủ <strong>compliance</strong></td></tr>
+    <tr><td>Giải pháp</td><td>Bật <strong>object versioning</strong> + cấu hình <strong>Pub/Sub notifications</strong> cho bucket</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Cloud Storage thay đổi → dùng <strong>versioning + Pub/Sub notifications</strong> để cảnh báo.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 290 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Lưu trữ <strong>hóa đơn và tài liệu tài chính</strong>, dễ truy cập 6 tháng đầu, lưu trữ 3 năm</td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Tiết kiệm chi phí</strong>, <strong>Google-managed</strong>, theo <strong>Object Lifecycle</strong></td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>Cloud Storage + Object Lifecycle Management</strong>, chuyển sang <strong>Coldline</strong> sau 6 tháng</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Dữ liệu truy cập ít sau 6 tháng → chuyển <strong>storage class sang Coldline</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 291 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Triển khai <strong>GKE</strong> có <strong>HA</strong>, <strong>ít downtime</strong>, tự cập nhật bảo mật, không quản lý node</td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Không quản lý node</strong>, trả phí theo <strong>compute sử dụng</strong>, theo best practices</td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>GKE Autopilot</strong>: fully-managed, HA, bảo mật tốt, chỉ trả phí theo pod</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> GKE không quản lý node + tự động bảo mật → <strong>Autopilot GKE cluster</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 292 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Loại dữ liệu</th><th>Yêu cầu</th><th>Dịch vụ phù hợp</th></tr>
+    <tr><td>1. Customer data</td><td>Có cấu trúc, query phức tạp</td><td><strong>Cloud SQL</strong></td></tr>
+    <tr><td>2. Historical log data</td><td>Dung lượng lớn, truy cập ít</td><td><strong>Cloud Storage (Archive)</strong></td></tr>
+    <tr><td>3. Sensor data</td><td>Ghi tốc độ cao, chấp nhận mất mát</td><td><strong>Bigtable</strong></td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong><br>
+  - SQL phức tạp → <strong>Cloud SQL</strong><br>
+  - Log cũ, truy cập ít → <strong>Archive Storage</strong><br>
+  - Sensor tốc độ cao → <strong>Bigtable</strong></div>
+</div>
+
+<div class="card">
+  <h2>Câu 293 – Keyword & Mẹo nhớ nhanh</h2>
+  <table>
+    <tr><th>Mục tiêu</th><th>Yêu cầu thiết kế</th><th>Giải pháp</th></tr>
+    <tr><td>1. Production</td><td>Giảm <strong>latency</strong></td><td>Dùng <strong>Premium Tier</strong></td></tr>
+    <tr><td>2. Development</td><td>Tiết kiệm chi phí</td><td>Dùng <strong>Standard Tier</strong></td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong><br>
+  - Production latency thấp → <strong>Premium Tier</strong><br>
+  - Dev tiết kiệm chi phí → <strong>Standard Tier</strong></div>
+</div>
+<div class="card">
+  <h2>Câu 295 – Dataflow stuck detection</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Vấn đề</td><td><strong>Dataflow stuck</strong>, <strong>job treo</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Minimal management effort</strong>, <strong>tự động cảnh báo</strong></td></tr>
+    <tr><td>Giải pháp</td><td><strong>Cloud Monitoring</strong>, <strong>data freshness metric</strong>, <strong>alert threshold</strong></td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Job Dataflow bị treo → nhìn <strong>data freshness</strong> → đặt <strong>alert</strong> là đủ.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 297 – Compute Engine → BigQuery access</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td><strong>Compute Engine</strong> truy cập <strong>BigQuery</strong> an toàn</td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Credentials ngắn hạn</strong>, chỉ truy cập <strong>đúng dataset</strong></td></tr>
+    <tr><td>Giải pháp</td><td><strong>Custom service account</strong>, <strong>IAM gán trực tiếp lên dataset</strong>, tránh <strong>project-level</strong></td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Muốn truy cập hẹp → gán quyền <strong>dataset</strong> cho <strong>service account</strong> gắn instance.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 300 – Log phân tích bằng SQL</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Lưu trữ và phân tích <strong>log</strong> từ <strong>Compute Engine</strong></td></tr>
+    <tr><td>Yêu cầu</td><td>Truy vấn bằng <strong>SQL</strong>, vẽ <strong>biểu đồ xu hướng</strong>, <strong>chi phí thấp</strong></td></tr>
+    <tr><td>Giải pháp</td><td><strong>Ops Agent</strong> → <strong>Cloud Logging</strong> → <strong>Log Analytics</strong> (trong <strong>BigQuery</strong>)</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Phân tích log = <strong>Ops Agent</strong> → <strong>Log Analytics</strong> (SQL, chart, rẻ, chuẩn Google)</div>
+</div>
+
+<div class="card">
+  <h2>Câu 301 – GKE pod truy cập Cloud Storage</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td><strong>GKE pod</strong> truy cập <strong>Cloud Storage bucket</strong> riêng tư</td></tr>
+    <tr><td>Yêu cầu</td><td>Không dùng <strong>service account key</strong>, tuân thủ <strong>policy</strong>, <strong>best practice</strong></td></tr>
+    <tr><td>Giải pháp</td><td><strong>Workload Identity</strong>, <strong>KSA</strong> gắn <strong>GSA</strong> có <strong>IAM</strong></td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> GKE không dùng key → dùng <strong>Workload Identity</strong> + <strong>KSA</strong> gắn <strong>GSA</strong> có quyền.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 303 – Cấp quyền GKE + Cloud SQL</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td>Cấp quyền <strong>IAM</strong> cho team vận hành trên <strong>GKE + Cloud SQL</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Nguyên tắc tối thiểu</strong>, theo <strong>best practices</strong></td></tr>
+    <tr><td>Giải pháp</td><td><strong>Gán trực tiếp 2 role predefined</strong> có sẵn, tránh tạo <strong>role custom</strong> nếu không cần</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Đã có 2 role phù hợp → dùng luôn, không chế biến thêm → đúng <strong>best practice</strong>.</div>
+</div>
+
+
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Keyword & Mẹo nhớ nhanh – Phần mở rộng</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .card {
+      border: 1px solid #ccc;
+      border-left: 6px solid #007bff;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 20px;
+      background: #f9f9f9;
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 20px;
+      color: #007bff;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background: #fff;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      vertical-align: top;
+    }
+    th {
+      background-color: #f2f2f2;
+      text-align: left;
+    }
+    .tip {
+      margin-top: 10px;
+      font-style: italic;
+      color: #333;
+      background: #e6f0ff;
+      padding: 10px;
+      border-left: 4px solid #007bff;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>Câu 305 – Triển khai app xử lý sự kiện bất đồng bộ</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td><strong>Sự kiện bất đồng bộ</strong>, <strong>Internet public</strong>, <strong>không tốn phí khi idle</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Chi phí thấp</strong>, <strong>không chạy = không tốn tiền</strong>, <strong>chuẩn hóa</strong></td></tr>
+    <tr><td>Giải pháp</td><td><strong>Cloud Run</strong> + <strong>Eventarc</strong>, auto scale, không tốn khi không dùng</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> App sự kiện + tiết kiệm + Internet → <strong>Cloud Run + Eventarc</strong> là chuẩn Google.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 311 – Migrate PostgreSQL với dữ liệu lớn</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td><strong>Migrate PostgreSQL</strong>, >150 TB, <strong>hiệu năng cao</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Tương thích PostgreSQL</strong>, <strong>giảm công sức chỉnh sửa</strong>, <strong>chi phí thấp</strong></td></tr>
+    <tr><td>Giải pháp</td><td><strong>AlloyDB</strong> – tương thích PostgreSQL, hiệu năng cao</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> PostgreSQL nhiều dữ liệu + hiệu năng cao → chọn <strong>AlloyDB</strong>.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 312 – ML fine-tune LLM trên Google Cloud</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td><strong>Fine-tune LLM</strong>, dữ liệu riêng, cần scale cao</td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Scalable</strong>, <strong>flexible</strong>, <strong>GPU/TPU</strong></td></tr>
+    <tr><td>Giải pháp</td><td><strong>GKE + hardware accelerators</strong> (GPU/TPU), chủ động và linh hoạt</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Fine-tune mô hình lớn → <strong>GKE + GPU</strong> = scale mạnh, chủ động.</div>
+</div>
+
+<div class="card">
+  <h2>Câu 317 – Thiết lập landing zone để migrate VM</h2>
+  <table>
+    <tr><th>Ý chính</th><th>Từ khóa</th></tr>
+    <tr><td>Mục tiêu</td><td><strong>Landing zone</strong>, <strong>VM dùng IP riêng</strong>, <strong>TCP port policy</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Liên thông nội bộ</strong>, <strong>quản lý tập trung</strong>, <strong>giảm chi phí</strong></td></tr>
+    <tr><td>Giải pháp</td><td><strong>Shared VPC</strong> (host + service projects) + <strong>Hierarchical Firewall Policy</strong> ở tầng org</td></tr>
+  </table>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Migrate VM → dùng <strong>Shared VPC</strong> để private IP + firewall tập trung ở org = chuẩn Google.</div>
+</div>
+
+  </div>
+
+  <button class="floating-btn" id="scrollTop" title="Lên đầu trang">↑</button>
+
+  <script>
+    // Learning progress tracking
+    let completedCards = JSON.parse(localStorage.getItem('completedCards') || '[]');
+    let currentFilter = 'all';
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeCards();
+      updateProgress();
+      setupEventListeners();
+      highlightKeywords();
+    });
+
+    function initializeCards() {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach((card, index) => {
+        const cardId = `card-${index + 1}`;
+        card.id = cardId;
+        
+        if (completedCards.includes(cardId)) {
+          card.classList.add('completed');
+        }
+        
+        // Add action buttons
+        const actions = document.createElement('div');
+        actions.className = 'card-actions';
+        
+        if (completedCards.includes(cardId)) {
+          actions.innerHTML = `
+            <button class="action-btn mark-incomplete" onclick="toggleCard('${cardId}')">
+              🔄 Đánh dấu chưa học
+            </button>
+          `;
+        } else {
+          actions.innerHTML = `
+            <button class="action-btn mark-complete" onclick="toggleCard('${cardId}')">
+              ✅ Đánh dấu đã học
+            </button>
+          `;
+        }
+        
+        card.appendChild(actions);
+      });
+    }
+
+    function toggleCard(cardId) {
+      const card = document.getElementById(cardId);
+      const index = completedCards.indexOf(cardId);
+      
+      if (index > -1) {
+        completedCards.splice(index, 1);
+        card.classList.remove('completed');
+        card.querySelector('.card-actions').innerHTML = `
+          <button class="action-btn mark-complete" onclick="toggleCard('${cardId}')">
+            ✅ Đánh dấu đã học
+          </button>
+        `;
+      } else {
+        completedCards.push(cardId);
+        card.classList.add('completed');
+        card.querySelector('.card-actions').innerHTML = `
+          <button class="action-btn mark-incomplete" onclick="toggleCard('${cardId}')">
+            🔄 Đánh dấu chưa học
+          </button>
+        `;
+      }
+      
+      localStorage.setItem('completedCards', JSON.stringify(completedCards));
+      updateProgress();
+      applyFilter(currentFilter);
+    }
+
+    function updateProgress() {
+      const totalCards = document.querySelectorAll('.card').length;
+      const completed = completedCards.length;
+      const pending = totalCards - completed;
+      const percentage = (completed / totalCards) * 100;
+      
+      document.getElementById('progressText').textContent = `${completed}/${totalCards} câu hỏi`;
+      document.getElementById('progressFill').style.width = `${percentage}%`;
+      document.getElementById('completedCards').textContent = completed;
+      document.getElementById('pendingCards').textContent = pending;
+    }
+
+    function setupEventListeners() {
+      // Search functionality
+      document.getElementById('searchBox').addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const cards = document.querySelectorAll('.card');
+        
+        cards.forEach(card => {
+          const text = card.textContent.toLowerCase();
+          if (text.includes(searchTerm)) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+
+      // Filter buttons
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          currentFilter = this.dataset.filter;
+          applyFilter(currentFilter);
+        });
+      });
+
+      // Night mode toggle
+      document.getElementById('nightMode').addEventListener('click', function() {
+        document.body.classList.toggle('night-mode');
+        const isNight = document.body.classList.contains('night-mode');
+        this.textContent = isNight ? '☀️ Chế độ sáng' : '🌙 Chế độ tối';
+        localStorage.setItem('nightMode', isNight);
+      });
+
+      // Scroll to top
+      document.getElementById('scrollTop').addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Load night mode preference
+      if (localStorage.getItem('nightMode') === 'true') {
+        document.body.classList.add('night-mode');
+        document.getElementById('nightMode').textContent = '☀️ Chế độ sáng';
+      }
+    }
+
+    function applyFilter(filter) {
+      const cards = document.querySelectorAll('.card');
+      
+      cards.forEach(card => {
+        const isCompleted = card.classList.contains('completed');
+        
+        switch(filter) {
+          case 'completed':
+            card.style.display = isCompleted ? 'block' : 'none';
+            break;
+          case 'pending':
+            card.style.display = !isCompleted ? 'block' : 'none';
+            break;
+          default:
+            card.style.display = 'block';
+        }
+      });
+    }
+
+    function highlightKeywords() {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        // Highlight important keywords
+        let content = card.innerHTML;
+        content = content.replace(/\*\*(.*?)\*\*/g, '<span class="keyword">$1</span>');
+        content = content.replace(/<strong>(.*?)<\/strong>/g, '<span class="highlight">$1</span>');
+        card.innerHTML = content;
+      });
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey || e.metaKey) {
+        switch(e.key) {
+          case 'f':
+            e.preventDefault();
+            document.getElementById('searchBox').focus();
+            break;
+          case 'd':
+            e.preventDefault();
+            document.getElementById('nightMode').click();
+            break;
+        }
+      }
+    });
+
+    // Auto-save progress every 30 seconds
+    setInterval(() => {
+      localStorage.setItem('completedCards', JSON.stringify(completedCards));
+    }, 30000);
+
+    // Review functions
+    function startReview() {
+      // Filter to show only pending cards
+      currentFilter = 'pending';
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector('[data-filter="pending"]').classList.add('active');
+      applyFilter(currentFilter);
+      
+      // Scroll to first pending card
+      const firstPendingCard = document.querySelector('.card:not(.completed)');
+      if (firstPendingCard) {
+        firstPendingCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        firstPendingCard.style.animation = 'pulse 2s infinite';
+      }
+      
+      // Show notification
+      showNotification('🚀 Bắt đầu ôn tập! Tập trung vào các câu hỏi chưa học.', 'success');
+    }
+
+    function showRandomQuestion() {
+      const cards = Array.from(document.querySelectorAll('.card:not(.completed)'));
+      if (cards.length === 0) {
+        showNotification('🎉 Tất cả câu hỏi đã được hoàn thành!', 'success');
+        return;
+      }
+      
+      const randomCard = cards[Math.floor(Math.random() * cards.length)];
+      randomCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      randomCard.style.animation = 'pulse 2s infinite';
+      
+      showNotification('🎲 Câu hỏi ngẫu nhiên: ' + randomCard.querySelector('h2').textContent, 'info');
+    }
+
+    function showWeakestArea() {
+      const topicStats = {
+        'Bảo Mật & IAM': 0,
+        'Compute & GKE': 0,
+        'Serverless & Cloud Run': 0,
+        'Database & Storage': 0,
+        'Networking & VPC': 0,
+        'Monitoring & Logging': 0,
+        'Migration & Transfer': 0,
+        'AI/ML & Data Processing': 0
+      };
+      
+      // Count completed cards by topic
+      completedCards.forEach(cardId => {
+        const card = document.getElementById(cardId);
+        if (card) {
+          const title = card.querySelector('h2').textContent;
+          // Simple topic detection based on keywords
+          if (title.includes('Bảo mật') || title.includes('IAM') || title.includes('proxy') || title.includes('SSH')) {
+            topicStats['Bảo Mật & IAM']++;
+          } else if (title.includes('GKE') || title.includes('VM') || title.includes('MIG') || title.includes('StatefulSet')) {
+            topicStats['Compute & GKE']++;
+          } else if (title.includes('Cloud Run') || title.includes('serverless') || title.includes('Eventarc')) {
+            topicStats['Serverless & Cloud Run']++;
+          } else if (title.includes('BigQuery') || title.includes('Storage') || title.includes('Spanner') || title.includes('AlloyDB')) {
+            topicStats['Database & Storage']++;
+          } else if (title.includes('VPC') || title.includes('subnet') || title.includes('Load Balancer')) {
+            topicStats['Networking & VPC']++;
+          } else if (title.includes('Logging') || title.includes('Monitoring') || title.includes('Dataflow')) {
+            topicStats['Monitoring & Logging']++;
+          } else if (title.includes('Transfer') || title.includes('Migrate') || title.includes('Landing')) {
+            topicStats['Migration & Transfer']++;
+          } else if (title.includes('Speech') || title.includes('Bigtable') || title.includes('LLM') || title.includes('GPU')) {
+            topicStats['AI/ML & Data Processing']++;
+          }
+        }
+      });
+      
+      // Find weakest area
+      let weakestTopic = '';
+      let lowestScore = Infinity;
+      
+      Object.keys(topicStats).forEach(topic => {
+        const score = topicStats[topic];
+        if (score < lowestScore) {
+          lowestScore = score;
+          weakestTopic = topic;
+        }
+      });
+      
+      showNotification(`📊 Khu vực yếu nhất: ${weakestTopic} (${lowestScore} câu đã học)`, 'warning');
+      
+      // Highlight cards from weakest area
+      const cards = document.querySelectorAll('.card:not(.completed)');
+      cards.forEach(card => {
+        const title = card.querySelector('h2').textContent;
+        if (weakestTopic === 'Bảo Mật & IAM' && (title.includes('Bảo mật') || title.includes('IAM') || title.includes('proxy'))) {
+          card.style.border = '3px solid #e53e3e';
+          card.style.animation = 'pulse 2s infinite';
+        }
+      });
+    }
+
+    function showNotification(message, type = 'info') {
+      // Create notification element
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.textContent = message;
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        color: white;
+        font-weight: 600;
+        z-index: 10000;
+        animation: slideIn 0.3s ease;
+        max-width: 300px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      `;
+      
+      // Set background color based on type
+      switch(type) {
+        case 'success':
+          notification.style.background = 'linear-gradient(135deg, #48bb78, #38a169)';
+          break;
+        case 'warning':
+          notification.style.background = 'linear-gradient(135deg, #ed8936, #dd6b20)';
+          break;
+        case 'error':
+          notification.style.background = 'linear-gradient(135deg, #e53e3e, #c53030)';
+          break;
+        default:
+          notification.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+      }
+      
+      document.body.appendChild(notification);
+      
+      // Remove notification after 3 seconds
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 300);
+      }, 3000);
+    }
+
+    // Add CSS animations
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+        100% { transform: scale(1); }
+      }
+      
+      @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      
+      @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Add table wrappers for mobile optimization
+    function addTableWrappers() {
+      const tables = document.querySelectorAll('table');
+      tables.forEach(table => {
+        if (!table.parentElement.classList.contains('table-container')) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'table-container';
+          table.parentNode.insertBefore(wrapper, table);
+          wrapper.appendChild(table);
+        }
+      });
+    }
+
+    // Call the function after page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      addTableWrappers();
+    });
+  </script>
+</body>
+</html>
