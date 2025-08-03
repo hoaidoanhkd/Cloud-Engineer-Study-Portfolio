@@ -6,15 +6,45 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>GCP Exam Practice - Part 3 (Questions 101-150)</title>
 <style>
-    body { font-family: Arial, sans-serif; margin: 40px; }
-    .question { margin-bottom: 30px; }
+    body { 
+        font-family: Arial, sans-serif; 
+        margin: 0; 
+        padding: 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+    }
+    .question { margin-bottom: 15px; }
     .answers input { margin-right: 10px; }
     .submit-btn { margin-top: 20px; }
     strong.keyword { font-weight: bold; color: darkblue; }
-    .part-info { background-color: #f0f8ff; padding: 15px; border-radius: 5px; margin-bottom: 30px; }
+    .part-info { background-color: #f0f8ff; padding: 12px; border-radius: 5px; margin-bottom: 20px; }
+    
+    /* Container for full width */
+    .container {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        background: white;
+        border-radius: 0;
+        box-shadow: none;
+        overflow: hidden;
+        min-height: 100vh;
+    }
+    
+    .content {
+        padding: 20px 15px;
+    }
+    
+    @media (max-width: 768px) {
+                    .content {
+                padding: 15px 8px;
+            }
+    }
   </style>
 </head>
 <body>
+<div class="container">
+<div class="content">
 <div class="part-info">
   <h1>GCP Exam Practice - Part 3</h1>
   <p><strong>Questions 101-150 of 302</strong></p>
@@ -575,6 +605,8 @@ You have a batch workload that runs every night and uses a large number of virtu
 </div>
 </div>
 </form>
+</div>
+</div>
 
 <script src="quiz-common.js"></script>
 <script>

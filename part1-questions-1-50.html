@@ -6,24 +6,38 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>GCP Exam Practice - Part 1 (Questions 1-50)</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; }
-    .question { margin-bottom: 30px; position: relative; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; }
+    body { 
+        font-family: Arial, sans-serif; 
+        margin: 0; 
+        padding: 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+    }
+    .question { margin-bottom: 15px; position: relative; border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px; }
     .answers input { margin-right: 10px; }
     .submit-btn { margin-top: 20px; }
     strong.keyword { font-weight: bold; color: darkblue; }
-    .part-info { background-color: #f0f8ff; padding: 15px; border-radius: 5px; margin-bottom: 30px; }
-    .question-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+    .part-info { background-color: #f0f8ff; padding: 12px; border-radius: 5px; margin-bottom: 20px; }
+    .question-header { 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: flex-start; 
+        margin-bottom: 10px; 
+        gap: 10px;
+    }
     .difficult-btn { 
       background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%); 
       border: none; 
-      padding: 8px 15px; 
-      border-radius: 20px; 
+      padding: 6px 12px; 
+      border-radius: 15px; 
       cursor: pointer; 
-      font-size: 12px; 
+      font-size: 11px; 
       font-weight: bold; 
       color: #333; 
       transition: all 0.3s ease;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      min-width: 40px;
+      flex-shrink: 0;
     }
     .difficult-btn:hover { 
       transform: translateY(-2px); 
@@ -33,10 +47,54 @@
       background: linear-gradient(135deg, #ea4335 0%, #fbbc04 100%); 
       color: white; 
     }
-    .question-content { flex: 1; }
+    .question-content { 
+        flex: 1; 
+        min-width: 0;
+        margin-right: 10px;
+    }
+    
+    /* Container for full width */
+    .container {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        background: white;
+        border-radius: 0;
+        box-shadow: none;
+        overflow: hidden;
+        min-height: 100vh;
+    }
+    
+    .content {
+        padding: 20px 15px;
+    }
+    
+    @media (max-width: 768px) {
+        .content {
+            padding: 15px 8px;
+        }
+        
+        .question-header {
+            flex-direction: column;
+            gap: 10px;
+            align-items: stretch;
+        }
+        
+        .difficult-btn {
+            align-self: flex-end;
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+        
+        .question-content {
+            margin-right: 0;
+        }
+    }
   </style>
 </head>
 <body>
+<div class="container">
+<div class="content">
 <div class="part-info">
   <h1>GCP Exam Practice - Part 1</h1>
   <p><strong>Questions 1-50 of 302</strong></p>
@@ -602,6 +660,8 @@ You have production and test workloads that you want to deploy on Compute Engine
 </div>
 </div>
 </form>
+</div>
+</div>
 
 <script src="quiz-common.js"></script>
 <script>
