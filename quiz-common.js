@@ -73,7 +73,7 @@ function toggleDifficultQuestion(questionNumber, source, event) {
     if (existingIndex > -1) {
         // Xóa câu khó
         questions.splice(existingIndex, 1);
-        button.textContent = '⭐ Đánh dấu câu khó';
+        button.textContent = '⭐ ';
         button.classList.remove('marked');
         // Thêm hiệu ứng nhỏ
         button.style.transform = 'scale(0.95)';
@@ -90,7 +90,7 @@ function toggleDifficultQuestion(questionNumber, source, event) {
             source: source,
             timestamp: new Date().toISOString()
         });
-        button.textContent = '🔥 Đã đánh dấu';
+        button.textContent = '🔥';
         button.classList.add('marked');
         // Thêm hiệu ứng nhỏ
         button.style.transform = 'scale(1.1)';
@@ -174,13 +174,13 @@ function updateDifficultButtons(total, partName) {
         const questionId = `q${i}_${partName}`;
         const button = document.querySelector(`#question${i} .difficult-btn`);
         if (button && questions.some(q => q.id === questionId)) {
-            button.textContent = '🔥 Đã đánh dấu';
+            button.textContent = '🔥';
             button.classList.add('marked');
         }
     }
 }
 
-// Thêm nút đánh dấu câu khó cho tất cả câu hỏi
+// Thêm nút  cho tất cả câu hỏi
 function addDifficultButtons(total, partName, startNumber = 1) {
     for (let i = 1; i <= total; i++) {
         const questionDiv = document.querySelector(`.question:nth-of-type(${i})`);
@@ -202,7 +202,7 @@ function addDifficultButtons(total, partName, startNumber = 1) {
                 const button = document.createElement('button');
                 button.type = 'button';
                 button.className = 'difficult-btn';
-                button.textContent = '⭐ Đánh dấu câu khó';
+                button.textContent = '⭐ ';
                 button.setAttribute('data-question', actualQuestionNumber);
                 button.setAttribute('data-source', partName);
                 button.addEventListener('click', function(event) {
@@ -237,7 +237,7 @@ function addPartStats(partName, startNumber, total) {
     statsBar.innerHTML = `
         <div class="part-stats-content">
             <span class="stats-icon">📊</span>
-            <span class="stats-text">Câu khó đã đánh dấu trong phần này: </span>
+            <span class="stats-text">Câu khó trong phần này: </span>
             <span class="stats-number" id="partStatsNumber">${partQuestions.length}</span>
             <span class="stats-total">/${total}</span>
         </div>
@@ -276,7 +276,7 @@ function updatePartStats(partName, startNumber, total) {
     }
 }
 
-// Khởi tạo quiz với chức năng đánh dấu câu khó
+// Khởi tạo quiz với chức năng 
 function initializeQuiz(correctAnswers, total, partName, startNumber = 1) {
     // Validation
     if (!Array.isArray(correctAnswers) || correctAnswers.length !== total) {
@@ -463,7 +463,7 @@ function initializeQuiz(correctAnswers, total, partName, startNumber = 1) {
     // Thêm thống kê part
     addPartStats(partName, startNumber, total);
     
-    // Thêm nút đánh dấu câu khó
+    // Thêm nút 
     addDifficultButtons(total, partName, startNumber);
     
     // Cập nhật trạng thái nút và thống kê
@@ -538,7 +538,7 @@ function updateDifficultButtons(total, partName, startNumber = 1) {
         const questionId = `q${actualQuestionNumber}_${partName}`;
         const button = document.querySelector(`#question${actualQuestionNumber} .difficult-btn`);
         if (button && questions.some(q => q.id === questionId)) {
-            button.textContent = '🔥 Đã đánh dấu';
+            button.textContent = '🔥';
             button.classList.add('marked');
         }
     }

@@ -1,0 +1,71 @@
+{
+  "quizParts": {
+    "part1": {
+      "name": "GCP Fundamentals",
+      "startNumber": 1,
+      "endNumber": 50,
+      "total": 50,
+      "correctAnswers": ["C", "B", "A", "C", "D", "D", "D", "A", "D", "A", "A", "C", "D", "B", "B", "B", "D", "B", "A", "D", "A", "D", "D", "A", "A", "C", "B", "B", "A", "B", "A", "C", "A", "C", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A"]
+    },
+    "part2": {
+      "name": "Compute Engine & Networking",
+      "startNumber": 51,
+      "endNumber": 100,
+      "total": 50,
+      "correctAnswers": ["A", "C", "B", "A", "A", "B", "B", "B", "C", "C", "B", "A", "D", "C", "A", "A", "A", "C", "A", "B", "A", "C", "B", "A", "A", "D", "A", "A", "B", "C", "D", "A", "B", "A", "C", "A", "C", "B", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C"]
+    },
+    "part3": {
+      "name": "Storage & Databases",
+      "startNumber": 101,
+      "endNumber": 150,
+      "total": 50,
+      "correctAnswers": ["D", "D", "C", "C", "B", "D", "A", "D", "A", "A", "C", "B", "B", "B", "A", "D", "C", "B", "B", "A", "C", "B", "B", "D", "C", "A", "C", "A", "A", "B", "D", "D", "B", "A", "A", "C", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B"]
+    },
+    "part4": {
+      "name": "Security & Identity",
+      "startNumber": 151,
+      "endNumber": 200,
+      "total": 50,
+      "correctAnswers": ["A", "D", "B", "D", "D", "C", "B", "C", "A", "A", "B", "B", "B", "D", "D", "B", "D", "C", "A", "B", "A", "C", "C", "D", "D", "A", "B", "D", "A", "A", "C", "C", "C", "B", "A", "A", "C", "B", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C"]
+    },
+    "part5": {
+      "name": "Monitoring & Analytics",
+      "startNumber": 201,
+      "endNumber": 250,
+      "total": 50,
+      "correctAnswers": ["D", "C", "A", "A", "C", "A", "B", "A", "A", "B", "A", "A", "A", "B", "D", "B", "C", "B", "B", "D", "B", "B", "B", "D", "C", "D", "D", "A", "D", "B", "D", "B", "D", "D", "A", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C"]
+    },
+    "part6": {
+      "name": "Advanced Topics",
+      "startNumber": 251,
+      "endNumber": 302,
+      "total": 52,
+      "correctAnswers": ["D", "D", "A", "C", "B", "C", "B", "D", "A", "A", "C", "D", "A", "D", "A", "B", "A", "D", "C", "B", "B", "D", "C", "D", "A", "B", "A", "A", "C", "B", "C", "B", "B", "C", "B", "D", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A"]
+    }
+  },
+  "keywords": {
+    "251-317": [
+      {
+        "keyword": "Cloud Run",
+        "description": "Fully managed serverless platform for running containerized applications",
+        "tips": "Auto-scaling, pay-per-use, supports multiple languages"
+      },
+      {
+        "keyword": "Cloud Functions",
+        "description": "Event-driven serverless functions",
+        "tips": "Triggered by events, automatic scaling, supports Node.js, Python, Go, Java"
+      },
+      {
+        "keyword": "App Engine",
+        "description": "Platform-as-a-Service for web applications",
+        "tips": "Standard and Flexible environments, automatic scaling"
+      }
+    ]
+  },
+  "metadata": {
+    "totalQuestions": 302,
+    "totalParts": 6,
+    "version": "1.0.0",
+    "lastUpdated": "2024-01-01"
+  }
+} 
