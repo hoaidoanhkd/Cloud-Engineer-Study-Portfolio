@@ -48,12 +48,12 @@
         }
         
         .content {
-            padding: 40px 20px;
+            padding: 30px 20px;
         }
         
         .intro {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
         
         .intro h2 {
@@ -70,20 +70,21 @@
         
         .quiz-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
             margin-bottom: 40px;
         }
         
         .quiz-card {
             background: #f8f9fa;
-            border-radius: 12px;
-            padding: 30px;
+            border-radius: 10px;
+            padding: 25px;
             text-align: center;
             transition: all 0.3s ease;
             border: 2px solid transparent;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
         .quiz-card::before {
@@ -97,9 +98,14 @@
         }
         
         .quiz-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
             border-color: #4285f4;
+        }
+        
+        .quiz-card:focus-within {
+            outline: 2px solid #4285f4;
+            outline-offset: 2px;
         }
         
         .quiz-card h3 {
@@ -188,11 +194,55 @@
             
             .quiz-grid {
                 grid-template-columns: 1fr;
+                gap: 15px;
             }
             
             .content {
                 padding: 20px 10px;
             }
+            
+            .quiz-card {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .quiz-card {
+                padding: 15px;
+            }
+        }
+        
+        /* Loading animation */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #4285f4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
