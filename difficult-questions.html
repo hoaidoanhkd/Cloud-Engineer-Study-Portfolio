@@ -184,6 +184,163 @@
             box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
         }
         
+        /* Quiz functionality styles */
+        .quiz-mode {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .quiz-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .quiz-btn {
+            background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+        }
+        
+        .quiz-btn.active {
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+        }
+        
+        .answer-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .answer-option:hover {
+            border-color: #2196f3;
+            background: #f5f5f5;
+        }
+        
+        .answer-option.selected {
+            border-color: #2196f3;
+            background: #e3f2fd;
+        }
+        
+        .answer-option.correct {
+            border-color: #4caf50;
+            background: #e8f5e8;
+        }
+        
+        .answer-option.incorrect {
+            border-color: #f44336;
+            background: #ffebee;
+        }
+        
+        .answer-radio {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+        
+        .answer-text {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        
+        .feedback.correct {
+            background: #e8f5e8;
+            color: #2e7d32;
+            border: 1px solid #4caf50;
+        }
+        
+        .feedback.incorrect {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #f44336;
+        }
+        
+        .quiz-stats {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .quiz-stats-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2196f3;
+        }
+        
+        /* Tab styles */
+        .tab-container {
+            margin-bottom: 30px;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+        
+        .tab-btn.active {
+            background: white;
+            color: #2196f3;
+            box-shadow: 0 2px 8px rgba(33, 150, 243, 0.2);
+        }
+        
+        .tab-btn:hover:not(.active) {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196f3;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
         .empty-state {
             text-align: center;
             padding: 60px 20px;
@@ -245,6 +402,29 @@
                 padding: 8px 16px;
                 font-size: 14px;
             }
+            
+            .quiz-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .quiz-btn {
+                width: 100%;
+                max-width: 200px;
+                margin-bottom: 10px;
+            }
+            
+            .answer-option {
+                padding: 10px 12px;
+            }
+            
+            .tab-buttons {
+                flex-direction: column;
+            }
+            
+            .tab-btn {
+                margin-bottom: 5px;
+            }
         }
     </style>
 </head>
@@ -257,23 +437,61 @@
         </div>
         
         <div class="content">
-            <div class="stats-bar">
-                <div class="stats-number" id="totalDifficult">0</div>
-                <div>câu hỏi khó</div>
-                <button onclick="clearAllDifficultQuestions()" style="margin-top: 10px; background: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 12px;">
-                    🗑️ Xóa tất cả (Debug)
-                </button>
+            <!-- Tab Container -->
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" onclick="switchTab('list')">
+                        📋 Danh sách câu khó
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('quiz')">
+                        🎯 Chế độ Quiz
+                    </button>
+                </div>
+                
+                <!-- Tab 1: Danh sách câu khó -->
+                <div class="tab-content active" id="listTab">
+                    <div class="stats-bar">
+                        <div class="stats-number" id="totalDifficult">0</div>
+                        <div>câu hỏi khó</div>
+                        <button onclick="clearAllDifficultQuestions()" style="margin-top: 10px; background: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 12px;">
+                            🗑️ Xóa tất cả (Debug)
+                        </button>
+                    </div>
+                    
+                    <div class="difficult-questions" id="difficultQuestionsList">
+                        <!-- Questions will be loaded here -->
+                    </div>
+                    
+                    <div class="empty-state" id="emptyState" style="display: none;">
+                        <h3>📚 Chưa có câu hỏi khó nào</h3>
+                        <p>Bạn chưa đánh dấu câu hỏi nào là khó. Hãy bắt đầu làm quiz và đánh dấu những câu hỏi bạn gặp khó khăn!</p>
+                        <a href="index.html" class="back-btn">🏠 Về trang chủ</a>
+                    </div>
+                </div>
+                
+                <!-- Tab 2: Chế độ Quiz -->
+                <div class="tab-content" id="quizTab">
+                    <div class="quiz-mode">
+                        <h3>🎯 Chế độ Quiz - Luyện tập câu hỏi khó</h3>
+                        <div class="quiz-controls">
+                            <button class="quiz-btn" onclick="startQuiz()">▶️ Bắt đầu Quiz</button>
+                            <button class="quiz-btn" onclick="nextQuestion()" id="nextBtn" style="display: none;">⏭️ Câu tiếp theo</button>
+                            <button class="quiz-btn" onclick="showAnswer()" id="showAnswerBtn" style="display: none;">👁️ Xem đáp án</button>
+                            <button class="quiz-btn" onclick="resetQuiz()" id="resetBtn" style="display: none;">🔄 Làm lại</button>
+                        </div>
+                        
+                        <div class="quiz-stats" id="quizStats" style="display: none;">
+                            <div>Đã trả lời: <span class="quiz-stats-number" id="answeredCount">0</span> / <span class="quiz-stats-number" id="totalCount">0</span></div>
+                            <div>Đúng: <span class="quiz-stats-number" id="correctCount" style="color: #4caf50;">0</span> | Sai: <span class="quiz-stats-number" id="incorrectCount" style="color: #f44336;">0</span> | Xem: <span class="quiz-stats-number" id="viewedCount" style="color: #ff9800;">0</span></div>
+                        </div>
+                        
+                        <div id="currentQuestion" style="display: none;">
+                            <!-- Current question will be loaded here -->
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <div class="difficult-questions" id="difficultQuestionsList">
-                <!-- Questions will be loaded here -->
-            </div>
-            
-            <div class="empty-state" id="emptyState" style="display: none;">
-                <h3>📚 Chưa có câu hỏi khó nào</h3>
-                <p>Bạn chưa đánh dấu câu hỏi nào là khó. Hãy bắt đầu làm quiz và đánh dấu những câu hỏi bạn gặp khó khăn!</p>
-                <a href="index.html" class="back-btn">🏠 Về trang chủ</a>
-            </div>
         </div>
         
         <div class="footer">
@@ -282,6 +500,97 @@
     </div>
 
     <script>
+        // Quiz state variables
+        let quizData = null;
+        let currentQuestionIndex = 0;
+        let quizQuestions = [];
+        let userAnswers = {};
+        let quizStats = {
+            answered: 0,
+            correct: 0,
+            incorrect: 0,
+            viewed: 0  // Thêm trạng thái xem đáp án
+        };
+        
+        // Quiz data fallback (embedded directly to avoid CORS issues)
+        const FALLBACK_QUIZ_DATA = {
+            "quizParts": {
+                "part1": {
+                    "name": "GCP Fundamentals",
+                    "startNumber": 1,
+                    "endNumber": 50,
+                    "total": 50,
+                    "correctAnswers": ["C", "B", "A", "C", "D", "D", "D", "A", "D", "A", "A", "C", "D", "B", "B", "B", "D", "B", "A", "D", "A", "D", "D", "A", "A", "C", "B", "B", "A", "B", "A", "C", "A", "C", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A"]
+                },
+                "part2": {
+                    "name": "Compute Engine & Networking",
+                    "startNumber": 51,
+                    "endNumber": 100,
+                    "total": 50,
+                    "correctAnswers": ["A", "C", "B", "A", "A", "B", "B", "B", "C", "C", "B", "A", "D", "C", "A", "A", "A", "C", "A", "B", "A", "C", "B", "A", "A", "D", "A", "A", "B", "C", "D", "A", "B", "A", "C", "A", "C", "B", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C"]
+                },
+                "part3": {
+                    "name": "Storage & Databases",
+                    "startNumber": 101,
+                    "endNumber": 150,
+                    "total": 50,
+                    "correctAnswers": ["D", "D", "C", "C", "B", "D", "A", "D", "A", "A", "C", "B", "B", "B", "A", "D", "C", "B", "B", "A", "C", "B", "B", "D", "C", "A", "C", "A", "A", "B", "D", "D", "B", "A", "A", "C", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B"]
+                },
+                "part4": {
+                    "name": "Security & Identity",
+                    "startNumber": 151,
+                    "endNumber": 200,
+                    "total": 50,
+                    "correctAnswers": ["A", "D", "B", "D", "D", "C", "B", "C", "A", "A", "B", "B", "B", "D", "D", "B", "D", "C", "A", "B", "A", "C", "C", "D", "D", "A", "B", "D", "A", "A", "C", "C", "C", "B", "A", "A", "C", "B", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C"]
+                },
+                "part5": {
+                    "name": "Monitoring & Analytics",
+                    "startNumber": 201,
+                    "endNumber": 250,
+                    "total": 50,
+                    "correctAnswers": ["D", "C", "A", "A", "C", "A", "B", "A", "A", "B", "A", "A", "A", "B", "D", "B", "C", "B", "B", "D", "B", "B", "B", "D", "C", "D", "D", "A", "D", "B", "D", "B", "D", "D", "A", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C"]
+                },
+                "part6": {
+                    "name": "Advanced Topics",
+                    "startNumber": 251,
+                    "endNumber": 302,
+                    "total": 52,
+                    "correctAnswers": ["D", "D", "A", "C", "B", "C", "B", "D", "A", "A", "C", "D", "A", "D", "A", "B", "A", "D", "C", "B", "B", "D", "C", "D", "A", "B", "A", "A", "C", "B", "C", "B", "B", "C", "B", "D", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A"]
+                }
+            }
+        };
+
+        // Load quiz data from quiz-data.json
+        async function loadQuizData() {
+            try {
+                console.log('Attempting to load quiz data...');
+                const response = await fetch('quiz-data.json');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                quizData = await response.json();
+                console.log('Quiz data loaded successfully:', quizData);
+                
+                // Validate quiz data structure
+                if (!quizData || !quizData.quizParts) {
+                    throw new Error('Invalid quiz data structure');
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Error loading quiz data:', error);
+                console.log('Using fallback quiz data...');
+                
+                // Use fallback data
+                quizData = FALLBACK_QUIZ_DATA;
+                console.log('Fallback quiz data loaded:', quizData);
+                
+                return true;
+            }
+        }
+        
         function getDifficultQuestions() {
             try {
                 const stored = localStorage.getItem('difficultQuestions');
@@ -389,13 +698,346 @@
             }).join('');
         }
 
+        // Quiz functions
+        function startQuiz() {
+            const difficultQuestions = getDifficultQuestions();
+            if (difficultQuestions.length === 0) {
+                showNotification('Không có câu hỏi khó nào để làm quiz!', 'error');
+                return;
+            }
+            
+            // Prepare quiz questions with full data
+            quizQuestions = difficultQuestions.map(q => {
+                const questionNumber = parseInt(q.questionNumber);
+                
+                // Find correct answer from quiz data
+                let correctAnswer = null;
+                
+                // Try to find the correct part based on question number
+                if (quizData && quizData.quizParts) {
+                    for (const [partKey, partData] of Object.entries(quizData.quizParts)) {
+                        if (questionNumber >= partData.startNumber && questionNumber <= partData.endNumber) {
+                            const partIndex = questionNumber - partData.startNumber;
+                            if (partIndex >= 0 && partIndex < partData.correctAnswers.length) {
+                                correctAnswer = partData.correctAnswers[partIndex];
+                                console.log(`Found correct answer for question ${questionNumber}: ${correctAnswer} from part ${partKey}`);
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                if (!correctAnswer) {
+                    console.warn(`Could not find correct answer for question ${questionNumber} from source: ${q.source}`);
+                }
+                
+                return {
+                    ...q,
+                    correctAnswer: correctAnswer
+                };
+            });
+            
+            // Reset quiz state
+            currentQuestionIndex = 0;
+            userAnswers = {};
+            quizStats = {
+                answered: 0,
+                correct: 0,
+                incorrect: 0,
+                viewed: 0
+            };
+            
+            // Show quiz elements
+            const quizStatsElement = document.getElementById('quizStats');
+            const nextBtnElement = document.getElementById('nextBtn');
+            const showAnswerBtnElement = document.getElementById('showAnswerBtn');
+            const resetBtnElement = document.getElementById('resetBtn');
+            
+            if (quizStatsElement) quizStatsElement.style.display = 'block';
+            if (nextBtnElement) nextBtnElement.style.display = 'none';
+            if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'none';
+            if (resetBtnElement) resetBtnElement.style.display = 'none';
+            
+            // Load first question
+            loadCurrentQuestion();
+            updateQuizStats();
+        }
+        
+        function loadCurrentQuestion() {
+            if (currentQuestionIndex >= quizQuestions.length) {
+                showQuizResults();
+                return;
+            }
+            
+            const question = quizQuestions[currentQuestionIndex];
+            const questionDiv = document.getElementById('currentQuestion');
+            
+            if (!questionDiv) {
+                console.error('Question div not found');
+                return;
+            }
+            
+            // Create answer options
+            const answerOptions = question.answers.map((answer, index) => {
+                const labels = ['A', 'B', 'C', 'D'];
+                const label = labels[index] || (index + 1);
+                let cleanAnswer = answer;
+                const labelPattern = new RegExp(`^${label}\\.\\s*`);
+                if (labelPattern.test(cleanAnswer)) {
+                    cleanAnswer = cleanAnswer.replace(labelPattern, '');
+                }
+                
+                const isSelected = userAnswers[currentQuestionIndex] === label;
+                const isAnswered = userAnswers[currentQuestionIndex] !== undefined;
+                const isCorrect = question.correctAnswer && question.correctAnswer === label;
+                const isIncorrect = isAnswered && userAnswers[currentQuestionIndex] === label && question.correctAnswer && question.correctAnswer !== label;
+                
+                let optionClass = 'answer-option';
+                if (isSelected) optionClass += ' selected';
+                if (isAnswered && isCorrect) optionClass += ' correct';
+                if (isIncorrect) optionClass += ' incorrect';
+                
+                return `
+                    <div class="${optionClass}" onclick="selectAnswer('${label}')">
+                        <input type="radio" class="answer-radio" name="answer" value="${label}" 
+                               ${isSelected ? 'checked' : ''} ${isAnswered ? 'disabled' : ''}>
+                        <div class="answer-text">
+                            <strong>${label}.</strong> ${cleanAnswer}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Create feedback
+            let feedback = '';
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                if (question.correctAnswer) {
+                    const isCorrect = userAnswers[currentQuestionIndex] === question.correctAnswer;
+                    const feedbackClass = isCorrect ? 'correct' : 'incorrect';
+                    const feedbackText = isCorrect ? '✅ Đúng rồi!' : `❌ Sai rồi! Đáp án đúng là: ${question.correctAnswer}`;
+                    feedback = `<div class="feedback ${feedbackClass}">${feedbackText}</div>`;
+                } else {
+                    feedback = `<div class="feedback incorrect">⚠️ Không thể xác định đáp án đúng cho câu hỏi này</div>`;
+                }
+            }
+            
+            questionDiv.innerHTML = `
+                <div class="question-card">
+                    <div class="question-header">
+                        <div class="question-number">Câu ${question.questionNumber} (${currentQuestionIndex + 1}/${quizQuestions.length})</div>
+                        <div class="question-source">${question.source}</div>
+                    </div>
+                    <div class="question-text">${question.text}</div>
+                    <div class="question-answers">
+                        ${answerOptions}
+                    </div>
+                    ${feedback}
+                </div>
+            `;
+            
+            questionDiv.style.display = 'block';
+            
+            // Show/hide buttons based on state
+            const showAnswerBtnElement = document.getElementById('showAnswerBtn');
+            const nextBtnElement = document.getElementById('nextBtn');
+            const resetBtnElement = document.getElementById('resetBtn');
+            
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'none';
+                if (currentQuestionIndex < quizQuestions.length - 1) {
+                    if (nextBtnElement) nextBtnElement.style.display = 'inline-block';
+                } else {
+                    if (resetBtnElement) resetBtnElement.style.display = 'inline-block';
+                }
+            } else {
+                if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'inline-block';
+                if (nextBtnElement) nextBtnElement.style.display = 'none';
+                if (resetBtnElement) resetBtnElement.style.display = 'none';
+            }
+        }
+        
+        function selectAnswer(answer) {
+            if (userAnswers[currentQuestionIndex] !== undefined) return; // Already answered
+            
+            userAnswers[currentQuestionIndex] = answer;
+            const question = quizQuestions[currentQuestionIndex];
+            const isCorrect = question.correctAnswer && answer === question.correctAnswer;
+            
+            if (isCorrect) {
+                quizStats.correct++;
+            } else {
+                quizStats.incorrect++;
+            }
+            quizStats.answered++;
+            
+            updateQuizStats();
+            loadCurrentQuestion(); // Reload to show feedback
+        }
+        
+        function showAnswer() {
+            if (userAnswers[currentQuestionIndex] !== undefined) return;
+            
+            const question = quizQuestions[currentQuestionIndex];
+            if (question.correctAnswer) {
+                userAnswers[currentQuestionIndex] = question.correctAnswer;
+                quizStats.viewed++;  // Thay đổi từ incorrect sang viewed
+                quizStats.answered++;
+                
+                updateQuizStats();
+                loadCurrentQuestion();
+            } else {
+                showNotification('Không thể xác định đáp án đúng cho câu hỏi này', 'error');
+            }
+        }
+        
+        function nextQuestion() {
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                currentQuestionIndex++;
+                loadCurrentQuestion();
+            }
+        }
+        
+        function resetQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = {};
+            quizStats = {
+                answered: 0,
+                correct: 0,
+                incorrect: 0,
+                viewed: 0
+            };
+            updateQuizStats();
+            loadCurrentQuestion();
+        }
+        
+        function showQuizResults() {
+            const questionDiv = document.getElementById('currentQuestion');
+            const accuracy = quizStats.answered > 0 ? Math.round((quizStats.correct / quizStats.answered) * 100) : 0;
+            
+            questionDiv.innerHTML = `
+                <div class="question-card">
+                    <h3>🎉 Kết quả Quiz</h3>
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 2rem; font-weight: bold; color: #2196f3; margin-bottom: 10px;">
+                            ${accuracy}%
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <div>Đã trả lời: <strong>${quizStats.answered}</strong> / ${quizQuestions.length}</div>
+                            <div>Đúng: <strong style="color: #4caf50;">${quizStats.correct}</strong></div>
+                            <div>Sai: <strong style="color: #f44336;">${quizStats.incorrect}</strong></div>
+                            <div>Xem đáp án: <strong style="color: #ff9800;">${quizStats.viewed}</strong></div>
+                        </div>
+                        <button class="quiz-btn" onclick="resetQuiz()">🔄 Làm lại</button>
+                        <button class="quiz-btn" onclick="exitQuiz()">🏠 Thoát Quiz</button>
+                    </div>
+                </div>
+            `;
+            
+            const nextBtnElement = document.getElementById('nextBtn');
+            const showAnswerBtnElement = document.getElementById('showAnswerBtn');
+            const resetBtnElement = document.getElementById('resetBtn');
+            
+            if (nextBtnElement) nextBtnElement.style.display = 'none';
+            if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'none';
+            if (resetBtnElement) resetBtnElement.style.display = 'none';
+        }
+        
+        function exitQuiz() {
+            const currentQuestionElement = document.getElementById('currentQuestion');
+            if (currentQuestionElement) {
+                currentQuestionElement.style.display = 'none';
+            }
+            
+            // Reset quiz state
+            currentQuestionIndex = 0;
+            userAnswers = {};
+            quizStats = {
+                answered: 0,
+                correct: 0,
+                incorrect: 0,
+                viewed: 0
+            };
+            
+            // Hide quiz elements
+            const quizStatsElement = document.getElementById('quizStats');
+            const nextBtnElement = document.getElementById('nextBtn');
+            const showAnswerBtnElement = document.getElementById('showAnswerBtn');
+            const resetBtnElement = document.getElementById('resetBtn');
+            
+            if (quizStatsElement) quizStatsElement.style.display = 'none';
+            if (nextBtnElement) nextBtnElement.style.display = 'none';
+            if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'none';
+            if (resetBtnElement) resetBtnElement.style.display = 'none';
+        }
+        
+        function updateQuizStats() {
+            const answeredElement = document.getElementById('answeredCount');
+            const totalElement = document.getElementById('totalCount');
+            const correctElement = document.getElementById('correctCount');
+            const incorrectElement = document.getElementById('incorrectCount');
+            const viewedElement = document.getElementById('viewedCount');
+            
+            if (answeredElement) answeredElement.textContent = quizStats.answered;
+            if (totalElement) totalElement.textContent = quizQuestions.length;
+            if (correctElement) correctElement.textContent = quizStats.correct;
+            if (incorrectElement) incorrectElement.textContent = quizStats.incorrect;
+            if (viewedElement) viewedElement.textContent = quizStats.viewed;
+        }
+        
+        function showNotification(message, type = 'info') {
+            // Simple notification function
+            alert(message);
+        }
+        
+        // Tab switching function
+        function switchTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tab buttons
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            const selectedTab = document.getElementById(tabName + 'Tab');
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+            
+            // Add active class to selected tab button
+            const selectedButton = event.target;
+            selectedButton.classList.add('active');
+            
+            // If switching to quiz tab, check if there are difficult questions
+            if (tabName === 'quiz') {
+                const questions = getDifficultQuestions();
+                if (questions.length === 0) {
+                    showNotification('Không có câu hỏi khó nào để làm quiz!', 'warning');
+                }
+            }
+        }
+        
         // Load questions when page loads
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('Page loaded, initializing...');
+            
+            // Load quiz data first
+            const quizDataLoaded = await loadQuizData();
+            
+            // Load difficult questions
             loadDifficultQuestions();
             
             // Debug: Log ra dữ liệu để kiểm tra
             const questions = getDifficultQuestions();
             console.log('Difficult questions data:', questions);
+            
+            // Always show tabs, quiz mode is now in its own tab
+            console.log('Tabs initialized');
         });
     </script>
 </body>
