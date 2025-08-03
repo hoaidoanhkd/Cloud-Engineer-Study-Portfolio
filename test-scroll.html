@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Scroll Prevention</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 50px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        .test-btn {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            border: none;
+            padding: 10px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            color: #333;
+            outline: none;
+            user-select: none;
+        }
+        .test-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Scroll Prevention</h1>
+    
+    <div class="test-section">
+        <h2>Section 1</h2>
+        <p>Scroll xuống để test...</p>
+        <button type="button" class="test-btn" onclick="testFunction(event); return false;">Test Button 1</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>Section 2</h2>
+        <p>Nội dung test...</p>
+        <button type="button" class="test-btn" onclick="testFunction(event); return false;">Test Button 2</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>Section 3</h2>
+        <p>Nội dung test...</p>
+        <button type="button" class="test-btn" onclick="testFunction(event); return false;">Test Button 3</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>Section 4</h2>
+        <p>Nội dung test...</p>
+        <button type="button" class="test-btn" onclick="testFunction(event); return false;">Test Button 4</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>Section 5</h2>
+        <p>Nội dung test...</p>
+        <button type="button" class="test-btn" onclick="testFunction(event); return false;">Test Button 5</button>
+    </div>
+    
+    <script>
+        function testFunction(event) {
+            // Lưu vị trí scroll hiện tại
+            const currentScrollY = window.scrollY;
+            
+            // Ngăn chặn default behavior
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            // Hiển thị thông báo
+            alert('Button clicked! Scroll position: ' + currentScrollY);
+            
+            // Khôi phục vị trí scroll
+            setTimeout(() => {
+                window.scrollTo(0, currentScrollY);
+            }, 0);
+            
+            return false;
+        }
+    </script>
+</body>
+</html> 

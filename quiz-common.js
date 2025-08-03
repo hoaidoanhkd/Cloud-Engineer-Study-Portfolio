@@ -19,10 +19,14 @@ function saveDifficultQuestions(questions) {
 }
 
 function toggleDifficultQuestion(questionNumber, source, event) {
-    // Ngăn chặn default behavior để không scroll về đầu
+    // Lưu vị trí scroll hiện tại
+    const currentScrollY = window.scrollY;
+    
+    // Ngăn chặn scroll về đầu
     if (event) {
         event.preventDefault();
         event.stopPropagation();
+        event.stopImmediatePropagation();
     }
     
     const questions = getDifficultQuestions();
@@ -32,13 +36,13 @@ function toggleDifficultQuestion(questionNumber, source, event) {
     const questionElement = document.getElementById(`question${questionNumber}`);
     if (!questionElement) {
         console.error(`Question element with id 'question${questionNumber}' not found`);
-        return;
+        return false;
     }
     
     const questionTextElement = questionElement.querySelector('.question-content p, p');
     if (!questionTextElement) {
         console.error(`Question text element not found for question ${questionNumber}`);
-        return;
+        return false;
     }
     
     const questionText = questionTextElement.textContent.trim();
@@ -88,6 +92,11 @@ function toggleDifficultQuestion(questionNumber, source, event) {
     }
     
     saveDifficultQuestions(questions);
+    
+    // Khôi phục vị trí scroll
+    setTimeout(() => {
+        window.scrollTo(0, currentScrollY);
+    }, 0);
     
     // Ngăn chặn scroll về đầu
     return false;
@@ -204,7 +213,15 @@ function addDifficultButtons(total, partName, startNumber = 1) {
                 button.type = 'button';
                 button.className = 'difficult-btn';
                 button.textContent = '⭐ Đánh dấu câu khó';
-                button.onclick = (event) => toggleDifficultQuestion(actualQuestionNumber, partName, event);
+                button.setAttribute('data-question', actualQuestionNumber);
+                button.setAttribute('data-source', partName);
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    const qNum = parseInt(this.getAttribute('data-question'));
+                    const source = this.getAttribute('data-source');
+                    toggleDifficultQuestion(qNum, source, event);
+                });
                 
                 header.appendChild(content);
                 header.appendChild(button);
@@ -330,6 +347,9 @@ function initializeQuiz(correctAnswers, total, partName, startNumber = 1) {
             overflow: hidden;
             outline: none;
             user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
         .difficult-btn::before {
             content: '';
