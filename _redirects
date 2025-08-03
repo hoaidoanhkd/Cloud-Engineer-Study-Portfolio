@@ -1,0 +1,5 @@
+# Redirect rules for Netlify
+# This file is not needed for Render but good to have for other platforms
+
+# Handle 404s
+/*    /index.html   200 

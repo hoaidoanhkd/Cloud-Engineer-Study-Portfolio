@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: cloud-engineer-study-portfolio
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./
+    envVars:
+      - key: NODE_VERSION
+        value: 18.0.0 
