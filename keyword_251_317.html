@@ -397,11 +397,11 @@
   <h2>Câu 283 – Keyword & Mẹo nhớ nhanh</h2>
   <table>
     <tr><th>Ý chính</th><th>Từ khóa</th></tr>
-    <tr><td>Mục tiêu</td><td>Triển khai app GKE production, đảm bảo <strong>high availability</strong></td></tr>
-    <tr><td>Yêu cầu</td><td>GKE <strong>multi-zonal</strong> trong cùng region để tăng tính sẵn sàng</td></tr>
-    <tr><td>Giải pháp</td><td>Dùng <code>--node-locations</code> để cập nhật cluster thành <strong>multi-zonal</strong></td></tr>
+    <tr><td>Mục tiêu</td><td>Triển khai <strong>production GKE</strong> với <strong>HA</strong> và <strong>resilience</strong></td></tr>
+    <tr><td>Yêu cầu</td><td><strong>Multi-zonal</strong>, <strong>ít effort</strong>, theo <strong>Google-recommended practices</strong></td></tr>
+    <tr><td>Giải pháp</td><td>Dùng <strong>Autopilot GKE</strong> (gcloud container clusters create-auto)</td></tr>
   </table>
-  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> GKE cần <strong>HA</strong> → thêm <code>node-locations</code> khác zone → thành <strong>multi-zonal</strong>.</div>
+  <div class="tip"><strong>Mẹo nhớ nhanh:</strong> Muốn GKE production HA + ít effort → <strong>Autopilot cluster</strong> là lựa chọn an toàn nhất.</div>
 </div>
 
 <div class="card">

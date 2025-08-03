@@ -38,6 +38,28 @@ function toggleDifficultQuestion(questionNumber, source) {
     const questionText = questionTextElement.textContent.trim();
     const button = questionElement.querySelector('.difficult-btn');
     
+    // Lấy đáp án từ các option A, B, C, D
+    const answers = [];
+    const answerElements = questionElement.querySelectorAll('.answers label');
+    answerElements.forEach((label, index) => {
+        const input = label.querySelector('input');
+        let answerText = label.textContent.trim();
+        
+        if (answerText) {
+            // Loại bỏ hoàn toàn phần "A.", "B.", "C.", "D." ở đầu
+            const labelPattern = /^[A-D]\.\s*/;
+            answerText = answerText.replace(labelPattern, '');
+            
+            // Loại bỏ thêm nếu vẫn còn trùng lặp
+            const duplicatePattern = /^([A-D])\.\s*\1\.\s*/;
+            if (duplicatePattern.test(answerText)) {
+                answerText = answerText.replace(duplicatePattern, '$1. ');
+            }
+            
+            answers.push(answerText);
+        }
+    });
+    
     if (existingIndex > -1) {
         // Xóa câu khó
         questions.splice(existingIndex, 1);
@@ -50,6 +72,7 @@ function toggleDifficultQuestion(questionNumber, source) {
             id: questionId,
             questionNumber: questionNumber,
             text: questionText,
+            answers: answers,
             source: source,
             timestamp: new Date().toISOString()
         });
