@@ -6,163 +6,34 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>GCP Exam Practice - Part 1 (Questions 1-50)</title>
   <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      margin: 20px; 
-      line-height: 1.6;
-    }
-    
-    .question { 
-      margin-bottom: 25px; 
-      position: relative; 
-      border: 1px solid #e0e0e0; 
-      border-radius: 8px; 
-      padding: 15px; 
-      background: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-    
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    .question { margin-bottom: 30px; position: relative; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; }
     .answers input { margin-right: 10px; }
-    .answers label { 
-      display: block; 
-      margin-bottom: 8px; 
-      padding: 8px;
-      border-radius: 4px;
-      transition: background-color 0.2s;
-    }
-    .answers label:hover { background-color: #f5f5f5; }
-    
     .submit-btn { margin-top: 20px; }
     strong.keyword { font-weight: bold; color: darkblue; }
-    
-    .part-info { 
-      background-color: #f0f8ff; 
-      padding: 15px; 
-      border-radius: 8px; 
-      margin-bottom: 25px;
-      border-left: 4px solid #4285f4;
-    }
-    
-    .question-header { 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: flex-start; 
-      margin-bottom: 15px;
-      gap: 10px;
-    }
-    
+    .part-info { background-color: #f0f8ff; padding: 15px; border-radius: 5px; margin-bottom: 30px; }
+    .question-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
     .difficult-btn { 
       background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%); 
       border: none; 
-      padding: 8px; 
-      border-radius: 50%; 
+      padding: 8px 15px; 
+      border-radius: 20px; 
       cursor: pointer; 
-      font-size: 16px; 
+      font-size: 12px; 
       font-weight: bold; 
       color: #333; 
       transition: all 0.3s ease;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
     }
-    
     .difficult-btn:hover { 
-      transform: translateY(-2px) scale(1.1); 
+      transform: translateY(-2px); 
       box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
     }
-    
     .difficult-btn.marked { 
       background: linear-gradient(135deg, #ea4335 0%, #fbbc04 100%); 
       color: white; 
-      animation: pulse 0.6s ease-in-out;
     }
-    
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
-    
-    .question-content { 
-      flex: 1; 
-      min-width: 0;
-    }
-    
-    .question-content p {
-      margin: 0;
-      word-wrap: break-word;
-    }
-    
-    /* Responsive design for mobile */
-    @media (max-width: 768px) {
-      body { 
-        margin: 10px; 
-        font-size: 14px;
-      }
-      
-      .question { 
-        padding: 12px; 
-        margin-bottom: 20px;
-      }
-      
-      .question-header { 
-        flex-direction: column; 
-        align-items: flex-end;
-        gap: 8px;
-      }
-      
-      .difficult-btn { 
-        width: 32px; 
-        height: 32px; 
-        font-size: 14px;
-        padding: 6px;
-      }
-      
-      .part-info { 
-        padding: 12px; 
-        margin-bottom: 20px;
-      }
-      
-      .answers label { 
-        padding: 6px; 
-        margin-bottom: 6px;
-        font-size: 13px;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      body { 
-        margin: 8px; 
-        font-size: 13px;
-      }
-      
-      .question { 
-        padding: 10px; 
-        margin-bottom: 15px;
-      }
-      
-      .difficult-btn { 
-        width: 28px; 
-        height: 28px; 
-        font-size: 12px;
-        padding: 5px;
-      }
-      
-      .part-info { 
-        padding: 10px; 
-        margin-bottom: 15px;
-      }
-      
-      .answers label { 
-        padding: 5px; 
-        margin-bottom: 5px;
-        font-size: 12px;
-      }
-    }
+    .question-content { flex: 1; }
   </style>
 </head>
 <body>
@@ -182,7 +53,7 @@
 
 Every employee of your company has a Google account. Your operational team needs to manage a large number of instances on Compute Engine. Each member of this team needs only administrative access to the servers. Your security team wants to ensure that the deployment of credentials is operationally efficient and must be able to determine who accessed a given instance. What should you do?</p>
 </div>
-<button class="difficult-btn" data-question="1">⭐ Đánh dấu câu khó</button>
+<button class="difficult-btn" onclick="toggleDifficultQuestion(1, 'Part 1 (Questions 1-50)')">⭐ Đánh dấu câu khó</button>
 </div>
 <div class="answers">
 <label><input name="q1" type="radio" value="A"/> A. Generate a new SSH key pair. Give the private key to each member of your team. Configure the public key in the metadata of each instance.</label><br/>
@@ -742,42 +613,7 @@ const partName = 'Part 1 (Questions 1-50)';
 // Khởi tạo quiz khi trang load
 document.addEventListener('DOMContentLoaded', function() {
     initializeQuiz(correctAnswers, total, partName, 1);
-    
-    // Xử lý nút đánh dấu câu khó để không scroll lên đầu
-    const difficultButtons = document.querySelectorAll('.difficult-btn');
-    difficultButtons.forEach(function(button) {
-        button.addEventListener('click', function(e) {
-            e.preventDefault(); // Ngăn chặn hành vi mặc định
-            e.stopPropagation(); // Ngăn chặn event bubbling
-            
-            // Lưu vị trí scroll hiện tại
-            const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-            
-            // Thực hiện toggle đánh dấu câu khó
-            const questionNumber = this.getAttribute('data-question') || this.textContent.match(/\d+/)?.[0];
-            if (questionNumber) {
-                toggleDifficultQuestion(questionNumber, partName);
-            }
-            
-            // Khôi phục vị trí scroll
-            setTimeout(function() {
-                window.scrollTo(0, currentScrollPosition);
-            }, 10);
-        });
-    });
 });
-
-// Hàm fallback nếu quiz-common.js không load được
-function toggleDifficultQuestion(questionNumber, partName) {
-    const button = event.target;
-    if (button.classList.contains('marked')) {
-        button.classList.remove('marked');
-        button.textContent = '⭐ Đánh dấu câu khó';
-    } else {
-        button.classList.add('marked');
-        button.textContent = '🔥 Đã đánh dấu';
-    }
-}
 </script>
 </body>
 </html>
