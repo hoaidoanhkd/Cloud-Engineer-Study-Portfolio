@@ -109,31 +109,31 @@
             transform: translateY(-1px);
         }
         
-        .question-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 10px;
-            gap: 10px;
-        }
+                 .question-header {
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             margin-bottom: 8px;
+             gap: 8px;
+         }
         
-        .question-number {
-            background: #ea4335;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 14px;
-        }
+                 .question-number {
+             background: #ea4335;
+             color: white;
+             padding: 6px 12px;
+             border-radius: 15px;
+             font-weight: bold;
+             font-size: 12px;
+         }
         
-        .question-source {
-            background: #4285f4;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 15px;
-            font-size: 12px;
-            font-weight: 500;
-        }
+                 .question-source {
+             background: #4285f4;
+             color: white;
+             padding: 4px 8px;
+             border-radius: 12px;
+             font-size: 11px;
+             font-weight: 500;
+         }
         
         .question-text {
             font-size: 16px;
@@ -142,13 +142,7 @@
             margin-bottom: 10px;
         }
         
-                               .question-answers {
-                  background: #f8f9fa;
-                  border: 1px solid #e9ecef;
-                  border-radius: 6px;
-                  padding: 10px 6px;
-                  margin: 10px -6px;
-              }
+                               
         
         .answer-item {
             padding: 8px 0;
@@ -234,18 +228,18 @@
             background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
         }
         
-        .answer-option {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            margin: 8px 0;
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
+                 .answer-option {
+             display: flex;
+             align-items: center;
+             padding: 12px 15px;
+             margin: 8px -15px;
+             background: white;
+             border: 2px solid #e0e0e0;
+             border-radius: 8px;
+             cursor: pointer;
+             transition: all 0.3s ease;
+             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+         }
         
         .answer-option:hover {
             border-color: #2196f3;
@@ -428,9 +422,10 @@
              
                            .question-header {
                   flex-direction: row;
-                  gap: 8px;
+                  gap: 6px;
                   align-items: center;
                   flex-wrap: wrap;
+                  margin-bottom: 6px;
               }
              
              .home-btn {
@@ -455,9 +450,10 @@
                  padding: 8px 16px;
              }
              
-             .answer-option {
-                 padding: 10px 12px;
-             }
+                           .answer-option {
+                  padding: 10px 12px;
+                  margin: 8px -12px;
+              }
              
              .tab-buttons {
                  display: flex;
@@ -727,8 +723,7 @@
                 let answersHtml = '';
                 if (question.answers && question.answers.length > 0) {
                     answersHtml = `
-                        <div class="question-answers">
-                            <div style="font-weight: bold; margin-bottom: 10px; color: #333;">📝 Các đáp án:</div>
+                                                 <div style="font-weight: bold; margin-bottom: 10px; color: #333;">📝 Các đáp án:</div>
                             ${question.answers.map((answer, index) => {
                                 const labels = ['A', 'B', 'C', 'D'];
                                 const label = labels[index] || (index + 1);
@@ -898,9 +893,7 @@
                         <div class="question-source">${question.source}</div>
                     </div>
                     <div class="question-text">${question.text}</div>
-                    <div class="question-answers">
-                        ${answerOptions}
-                    </div>
+                                         ${answerOptions}
                     ${feedback}
                 </div>
             `;
