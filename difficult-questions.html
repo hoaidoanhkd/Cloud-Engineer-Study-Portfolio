@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>GCP Exam Practice - Câu Hỏi Khó</title>
     <style>
         * {
             margin: 0;
@@ -205,7 +204,7 @@
         .quiz-controls {
             display: flex;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             flex-wrap: wrap;
         }
         
@@ -427,11 +426,12 @@
                  padding: 10px 5px;
              }
              
-             .question-header {
-                 flex-direction: column;
-                 gap: 8px;
-                 align-items: stretch;
-             }
+                           .question-header {
+                  flex-direction: row;
+                  gap: 8px;
+                  align-items: center;
+                  flex-wrap: wrap;
+              }
              
              .home-btn {
                  top: 8px;
@@ -543,7 +543,6 @@
                 <!-- Tab 2: Chế độ Quiz -->
                 <div class="tab-content" id="quizTab">
                     <div class="quiz-mode">
-                        <h3>🎯 Chế độ Quiz - Luyện tập câu hỏi khó</h3>
                         <div class="quiz-controls">
                             <button class="quiz-btn" onclick="startQuiz()">▶️ Bắt đầu Quiz</button>
                             <button class="quiz-btn" onclick="nextQuestion()" id="nextBtn" style="display: none;">⏭️ Câu tiếp theo</button>
@@ -551,7 +550,7 @@
                             <button class="quiz-btn" onclick="resetQuiz()" id="resetBtn" style="display: none;">🔄 Làm lại</button>
                         </div>
                         
-                                                 <div class="quiz-stats" id="quizStats" style="display: none;">
+                                                         <div class="quiz-stats" id="quizStats" style="display: none;">
                              <div style="font-size: 0.9rem; flex: 1; text-align: left;">Đã trả lời: <span class="quiz-stats-number" id="answeredCount">0</span>/<span class="quiz-stats-number" id="totalCount">0</span></div>
                              <div style="font-size: 0.9rem; flex: 1; text-align: right;">Đúng: <span class="quiz-stats-number" id="correctCount" style="color: #4caf50;">0</span> | Sai: <span class="quiz-stats-number" id="incorrectCount" style="color: #f44336;">0</span> | Xem: <span class="quiz-stats-number" id="viewedCount" style="color: #ff9800;">0</span></div>
                          </div>
@@ -824,7 +823,7 @@
             const showAnswerBtnElement = document.getElementById('showAnswerBtn');
             const resetBtnElement = document.getElementById('resetBtn');
             
-            if (quizStatsElement) quizStatsElement.style.display = 'block';
+                         if (quizStatsElement) quizStatsElement.style.display = 'flex';
             if (nextBtnElement) nextBtnElement.style.display = 'none';
             if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'none';
             if (resetBtnElement) resetBtnElement.style.display = 'none';
