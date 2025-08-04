@@ -763,6 +763,18 @@
             }).join('');
         }
 
+        // Shuffle function for answers
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+        
+
+        
         // Quiz functions
         function startQuiz() {
             const difficultQuestions = getDifficultQuestions();
@@ -842,9 +854,12 @@
                 return;
             }
             
-            // Create answer options
-            const answerOptions = question.answers.map((answer, index) => {
-                const labels = ['A', 'B', 'C', 'D'];
+            // Create answer options with shuffling support
+            const labels = ['A', 'B', 'C', 'D'];
+            let answerOptions = [];
+            
+            // Create answer objects with their original labels
+            const answerObjects = question.answers.map((answer, index) => {
                 const label = labels[index] || (index + 1);
                 let cleanAnswer = answer;
                 const labelPattern = new RegExp(`^${label}\\.\\s*`);
@@ -852,10 +867,29 @@
                     cleanAnswer = cleanAnswer.replace(labelPattern, '');
                 }
                 
-                const isSelected = userAnswers[currentQuestionIndex] === label;
+                return {
+                    label: label,
+                    text: cleanAnswer,
+                    isCorrect: question.correctAnswer && question.correctAnswer === label
+                };
+            });
+            
+            // Only shuffle answers if this is the first time loading this question (not answered yet)
+            if (userAnswers[currentQuestionIndex] === undefined) {
+                // First time loading - shuffle and store the order
+                answerOptions = shuffleArray(answerObjects);
+                question.shuffledAnswers = [...answerOptions]; // Store the shuffled order
+            } else {
+                // When showing feedback, use the stored shuffled order
+                answerOptions = question.shuffledAnswers || answerObjects;
+            }
+            
+            // Generate HTML for answer options
+            const answerOptionsHtml = answerOptions.map((answerObj) => {
+                const isSelected = userAnswers[currentQuestionIndex] === answerObj.label;
                 const isAnswered = userAnswers[currentQuestionIndex] !== undefined;
-                const isCorrect = question.correctAnswer && question.correctAnswer === label;
-                const isIncorrect = isAnswered && userAnswers[currentQuestionIndex] === label && question.correctAnswer && question.correctAnswer !== label;
+                const isCorrect = answerObj.isCorrect;
+                const isIncorrect = isAnswered && userAnswers[currentQuestionIndex] === answerObj.label && !isCorrect;
                 
                 let optionClass = 'answer-option';
                 if (isSelected) optionClass += ' selected';
@@ -863,11 +897,11 @@
                 if (isIncorrect) optionClass += ' incorrect';
                 
                 return `
-                    <div class="${optionClass}" onclick="selectAnswer('${label}')">
-                        <input type="radio" class="answer-radio" name="answer" value="${label}" 
+                    <div class="${optionClass}" onclick="selectAnswer('${answerObj.label}')">
+                        <input type="radio" class="answer-radio" name="answer" value="${answerObj.label}" 
                                ${isSelected ? 'checked' : ''} ${isAnswered ? 'disabled' : ''}>
                         <div class="answer-text">
-                            <strong>${label}.</strong> ${cleanAnswer}
+                            <strong>${answerObj.label}.</strong> ${answerObj.text}
                         </div>
                     </div>
                 `;
@@ -893,7 +927,7 @@
                         <div class="question-source">${question.source}</div>
                     </div>
                     <div class="question-text">${question.text}</div>
-                                         ${answerOptions}
+                                         ${answerOptionsHtml}
                     ${feedback}
                 </div>
             `;
@@ -934,7 +968,7 @@
             quizStats.answered++;
             
             updateQuizStats();
-            loadCurrentQuestion(); // Reload to show feedback
+            loadCurrentQuestion(); // Reload to show feedback without shuffling
         }
         
         function showAnswer() {
@@ -947,7 +981,7 @@
                 quizStats.answered++;
                 
                 updateQuizStats();
-                loadCurrentQuestion();
+                loadCurrentQuestion(); // Reload without shuffling
             } else {
                 showNotification('Không thể xác định đáp án đúng cho câu hỏi này', 'error');
             }
@@ -969,6 +1003,7 @@
                 incorrect: 0,
                 viewed: 0
             };
+            
             updateQuizStats();
             loadCurrentQuestion();
         }
