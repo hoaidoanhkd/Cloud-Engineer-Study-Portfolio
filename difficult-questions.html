@@ -523,6 +523,9 @@
                         <button onclick="clearAllDifficultQuestions()" style="margin-top: 10px; background: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 12px;">
                             🗑️ Xóa tất cả (Debug)
                         </button>
+                        <button onclick="clearCacheAndReload()" style="margin-top: 10px; background: #ff9800; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 12px;">
+                            🔄 Clear Cache & Reload
+                        </button>
                     </div>
                     
                     <div class="difficult-questions" id="difficultQuestionsList">
@@ -586,7 +589,7 @@
                     "startNumber": 1,
                     "endNumber": 50,
                     "total": 50,
-                    "correctAnswers": ["C", "B", "A", "C", "D", "D", "D", "A", "D", "A", "A", "C", "D", "B", "B", "B", "D", "B", "A", "D", "A", "D", "D", "A", "A", "C", "B", "B", "A", "B", "A", "C", "A", "C", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A"]
+                    "correctAnswers": ["C", "B", "A", "C", "D", "D", "D", "A", "D", "A", "A", "C", "D", "B", "B", "B", "D", "B", "A", "D", "A", "D", "D", "A", "A", "C", "B", "B", "A", "B", "A", "C", "A", "C", "B", "C", "D", "B", "B", "A", "B", "B", "D", "C", "C", "D", "A", "C", "D", "A"]
                 },
                 "part2": {
                     "name": "Compute Engine & Networking",
@@ -600,28 +603,28 @@
                     "startNumber": 101,
                     "endNumber": 150,
                     "total": 50,
-                    "correctAnswers": ["D", "D", "C", "C", "B", "D", "A", "D", "A", "A", "C", "B", "B", "B", "A", "D", "C", "B", "B", "A", "A", "B", "B", "D", "C", "A", "C", "C", "A", "B", "D", "D", "B", "A", "A", "C", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B"]
+                    "correctAnswers": ["D", "D", "C", "C", "B", "D", "A", "D", "A", "A", "C", "B", "B", "B", "A", "D", "C", "B", "B", "A", "A", "B", "B", "D", "C", "A", "C", "C", "A", "B", "D", "D", "B", "A", "A", "C", "A", "A", "D", "D", "A", "A", "B", "B", "B", "D", "A", "D", "D", "A"]
                 },
-                "part4": {
+                                "part4": {
                     "name": "Security & Identity",
                     "startNumber": 151,
                     "endNumber": 200,
                     "total": 50,
-                    "correctAnswers": ["A", "D", "B", "D", "D", "C", "B", "C", "A", "A", "B", "B", "B", "D", "D", "B", "D", "C", "A", "B", "A", "C", "C", "D", "D", "A", "B", "D", "A", "A", "C", "C", "C", "B", "A", "A", "C", "B", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C"]
+                    "correctAnswers": ["A", "D", "B", "D", "D", "C", "B", "C", "A", "A", "B", "B", "B", "D", "D", "B", "D", "C", "A", "B", "A", "C", "C", "D", "D", "A", "B", "D", "A", "A", "C", "C", "C", "B", "A", "A", "C", "B", "A", "C", "B", "D", "B", "B", "C", "B", "A", "A", "B", "C"]
                 },
                 "part5": {
                     "name": "Monitoring & Analytics",
                     "startNumber": 201,
                     "endNumber": 250,
                     "total": 50,
-                    "correctAnswers": ["D", "C", "A", "A", "C", "A", "B", "A", "A", "B", "A", "A", "A", "B", "D", "B", "C", "B", "B", "D", "B", "B", "B", "D", "A", "D", "D", "A", "D", "B", "D", "B", "D", "D", "A", "A", "B", "B", "C", "D", "A", "C", "D", "C", "A", "B", "D", "A", "B", "C"]
+                    "correctAnswers": ["D", "C", "A", "A", "C", "A", "B", "A", "A", "B", "A", "A", "A", "B", "D", "B", "C", "B", "B", "D", "B", "B", "B", "D", "A", "D", "D", "A", "D", "B", "D", "B", "D", "D", "A", "A", "B", "B", "C", "D", "A", "C", "D", "C", "A", "B", "D", "A", "B", "D"]
                 },
                 "part6": {
                     "name": "Advanced Topics",
                     "startNumber": 251,
                     "endNumber": 302,
                     "total": 52,
-                    "correctAnswers": ["D", "D", "A", "C", "B", "C", "B", "D", "A", "A", "C", "D", "A", "D", "A", "B", "A", "D", "C", "B", "B", "D", "C", "D", "A", "B", "A", "A", "C", "B", "C", "B", "B", "C", "B", "D", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A"]
+                    "correctAnswers": ["D", "D", "A", "C", "B", "C", "B", "D", "A", "A", "C", "D", "A", "D", "A", "B", "A", "D", "C", "B", "B", "D", "C", "D", "A", "B", "A", "A", "C", "B", "C", "B", "B", "C", "B", "D", "B", "A", "B", "A", "D", "C", "B", "B", "B", "C", "B", "C", "D", "A", "D", "D"]
                 }
             }
         };
@@ -686,6 +689,25 @@
                 console.log('Cleared all difficult questions');
             } catch (error) {
                 console.error('Error clearing questions:', error);
+            }
+        }
+
+        // Function để clear cache và reload data
+        function clearCacheAndReload() {
+            try {
+                // Clear localStorage
+                localStorage.removeItem('difficultQuestions');
+                
+                // Clear quiz data
+                quizData = null;
+                
+                // Reload quiz data
+                loadQuizData().then(() => {
+                    loadDifficultQuestions();
+                    console.log('Cache cleared and data reloaded');
+                });
+            } catch (error) {
+                console.error('Error clearing cache:', error);
             }
         }
 
@@ -795,11 +817,11 @@
                     for (const [partKey, partData] of Object.entries(quizData.quizParts)) {
                         if (questionNumber >= partData.startNumber && questionNumber <= partData.endNumber) {
                             const partIndex = questionNumber - partData.startNumber;
-                            if (partIndex >= 0 && partIndex < partData.correctAnswers.length) {
-                                correctAnswer = partData.correctAnswers[partIndex];
-                                console.log(`Found correct answer for question ${questionNumber}: ${correctAnswer} from part ${partKey}`);
-                                break;
-                            }
+                                            if (partIndex >= 0 && partIndex < partData.correctAnswers.length) {
+                    correctAnswer = partData.correctAnswers[partIndex];
+                    console.log(`Found correct answer for question ${questionNumber}: ${correctAnswer} from part ${partKey} (index ${partIndex})`);
+                    break;
+                }
                         }
                     }
                 }
@@ -840,7 +862,7 @@
             updateQuizStats();
         }
         
-        function loadCurrentQuestion() {
+        function loadCurrentQuestion(forceShuffle = true) {
             if (currentQuestionIndex >= quizQuestions.length) {
                 showQuizResults();
                 return;
@@ -870,6 +892,7 @@
                 return {
                     label: label,
                     text: cleanAnswer,
+                    originalLabel: label, // Store original label for correct answer tracking
                     isCorrect: question.correctAnswer && question.correctAnswer === label
                 };
             });
@@ -883,6 +906,11 @@
                 // When showing feedback, use the stored shuffled order
                 answerOptions = question.shuffledAnswers || answerObjects;
             }
+            
+            // Update isCorrect property after shuffling based on original labels
+            answerOptions.forEach(answerObj => {
+                answerObj.isCorrect = question.correctAnswer && question.correctAnswer === answerObj.originalLabel;
+            });
             
             // Generate HTML for answer options
             const answerOptionsHtml = answerOptions.map((answerObj) => {
@@ -911,9 +939,18 @@
             let feedback = '';
             if (userAnswers[currentQuestionIndex] !== undefined) {
                 if (question.correctAnswer) {
-                    const isCorrect = userAnswers[currentQuestionIndex] === question.correctAnswer;
+                    // Find the correct answer label in the shuffled answers
+                    let correctAnswerLabel = question.correctAnswer;
+                    if (question.shuffledAnswers) {
+                        const correctAnswerObj = question.shuffledAnswers.find(obj => obj.originalLabel === question.correctAnswer);
+                        if (correctAnswerObj) {
+                            correctAnswerLabel = correctAnswerObj.label;
+                        }
+                    }
+                    
+                    const isCorrect = userAnswers[currentQuestionIndex] === correctAnswerLabel;
                     const feedbackClass = isCorrect ? 'correct' : 'incorrect';
-                    const feedbackText = isCorrect ? '✅ Đúng rồi!' : `❌ Sai rồi! Đáp án đúng là: ${question.correctAnswer}`;
+                    const feedbackText = isCorrect ? '✅ Đúng rồi!' : `❌ Sai rồi! Đáp án đúng là: ${correctAnswerLabel}`;
                     feedback = `<div class="feedback ${feedbackClass}">${feedbackText}</div>`;
                 } else {
                     feedback = `<div class="feedback incorrect">⚠️ Không thể xác định đáp án đúng cho câu hỏi này</div>`;
@@ -958,7 +995,41 @@
             
             userAnswers[currentQuestionIndex] = answer;
             const question = quizQuestions[currentQuestionIndex];
-            const isCorrect = question.correctAnswer && answer === question.correctAnswer;
+            
+            // Find the correct answer label in the shuffled answers
+            let isCorrect = false;
+            if (question.shuffledAnswers) {
+                // Find the answer object that has the correct original label
+                const correctAnswerObj = question.shuffledAnswers.find(obj => obj.originalLabel === question.correctAnswer);
+                if (correctAnswerObj) {
+                    isCorrect = answer === correctAnswerObj.label;
+                }
+            } else {
+                // Fallback to original logic if no shuffling
+                isCorrect = question.correctAnswer && answer === question.correctAnswer;
+            }
+            
+            // Debug: Log để kiểm tra
+            console.log('Selected answer:', answer);
+            console.log('Correct answer:', question.correctAnswer);
+            console.log('Is correct:', isCorrect);
+            console.log('Question:', question);
+            console.log('Shuffled answers:', question.shuffledAnswers);
+            
+            // Thêm debug chi tiết cho câu 189 và 190
+            if (question.questionNumber === '189' || question.questionNumber === '190') {
+                console.log(`=== DEBUG FOR QUESTION ${question.questionNumber} ===`);
+                console.log('Question number:', question.questionNumber);
+                console.log('Correct answer from database:', question.correctAnswer);
+                console.log('User selected:', answer);
+                console.log('Shuffled answers:', question.shuffledAnswers);
+                if (question.shuffledAnswers) {
+                    const correctAnswerObj = question.shuffledAnswers.find(obj => obj.originalLabel === question.correctAnswer);
+                    console.log('Correct answer object:', correctAnswerObj);
+                    console.log('Expected correct label after shuffle:', correctAnswerObj ? correctAnswerObj.label : 'NOT FOUND');
+                }
+                console.log('=== END DEBUG ===');
+            }
             
             if (isCorrect) {
                 quizStats.correct++;
@@ -968,7 +1039,14 @@
             quizStats.answered++;
             
             updateQuizStats();
-            loadCurrentQuestion(); // Reload to show feedback without shuffling
+            // KHÔNG gọi loadCurrentQuestion() ở đây nữa
+            // Hiện feedback và nút 'Câu tiếp theo'
+            const nextBtnElement = document.getElementById('nextBtn');
+            if (nextBtnElement) nextBtnElement.style.display = 'inline-block';
+            const showAnswerBtnElement = document.getElementById('showAnswerBtn');
+            if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'none';
+            // Cập nhật lại giao diện feedback cho đáp án vừa chọn
+            loadCurrentQuestion(false); // truyền false để không shuffle lại đáp án
         }
         
         function showAnswer() {

@@ -5,7 +5,7 @@
       "startNumber": 1,
       "endNumber": 50,
       "total": 50,
-      "correctAnswers": ["C", "B", "A", "C", "D", "D", "D", "A", "D", "A", "A", "C", "D", "B", "B", "B", "D", "B", "A", "D", "A", "D", "D", "A", "A", "C", "B", "B", "A", "B", "A", "C", "A", "C", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A"]
+      "correctAnswers": ["C", "B", "A", "C", "D", "D", "D", "A", "D", "A", "A", "C", "D", "B", "B", "B", "D", "B", "A", "D", "A", "D", "D", "A", "A", "C", "B", "B", "A", "B", "A", "C", "A", "C", "B", "C", "D", "B", "B", "A", "B", "B", "D", "C", "C", "D", "A", "C", "D", "A"]
     },
     "part2": {
       "name": "Compute Engine & Networking",
@@ -19,28 +19,28 @@
       "startNumber": 101,
       "endNumber": 150,
       "total": 50,
-      "correctAnswers": ["D", "D", "C", "C", "B", "D", "A", "D", "A", "A", "C", "B", "B", "B", "A", "D", "C", "B", "B", "A", "A", "B", "B", "D", "C", "A", "C", "C", "A", "B", "D", "D", "B", "A", "A", "C", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B"]
+      "correctAnswers": ["D", "D", "C", "C", "B", "D", "A", "D", "A", "A", "C", "B", "B", "B", "A", "D", "C", "B", "B", "A", "A", "B", "B", "D", "C", "A", "C", "C", "A", "B", "D", "D", "B", "A", "A", "C", "A", "A", "D", "D", "A", "A", "B", "B", "B", "D", "A", "D", "D", "A"]
     },
-    "part4": {
+                    "part4": {
       "name": "Security & Identity",
       "startNumber": 151,
       "endNumber": 200,
       "total": 50,
-      "correctAnswers": ["A", "D", "B", "D", "D", "C", "B", "C", "A", "A", "B", "B", "B", "D", "D", "B", "D", "C", "A", "B", "A", "C", "C", "D", "D", "A", "B", "D", "A", "A", "C", "C", "C", "B", "A", "A", "C", "B", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C"]
+      "correctAnswers": ["A", "D", "B", "D", "D", "C", "B", "C", "A", "A", "B", "B", "B", "D", "D", "B", "D", "C", "A", "B", "A", "C", "C", "D", "D", "A", "B", "D", "A", "A", "C", "C", "C", "B", "A", "A", "C", "B", "A", "C", "B", "D", "B", "B", "C", "B", "A", "A", "B", "C"]
     },
     "part5": {
       "name": "Monitoring & Analytics",
       "startNumber": 201,
       "endNumber": 250,
       "total": 50,
-      "correctAnswers": ["D", "C", "A", "A", "C", "A", "B", "A", "A", "B", "A", "A", "A", "B", "D", "B", "C", "B", "B", "D", "B", "B", "B", "D", "A", "D", "D", "A", "D", "B", "D", "B", "D", "D", "A", "A", "B", "B", "C", "D", "A", "C", "D", "C", "A", "B", "D", "A", "B", "C"]
+      "correctAnswers": ["D", "C", "A", "A", "C", "A", "B", "A", "A", "B", "A", "A", "A", "B", "D", "B", "C", "B", "B", "D", "B", "B", "B", "D", "A", "D", "D", "A", "D", "B", "D", "B", "D", "D", "A", "A", "B", "B", "C", "D", "A", "C", "D", "C", "A", "B", "D", "A", "B", "D"]
     },
     "part6": {
       "name": "Advanced Topics",
       "startNumber": 251,
       "endNumber": 302,
       "total": 52,
-      "correctAnswers": ["D", "D", "A", "C", "B", "C", "B", "D", "A", "A", "C", "D", "A", "D", "A", "B", "A", "D", "C", "B", "B", "D", "C", "D", "A", "B", "A", "A", "C", "B", "C", "B", "B", "C", "B", "D", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A"]
+      "correctAnswers": ["D", "D", "A", "C", "B", "C", "B", "D", "A", "A", "C", "D", "A", "D", "A", "B", "A", "D", "C", "B", "B", "D", "C", "D", "A", "B", "A", "A", "C", "B", "C", "B", "B", "C", "B", "D", "B", "A", "B", "A", "D", "C", "B", "B", "B", "C", "B", "C", "D", "A", "D", "D"]
     }
   },
   "keywords": {
