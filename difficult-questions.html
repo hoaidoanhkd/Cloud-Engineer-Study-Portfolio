@@ -107,27 +107,7 @@
             font-size: 0.9rem;
         }
         
-        .sort-select {
-            background: white;
-            border: 1px solid #2196f3;
-            border-radius: 6px;
-            padding: 6px 12px;
-            font-size: 0.9rem;
-            color: #333;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .sort-select:hover {
-            border-color: #1976d2;
-            box-shadow: 0 2px 4px rgba(33, 150, 243, 0.2);
-        }
-        
-        .sort-select:focus {
-            outline: none;
-            border-color: #1976d2;
-            box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
-        }
+
         
         .random-btn {
             background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
@@ -630,19 +610,10 @@
                                      <option value="201-250">Part 5 (Questions 201-250)</option>
                                      <option value="251-302">Part 6 (Questions 251-302)</option>
                                  </select>
-                             </div>
-                             <div>
-                                 <label for="sortSelect">Sắp xếp theo:</label>
-                                 <select id="sortSelect" class="sort-select" onchange="sortDifficultQuestions()">
-                                     <option value="newest">Mới nhất</option>
-                                     <option value="oldest">Cũ nhất</option>
-                                     <option value="questionNumberAsc">Số câu (tăng dần)</option>
-                                     <option value="questionNumberDesc">Số câu (giảm dần)</option>
-                                     <option value="sourceAsc">Phần thi (A-Z)</option>
-                                     <option value="sourceDesc">Phần thi (Z-A)</option>
-                                 </select>
-                                 <button onclick="randomizeQuestions()" class="random-btn">🎲 Ngẫu nhiên</button>
-                             </div>
+                                                         </div>
+                            <div>
+                                <button onclick="randomizeQuestions()" class="random-btn">🎲 Ngẫu nhiên</button>
+                            </div>
                          </div>
                          <div id="sourceStats" style="font-size: 0.8rem; color: #666; margin-left: auto;">
                              <!-- Source statistics will be shown here -->
@@ -943,27 +914,7 @@
             container.style.display = 'grid';
             emptyState.style.display = 'none';
             
-                        // Get current sort preference
-            const sortSelect = document.getElementById('sortSelect');
-            const sortValue = sortSelect ? sortSelect.value : 'newest';
-            
-            // Sort filtered questions based on current selection
-            let sortedQuestions = [...filteredQuestions];
-            if (sortValue === 'newest') {
-                sortedQuestions.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-            } else if (sortValue === 'oldest') {
-                sortedQuestions.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-            } else if (sortValue === 'questionNumberAsc') {
-                sortedQuestions.sort((a, b) => parseInt(a.questionNumber) - parseInt(b.questionNumber));
-            } else if (sortValue === 'questionNumberDesc') {
-                sortedQuestions.sort((a, b) => parseInt(b.questionNumber) - parseInt(a.questionNumber));
-            } else if (sortValue === 'sourceAsc') {
-                sortedQuestions.sort((a, b) => a.source.localeCompare(b.source));
-            } else if (sortValue === 'sourceDesc') {
-                sortedQuestions.sort((a, b) => b.source.localeCompare(a.source));
-            }
-            
-            container.innerHTML = sortedQuestions.map(question => {
+            container.innerHTML = filteredQuestions.map(question => {
                 // Tạo HTML cho đáp án
                 let answersHtml = '';
                 if (question.answers && question.answers.length > 0) {
@@ -1497,45 +1448,7 @@
             }
         }
 
-        function sortDifficultQuestions() {
-            const sortSelect = document.getElementById('sortSelect');
-            const sortValue = sortSelect.value;
-            const questions = getDifficultQuestions();
 
-            let sortedQuestions = [];
-
-            if (sortValue === 'newest') {
-                sortedQuestions = [...questions].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-            } else if (sortValue === 'oldest') {
-                sortedQuestions = [...questions].sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-            } else if (sortValue === 'questionNumberAsc') {
-                sortedQuestions = [...questions].sort((a, b) => parseInt(a.questionNumber) - parseInt(b.questionNumber));
-                         } else if (sortValue === 'questionNumberDesc') {
-                 sortedQuestions = [...questions].sort((a, b) => parseInt(b.questionNumber) - parseInt(a.questionNumber));
-             } else if (sortValue === 'sourceAsc') {
-                 sortedQuestions = [...questions].sort((a, b) => a.source.localeCompare(b.source));
-                         } else if (sortValue === 'sourceDesc') {
-                sortedQuestions = [...questions].sort((a, b) => b.source.localeCompare(a.source));
-            }
-
-                         // Save sort preference
-             localStorage.setItem('difficultQuestionsSort', sortValue);
-             
-             // Update localStorage with sorted questions
-             localStorage.setItem('difficultQuestions', JSON.stringify(sortedQuestions));
-             loadDifficultQuestions(); // Re-render the list with sorted data
-             
-             // Show notification about sort change
-             const sortLabels = {
-                 'newest': 'Mới nhất',
-                 'oldest': 'Cũ nhất',
-                 'questionNumberAsc': 'Số câu (tăng dần)',
-                 'questionNumberDesc': 'Số câu (giảm dần)',
-                 'sourceAsc': 'Phần thi (A-Z)',
-                 'sourceDesc': 'Phần thi (Z-A)'
-             };
-                          showNotification(`Đã sắp xếp theo: ${sortLabels[sortValue]}`, 'info');
-         }
 
          function randomizeQuestions() {
              const questions = getDifficultQuestions();
@@ -1586,18 +1499,12 @@
             // Load quiz data first
             const quizDataLoaded = await loadQuizData();
             
-            // Restore filter and sort preferences
+            // Restore filter preference
             const savedFilter = localStorage.getItem('difficultQuestionsFilter');
-            const savedSort = localStorage.getItem('difficultQuestionsSort');
             
             if (savedFilter) {
                 const filterSelect = document.getElementById('filterSelect');
                 if (filterSelect) filterSelect.value = savedFilter;
-            }
-            
-            if (savedSort) {
-                const sortSelect = document.getElementById('sortSelect');
-                if (sortSelect) sortSelect.value = savedSort;
             }
             
             // Load difficult questions
