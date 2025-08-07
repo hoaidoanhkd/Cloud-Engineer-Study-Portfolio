@@ -423,20 +423,7 @@
             outline-offset: 2px;
         }
         
-        .answer-option.selected {
-            border-color: #2196f3;
-            background: #e3f2fd;
-        }
-        
-        .answer-option.correct {
-            border-color: #4caf50;
-            background: #e8f5e8;
-        }
-        
-        .answer-option.incorrect {
-            border-color: #f44336;
-            background: #ffebee;
-        }
+
         
         .answer-radio {
             margin-right: 12px;
@@ -449,24 +436,7 @@
             line-height: 1.5;
         }
         
-        .feedback {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: 500;
-        }
-        
-        .feedback.correct {
-            background: #e8f5e8;
-            color: #2e7d32;
-            border: 1px solid #4caf50;
-        }
-        
-        .feedback.incorrect {
-            background: #ffebee;
-            color: #c62828;
-            border: 1px solid #f44336;
-        }
+
         
                                    .quiz-stats {
               background: white;
@@ -1495,13 +1465,18 @@
                 const isCorrect = answerObj.isCorrect;
                 const isIncorrect = isAnswered && userAnswers[currentQuestionIndex] === answerObj.label && !isCorrect;
                 
-                let optionClass = 'answer-option';
-                if (isSelected) optionClass += ' selected';
-                if (isAnswered && isCorrect) optionClass += ' correct';
-                if (isIncorrect) optionClass += ' incorrect';
+                // Apply the same styling logic as individual parts
+                let style = '';
+                if (isAnswered) {
+                    if (isCorrect) {
+                        style = 'color: green; font-weight: bold; background-color: rgba(76, 175, 80, 0.1); border-color: #4caf50;';
+                    } else if (isIncorrect) {
+                        style = 'color: red; font-weight: bold; background-color: rgba(244, 67, 54, 0.1); border-color: #f44336;';
+                    }
+                }
                 
                 return `
-                    <div class="${optionClass}" onclick="selectAnswer('${answerObj.label}')">
+                    <div class="answer-option" onclick="selectAnswer('${answerObj.label}')" style="${style}">
                         <input type="radio" class="answer-radio" name="answer" value="${answerObj.label}" 
                                ${isSelected ? 'checked' : ''} ${isAnswered ? 'disabled' : ''}>
                         <div class="answer-text">
@@ -1511,27 +1486,7 @@
                 `;
             }).join('');
             
-            // Create feedback
-            let feedback = '';
-            if (userAnswers[currentQuestionIndex] !== undefined) {
-                if (question.correctAnswer) {
-                    // Find the correct answer label in the shuffled answers
-                    let correctAnswerLabel = question.correctAnswer;
-                    if (question.shuffledAnswers) {
-                        const correctAnswerObj = question.shuffledAnswers.find(obj => obj.originalLabel === question.correctAnswer);
-                        if (correctAnswerObj) {
-                            correctAnswerLabel = correctAnswerObj.label;
-                        }
-                    }
-                    
-                    const isCorrect = userAnswers[currentQuestionIndex] === correctAnswerLabel;
-                    const feedbackClass = isCorrect ? 'correct' : 'incorrect';
-                    const feedbackText = isCorrect ? '✅ Đúng rồi!' : `❌ Sai rồi! Đáp án đúng là: ${correctAnswerLabel}`;
-                    feedback = `<div class="feedback ${feedbackClass}">${feedbackText}</div>`;
-                } else {
-                    feedback = `<div class="feedback incorrect">⚠️ Không thể xác định đáp án đúng cho câu hỏi này</div>`;
-                }
-            }
+
             
             questionDiv.innerHTML = `
                 <div class="question-card">
@@ -1541,7 +1496,6 @@
                     </div>
                     <div class="question-text">${question.text}</div>
                                          ${answerOptionsHtml}
-                    ${feedback}
                 </div>
             `;
             
@@ -1615,14 +1569,58 @@
             quizStats.answered++;
             
             updateQuizStats();
-            // KHÔNG gọi loadCurrentQuestion() ở đây nữa
-            // Hiện feedback và nút 'Câu tiếp theo'
+            
+            // Apply the same selection effect as individual parts
+            const answerOptions = document.querySelectorAll('.answer-option');
+            answerOptions.forEach(option => {
+                const radio = option.querySelector('input[type="radio"]');
+                if (radio) {
+                    const label = option;
+                    
+                    // Reset all labels first
+                    label.style.fontWeight = "normal";
+                    label.style.color = "black";
+                    label.style.backgroundColor = "transparent";
+                    label.style.borderColor = "#e0e0e0";
+                    
+                    // If this is the selected answer
+                    if (radio.value === answer) {
+                        if (isCorrect) {
+                            label.style.color = "green";
+                            label.style.fontWeight = "bold";
+                            label.style.backgroundColor = "rgba(76, 175, 80, 0.1)";
+                            label.style.borderColor = "#4caf50";
+                        } else {
+                            label.style.color = "red";
+                            label.style.fontWeight = "bold";
+                            label.style.backgroundColor = "rgba(244, 67, 54, 0.1)";
+                            label.style.borderColor = "#f44336";
+                        }
+                    }
+                    
+                    // If this is the correct answer (highlight it even if not selected)
+                    if (question.shuffledAnswers) {
+                        const correctAnswerObj = question.shuffledAnswers.find(obj => obj.originalLabel === question.correctAnswer);
+                        if (correctAnswerObj && radio.value === correctAnswerObj.label) {
+                            label.style.color = "green";
+                            label.style.fontWeight = "bold";
+                            label.style.backgroundColor = "rgba(76, 175, 80, 0.1)";
+                            label.style.borderColor = "#4caf50";
+                        }
+                    } else if (radio.value === question.correctAnswer) {
+                        label.style.color = "green";
+                        label.style.fontWeight = "bold";
+                        label.style.backgroundColor = "rgba(76, 175, 80, 0.1)";
+                        label.style.borderColor = "#4caf50";
+                    }
+                }
+            });
+            
+            // Show next button
             const nextBtnElement = document.getElementById('nextBtn');
             if (nextBtnElement) nextBtnElement.style.display = 'inline-block';
             const showAnswerBtnElement = document.getElementById('showAnswerBtn');
             if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'none';
-            // Cập nhật lại giao diện feedback cho đáp án vừa chọn
-            loadCurrentQuestion(false); // truyền false để không shuffle lại đáp án
         }
         
         function showAnswer() {
@@ -1635,7 +1633,43 @@
                 quizStats.answered++;
                 
                 updateQuizStats();
-                loadCurrentQuestion(); // Reload without shuffling
+                
+                // Apply the same selection effect as individual parts
+                const answerOptions = document.querySelectorAll('.answer-option');
+                answerOptions.forEach(option => {
+                    const radio = option.querySelector('input[type="radio"]');
+                    if (radio) {
+                        const label = option;
+                        
+                        // Reset all labels first
+                        label.style.fontWeight = "normal";
+                        label.style.color = "black";
+                        label.style.backgroundColor = "transparent";
+                        label.style.borderColor = "#e0e0e0";
+                        
+                        // Highlight the correct answer
+                        if (question.shuffledAnswers) {
+                            const correctAnswerObj = question.shuffledAnswers.find(obj => obj.originalLabel === question.correctAnswer);
+                            if (correctAnswerObj && radio.value === correctAnswerObj.label) {
+                                label.style.color = "green";
+                                label.style.fontWeight = "bold";
+                                label.style.backgroundColor = "rgba(76, 175, 80, 0.1)";
+                                label.style.borderColor = "#4caf50";
+                            }
+                        } else if (radio.value === question.correctAnswer) {
+                            label.style.color = "green";
+                            label.style.fontWeight = "bold";
+                            label.style.backgroundColor = "rgba(76, 175, 80, 0.1)";
+                            label.style.borderColor = "#4caf50";
+                        }
+                    }
+                });
+                
+                // Show next button
+                const nextBtnElement = document.getElementById('nextBtn');
+                if (nextBtnElement) nextBtnElement.style.display = 'inline-block';
+                const showAnswerBtnElement = document.getElementById('showAnswerBtn');
+                if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'none';
             } else {
                 showNotification('Không thể xác định đáp án đúng cho câu hỏi này', 'error');
             }
