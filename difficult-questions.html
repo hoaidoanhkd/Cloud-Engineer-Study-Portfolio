@@ -1451,9 +1451,17 @@
             const resetBtnElement = document.getElementById('resetBtn');
             
                          if (quizStatsElement) quizStatsElement.style.display = 'flex';
-            if (nextBtnElement) nextBtnElement.style.display = 'none';
+            if (nextBtnElement) {
+                nextBtnElement.style.display = 'none';
+                nextBtnElement.textContent = '⏭️ Câu tiếp theo';
+                nextBtnElement.onclick = nextQuestion;
+            }
             const floatingNextBtnElement = document.getElementById('floatingNextBtn');
-            if (floatingNextBtnElement) floatingNextBtnElement.style.display = 'none';
+            if (floatingNextBtnElement) {
+                floatingNextBtnElement.style.display = 'none';
+                floatingNextBtnElement.textContent = '⏭️ Câu tiếp theo';
+                floatingNextBtnElement.onclick = nextQuestion;
+            }
             if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'none';
             if (resetBtnElement) resetBtnElement.style.display = 'none';
             
@@ -1862,9 +1870,17 @@
             const resetBtnElement = document.getElementById('resetBtn');
             
             if (quizStatsElement) quizStatsElement.style.display = 'none';
-            if (nextBtnElement) nextBtnElement.style.display = 'none';
+            if (nextBtnElement) {
+                nextBtnElement.style.display = 'none';
+                nextBtnElement.textContent = '⏭️ Câu tiếp theo';
+                nextBtnElement.onclick = nextQuestion;
+            }
             const floatingNextBtnElement = document.getElementById('floatingNextBtn');
-            if (floatingNextBtnElement) floatingNextBtnElement.style.display = 'none';
+            if (floatingNextBtnElement) {
+                floatingNextBtnElement.style.display = 'none';
+                floatingNextBtnElement.textContent = '⏭️ Câu tiếp theo';
+                floatingNextBtnElement.onclick = nextQuestion;
+            }
             if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'none';
             if (resetBtnElement) resetBtnElement.style.display = 'none';
         }
