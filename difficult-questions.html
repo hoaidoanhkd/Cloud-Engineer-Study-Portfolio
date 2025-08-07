@@ -399,6 +399,53 @@
             background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
         }
         
+        /* Mobile-friendly floating next button */
+        .floating-next-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(76, 175, 80, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            display: none;
+            min-width: 140px;
+        }
+        
+        .floating-next-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 25px rgba(76, 175, 80, 0.6);
+        }
+        
+        .floating-next-btn:active {
+            transform: translateY(0) scale(0.95);
+        }
+        
+        /* Hide the original next button on mobile */
+        @media (max-width: 768px) {
+            #nextBtn {
+                display: none !important;
+            }
+            
+            .floating-next-btn {
+                display: block;
+            }
+        }
+        
+        /* Show floating button on desktop when needed */
+        @media (min-width: 769px) {
+            .floating-next-btn {
+                display: none;
+            }
+        }
+        
                  .answer-option {
              display: flex;
              align-items: center;
@@ -1034,6 +1081,11 @@
         <div class="footer">
             <p>© 2024 GCP Exam Practice - Học tập hiệu quả, thành công trong kỳ thi!</p>
         </div>
+        
+        <!-- Mobile-friendly floating next button -->
+        <button class="floating-next-btn" onclick="nextQuestion()" id="floatingNextBtn">
+            ⏭️ Câu tiếp theo
+        </button>
     </div>
 
     <script>
@@ -1400,6 +1452,8 @@
             
                          if (quizStatsElement) quizStatsElement.style.display = 'flex';
             if (nextBtnElement) nextBtnElement.style.display = 'none';
+            const floatingNextBtnElement = document.getElementById('floatingNextBtn');
+            if (floatingNextBtnElement) floatingNextBtnElement.style.display = 'none';
             if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'none';
             if (resetBtnElement) resetBtnElement.style.display = 'none';
             
@@ -1516,6 +1570,8 @@
             } else {
                 if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'inline-block';
                 if (nextBtnElement) nextBtnElement.style.display = 'none';
+                const floatingNextBtnElement = document.getElementById('floatingNextBtn');
+                if (floatingNextBtnElement) floatingNextBtnElement.style.display = 'none';
                 if (resetBtnElement) resetBtnElement.style.display = 'none';
             }
         }
@@ -1616,10 +1672,29 @@
                 }
             });
             
-            // Show next button
+            // Show next button or results button based on question position
             const nextBtnElement = document.getElementById('nextBtn');
-            if (nextBtnElement) nextBtnElement.style.display = 'inline-block';
+            const floatingNextBtnElement = document.getElementById('floatingNextBtn');
             const showAnswerBtnElement = document.getElementById('showAnswerBtn');
+            
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                // Not the last question - show next button
+                if (nextBtnElement) nextBtnElement.style.display = 'inline-block';
+                if (floatingNextBtnElement) floatingNextBtnElement.style.display = 'block';
+            } else {
+                // Last question - show results button
+                if (nextBtnElement) {
+                    nextBtnElement.textContent = '🏆 Xem kết quả';
+                    nextBtnElement.onclick = showQuizResults;
+                    nextBtnElement.style.display = 'inline-block';
+                }
+                if (floatingNextBtnElement) {
+                    floatingNextBtnElement.textContent = '🏆 Xem kết quả';
+                    floatingNextBtnElement.onclick = showQuizResults;
+                    floatingNextBtnElement.style.display = 'block';
+                }
+            }
+            
             if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'none';
         }
         
@@ -1665,10 +1740,29 @@
                     }
                 });
                 
-                // Show next button
+                // Show next button or results button based on question position
                 const nextBtnElement = document.getElementById('nextBtn');
-                if (nextBtnElement) nextBtnElement.style.display = 'inline-block';
+                const floatingNextBtnElement = document.getElementById('floatingNextBtn');
                 const showAnswerBtnElement = document.getElementById('showAnswerBtn');
+                
+                if (currentQuestionIndex < quizQuestions.length - 1) {
+                    // Not the last question - show next button
+                    if (nextBtnElement) nextBtnElement.style.display = 'inline-block';
+                    if (floatingNextBtnElement) floatingNextBtnElement.style.display = 'block';
+                } else {
+                    // Last question - show results button
+                    if (nextBtnElement) {
+                        nextBtnElement.textContent = '🏆 Xem kết quả';
+                        nextBtnElement.onclick = showQuizResults;
+                        nextBtnElement.style.display = 'inline-block';
+                    }
+                    if (floatingNextBtnElement) {
+                        floatingNextBtnElement.textContent = '🏆 Xem kết quả';
+                        floatingNextBtnElement.onclick = showQuizResults;
+                        floatingNextBtnElement.style.display = 'block';
+                    }
+                }
+                
                 if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'none';
             } else {
                 showNotification('Không thể xác định đáp án đúng cho câu hỏi này', 'error');
@@ -1678,6 +1772,9 @@
         function nextQuestion() {
             if (currentQuestionIndex < quizQuestions.length - 1) {
                 currentQuestionIndex++;
+                // Hide floating button when moving to next question
+                const floatingNextBtnElement = document.getElementById('floatingNextBtn');
+                if (floatingNextBtnElement) floatingNextBtnElement.style.display = 'none';
                 loadCurrentQuestion();
             }
         }
@@ -1691,6 +1788,18 @@
                 incorrect: 0,
                 viewed: 0
             };
+            
+            // Reset button text and onclick handler
+            const nextBtnElement = document.getElementById('nextBtn');
+            const floatingNextBtnElement = document.getElementById('floatingNextBtn');
+            if (nextBtnElement) {
+                nextBtnElement.textContent = '⏭️ Câu tiếp theo';
+                nextBtnElement.onclick = nextQuestion;
+            }
+            if (floatingNextBtnElement) {
+                floatingNextBtnElement.textContent = '⏭️ Câu tiếp theo';
+                floatingNextBtnElement.onclick = nextQuestion;
+            }
             
             updateQuizStats();
             loadCurrentQuestion();
@@ -1724,6 +1833,8 @@
             const resetBtnElement = document.getElementById('resetBtn');
             
             if (nextBtnElement) nextBtnElement.style.display = 'none';
+            const floatingNextBtnElement = document.getElementById('floatingNextBtn');
+            if (floatingNextBtnElement) floatingNextBtnElement.style.display = 'none';
             if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'none';
             if (resetBtnElement) resetBtnElement.style.display = 'none';
         }
@@ -1752,6 +1863,8 @@
             
             if (quizStatsElement) quizStatsElement.style.display = 'none';
             if (nextBtnElement) nextBtnElement.style.display = 'none';
+            const floatingNextBtnElement = document.getElementById('floatingNextBtn');
+            if (floatingNextBtnElement) floatingNextBtnElement.style.display = 'none';
             if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'none';
             if (resetBtnElement) resetBtnElement.style.display = 'none';
         }
