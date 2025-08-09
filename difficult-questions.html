@@ -1397,9 +1397,22 @@
         
         // Quiz functions
         function startQuiz() {
-            const difficultQuestions = getDifficultQuestions();
+            // Lấy danh sách câu khó và áp dụng bộ lọc hiện tại (nếu có)
+            const allDifficultQuestions = getDifficultQuestions();
+            const filterSelect = document.getElementById('filterSelect');
+            const filterValue = filterSelect ? filterSelect.value : 'all';
+
+            let difficultQuestions = allDifficultQuestions;
+            if (filterValue && filterValue !== 'all') {
+                const [start, end] = filterValue.split('-').map(n => parseInt(n, 10));
+                difficultQuestions = allDifficultQuestions.filter(q => {
+                    const num = parseInt(q.questionNumber, 10);
+                    return num >= start && num <= end;
+                });
+            }
+
             if (difficultQuestions.length === 0) {
-                showNotification('Không có câu hỏi khó nào để làm quiz!', 'error');
+                showNotification('Không có câu hỏi phù hợp với bộ lọc để làm quiz!', 'warning');
                 return;
             }
             
