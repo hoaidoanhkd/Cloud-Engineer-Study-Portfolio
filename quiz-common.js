@@ -231,7 +231,7 @@ function addPartStats(partName, startNumber, total) {
         return qNum >= startNumber && qNum < startNumber + total;
     });
     
-    // Tạo stats bar
+    // Tạo stats bar với nút check khó tất cả
     const statsBar = document.createElement('div');
     statsBar.className = 'part-stats-bar';
     statsBar.innerHTML = `
@@ -240,6 +240,10 @@ function addPartStats(partName, startNumber, total) {
             <span class="stats-text">Câu khó trong phần này: </span>
             <span class="stats-number" id="partStatsNumber">${partQuestions.length}</span>
             <span class="stats-total">/${total}</span>
+            <button type="button" class="check-all-difficult-btn" id="checkAllDifficultBtn">
+                <span class="check-all-icon">🔥</span>
+                <span class="check-all-text">Check khó tất cả</span>
+            </button>
         </div>
     `;
     
@@ -252,6 +256,14 @@ function addPartStats(partName, startNumber, total) {
         } else {
             container.appendChild(statsBar);
         }
+    }
+    
+    // Thêm event listener cho nút check khó tất cả
+    const checkAllBtn = document.getElementById('checkAllDifficultBtn');
+    if (checkAllBtn) {
+        checkAllBtn.addEventListener('click', function() {
+            checkAllDifficultQuestions(partName, startNumber, total);
+        });
     }
 }
 
@@ -274,6 +286,89 @@ function updatePartStats(partName, startNumber, total) {
             statsNumber.style.color = '#4285f4';
         }
     }
+}
+
+// Hàm đánh dấu tất cả câu hỏi trong part là khó
+function checkAllDifficultQuestions(partName, startNumber, total) {
+    const questions = getDifficultQuestions();
+    let addedCount = 0;
+    
+    // Lưu vị trí scroll hiện tại
+    const currentScrollY = window.scrollY;
+    
+    for (let i = startNumber; i < startNumber + total; i++) {
+        const questionId = `q${i}_${partName}`;
+        const existingIndex = questions.findIndex(q => q.id === questionId);
+        
+        if (existingIndex === -1) {
+            // Chỉ thêm nếu chưa có
+            const questionElement = document.getElementById(`question${i}`);
+            if (questionElement) {
+                const questionTextElement = questionElement.querySelector('.question-content p, p');
+                if (questionTextElement) {
+                    const questionText = questionTextElement.textContent.trim();
+                    
+                    // Lấy đáp án từ các option A, B, C, D
+                    const answers = [];
+                    const answerElements = questionElement.querySelectorAll('.answers label');
+                    answerElements.forEach((label, index) => {
+                        const input = label.querySelector('input');
+                        let answerText = label.textContent.trim();
+                        
+                        if (answerText) {
+                            // Loại bỏ hoàn toàn phần "A.", "B.", "C.", "D." ở đầu
+                            const labelPattern = /^[A-D]\.\s*/;
+                            answerText = answerText.replace(labelPattern, '');
+                            
+                            // Loại bỏ thêm nếu vẫn còn trùng lặp
+                            const duplicatePattern = /^([A-D])\.\s*\1\.\s*/;
+                            if (duplicatePattern.test(answerText)) {
+                                answerText = answerText.replace(duplicatePattern, '$1. ');
+                            }
+                            
+                            answers.push(answerText);
+                        }
+                    });
+                    
+                    questions.push({
+                        id: questionId,
+                        questionNumber: i,
+                        text: questionText,
+                        answers: answers,
+                        source: partName,
+                        timestamp: new Date().toISOString()
+                    });
+                    
+                    addedCount++;
+                    
+                    // Cập nhật nút
+                    const button = questionElement.querySelector('.difficult-btn');
+                    if (button) {
+                        button.textContent = '🔥';
+                        button.classList.add('marked');
+                    }
+                }
+            }
+        }
+    }
+    
+    // Lưu vào localStorage
+    saveDifficultQuestions(questions);
+    
+    // Cập nhật thống kê
+    updatePartStats(partName, startNumber, total);
+    
+    // Hiển thị thông báo
+    if (addedCount > 0) {
+        showNotification(`Đã đánh dấu ${addedCount} câu hỏi là khó!`, 'success');
+    } else {
+        showNotification('Tất cả câu hỏi đã được đánh dấu khó!', 'warning');
+    }
+    
+    // Khôi phục vị trí scroll
+    setTimeout(() => {
+        window.scrollTo(0, currentScrollY);
+    }, 0);
 }
 
 // Khởi tạo quiz với chức năng 
@@ -430,6 +525,57 @@ function initializeQuiz(correctAnswers, total, partName, startNumber = 1) {
             color: #6c757d;
             font-size: 14px;
         }
+        .check-all-difficult-btn {
+            background: linear-gradient(135deg, #ea4335 0%, #fbbc04 100%);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 3px 8px rgba(234, 67, 53, 0.3);
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+            outline: none;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            transform: scale(1);
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .check-all-difficult-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        .check-all-difficult-btn:hover::before {
+            left: 100%;
+        }
+        .check-all-difficult-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(234, 67, 53, 0.4);
+        }
+        .check-all-difficult-btn:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+        .check-all-icon {
+            font-size: 14px;
+        }
+        .check-all-text {
+            font-size: 11px;
+        }
         @keyframes slideIn {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
@@ -455,6 +601,17 @@ function initializeQuiz(correctAnswers, total, partName, startNumber = 1) {
             }
             .difficult-btn {
                 align-self: flex-start;
+            }
+            .part-stats-content {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+            .check-all-difficult-btn {
+                margin-left: 0;
+                margin-top: 5px;
+                width: 100%;
+                justify-content: center;
             }
         }
     `;
