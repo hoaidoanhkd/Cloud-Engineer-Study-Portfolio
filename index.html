@@ -300,62 +300,108 @@
             line-height: 1.6;
         }
         
-        /* New styles for special features */
+        /* Enhanced styles for special features */
         .special-features {
             margin-bottom: 50px;
-            padding: 40px 20px;
-            background: linear-gradient(145deg, #f8f9fa, #ffffff);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            animation: fadeIn 1s ease-out 1.5s both;
+            padding: 50px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            animation: fadeIn 1s ease-out 0.8s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .special-features::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 8s ease-in-out infinite;
         }
 
         .special-features h3 {
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
             font-weight: 600;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
         }
 
         .feature-card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 35px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid #e9ecef;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4285f4, #34a853, #fbbc04, #ea4335);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            border-color: #4285f4;
         }
 
         .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: #4285f4;
+            font-size: 5rem;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
 
         .feature-card h4 {
             color: #333;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+            font-weight: 700;
         }
 
         .feature-card p {
-            color: #666;
-            margin-bottom: 20px;
-            line-height: 1.6;
-            font-size: 1rem;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.7;
+            font-size: 1.1rem;
         }
 
         .feature-link {
@@ -363,15 +409,16 @@
             background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
             color: white;
             text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-weight: 600;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 700;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-transform: uppercase;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             letter-spacing: 1px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 8px 20px rgba(66, 133, 244, 0.3);
         }
 
         .feature-link::before {
@@ -381,8 +428,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
         }
 
         .feature-link:hover::before {
@@ -390,12 +437,12 @@
         }
 
         .feature-link:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 10px 25px rgba(66, 133, 244, 0.4);
+            transform: scale(1.08) translateY(-3px);
+            box-shadow: 0 15px 35px rgba(66, 133, 244, 0.5);
         }
 
         .feature-link:active {
-            transform: scale(0.98);
+            transform: scale(0.95);
         }
         
         @media (max-width: 768px) {
@@ -447,34 +494,42 @@
             }
             
             .special-features {
-                padding: 30px 20px;
+                padding: 40px 25px;
+            }
+            
+            .special-features h3 {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
             }
             
             .features-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
+                justify-content: center;
             }
             
             .feature-card {
-                padding: 25px 20px;
+                padding: 35px 25px;
+                max-width: 400px;
             }
             
             .feature-icon {
-                font-size: 2.5rem;
+                font-size: 4rem;
+                margin-bottom: 20px;
             }
             
             .feature-card h4 {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
+                margin-bottom: 15px;
             }
             
             .feature-card p {
-                font-size: 0.95rem;
+                font-size: 1.05rem;
+                margin-bottom: 25px;
             }
             
             .feature-link {
                 width: 100%;
-                padding: 15px 20px;
-                font-size: 16px;
+                padding: 15px 25px;
+                font-size: 0.9rem;
                 text-align: center;
             }
         }
@@ -533,36 +588,37 @@
             }
             
             .special-features {
-                padding: 25px 15px;
+                padding: 30px 20px;
             }
             
             .special-features h3 {
-                font-size: 1.5rem;
-                margin-bottom: 20px;
+                font-size: 1.6rem;
+                margin-bottom: 25px;
             }
             
             .feature-card {
-                padding: 20px 15px;
+                padding: 30px 25px;
+                max-width: 350px;
             }
             
             .feature-icon {
-                font-size: 2rem;
-                margin-bottom: 12px;
+                font-size: 3.5rem;
+                margin-bottom: 18px;
             }
             
             .feature-card h4 {
-                font-size: 1.1rem;
-                margin-bottom: 8px;
+                font-size: 1.3rem;
+                margin-bottom: 12px;
             }
             
             .feature-card p {
-                font-size: 0.9rem;
-                margin-bottom: 15px;
+                font-size: 1rem;
+                margin-bottom: 22px;
             }
             
             .feature-link {
-                padding: 12px 20px;
-                font-size: 0.8rem;
+                padding: 14px 22px;
+                font-size: 0.85rem;
             }
             
             .stats {
@@ -661,6 +717,19 @@
                 <p>Hệ thống này giúp bạn luyện tập với các câu hỏi được thiết kế theo chuẩn GCP, theo dõi tiến độ học tập, và tập trung vào những câu hỏi khó để cải thiện điểm số.</p>
             </div>
             
+            <!-- Special Features Section - Optimized for single feature -->
+            <div class="special-features">
+                <h3>🌟 Tính năng đặc biệt</h3>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔥</div>
+                        <h4>Câu hỏi khó</h4>
+                        <p>Tập trung vào những câu hỏi bạn đánh dấu là khó để cải thiện điểm số hiệu quả.</p>
+                        <a href="difficult-questions.html" class="feature-link">Xem câu hỏi khó</a>
+                    </div>
+                </div>
+            </div>
+            
             <div class="quiz-grid">
                 <div class="quiz-card">
                     <h3>📚 Part 1: GCP Fundamentals</h3>
@@ -696,33 +765,6 @@
                     <h3>🚀 Part 6: Advanced Topics</h3>
                     <p>Các chủ đề nâng cao như Kubernetes, serverless, AI/ML và các dịch vụ enterprise của GCP.</p>
                     <a href="part6-questions-251-302.html" class="quiz-link">Bắt đầu học</a>
-                </div>
-            </div>
-            
-            <!-- Special Features Section -->
-            <div class="special-features">
-                <h3>🌟 Tính năng đặc biệt</h3>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🔥</div>
-                        <h4>Câu hỏi khó</h4>
-                        <p>Tập trung vào những câu hỏi bạn đánh dấu là khó để cải thiện điểm số hiệu quả.</p>
-                        <a href="difficult-questions.html" class="feature-link">Xem câu hỏi khó</a>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">📚</div>
-                        <h4>Keywords Study</h4>
-                        <p>Học tập theo từ khóa quan trọng để nắm vững các khái niệm cốt lõi của GCP.</p>
-                        <a href="keyword_251_317.html" class="feature-link">Học từ khóa</a>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">📊</div>
-                        <h4>Theo dõi tiến độ</h4>
-                        <p>Xem thống kê chi tiết về quá trình học tập và cải thiện điểm số của bạn.</p>
-                        <a href="difficult-questions.html" class="feature-link">Xem thống kê</a>
-                    </div>
                 </div>
             </div>
             
