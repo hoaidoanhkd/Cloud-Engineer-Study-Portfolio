@@ -1801,6 +1801,57 @@
         }
         
         function resetQuiz() {
+            // Reload quiz questions from current difficult questions list
+            const allDifficultQuestions = getDifficultQuestions();
+            const filterSelect = document.getElementById('filterSelect');
+            const filterValue = filterSelect ? filterSelect.value : 'all';
+
+            let difficultQuestions = allDifficultQuestions;
+            if (filterValue && filterValue !== 'all') {
+                const [start, end] = filterValue.split('-').map(n => parseInt(n, 10));
+                difficultQuestions = allDifficultQuestions.filter(q => {
+                    const num = parseInt(q.questionNumber, 10);
+                    return num >= start && num <= end;
+                });
+            }
+
+            if (difficultQuestions.length === 0) {
+                showNotification('Không có câu hỏi phù hợp với bộ lọc để làm quiz!', 'warning');
+                return;
+            }
+            
+            // Prepare quiz questions with full data
+            quizQuestions = difficultQuestions.map(q => {
+                const questionNumber = parseInt(q.questionNumber);
+                
+                // Find correct answer from quiz data
+                let correctAnswer = null;
+                
+                // Try to find the correct part based on question number
+                if (quizData && quizData.quizParts) {
+                    for (const [partKey, partData] of Object.entries(quizData.quizParts)) {
+                        if (questionNumber >= partData.startNumber && questionNumber <= partData.endNumber) {
+                            const partIndex = questionNumber - partData.startNumber;
+                            if (partIndex >= 0 && partIndex < partData.correctAnswers.length) {
+                                correctAnswer = partData.correctAnswers[partIndex];
+                                console.log(`Found correct answer for question ${questionNumber}: ${correctAnswer} from part ${partKey} (index ${partIndex})`);
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                if (!correctAnswer) {
+                    console.warn(`Could not find correct answer for question ${questionNumber} from source: ${q.source}`);
+                }
+                
+                return {
+                    ...q,
+                    correctAnswer: correctAnswer
+                };
+            });
+            
+            // Reset quiz state
             currentQuestionIndex = 0;
             userAnswers = {};
             quizStats = {
@@ -1830,6 +1881,46 @@
             const questionDiv = document.getElementById('currentQuestion');
             const accuracy = quizStats.answered > 0 ? Math.round((quizStats.correct / quizStats.answered) * 100) : 0;
             
+            // Xử lý logic: chỉ giữ lại câu hỏi sai, xóa câu hỏi đúng
+            const allDifficultQuestions = getDifficultQuestions();
+            const questionsToKeep = [];
+            const questionsToRemove = [];
+            
+            // Phân loại câu hỏi dựa trên kết quả
+            quizQuestions.forEach((question, index) => {
+                const userAnswer = userAnswers[index];
+                const isCorrect = userAnswer && question.correctAnswer && userAnswer === question.correctAnswer;
+                
+                // Tìm câu hỏi trong danh sách câu khó hiện tại
+                const existingQuestion = allDifficultQuestions.find(q => 
+                    q.questionNumber === question.questionNumber && q.source === question.source
+                );
+                
+                if (existingQuestion) {
+                    if (isCorrect) {
+                        // Câu trả lời đúng - sẽ bị xóa khỏi danh sách câu khó
+                        questionsToRemove.push(existingQuestion);
+                    } else {
+                        // Câu trả lời sai - giữ lại trong danh sách câu khó
+                        questionsToKeep.push(existingQuestion);
+                    }
+                }
+            });
+            
+            // Cập nhật danh sách câu hỏi khó
+            const updatedDifficultQuestions = allDifficultQuestions.filter(q => 
+                !questionsToRemove.some(toRemove => 
+                    toRemove.questionNumber === q.questionNumber && toRemove.source === q.source
+                )
+            );
+            
+            // Lưu danh sách mới
+            localStorage.setItem('difficultQuestions', JSON.stringify(updatedDifficultQuestions));
+            
+            // Hiển thị thông báo về số câu đã xóa
+            const removedCount = questionsToRemove.length;
+            const keptCount = questionsToKeep.length;
+            
             questionDiv.innerHTML = `
                 <div class="question-card">
                     <h3>🎉 Kết quả Quiz</h3>
@@ -1842,6 +1933,11 @@
                             <div>Đúng: <strong style="color: #4caf50;">${quizStats.correct}</strong></div>
                             <div>Sai: <strong style="color: #f44336;">${quizStats.incorrect}</strong></div>
                             <div>Xem đáp án: <strong style="color: #ff9800;">${quizStats.viewed}</strong></div>
+                        </div>
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #2196f3;">
+                            <div style="font-weight: bold; color: #2196f3; margin-bottom: 8px;">📊 Cập nhật danh sách câu khó:</div>
+                            <div style="color: #4caf50;">✅ Đã xóa ${removedCount} câu trả lời đúng</div>
+                            <div style="color: #f44336;">❌ Giữ lại ${keptCount} câu trả lời sai</div>
                         </div>
                         <button class="quiz-btn" onclick="resetQuiz()">🔄 Làm lại</button>
                         <button class="quiz-btn" onclick="exitQuiz()">🏠 Thoát Quiz</button>
@@ -1858,6 +1954,14 @@
             if (floatingNextBtnElement) floatingNextBtnElement.style.display = 'none';
             if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'none';
             if (resetBtnElement) resetBtnElement.style.display = 'none';
+            
+            // Cập nhật danh sách câu hỏi khó trên giao diện
+            loadDifficultQuestions();
+            
+            // Hiển thị thông báo
+            if (removedCount > 0) {
+                showNotification(`Đã xóa ${removedCount} câu trả lời đúng khỏi danh sách câu khó!`, 'info');
+            }
         }
         
         function exitQuiz() {
