@@ -337,7 +337,9 @@
         .features-grid {
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: stretch; /* Make cards same height */
+            flex-wrap: wrap;
+            gap: 30px; /* Add space between cards */
             position: relative;
             z-index: 1;
         }
@@ -726,6 +728,12 @@
                         <h4>Câu hỏi khó</h4>
                         <p>Tập trung vào những câu hỏi bạn đánh dấu là khó để cải thiện điểm số hiệu quả.</p>
                         <a href="difficult-questions.html" class="feature-link">Xem câu hỏi khó</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <h4>Tạo Quiz Tùy Chỉnh</h4>
+                        <p>Tự tạo bài kiểm tra của riêng bạn bằng cách chọn các câu hỏi cụ thể từ toàn bộ 302 câu hỏi.</p>
+                        <a href="custom-quiz.html" class="feature-link">Tạo Quiz Ngay</a>
                     </div>
                 </div>
             </div>
