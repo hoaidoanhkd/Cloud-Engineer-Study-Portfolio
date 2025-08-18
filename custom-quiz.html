@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Tạo Quiz Tùy Chỉnh - GCP Exam Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            background: white;
+            border-radius: 0;
+            box-shadow: none;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #34a853 0%, #4285f4 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .home-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 0.9rem;
+        }
+
+        .home-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px 20px;
+        }
+
+        .controls {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e9ecef;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .quiz-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+        }
+
+        #question-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 10px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .question-checkbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .question-checkbox input {
+            display: none;
+        }
+
+        .question-checkbox label {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            background: #e9ecef;
+            color: #495057;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            border: 2px solid transparent;
+        }
+
+        .question-checkbox input:checked + label {
+            background: #4285f4;
+            color: white;
+            border-color: #1976d2;
+            transform: scale(1.05);
+        }
+
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 15px;
+            }
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            #question-grid {
+                grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+                gap: 8px;
+            }
+            .question-checkbox label {
+                width: 45px;
+                height: 45px;
+                font-size: 0.9rem;
+            }
+            .controls {
+                flex-direction: column;
+            }
+            .quiz-btn {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="index.html" class="home-btn">🏠 Trang chủ</a>
+            <h1>Tạo Quiz Tùy Chỉnh</h1>
+            <p>Chọn các câu hỏi bạn muốn đưa vào bài kiểm tra của mình.</p>
+        </div>
+
+        <div class="content">
+            <div class="controls">
+                <button id="startQuizBtn" class="quiz-btn">🚀 Bắt đầu Quiz với các câu đã chọn</button>
+                <button id="selectAllBtn" class="quiz-btn" style="background: linear-gradient(135deg, #fbbc04 0%, #ea4335 100%);">Chọn Tất Cả</button>
+                <button id="deselectAllBtn" class="quiz-btn" style="background: linear-gradient(135deg, #6c757d 0%, #343a40 100%);">Bỏ Chọn Tất Cả</button>
+            </div>
+
+            <div id="question-grid">
+                <!-- Checkboxes will be generated here by JavaScript -->
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 GCP Exam Practice - Học tập hiệu quả, thành công trong kỳ thi!</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('question-grid');
+            const totalQuestions = 302;
+
+            // Generate checkboxes
+            for (let i = 1; i <= totalQuestions; i++) {
+                const checkboxContainer = document.createElement('div');
+                checkboxContainer.className = 'question-checkbox';
+
+                const input = document.createElement('input');
+                input.type = 'checkbox';
+                input.id = `q${i}`;
+                input.value = i;
+
+                const label = document.createElement('label');
+                label.htmlFor = `q${i}`;
+                label.textContent = i;
+
+                checkboxContainer.appendChild(input);
+                checkboxContainer.appendChild(label);
+                grid.appendChild(checkboxContainer);
+            }
+
+            // Button functionalities
+            const selectAllBtn = document.getElementById('selectAllBtn');
+            const deselectAllBtn = document.getElementById('deselectAllBtn');
+            const checkboxes = document.querySelectorAll('.question-checkbox input');
+
+            selectAllBtn.addEventListener('click', () => {
+                checkboxes.forEach(cb => cb.checked = true);
+            });
+
+            deselectAllBtn.addEventListener('click', () => {
+                checkboxes.forEach(cb => cb.checked = false);
+            });
+
+            const startQuizBtn = document.getElementById('startQuizBtn');
+            startQuizBtn.addEventListener('click', async () => {
+                const selectedNumbers = Array.from(checkboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value);
+
+                if (selectedNumbers.length === 0) {
+                    alert('Bạn phải chọn ít nhất một câu hỏi để bắt đầu quiz!');
+                    return;
+                }
+
+                // Show a loading indicator
+                startQuizBtn.textContent = '⏳ Đang chuẩn bị quiz...';
+                startQuizBtn.disabled = true;
+
+                try {
+                    const questions = await fetchQuestionData(selectedNumbers);
+                    if (questions.length !== selectedNumbers.length) {
+                        console.warn('Could not find all selected questions. Found:', questions.length, 'Selected:', selectedNumbers.length);
+                        // alert('Không thể tìm thấy một vài câu hỏi đã chọn. Quiz sẽ bắt đầu với những câu tìm được.');
+                    }
+                    if (questions.length === 0) {
+                        alert('Không tìm thấy dữ liệu cho các câu hỏi đã chọn. Vui lòng thử lại.');
+                        throw new Error("No questions found");
+                    }
+                    localStorage.setItem('customQuizQuestions', JSON.stringify(questions));
+                    window.location.href = 'difficult-questions.html';
+                } catch (error) {
+                    console.error('Failed to prepare custom quiz:', error);
+                    alert('Đã xảy ra lỗi khi chuẩn bị quiz. Vui lòng kiểm tra console và thử lại.');
+                    // Restore button state
+                    startQuizBtn.textContent = '🚀 Bắt đầu Quiz với các câu đã chọn';
+                    startQuizBtn.disabled = false;
+                }
+            });
+
+            async function fetchQuestionData(numbers) {
+                const fileMap = {};
+                const getFilename = (num) => {
+                    if (num >= 1 && num <= 50) return 'part1-questions-1-50.html';
+                    if (num >= 51 && num <= 100) return 'part2-questions-51-100.html';
+                    if (num >= 101 && num <= 150) return 'part3-questions-101-150.html';
+                    if (num >= 151 && num <= 200) return 'part4-questions-151-200.html';
+                    if (num >= 201 && num <= 250) return 'part5-questions-201-250.html';
+                    if (num >= 251 && num <= 302) return 'part6-questions-251-302.html';
+                    return null;
+                };
+
+                numbers.forEach(numStr => {
+                    const num = parseInt(numStr, 10);
+                    const filename = getFilename(num);
+                    if (filename) {
+                        if (!fileMap[filename]) {
+                            fileMap[filename] = [];
+                        }
+                        fileMap[filename].push(numStr);
+                    }
+                });
+
+                const allQuestions = [];
+                const parser = new DOMParser();
+
+                for (const filename in fileMap) {
+                    const response = await fetch(filename);
+                    if (!response.ok) throw new Error(`Failed to fetch ${filename}`);
+                    const htmlText = await response.text();
+                    const doc = parser.parseFromString(htmlText, 'text/html');
+
+                    const numbersToFind = new Set(fileMap[filename]);
+                    const questionDivs = doc.querySelectorAll('.question');
+
+                    questionDivs.forEach(div => {
+                        const strongTag = div.querySelector('p > strong');
+                        if (strongTag && strongTag.textContent.includes('Question')) {
+                            const match = strongTag.textContent.match(/Question (\d+):/);
+                            const currentNum = match ? match[1] : null;
+
+                            if (currentNum && numbersToFind.has(currentNum)) {
+                                const questionText = div.querySelector('p').innerHTML;
+                                const answerLabels = div.querySelectorAll('.answers label');
+                                const answers = Array.from(answerLabels).map(label => label.innerText.trim());
+                                const partNameEl = doc.querySelector('.part-info h1');
+                                const source = partNameEl ? partNameEl.textContent.trim() : 'Unknown Part';
+
+                                allQuestions.push({
+                                    id: `custom-${currentNum}`,
+                                    questionNumber: currentNum,
+                                    text: questionText,
+                                    answers: answers,
+                                    source: source,
+                                    timestamp: new Date().toISOString()
+                                });
+                            }
+                        }
+                    });
+                }
+                // Sort questions by number to maintain order
+                allQuestions.sort((a, b) => parseInt(a.questionNumber) - parseInt(b.questionNumber));
+                return allQuestions;
+            }
+        });
+    </script>
+</body>
+</html>
