@@ -2128,7 +2128,7 @@
                 {
                     questionNumber: "15",
                     source: "part1",
-                    questionText: "What is the primary benefit of using Google Cloud Platform's global infrastructure?",
+                    text: "What is the primary benefit of using Google Cloud Platform's global infrastructure?",
                     answers: {
                         "A": "Lower costs compared to on-premises solutions",
                         "B": "Faster deployment times for applications",
@@ -2141,7 +2141,7 @@
                 {
                     questionNumber: "67",
                     source: "part2",
-                    questionText: "Which Google Cloud service provides managed Kubernetes clusters?",
+                    text: "Which Google Cloud service provides managed Kubernetes clusters?",
                     answers: {
                         "A": "Compute Engine",
                         "B": "Google Kubernetes Engine (GKE)",
@@ -2154,7 +2154,7 @@
                 {
                     questionNumber: "123",
                     source: "part3",
-                    questionText: "What is the main difference between Cloud Storage and Cloud SQL?",
+                    text: "What is the main difference between Cloud Storage and Cloud SQL?",
                     answers: {
                         "A": "Cloud Storage is for structured data, Cloud SQL is for unstructured data",
                         "B": "Cloud Storage is object storage, Cloud SQL is relational database",
@@ -2167,7 +2167,7 @@
                 {
                     questionNumber: "189",
                     source: "part4",
-                    questionText: "Which IAM role provides the most permissions in Google Cloud?",
+                    text: "Which IAM role provides the most permissions in Google Cloud?",
                     answers: {
                         "A": "Editor",
                         "B": "Viewer",
@@ -2180,7 +2180,7 @@
                 {
                     questionNumber: "234",
                     source: "part5",
-                    questionText: "What is the purpose of Cloud Monitoring in Google Cloud?",
+                    text: "What is the purpose of Cloud Monitoring in Google Cloud?",
                     answers: {
                         "A": "To manage user access and permissions",
                         "B": "To monitor and observe applications and infrastructure",
@@ -2193,7 +2193,7 @@
                 {
                     questionNumber: "278",
                     source: "part6",
-                    questionText: "Which service is best suited for running serverless containers?",
+                    text: "Which service is best suited for running serverless containers?",
                     answers: {
                         "A": "Compute Engine",
                         "B": "Cloud Functions",
@@ -2253,22 +2253,47 @@
 
 
          function randomizeQuestions() {
-             const questions = getDifficultQuestions();
-             
+             const questions = getQuestionsFromStorage('difficultQuestions');
+             const filterSelect = document.getElementById('filterSelect');
+             const filterValue = filterSelect ? filterSelect.value : 'all';
+
              if (questions.length === 0) {
                  showNotification('Không có câu hỏi nào để sắp xếp ngẫu nhiên', 'warning');
                  return;
              }
-             
-             // Fisher-Yates shuffle algorithm for random sorting
-             const shuffledQuestions = [...questions];
-             for (let i = shuffledQuestions.length - 1; i > 0; i--) {
-                 const j = Math.floor(Math.random() * (i + 1));
-                 [shuffledQuestions[i], shuffledQuestions[j]] = [shuffledQuestions[j], shuffledQuestions[i]];
+
+             let questionsToShuffle = [];
+             let otherQuestions = [];
+
+             if (filterValue === 'all') {
+                 questionsToShuffle = [...questions];
+             } else {
+                 const [start, end] = filterValue.split('-').map(num => parseInt(num));
+                 questionsToShuffle = questions.filter(question => {
+                     const questionNum = parseInt(question.questionNumber);
+                     return questionNum >= start && questionNum <= end;
+                 });
+                 otherQuestions = questions.filter(question => {
+                     const questionNum = parseInt(question.questionNumber);
+                     return questionNum < start || questionNum > end;
+                 });
              }
+
+             if (questionsToShuffle.length === 0) {
+                 showNotification('Không có câu hỏi nào trong bộ lọc hiện tại để sắp xếp', 'warning');
+                 return;
+             }
+
+             // Fisher-Yates shuffle algorithm for random sorting
+             for (let i = questionsToShuffle.length - 1; i > 0; i--) {
+                 const j = Math.floor(Math.random() * (i + 1));
+                 [questionsToShuffle[i], questionsToShuffle[j]] = [questionsToShuffle[j], questionsToShuffle[i]];
+             }
+
+             const finalQuestions = [...questionsToShuffle, ...otherQuestions];
              
              // Update localStorage with shuffled questions
-             localStorage.setItem('difficultQuestions', JSON.stringify(shuffledQuestions));
+             localStorage.setItem('difficultQuestions', JSON.stringify(finalQuestions));
              loadDifficultQuestions(); // Re-render the list with shuffled data
              
              showNotification('Đã sắp xếp câu hỏi ngẫu nhiên', 'info');
