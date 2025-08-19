@@ -998,10 +998,10 @@
             <!-- Tab Container -->
             <div class="tab-container">
                 <div class="tab-buttons">
-                    <button class="tab-btn active" onclick="switchTab('list')">
+            <button class="tab-btn active" data-tab="list" onclick="switchTab('list')">
                         📋 Danh sách câu khó
                     </button>
-                    <button class="tab-btn" onclick="switchTab('quiz')">
+            <button class="tab-btn" data-tab="quiz" onclick="switchTab('quiz')">
                         🎯 Chế độ Quiz
                     </button>
                 </div>
@@ -2234,13 +2234,15 @@
                 selectedTab.classList.add('active');
             }
             
-            // Add active class to selected tab button
-            const selectedButton = event.target;
-            selectedButton.classList.add('active');
+            // Add active class to selected tab button based on data-tab attribute
+            const selectedButton = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
+            if (selectedButton) {
+                selectedButton.classList.add('active');
+            }
             
             // If switching to quiz tab, check if there are difficult questions
             if (tabName === 'quiz') {
-                const questions = getDifficultQuestions();
+                const questions = getQuestionsFromStorage('difficultQuestions');
                 if (questions.length === 0) {
                     showNotification('Không có câu hỏi khó nào để làm quiz!', 'warning');
                 }
