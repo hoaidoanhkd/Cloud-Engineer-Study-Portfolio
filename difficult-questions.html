@@ -1190,6 +1190,10 @@
             }
         }
 
+        function getDifficultQuestions() {
+            return getQuestionsFromStorage('difficultQuestions');
+        }
+
         function removeDifficultQuestion(questionId) {
             try {
                 const questions = getQuestionsFromStorage('difficultQuestions');
@@ -1889,6 +1893,16 @@
                 floatingNextBtnElement.onclick = nextQuestion;
             }
             
+            // Restore original header
+            const headerText = document.querySelector('.header h1');
+            if (headerText) {
+                headerText.textContent = '🔥 Câu Hỏi Khó';
+            }
+            const headerSubText = document.querySelector('.header p');
+            if (headerSubText) {
+                headerSubText.textContent = 'Danh sách các câu hỏi bạn là khó để ôn tập';
+            }
+            
             updateQuizStats();
             loadCurrentQuestion();
         }
@@ -1956,6 +1970,7 @@
                             <div style="color: #f44336;">❌ Giữ lại ${keptCount} câu trả lời sai</div>
                         </div>
                         <button class="quiz-btn" onclick="resetQuiz()">🔄 Làm lại</button>
+                        <button class="quiz-btn" onclick="retryIncorrectAnswers()" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);">🔄 Làm lại câu sai</button>
                         <button class="quiz-btn" onclick="exitQuiz()">🏠 Thoát Quiz</button>
                     </div>
                 </div>
@@ -1978,6 +1993,41 @@
             if (removedCount > 0) {
                 showNotification(`Đã xóa ${removedCount} câu trả lời đúng khỏi danh sách câu khó!`, 'info');
             }
+        }
+        
+        function retryIncorrectAnswers() {
+            // Collect questions that were answered incorrectly
+            const incorrectQuestions = [];
+            
+            quizQuestions.forEach((question, index) => {
+                const userAnswer = userAnswers[index];
+                const isCorrect = userAnswer && question.correctAnswer && userAnswer === question.correctAnswer;
+                
+                if (!isCorrect) {
+                    // Add to incorrect questions list
+                    incorrectQuestions.push(question);
+                }
+            });
+            
+            if (incorrectQuestions.length === 0) {
+                showNotification('Không có câu hỏi nào sai để làm lại!', 'info');
+                return;
+            }
+            
+            // Start a new quiz with only incorrect questions
+            startQuiz(incorrectQuestions);
+            
+            // Update the header to show this is a retry session
+            const headerText = document.querySelector('.header h1');
+            if (headerText) {
+                headerText.textContent = '🔄 Làm lại câu sai';
+            }
+            const headerSubText = document.querySelector('.header p');
+            if (headerSubText) {
+                headerSubText.textContent = `Làm lại ${incorrectQuestions.length} câu hỏi đã trả lời sai.`;
+            }
+            
+            showNotification(`Bắt đầu làm lại ${incorrectQuestions.length} câu hỏi sai!`, 'info');
         }
         
         function exitQuiz() {
@@ -2016,6 +2066,16 @@
             }
             if (showAnswerBtnElement) showAnswerBtnElement.style.display = 'none';
             if (resetBtnElement) resetBtnElement.style.display = 'none';
+            
+            // Restore original header
+            const headerText = document.querySelector('.header h1');
+            if (headerText) {
+                headerText.textContent = '🔥 Câu Hỏi Khó';
+            }
+            const headerSubText = document.querySelector('.header p');
+            if (headerSubText) {
+                headerSubText.textContent = 'Danh sách các câu hỏi bạn là khó để ôn tập';
+            }
         }
         
         function updateQuizStats() {
