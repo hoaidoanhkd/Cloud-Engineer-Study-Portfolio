@@ -735,6 +735,12 @@
                         <p>Tự tạo bài kiểm tra của riêng bạn bằng cách chọn các câu hỏi cụ thể từ toàn bộ 302 câu hỏi.</p>
                         <a href="custom-quiz.html" class="feature-link">Tạo Quiz Ngay</a>
                     </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⏱️</div>
+                        <h4>Mô phỏng đề thi thực tế</h4>
+                        <p>Lấy ngẫu nhiên 50 câu trong tất cả các câu hỏi để mô phỏng một bài thi thực tế.</p>
+                        <a href="#" id="simulationQuizBtn" class="feature-link">Bắt đầu mô phỏng</a>
+                    </div>
                 </div>
             </div>
             
@@ -803,5 +809,128 @@
             <p>© 2024 GCP Exam Practice - Học tập hiệu quả, thành công trong kỳ thi! 🎓</p>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const simulationBtn = document.getElementById('simulationQuizBtn');
+            if (simulationBtn) {
+                simulationBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+
+                    const originalText = simulationBtn.textContent;
+                    simulationBtn.textContent = '⏳ Đang chuẩn bị...';
+                    simulationBtn.style.pointerEvents = 'none';
+
+                    try {
+                        // 1. Get all available question numbers
+                        const allQuestions = [];
+                        for (let i = 1; i <= 250; i++) {
+                            allQuestions.push(i);
+                        }
+                        const part6Questions = [
+                            251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270,
+                            271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290,
+                            291, 292, 293, 295, 297, 300, 301, 303, 305, 311, 312, 317
+                        ];
+                        allQuestions.push(...part6Questions);
+
+                        // 2. Shuffle and select 50 questions
+                        const shuffled = allQuestions.sort(() => 0.5 - Math.random());
+                        const selectedNumbers = shuffled.slice(0, 50).map(String);
+
+                        // 3. Fetch question data
+                        const questions = await fetchQuestionData(selectedNumbers);
+
+                        if (questions.length < 50) {
+                             console.warn(`Chỉ tìm thấy ${questions.length}/50 câu hỏi. Bắt đầu quiz với số câu hỏi tìm được.`);
+                        }
+
+                        if (questions.length === 0) {
+                            alert('Không thể tải dữ liệu câu hỏi cho bài mô phỏng. Vui lòng thử lại.');
+                            throw new Error("No questions found for simulation");
+                        }
+
+                        // 4. Store and redirect
+                        localStorage.setItem('customQuizQuestions', JSON.stringify(questions));
+                        window.location.href = 'difficult-questions.html';
+
+                    } catch (error) {
+                        console.error('Lỗi khi tạo bài mô phỏng:', error);
+                        alert('Đã có lỗi xảy ra khi chuẩn bị bài thi mô phỏng. Vui lòng thử lại.');
+                        simulationBtn.textContent = originalText;
+                        simulationBtn.style.pointerEvents = 'auto';
+                    }
+                });
+            }
+
+            async function fetchQuestionData(numbers) {
+                const fileMap = {};
+                const getFilename = (num) => {
+                    if (num >= 1 && num <= 50) return 'part1-questions-1-50.html';
+                    if (num >= 51 && num <= 100) return 'part2-questions-51-100.html';
+                    if (num >= 101 && num <= 150) return 'part3-questions-101-150.html';
+                    if (num >= 151 && num <= 200) return 'part4-questions-151-200.html';
+                    if (num >= 201 && num <= 250) return 'part5-questions-201-250.html';
+                    if (num >= 251 && num <= 317) return 'part6-questions-251-317.html';
+                    return null;
+                };
+
+                numbers.forEach(numStr => {
+                    const num = parseInt(numStr, 10);
+                    const filename = getFilename(num);
+                    if (filename) {
+                        if (!fileMap[filename]) {
+                            fileMap[filename] = [];
+                        }
+                        fileMap[filename].push(numStr);
+                    }
+                });
+
+                const allQuestions = [];
+                const parser = new DOMParser();
+
+                for (const filename in fileMap) {
+                    try {
+                        const response = await fetch(filename);
+                        if (!response.ok) throw new Error(`Failed to fetch ${filename}`);
+                        const htmlText = await response.text();
+                        const doc = parser.parseFromString(htmlText, 'text/html');
+
+                        const numbersToFind = new Set(fileMap[filename]);
+                        const questionDivs = doc.querySelectorAll('.question');
+
+                        questionDivs.forEach(div => {
+                            const strongTag = div.querySelector('p > strong');
+                            if (strongTag && strongTag.textContent.includes('Question')) {
+                                const match = strongTag.textContent.match(/Question (\d+):/);
+                                const currentNum = match ? match[1] : null;
+
+                                if (currentNum && numbersToFind.has(currentNum)) {
+                                    const questionText = div.querySelector('p').innerHTML;
+                                    const answerLabels = div.querySelectorAll('.answers label');
+                                    const answers = Array.from(answerLabels).map(label => label.innerText.trim());
+                                    const partNameEl = doc.querySelector('.part-info h1');
+                                    const source = partNameEl ? partNameEl.textContent.trim() : 'Unknown Part';
+
+                                    allQuestions.push({
+                                        id: `sim-${currentNum}`,
+                                        questionNumber: currentNum,
+                                        text: questionText,
+                                        answers: answers,
+                                        source: source,
+                                        timestamp: new Date().toISOString()
+                                    });
+                                }
+                            }
+                        });
+                    } catch (err) {
+                        console.error(`Error processing file ${filename}:`, err);
+                    }
+                }
+                allQuestions.sort((a, b) => parseInt(a.questionNumber) - parseInt(b.questionNumber));
+                return allQuestions;
+            }
+        });
+    </script>
 </body>
 </html>
