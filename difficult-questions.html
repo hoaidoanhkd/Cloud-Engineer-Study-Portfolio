@@ -1031,7 +1031,7 @@
                                      <option value="101-150">Part 3 (Questions 101-150)</option>
                                      <option value="151-200">Part 4 (Questions 151-200)</option>
                                      <option value="201-250">Part 5 (Questions 201-250)</option>
-                                     <option value="251-302">Part 6 (Questions 251-302)</option>
+                                     <option value="251-317">Part 6 (Questions 251-317)</option>
                                  </select>
                                                          </div>
                             <div>
@@ -1142,7 +1142,7 @@
                 "part6": {
                     "name": "Advanced Topics",
                     "startNumber": 251,
-                    "endNumber": 302,
+                    "endNumber": 317,
                     "total": 52,
                     "correctAnswers": ["D", "D", "A", "C", "B", "C", "B", "D", "A", "A", "C", "D", "A", "D", "A", "B", "A", "D", "C", "B", "B", "D", "C", "D", "A", "B", "A", "A", "C", "B", "C", "B", "B", "C", "B", "D", "B", "A", "B", "A", "D", "C", "B", "B", "B", "C", "B", "C", "D", "A", "D", "D"]
                 }
@@ -1261,7 +1261,7 @@
                 '101-150': 'Part 3 (Questions 101-150)',
                 '151-200': 'Part 4 (Questions 151-200)',
                 '201-250': 'Part 5 (Questions 201-250)',
-                '251-302': 'Part 6 (Questions 251-302)'
+                '251-317': 'Part 6 (Questions 251-317)'
             };
             return rangeNames[range] || range;
         }
@@ -1291,8 +1291,8 @@
                     range = 'Part 4 (151-200)';
                 } else if (questionNum >= 201 && questionNum <= 250) {
                     range = 'Part 5 (201-250)';
-                } else if (questionNum >= 251 && questionNum <= 302) {
-                    range = 'Part 6 (251-302)';
+                                  } else if (questionNum >= 251 && questionNum <= 317) {
+                    range = 'Part 6 (251-317)';
                 } else {
                     range = 'Unknown';
                 }
@@ -1447,12 +1447,28 @@
                 if (quizData && quizData.quizParts) {
                     for (const [partKey, partData] of Object.entries(quizData.quizParts)) {
                         if (questionNumber >= partData.startNumber && questionNumber <= partData.endNumber) {
-                            const partIndex = questionNumber - partData.startNumber;
-                                            if (partIndex >= 0 && partIndex < partData.correctAnswers.length) {
-                    correctAnswer = partData.correctAnswers[partIndex];
-                    console.log(`Found correct answer for question ${questionNumber}: ${correctAnswer} from part ${partKey} (index ${partIndex})`);
-                    break;
-                }
+                            let partIndex;
+                            
+                            // Special handling for Part 6 which has sparse question numbers
+                            if (partKey === 'part6') {
+                                const part6QuestionMapping = {
+                                    251: 0, 252: 1, 253: 2, 254: 3, 255: 4, 256: 5, 257: 6, 258: 7, 259: 8, 260: 9,
+                                    261: 10, 262: 11, 263: 12, 264: 13, 265: 14, 266: 15, 267: 16, 268: 17, 269: 18, 270: 19,
+                                    271: 20, 272: 21, 273: 22, 274: 23, 275: 24, 276: 25, 277: 26, 278: 27, 279: 28, 280: 29,
+                                    281: 30, 282: 31, 283: 32, 284: 33, 285: 34, 286: 35, 287: 36, 288: 37, 289: 38, 290: 39,
+                                    291: 40, 292: 41, 293: 42, 295: 43, 297: 44, 300: 45, 301: 46, 303: 47, 305: 48, 311: 49, 312: 50, 317: 51
+                                };
+                                partIndex = part6QuestionMapping[questionNumber];
+                            } else {
+                                // For other parts, use the standard calculation
+                                partIndex = questionNumber - partData.startNumber;
+                            }
+                            
+                            if (partIndex !== undefined && partIndex >= 0 && partIndex < partData.correctAnswers.length) {
+                                correctAnswer = partData.correctAnswers[partIndex];
+                                console.log(`Found correct answer for question ${questionNumber}: ${correctAnswer} from part ${partKey} (index ${partIndex})`);
+                                break;
+                            }
                         }
                     }
                 }

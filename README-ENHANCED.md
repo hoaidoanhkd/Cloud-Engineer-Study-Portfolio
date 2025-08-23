@@ -53,7 +53,7 @@ Cloud-Engineer-Study-Portfolio/
 ├── part3-questions-101-150.html # Quiz part 3
 ├── part4-questions-151-200.html # Quiz part 4
 ├── part5-questions-201-250.html # Quiz part 5
-├── part6-questions-251-302.html # Quiz part 6
+├── part6-questions-251-317.html # Quiz part 6
 ├── package.json                # Project configuration
 ├── netlify.toml               # Netlify deployment config
 ├── render.yaml                # Render deployment config

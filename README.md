@@ -4,13 +4,13 @@ A comprehensive study platform for Google Cloud Platform (GCP) certification pre
 
 ## 📚 Features
 
-- **6 Interactive Quiz Parts** (302 questions total)
+- **6 Interactive Quiz Parts** (317 questions total)
   - Part 1: Questions 1-50 (GCP Fundamentals)
   - Part 2: Questions 51-100 (Compute Engine & Networking)
   - Part 3: Questions 101-150 (Storage & Databases)
   - Part 4: Questions 151-200 (Security & Identity)
   - Part 5: Questions 201-250 (Monitoring & Analytics)
-  - Part 6: Questions 251-302 (Advanced Topics)
+  - Part 6: Questions 251-317 (Advanced Topics)
 
 - **📖 Keywords Study Guide** (67 important keywords from questions 251-317)
 - **🔥 Difficult Questions Tracker** - Mark and review challenging questions
@@ -53,7 +53,7 @@ Cloud-Engineer-Study-Portfolio/
 ├── part3-questions-101-150.html # Quiz part 3
 ├── part4-questions-151-200.html # Quiz part 4
 ├── part5-questions-201-250.html # Quiz part 5
-├── part6-questions-251-302.html # Quiz part 6
+├── part6-questions-251-317.html # Quiz part 6
 ├── quiz-common.js             # Common JavaScript functions
 ├── package.json               # Project configuration
 └── README.md                  # This file
@@ -78,7 +78,7 @@ Cloud-Engineer-Study-Portfolio/
 ## 📊 Features Breakdown
 
 ### Quiz System
-- ✅ 302 GCP practice questions
+- ✅ 317 GCP practice questions
 - ✅ Immediate answer feedback
 - ✅ Progress tracking
 - ✅ Responsive design

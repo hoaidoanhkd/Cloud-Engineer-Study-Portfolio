@@ -55,7 +55,7 @@ simpleShuffle(array) {
 - **25 câu**: Thi nhanh, kiểm tra kiến thức cơ bản
 - **50 câu**: Đề thi chuẩn, cân bằng thời gian
 - **100 câu**: Thi toàn diện, kiểm tra sâu
-- **Tất cả (302 câu)**: Thi đầy đủ, mô phỏng thực tế
+- **Tất cả (317 câu)**: Thi đầy đủ, mô phỏng thực tế
 
 ### Chế độ xáo trộn
 - **Fisher-Yates**: Thuật toán tối ưu, đảm bảo công bằng

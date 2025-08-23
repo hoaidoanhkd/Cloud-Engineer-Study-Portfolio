@@ -38,7 +38,7 @@
     "part6": {
       "name": "Advanced Topics",
       "startNumber": 251,
-      "endNumber": 302,
+      "endNumber": 317,
       "total": 52,
       "correctAnswers": ["D", "D", "A", "C", "B", "C", "B", "D", "A", "A", "C", "D", "A", "D", "A", "B", "A", "D", "C", "B", "B", "D", "C", "D", "A", "B", "A", "A", "C", "B", "C", "B", "B", "C", "B", "D", "B", "A", "B", "A", "D", "C", "B", "B", "B", "C", "B", "C", "D", "A", "D", "D"]
     }
@@ -63,7 +63,7 @@
     ]
   },
   "metadata": {
-    "totalQuestions": 302,
+    "totalQuestions": 317,
     "totalParts": 6,
     "version": "1.0.0",
     "lastUpdated": "2024-01-01"
