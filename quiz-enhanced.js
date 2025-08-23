@@ -6,7 +6,278 @@ class QuizManager {
         this.userAnswers = {};
         this.difficultQuestions = [];
         this.progress = {};
+        this.shuffledQuestionOrder = []; // Add shuffled question order tracking
         this.init();
+    }
+
+    // Fisher-Yates (Knuth Shuffle) Algorithm Implementation
+    fisherYatesShuffle(array) {
+        const shuffled = [...array]; // Create a copy to avoid mutating original
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; // Swap elements
+        }
+        return shuffled;
+    }
+
+    // Shuffle questions and their corresponding correct answers
+    shuffleQuestions(total, correctAnswers, startNumber) {
+        // Create array of question numbers (1 to total)
+        const questionNumbers = Array.from({length: total}, (_, i) => i + 1);
+        
+        // Shuffle the question numbers
+        const shuffledQuestionNumbers = this.fisherYatesShuffle(questionNumbers);
+        
+        // Create shuffled correct answers array
+        const shuffledCorrectAnswers = shuffledQuestionNumbers.map(qNum => 
+            correctAnswers[qNum - 1]
+        );
+        
+        // Store the mapping for later use
+        this.shuffledQuestionOrder = shuffledQuestionNumbers.map((qNum, index) => ({
+            originalNumber: qNum,
+            displayNumber: index + 1,
+            actualQuestionNumber: startNumber + qNum - 1
+        }));
+        
+        return {
+            shuffledQuestionNumbers,
+            shuffledCorrectAnswers,
+            questionMapping: this.shuffledQuestionOrder
+        };
+    }
+
+    // Apply shuffled order to DOM elements
+    applyShuffledOrder() {
+        if (!this.shuffledQuestionOrder.length) return;
+        
+        const quizForm = document.getElementById('quizForm');
+        if (!quizForm) return;
+        
+        const questions = Array.from(quizForm.querySelectorAll('.question'));
+        if (questions.length === 0) return;
+        
+        // Create a container for reordering
+        const questionContainer = document.createElement('div');
+        questionContainer.id = 'shuffled-questions-container';
+        
+        // Reorder questions based on shuffled order
+        this.shuffledQuestionOrder.forEach((mapping, index) => {
+            const originalQuestion = questions[mapping.originalNumber - 1];
+            if (originalQuestion) {
+                const clonedQuestion = originalQuestion.cloneNode(true);
+                
+                // Update question number display
+                const questionText = clonedQuestion.querySelector('p strong');
+                if (questionText) {
+                    questionText.textContent = `Question ${mapping.displayNumber}:`;
+                }
+                
+                // Update radio button names to match display order
+                const radioButtons = clonedQuestion.querySelectorAll('input[type="radio"]');
+                radioButtons.forEach(radio => {
+                    radio.name = `q${mapping.displayNumber}`;
+                });
+                
+                // Update question ID
+                clonedQuestion.id = `question${mapping.actualQuestionNumber}`;
+                
+                questionContainer.appendChild(clonedQuestion);
+            }
+        });
+        
+        // Replace original questions with shuffled ones
+        questions.forEach(q => q.remove());
+        quizForm.appendChild(questionContainer);
+    }
+
+    // Get original question number from display number
+    getOriginalQuestionNumber(displayNumber) {
+        const mapping = this.shuffledQuestionOrder.find(m => m.displayNumber === displayNumber);
+        return mapping ? mapping.originalNumber : displayNumber;
+    }
+
+    // Get actual question number from display number
+    getActualQuestionNumber(displayNumber) {
+        const mapping = this.shuffledQuestionOrder.find(m => m.displayNumber === displayNumber);
+        return mapping ? mapping.actualQuestionNumber : displayNumber;
+    }
+
+    // Show notification to user
+    showNotification(message, type = 'info') {
+        // Remove existing notification if any
+        const existingNotification = document.querySelector('.quiz-notification');
+        if (existingNotification) {
+            existingNotification.remove();
+        }
+
+        const notification = document.createElement('div');
+        notification.className = `quiz-notification quiz-notification-${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <span class="notification-message">${message}</span>
+                <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+            </div>
+        `;
+
+        // Add notification styles if not already added
+        if (!document.getElementById('notification-styles')) {
+            const style = document.createElement('style');
+            style.id = 'notification-styles';
+            style.textContent = `
+                .quiz-notification {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    z-index: 10000;
+                    max-width: 400px;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    animation: slideInRight 0.3s ease-out;
+                }
+                
+                @keyframes slideInRight {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+                
+                .quiz-notification-info {
+                    background: linear-gradient(135deg, #4285f4, #34a853);
+                    color: white;
+                }
+                
+                .quiz-notification-error {
+                    background: linear-gradient(135deg, #ea4335, #fbbc04);
+                    color: white;
+                }
+                
+                .notification-content {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 12px 16px;
+                }
+                
+                .notification-message {
+                    font-size: 14px;
+                    font-weight: 500;
+                }
+                
+                .notification-close {
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    margin-left: 12px;
+                    padding: 0;
+                    width: 20px;
+                    height: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                    transition: background-color 0.2s;
+                }
+                
+                .notification-close:hover {
+                    background-color: rgba(255,255,255,0.2);
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        document.body.appendChild(notification);
+
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            if (notification.parentElement) {
+                notification.remove();
+            }
+        }, 5000);
+    }
+
+    // Add shuffle button to UI
+    addShuffleButton() {
+        const existingButton = document.getElementById('shuffle-questions-btn');
+        if (existingButton) return;
+
+        const shuffleButton = document.createElement('button');
+        shuffleButton.id = 'shuffle-questions-btn';
+        shuffleButton.className = 'shuffle-btn';
+        shuffleButton.innerHTML = '🔀 Xáo trộn câu hỏi';
+        shuffleButton.onclick = () => this.reshuffleQuestions();
+
+        // Add shuffle button styles
+        if (!document.getElementById('shuffle-button-styles')) {
+            const style = document.createElement('style');
+            style.id = 'shuffle-button-styles';
+            style.textContent = `
+                .shuffle-btn {
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    z-index: 1000;
+                    background: linear-gradient(135deg, #4285f4, #34a853);
+                    color: white;
+                    border: none;
+                    border-radius: 25px;
+                    padding: 12px 20px;
+                    font-size: 14px;
+                    font-weight: 500;
+                    cursor: pointer;
+                    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+                    transition: all 0.3s ease;
+                }
+                
+                .shuffle-btn:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 16px rgba(66, 133, 244, 0.4);
+                }
+                
+                .shuffle-btn:active {
+                    transform: translateY(0);
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        document.body.appendChild(shuffleButton);
+    }
+
+    // Reshuffle questions
+    reshuffleQuestions() {
+        if (!this.currentPart || !this.quizData) return;
+
+        const partData = this.quizData.quizParts[this.currentPart];
+        const total = partData.total;
+        const correctAnswers = partData.correctAnswers;
+        const startNumber = partData.startNumber;
+
+        // Clear existing answers
+        this.userAnswers = {};
+
+        // Reshuffle questions
+        const shuffledData = this.shuffleQuestions(total, correctAnswers, startNumber);
+        const shuffledCorrectAnswers = shuffledData.shuffledCorrectAnswers;
+
+        // Apply new shuffled order
+        this.applyShuffledOrder();
+
+        // Reinitialize questions
+        this.initializeQuestions(total, shuffledCorrectAnswers, this.currentPart, startNumber);
+
+        // Update progress
+        this.updateProgress(this.currentPart, startNumber, total);
+
+        // Show notification
+        this.showNotification('🔄 Câu hỏi đã được xáo trộn lại!', 'info');
     }
 
     async init() {
@@ -106,6 +377,10 @@ class QuizManager {
         const total = partData.total;
         const correctAnswers = partData.correctAnswers;
 
+        // Shuffle questions using Fisher-Yates algorithm
+        const shuffledData = this.shuffleQuestions(total, correctAnswers, startNumber);
+        const shuffledCorrectAnswers = shuffledData.shuffledCorrectAnswers;
+
         // Add enhanced CSS
         this.addEnhancedStyles();
 
@@ -115,8 +390,11 @@ class QuizManager {
         // Add question navigation
         this.addQuestionNavigation(total, startNumber);
 
-        // Initialize questions with enhanced features
-        this.initializeQuestions(total, correctAnswers, partName, startNumber);
+        // Apply shuffled order to DOM
+        this.applyShuffledOrder();
+
+        // Initialize questions with enhanced features (using shuffled order)
+        this.initializeQuestions(total, shuffledCorrectAnswers, partName, startNumber);
 
         // Add stats bar
         this.addStatsBar(partName, startNumber, total);
@@ -127,6 +405,12 @@ class QuizManager {
         // Update UI
         this.updateProgress(partName, startNumber, total);
         this.updateDifficultButtons(total, partName, startNumber);
+
+        // Show shuffle notification
+        this.showNotification('🔀 Câu hỏi đã được xáo trộn ngẫu nhiên theo thuật toán Fisher-Yates!', 'info');
+
+        // Add shuffle button
+        this.addShuffleButton();
     }
 
     addEnhancedStyles() {
@@ -327,7 +611,8 @@ class QuizManager {
 
     initializeQuestions(total, correctAnswers, partName, startNumber) {
         for (let i = 1; i <= total; i++) {
-            const questionNumber = startNumber + i - 1;
+            // Get the actual question number from shuffled mapping
+            const actualQuestionNumber = this.getActualQuestionNumber(i);
             const radios = document.getElementsByName(`q${i}`);
             
             if (radios.length === 0) {
@@ -336,17 +621,17 @@ class QuizManager {
             }
 
             // Add answer feedback element
-            const questionElement = document.getElementById(`question${questionNumber}`);
+            const questionElement = document.getElementById(`question${actualQuestionNumber}`);
             if (questionElement) {
                 const feedback = document.createElement('div');
                 feedback.className = 'answer-feedback';
-                feedback.id = `feedback${questionNumber}`;
+                feedback.id = `feedback${actualQuestionNumber}`;
                 questionElement.appendChild(feedback);
             }
 
             radios.forEach((radio, index) => {
                 radio.addEventListener('change', (event) => {
-                    this.handleAnswerSelection(i, questionNumber, radio, correctAnswers, partName, event);
+                    this.handleAnswerSelection(i, actualQuestionNumber, radio, correctAnswers, partName, event);
                 });
 
                 // Add keyboard accessibility
@@ -354,7 +639,7 @@ class QuizManager {
             });
 
             // Add keyboard hint
-            const questionDiv = document.querySelector(`#question${questionNumber}`);
+            const questionDiv = document.querySelector(`#question${actualQuestionNumber}`);
             if (questionDiv && !questionDiv.querySelector('.keyboard-hint')) {
                 const hint = document.createElement('div');
                 hint.className = 'keyboard-hint';

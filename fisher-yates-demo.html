@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fisher-Yates Shuffle Algorithm Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .algorithm-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border-left: 4px solid #4285f4;
+        }
+        
+        .demo-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .array-display {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+            justify-content: center;
+        }
+        
+        .array-item {
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            min-width: 40px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease;
+        }
+        
+        .array-item:hover {
+            transform: scale(1.1);
+        }
+        
+        .button {
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(66, 133, 244, 0.4);
+        }
+        
+        .button:active {
+            transform: translateY(0);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 120px;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4285f4;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .step-by-step {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .step {
+            margin: 5px 0;
+            padding: 5px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔀 Fisher-Yates (Knuth Shuffle) Algorithm Demo</h1>
+        
+        <div class="algorithm-section">
+            <h2>📚 Thuật toán Fisher-Yates</h2>
+            <p>Fisher-Yates shuffle là một thuật toán hiệu quả để xáo trộn ngẫu nhiên một mảng. Thuật toán này đảm bảo mỗi hoán vị có xác suất xuất hiện bằng nhau.</p>
+            
+            <div class="code-block">
+function fisherYatesShuffle(array) {
+    const shuffled = [...array]; // Tạo bản sao để không thay đổi mảng gốc
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; // Hoán đổi phần tử
+    }
+    return shuffled;
+}
+            </div>
+            
+            <h3>🎯 Ưu điểm của thuật toán:</h3>
+            <ul>
+                <li><strong>Hiệu quả:</strong> Độ phức tạp O(n) - chỉ cần duyệt mảng một lần</li>
+                <li><strong>Công bằng:</strong> Mỗi hoán vị có xác suất xuất hiện bằng nhau</li>
+                <li><strong>Đơn giản:</strong> Dễ hiểu và triển khai</li>
+                <li><strong>In-place:</strong> Có thể thực hiện trực tiếp trên mảng gốc</li>
+            </ul>
+        </div>
+        
+        <div class="demo-section">
+            <h2>🎮 Demo tương tác</h2>
+            <p>Nhấn nút bên dưới để xem thuật toán Fisher-Yates hoạt động:</p>
+            
+            <div style="text-align: center;">
+                <button class="button" onclick="generateRandomArray()">🎲 Tạo mảng ngẫu nhiên</button>
+                <button class="button" onclick="shuffleArray()">🔀 Xáo trộn mảng</button>
+                <button class="button" onclick="clearSteps()">🗑️ Xóa lịch sử</button>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="arraySize">10</div>
+                    <div class="stat-label">Kích thước mảng</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="shuffleCount">0</div>
+                    <div class="stat-label">Lần xáo trộn</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="uniquePermutations">0</div>
+                    <div class="stat-label">Hoán vị khác nhau</div>
+                </div>
+            </div>
+            
+            <h3>📊 Mảng hiện tại:</h3>
+            <div class="array-display" id="arrayDisplay"></div>
+            
+            <h3>📝 Các bước thực hiện:</h3>
+            <div class="step-by-step" id="stepByStep"></div>
+        </div>
+        
+        <div class="algorithm-section">
+            <h2>🔧 Ứng dụng trong Quiz</h2>
+            <p>Thuật toán Fisher-Yates được sử dụng trong hệ thống quiz để:</p>
+            <ul>
+                <li>Xáo trộn thứ tự câu hỏi để tránh học vẹt</li>
+                <li>Đảm bảo mỗi lần làm quiz có trải nghiệm khác nhau</li>
+                <li>Tăng tính ngẫu nhiên và công bằng</li>
+                <li>Cải thiện hiệu quả học tập</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let currentArray = [];
+        let shuffleCount = 0;
+        let uniquePermutations = new Set();
+        let stepHistory = [];
+
+        // Fisher-Yates Shuffle Algorithm
+        function fisherYatesShuffle(array, showSteps = true) {
+            const shuffled = [...array];
+            const steps = [];
+            
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                
+                if (showSteps) {
+                    steps.push(`Bước ${shuffled.length - i}: Hoán đổi vị trí ${i} (giá trị: ${shuffled[i]}) với vị trí ${j} (giá trị: ${shuffled[j]})`);
+                }
+                
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            
+            if (showSteps) {
+                stepHistory.push(...steps);
+                updateStepDisplay();
+            }
+            
+            return shuffled;
+        }
+
+        function generateRandomArray() {
+            const size = Math.floor(Math.random() * 15) + 5; // 5-20 phần tử
+            currentArray = Array.from({length: size}, (_, i) => i + 1);
+            document.getElementById('arraySize').textContent = size;
+            updateArrayDisplay();
+            clearSteps();
+        }
+
+        function shuffleArray() {
+            if (currentArray.length === 0) {
+                generateRandomArray();
+            }
+            
+            const shuffled = fisherYatesShuffle(currentArray);
+            currentArray = shuffled;
+            shuffleCount++;
+            document.getElementById('shuffleCount').textContent = shuffleCount;
+            
+            // Track unique permutations
+            const permutationKey = shuffled.join(',');
+            uniquePermutations.add(permutationKey);
+            document.getElementById('uniquePermutations').textContent = uniquePermutations.size;
+            
+            updateArrayDisplay();
+        }
+
+        function updateArrayDisplay() {
+            const display = document.getElementById('arrayDisplay');
+            display.innerHTML = '';
+            
+            currentArray.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'array-item';
+                itemElement.textContent = item;
+                itemElement.title = `Vị trí ${index}: ${item}`;
+                display.appendChild(itemElement);
+            });
+        }
+
+        function updateStepDisplay() {
+            const stepDisplay = document.getElementById('stepByStep');
+            stepDisplay.innerHTML = '';
+            
+            stepHistory.slice(-10).forEach(step => { // Chỉ hiển thị 10 bước cuối
+                const stepElement = document.createElement('div');
+                stepElement.className = 'step';
+                stepElement.textContent = step;
+                stepDisplay.appendChild(stepElement);
+            });
+            
+            stepDisplay.scrollTop = stepDisplay.scrollHeight;
+        }
+
+        function clearSteps() {
+            stepHistory = [];
+            updateStepDisplay();
+        }
+
+        // Initialize
+        generateRandomArray();
+    </script>
+</body>
+</html>
