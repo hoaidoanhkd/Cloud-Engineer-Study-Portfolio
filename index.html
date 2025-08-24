@@ -4,6 +4,7 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>GCP Exam Practice - Hướng Dẫn Sử Dụng</title>
+    <link rel="stylesheet" href="dark-mode.css">
     <style>
         * {
             margin: 0;
@@ -13,25 +14,26 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--gradient-primary);
             min-height: 100vh;
             padding: 0;
             margin: 0;
             overflow-x: hidden;
+            color: var(--text-primary);
         }
         
         .container {
             width: 100%;
             max-width: none;
             margin: 0;
-            background: white;
+            background: var(--bg-primary);
             border-radius: 0;
             box-shadow: none;
             overflow: hidden;
         }
         
         .header {
-            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+            background: var(--gradient-header);
             color: white;
             padding: 60px 40px;
             text-align: center;
@@ -96,6 +98,8 @@
         
         .content {
             padding: 40px 20px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
         }
         
         .intro {
@@ -932,5 +936,6 @@
             }
         });
     </script>
+    <script src="dark-mode.js"></script>
 </body>
 </html>

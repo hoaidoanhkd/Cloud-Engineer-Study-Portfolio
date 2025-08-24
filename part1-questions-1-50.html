@@ -5,24 +5,26 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>GCP Exam Practice - Part 1 (Questions 1-50)</title>
+<link rel="stylesheet" href="dark-mode.css">
   <style>
     body { 
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
         margin: 0; 
         padding: 0;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--gradient-primary);
         min-height: 100vh;
         overflow-x: hidden;
+        color: var(--text-primary);
     }
     
     .question { 
-        background: linear-gradient(145deg, #ffffff, #f8f9fa);
-        border: 2px solid #e9ecef;
+        background: var(--card-bg);
+        border: 2px solid var(--border-color);
         border-radius: 15px;
         padding: 25px;
         margin-bottom: 20px;
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        box-shadow: 0 4px 15px var(--shadow-color);
         position: relative;
         overflow: hidden;
         animation: fadeInUp 0.6s ease-out both;
@@ -68,10 +70,10 @@
     }
     
     .answers { 
-        background: linear-gradient(145deg, #f8f9fa, #ffffff);
+        background: var(--bg-secondary);
         border-radius: 12px;
         padding: 15px;
-        border: 1px solid #e9ecef;
+        border: 1px solid var(--border-color);
         margin-top: 15px;
     }
     
@@ -79,7 +81,7 @@
         display: block;
         padding: 12px;
         margin-bottom: 8px;
-        border: 2px solid #e9ecef;
+        border: 2px solid var(--border-color);
         border-radius: 10px;
         cursor: pointer;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -87,6 +89,8 @@
         line-height: 1.6;
         position: relative;
         overflow: hidden;
+        background: var(--input-bg);
+        color: var(--text-primary);
     }
     
     .answers label::before {
@@ -1103,6 +1107,7 @@ You have production and test workloads that you want to deploy on Compute Engine
 </div>
 
 <script src="quiz-common.js"></script>
+<script src="dark-mode.js"></script>
 <script>
 const correctAnswers = ['C', 'B', 'A', 'C', 'D', 'D', 'D', 'A', 'D', 'A', 'A', 'C', 'D', 'B', 'B', 'B', 'D', 'B', 'A', 'D', 'A', 'D', 'D', 'A', 'A', 'C', 'B', 'B', 'A', 'B', 'A', 'C', 'A', 'C', 'B', 'C', 'D', 'B', 'B', 'A', 'B', 'B', 'D', 'C', 'C', 'D', 'A', 'C', 'D', 'A'];
 
