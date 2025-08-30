@@ -1567,6 +1567,13 @@
                         <option value="none">No shuffle</option>
                     </select>
                 </div>
+                <div class="setting-group">
+                    <label class="setting-label" for="immediateFeedback">Immediate Feedback</label>
+                    <select class="setting-input" id="immediateFeedback">
+                        <option value="enabled">Enabled</option>
+                        <option value="disabled" selected>Disabled</option>
+                    </select>
+                </div>
             </div>
             <button class="start-exam-btn" onclick="startExam()">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
@@ -1824,7 +1831,8 @@
                 this.questions = [];
                 this.correctAnswers = [];
 
-                for (const file of questionFiles) {
+                for (let fileIndex = 0; fileIndex < questionFiles.length; fileIndex++) {
+                    const file = questionFiles[fileIndex];
                     try {
                         const response = await fetch(file);
                         const html = await response.text();
@@ -1832,7 +1840,7 @@
                         const doc = parser.parseFromString(html, 'text/html');
                         
                         const questionElements = doc.querySelectorAll('.question');
-                        questionElements.forEach((questionEl) => {
+                        questionElements.forEach((questionEl, questionIndex) => {
                             const questionText = questionEl.querySelector('p')?.textContent || '';
                             const answerElements = questionEl.querySelectorAll('.answers label');
                             const options = [];
@@ -1848,8 +1856,17 @@
                             });
 
                             if (questionText && options.length > 0) {
+                                // Calculate the correct question number based on file and position
+                                let questionNumber;
+                                if (fileIndex === 0) questionNumber = questionIndex + 1; // part1: 1-50
+                                else if (fileIndex === 1) questionNumber = questionIndex + 51; // part2: 51-100
+                                else if (fileIndex === 2) questionNumber = questionIndex + 101; // part3: 101-150
+                                else if (fileIndex === 3) questionNumber = questionIndex + 151; // part4: 151-200
+                                else if (fileIndex === 4) questionNumber = questionIndex + 201; // part5: 201-250
+                                else if (fileIndex === 5) questionNumber = questionIndex + 251; // part6: 251-317
+                                
                                 this.questions.push({
-                                    id: this.questions.length + 1,
+                                    id: questionNumber,
                                     text: questionText,
                                     options: options,
                                     source: file
@@ -1869,13 +1886,33 @@
                     const response = await fetch('quiz-data.json');
                     const data = await response.json();
                     
+                    // Create a mapping of question ID to correct answer
+                    this.correctAnswers = {};
+                    
                     Object.keys(data.quizParts).forEach(partKey => {
                         const part = data.quizParts[partKey];
-                        this.correctAnswers.push(...part.correctAnswers);
+                        part.correctAnswers.forEach((answer, index) => {
+                            const questionId = part.startNumber + index;
+                            this.correctAnswers[questionId] = answer;
+                        });
+                    });
+                    
+                    // Debug: Log the first few correct answers to verify
+                    console.log('Correct answers loaded:', {
+                        'Question 1': this.correctAnswers[1],
+                        'Question 51': this.correctAnswers[51],
+                        'Question 101': this.correctAnswers[101],
+                        'Question 151': this.correctAnswers[151],
+                        'Question 201': this.correctAnswers[201],
+                        'Question 251': this.correctAnswers[251]
                     });
                 } catch (error) {
                     console.warn('Could not load correct answers:', error);
-                    this.correctAnswers = this.questions.map(() => 'A');
+                    // Fallback: create default answers
+                    this.correctAnswers = {};
+                    this.questions.forEach(question => {
+                        this.correctAnswers[question.id] = 'A';
+                    });
                 }
             }
 
@@ -1908,21 +1945,21 @@
                     : this.simpleShuffle(questionIndices);
                 
                 const shuffledQuestions = [];
-                const shuffledCorrectAnswers = [];
                 
                 shuffledIndices.forEach((originalIndex, newIndex) => {
                     shuffledQuestions[newIndex] = this.questions[originalIndex];
-                    shuffledCorrectAnswers[newIndex] = this.correctAnswers[originalIndex];
                 });
                 
                 this.questions = shuffledQuestions;
-                this.correctAnswers = shuffledCorrectAnswers;
+                // Note: correctAnswers is now an object mapping question IDs to answers,
+                // so it doesn't need to be shuffled - it will be accessed by question ID
             }
 
             async startExam() {
                 this.examDuration = parseInt(document.getElementById('examDuration').value) * 60 * 1000;
                 this.questionCount = document.getElementById('questionCount').value;
                 this.shuffleMode = document.getElementById('shuffleMode').value;
+                this.immediateFeedback = document.getElementById('immediateFeedback').value === 'enabled';
 
                 document.getElementById('examSettings').style.display = 'none';
                 document.getElementById('questionsContainer').style.display = 'flex';
@@ -1933,7 +1970,7 @@
                     
                     if (this.questionCount !== 'all' && this.questions.length > this.questionCount) {
                         this.questions = this.questions.slice(0, this.questionCount);
-                        this.correctAnswers = this.correctAnswers.slice(0, this.questionCount);
+                        // Note: correctAnswers is now an object, so we don't slice it
                     }
 
                     this.shuffleQuestions();
@@ -1967,7 +2004,7 @@
 
                     questionDiv.innerHTML = `
                         <div class="question-header">
-                            <div class="question-number">Question ${index + 1}</div>
+                            <div class="question-number" title="Correct answer: ${this.correctAnswers[question.id] || 'Unknown'}">Question ${index + 1}</div>
                             <div style="
                                 display: flex;
                                 align-items: center;
@@ -1979,6 +2016,8 @@
                                 <span>📝 ${question.options.length} options</span>
                                 <span>•</span>
                                 <span>⏱️ ~2 min</span>
+                                <span>•</span>
+                                <span title="Hover over question number to see correct answer">💡</span>
                             </div>
                         </div>
                         <div class="question-text">${question.text}</div>
@@ -2077,6 +2116,60 @@
                         option.classList.add('selected');
                     }
                 });
+                
+                // Show immediate feedback (optional - can be toggled)
+                if (this.immediateFeedback) {
+                    this.showAnswerFeedback(questionIndex, answer);
+                }
+            }
+
+            showAnswerFeedback(questionIndex, answer) {
+                const question = this.questions[questionIndex];
+                const correctAnswer = this.correctAnswers[question.id];
+                const isCorrect = answer === correctAnswer;
+                
+                // Remove existing feedback
+                const existingFeedback = document.querySelector('.answer-feedback');
+                if (existingFeedback) {
+                    existingFeedback.remove();
+                }
+                
+                // Create feedback element
+                const feedback = document.createElement('div');
+                feedback.className = 'answer-feedback';
+                feedback.style.cssText = `
+                    margin-top: 1rem;
+                    padding: 1rem;
+                    border-radius: 0.75rem;
+                    font-weight: 500;
+                    text-align: center;
+                    animation: fadeInScale 0.3s ease;
+                    background: ${isCorrect ? 'var(--success-green-light)' : 'var(--error-red-light)'};
+                    border: 1px solid ${isCorrect ? 'var(--success-green)' : 'var(--error-red)'};
+                    color: ${isCorrect ? 'var(--success-green)' : 'var(--error-red)'};
+                `;
+                
+                feedback.innerHTML = `
+                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">
+                        ${isCorrect ? '✅' : '❌'}
+                    </div>
+                    <div style="margin-bottom: 0.5rem;">
+                        ${isCorrect ? 'Correct!' : 'Incorrect'}
+                    </div>
+                    <div style="font-size: 0.875rem; opacity: 0.8;">
+                        ${isCorrect ? 'Great job!' : `The correct answer is ${correctAnswer}`}
+                    </div>
+                `;
+                
+                const questionContainer = document.getElementById(`question-${questionIndex}`);
+                questionContainer.appendChild(feedback);
+                
+                // Auto-remove feedback after 3 seconds
+                setTimeout(() => {
+                    if (feedback.parentNode) {
+                        feedback.remove();
+                    }
+                }, 3000);
             }
 
             updateProgress() {
@@ -2270,9 +2363,12 @@
 
                 Object.keys(this.userAnswers).forEach(questionIndex => {
                     const userAnswer = this.userAnswers[questionIndex];
-                    const correctAnswer = this.correctAnswers[questionIndex];
-                    if (userAnswer === correctAnswer) {
-                        correctCount++;
+                    const question = this.questions[questionIndex];
+                    if (question && this.correctAnswers[question.id]) {
+                        const correctAnswer = this.correctAnswers[question.id];
+                        if (userAnswer === correctAnswer) {
+                            correctCount++;
+                        }
                     }
                 });
 
@@ -2303,10 +2399,82 @@
                 document.getElementById('timeTaken').textContent = results.timeTaken;
                 document.getElementById('shuffleAlgorithm').textContent = results.shuffleAlgorithm;
                 
+                // Add detailed breakdown
+                this.showDetailedResults();
+                
                 document.getElementById('results').style.display = 'block';
                 document.getElementById('questionsContainer').style.display = 'none';
                 
                 document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+            }
+
+            showDetailedResults() {
+                const resultsContainer = document.getElementById('results');
+                
+                // Create detailed results section
+                const detailedSection = document.createElement('div');
+                detailedSection.style.cssText = `
+                    margin-top: 2rem;
+                    padding-top: 2rem;
+                    border-top: 1px solid var(--border-color);
+                `;
+                
+                const detailedTitle = document.createElement('h3');
+                detailedTitle.textContent = 'Detailed Results';
+                detailedTitle.style.cssText = `
+                    color: var(--text-primary);
+                    margin-bottom: 1rem;
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                `;
+                detailedSection.appendChild(detailedTitle);
+                
+                const resultsGrid = document.createElement('div');
+                resultsGrid.style.cssText = `
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                    gap: 1rem;
+                    max-height: 400px;
+                    overflow-y: auto;
+                `;
+                
+                // Show first 10 questions with their answers
+                const questionsToShow = Math.min(10, this.questions.length);
+                for (let i = 0; i < questionsToShow; i++) {
+                    const question = this.questions[i];
+                    const userAnswer = this.userAnswers[i];
+                    const correctAnswer = this.correctAnswers[question.id];
+                    const isCorrect = userAnswer === correctAnswer;
+                    
+                    const questionResult = document.createElement('div');
+                    questionResult.style.cssText = `
+                        background: var(--bg-primary);
+                        border: 1px solid var(--border-color);
+                        border-radius: 0.5rem;
+                        padding: 1rem;
+                        font-size: 0.875rem;
+                    `;
+                    
+                    questionResult.innerHTML = `
+                        <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary);">
+                            Question ${question.id}
+                        </div>
+                        <div style="margin-bottom: 0.5rem; color: var(--text-secondary);">
+                            Your answer: <span style="color: ${isCorrect ? 'var(--success-green)' : 'var(--error-red)'}; font-weight: 600;">${userAnswer || 'Not answered'}</span>
+                        </div>
+                        <div style="color: var(--text-secondary);">
+                            Correct answer: <span style="color: var(--success-green); font-weight: 600;">${correctAnswer}</span>
+                        </div>
+                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">
+                            ${isCorrect ? '✅ Correct' : '❌ Incorrect'}
+                        </div>
+                    `;
+                    
+                    resultsGrid.appendChild(questionResult);
+                }
+                
+                detailedSection.appendChild(resultsGrid);
+                resultsContainer.appendChild(detailedSection);
             }
 
             finishExam() {
