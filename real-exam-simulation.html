@@ -225,6 +225,18 @@
             box-shadow: 0 4px 12px rgba(234, 67, 53, 0.3);
         }
 
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .btn:disabled:hover {
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
         .question-navigation {
             display: flex;
             flex-wrap: wrap;
@@ -523,7 +535,7 @@
                 <div class="question-navigation" id="questionNav"></div>
                 <div style="display: flex; gap: 10px;">
                     <button class="btn btn-secondary" onclick="previousQuestion()">← Câu trước</button>
-                    <button class="btn btn-primary" onclick="nextQuestion()">Câu tiếp →</button>
+                    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Câu tiếp →</button>
                     <button class="btn btn-danger" onclick="finishExam()">Nộp bài</button>
                 </div>
             </div>
@@ -704,6 +716,7 @@
                     
                     // Hiển thị controls
                     document.getElementById('examControls').style.display = 'block';
+                    this.updateNextButton(); // Initialize next button state
                     this.isExamStarted = true;
                     
                 } catch (error) {
@@ -767,6 +780,7 @@
                 
                 // Cập nhật navigation
                 this.updateNavigation();
+                this.updateNextButton();
             }
 
             updateNavigation() {
@@ -782,10 +796,19 @@
                 });
             }
 
+            updateNextButton() {
+                const nextBtn = document.getElementById('nextBtn');
+                if (!nextBtn) return;
+                
+                const hasAnswered = this.userAnswers[this.currentQuestionIndex] !== undefined;
+                nextBtn.disabled = !hasAnswered;
+            }
+
             selectAnswer(questionIndex, answer) {
                 this.userAnswers[questionIndex] = answer;
                 this.updateNavigation();
                 this.updateProgress();
+                this.updateNextButton();
             }
 
             updateProgress() {
