@@ -2015,51 +2015,11 @@
 
                 container.appendChild(questionContainer);
 
-                // Navigation
-                this.renderNavigation(container);
-
                 // Controls
                 this.renderControls(container);
             }
 
-            renderNavigation(container) {
-                const navigationDiv = document.createElement('div');
-                navigationDiv.className = 'question-navigation';
-                
-                navigationDiv.innerHTML = `
-                    <div class="nav-title">Question Navigation</div>
-                    <div class="nav-grid" id="navGrid"></div>
-                    <div class="nav-stats" id="navStats" style="
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        margin-top: 1rem;
-                        padding: 1rem;
-                        background: var(--bg-primary);
-                        border-radius: 0.75rem;
-                        border: 1px solid var(--border-light);
-                        font-size: 0.875rem;
-                        color: var(--text-secondary);
-                    ">
-                        <span>📊 <strong id="answeredCount">0</strong> answered</span>
-                        <span>⏱️ <strong id="remainingCount">0</strong> remaining</span>
-                        <span>🎯 <strong id="progressPercent">0%</strong> complete</span>
-                    </div>
-                `;
-                
-                const navGrid = navigationDiv.querySelector('#navGrid');
-                
-                for (let i = 0; i < this.questions.length; i++) {
-                    const navBtn = document.createElement('button');
-                    navBtn.className = 'nav-btn';
-                    navBtn.textContent = i + 1;
-                    navBtn.setAttribute('title', `Question ${i + 1}`);
-                    navBtn.onclick = () => this.goToQuestion(i);
-                    navGrid.appendChild(navBtn);
-                }
-                
-                container.appendChild(navigationDiv);
-            }
+
 
             renderControls(container) {
                 const controlsDiv = document.createElement('div');
@@ -2100,30 +2060,7 @@
             }
             
             updateNavigation() {
-                const navBtns = document.querySelectorAll('.nav-btn');
-                navBtns.forEach((btn, index) => {
-                    btn.classList.remove('current', 'answered');
-                    
-                    if (index === this.currentQuestionIndex) {
-                        btn.classList.add('current');
-                    } else if (this.userAnswers[index]) {
-                        btn.classList.add('answered');
-                    }
-                });
-
-                // Update navigation stats
-                const answeredCount = Object.keys(this.userAnswers).length;
-                const totalQuestions = this.questions.length;
-                const remainingCount = totalQuestions - answeredCount;
-                const progressPercent = Math.round((answeredCount / totalQuestions) * 100);
-
-                const answeredCountEl = document.getElementById('answeredCount');
-                const remainingCountEl = document.getElementById('remainingCount');
-                const progressPercentEl = document.getElementById('progressPercent');
-
-                if (answeredCountEl) answeredCountEl.textContent = answeredCount;
-                if (remainingCountEl) remainingCountEl.textContent = remainingCount;
-                if (progressPercentEl) progressPercentEl.textContent = `${progressPercent}%`;
+                // Navigation removed - no update needed
             }
 
             selectAnswer(questionIndex, answer) {
