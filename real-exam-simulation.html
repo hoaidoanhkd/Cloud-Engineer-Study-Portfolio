@@ -506,27 +506,181 @@
 
         @media (max-width: 768px) {
             .exam-content {
-                padding: 20px;
+                padding: 15px;
+            }
+            
+            .exam-header {
+                padding: 15px;
+            }
+            
+            .exam-title {
+                font-size: 20px;
+                margin-bottom: 8px;
             }
             
             .exam-info {
                 flex-direction: column;
-                gap: 15px;
+                gap: 10px;
+            }
+            
+            .timer {
+                font-size: 16px;
+                padding: 8px 15px;
+            }
+            
+            .progress-info {
+                flex-direction: column;
+                gap: 8px;
+                align-items: center;
+            }
+            
+            .progress-bar {
+                width: 150px;
             }
             
             .controls-content {
                 flex-direction: column;
                 align-items: stretch;
+                gap: 10px;
+            }
+            
+            .controls-content > div {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .controls-content .btn {
+                flex: 1;
+                min-width: 120px;
+                font-size: 14px;
+                padding: 10px 15px;
             }
             
             .question-navigation {
                 max-width: 100%;
                 justify-content: center;
+                gap: 4px;
+            }
+            
+            .question-navigation button {
+                width: 32px;
+                height: 32px;
+                font-size: 12px;
             }
 
             .settings-options {
                 flex-direction: column;
                 gap: 15px;
+            }
+            
+            .setting-group {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .setting-group label {
+                font-size: 14px;
+            }
+            
+            .setting-group select, .setting-group input {
+                font-size: 16px;
+                padding: 10px;
+            }
+            
+            .question {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .question h3 {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+            
+            .answer-option {
+                padding: 12px;
+                margin-bottom: 10px;
+            }
+            
+            .answer-option label {
+                font-size: 14px;
+            }
+            
+            .modal-content {
+                margin: 20px;
+                padding: 20px;
+                max-width: 90%;
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .save-progress {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+            
+            .save-progress-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .save-progress-actions button {
+                width: 100%;
+                padding: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .exam-content {
+                padding: 10px;
+            }
+            
+            .exam-header {
+                padding: 10px;
+            }
+            
+            .exam-title {
+                font-size: 18px;
+            }
+            
+            .timer {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+            
+            .progress-bar {
+                width: 120px;
+            }
+            
+            .controls-content .btn {
+                min-width: 100px;
+                font-size: 13px;
+                padding: 8px 12px;
+            }
+            
+            .question-navigation button {
+                width: 28px;
+                height: 28px;
+                font-size: 11px;
+            }
+            
+            .question {
+                padding: 15px;
+            }
+            
+            .answer-option {
+                padding: 10px;
+            }
+            
+            .modal-content {
+                margin: 10px;
+                padding: 15px;
             }
         }
     </style>
@@ -653,7 +807,6 @@
                 <div style="display: flex; gap: 10px;">
                     <button class="btn btn-secondary" onclick="previousQuestion()">← Câu trước</button>
                     <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Câu tiếp →</button>
-                    <button class="btn btn-success" onclick="saveProgress()">💾 Lưu</button>
                     <button class="btn btn-danger" onclick="finishExam()">Nộp bài</button>
                 </div>
             </div>
@@ -1067,7 +1220,6 @@
 
                 try {
                     localStorage.setItem('examProgress', JSON.stringify(progressData));
-                    this.showNotification('Tiến độ đã được lưu thành công! 💾', 'success');
                 } catch (error) {
                     console.error('Error saving progress:', error);
                     this.showNotification('Lỗi khi lưu tiến độ. Vui lòng thử lại.', 'error');

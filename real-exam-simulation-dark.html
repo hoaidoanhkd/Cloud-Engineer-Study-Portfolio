@@ -995,7 +995,7 @@
         /* Responsive Design - Mobile Optimized */
         @media (max-width: 768px) {
             .exam-container {
-                padding: 0.75rem;
+                padding: 0.5rem;
             }
 
             .exam-header {
@@ -1088,6 +1088,79 @@
                 padding: 0.5rem 1rem;
                 font-size: 0.8rem;
             }
+
+            /* Controls */
+            .exam-controls {
+                padding: 1rem;
+            }
+
+            .controls-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .controls-content > div {
+                display: flex;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .control-btn {
+                flex: 1;
+                min-width: 120px;
+                font-size: 0.875rem;
+                padding: 0.75rem 1rem;
+            }
+
+            /* Answer Options */
+            .answer-options {
+                gap: 0.75rem;
+            }
+
+            .answer-option {
+                padding: 1rem;
+                font-size: 0.875rem;
+            }
+
+            .answer-option label {
+                font-size: 0.875rem;
+                line-height: 1.4;
+            }
+
+            /* Modal */
+            .modal-content {
+                margin: 1rem;
+                padding: 1.5rem;
+                max-width: 90%;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .modal-buttons .control-btn {
+                width: 100%;
+            }
+
+            /* Save Progress */
+            .save-progress {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .save-progress-actions {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .save-progress-actions button {
+                width: 100%;
+                padding: 0.75rem;
+            }
+        }
 
             .question-text {
                 font-size: 0.95rem;
@@ -2253,9 +2326,6 @@
                      <button class="control-btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
                          Next →
                      </button>
-                     <button class="control-btn btn-success" onclick="saveProgress()" style="background: var(--success-green); border-color: var(--success-green);">
-                         💾 Save
-                     </button>
                      <button class="control-btn btn-danger" onclick="finishExam()">
                          Submit Exam
                      </button>
@@ -2753,7 +2823,6 @@
 
                  try {
                      localStorage.setItem('examProgress', JSON.stringify(progressData));
-                     this.showNotification('Tiến độ đã được lưu thành công! 💾', 'success');
                  } catch (error) {
                      console.error('Error saving progress:', error);
                      this.showNotification('Lỗi khi lưu tiến độ. Vui lòng thử lại.', 'error');
