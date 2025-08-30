@@ -553,6 +553,36 @@
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
         }
 
+        .answer-option.correct {
+            border-color: var(--success-green);
+            background: var(--success-green-light);
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+        }
+
+        .answer-option.correct::before {
+            opacity: 1;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+        }
+
+        .answer-option.incorrect {
+            border-color: var(--error-red);
+            background: var(--error-red-light);
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);
+        }
+
+        .answer-option.incorrect::before {
+            opacity: 1;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+        }
+
+        .answer-option.correct .answer-label {
+            color: var(--success-green);
+        }
+
+        .answer-option.incorrect .answer-label {
+            color: var(--error-red);
+        }
+
         .answer-option:active {
             transform: translateY(-1px) scale(0.98);
         }
@@ -784,6 +814,20 @@
 
         .btn-danger:hover {
             background: #dc2626;
+        }
+
+        .btn-disabled {
+            background: var(--gray-400) !important;
+            color: var(--gray-600) !important;
+            border-color: var(--gray-400) !important;
+            cursor: not-allowed !important;
+            opacity: 0.6;
+        }
+
+        .btn-disabled:hover {
+            background: var(--gray-400) !important;
+            color: var(--gray-600) !important;
+            transform: none !important;
         }
 
         /* Results */
@@ -1977,6 +2021,7 @@
                     this.renderQuestions();
                     this.startTimer();
                     this.updateProgress();
+                    this.updateNextButton();
                     
                     this.isExamStarted = true;
                     
@@ -2022,17 +2067,29 @@
                         </div>
                         <div class="question-text">${question.text}</div>
                         <div class="answers-container">
-                            ${question.options.map((option) => `
-                                <label class="answer-option ${this.userAnswers[index] === option.value ? 'selected' : ''}" 
-                                       onclick="selectAnswer(${index}, '${option.value}')">
-                                    <input type="radio" class="answer-radio" name="q${index}" value="${option.value}" 
-                                           ${this.userAnswers[index] === option.value ? 'checked' : ''}>
-                                    <div class="answer-content">
-                                        <div class="answer-label">${option.value}</div>
-                                        <div class="answer-text">${option.text}</div>
-                                    </div>
-                                </label>
-                            `).join('')}
+                            ${question.options.map((option) => {
+                                const userAnswer = this.userAnswers[index];
+                                const correctAnswer = this.correctAnswers[question.id];
+                                let className = '';
+                                
+                                if (userAnswer === option.value) {
+                                    className = userAnswer === correctAnswer ? 'selected correct' : 'selected incorrect';
+                                } else if (option.value === correctAnswer && userAnswer) {
+                                    className = 'correct';
+                                }
+                                
+                                return `
+                                    <label class="answer-option ${className}" 
+                                           onclick="selectAnswer(${index}, '${option.value}')">
+                                        <input type="radio" class="answer-radio" name="q${index}" value="${option.value}" 
+                                               ${this.userAnswers[index] === option.value ? 'checked' : ''}>
+                                        <div class="answer-content">
+                                            <div class="answer-label">${option.value}</div>
+                                            <div class="answer-text">${option.text}</div>
+                                        </div>
+                                    </label>
+                                `;
+                            }).join('')}
                         </div>
                         <div style="
                             margin-top: 1.5rem;
@@ -2068,7 +2125,7 @@
                     <button class="control-btn btn-secondary" onclick="previousQuestion()">
                         ← Previous
                     </button>
-                    <button class="control-btn btn-primary" onclick="nextQuestion()">
+                    <button class="control-btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
                         Next →
                     </button>
                     <button class="control-btn btn-danger" onclick="finishExam()">
@@ -2084,6 +2141,23 @@
                 document.getElementById(`question-${index}`).style.display = 'block';
                 this.currentQuestionIndex = index;
                 this.updateNavigation();
+                this.updateNextButton();
+            }
+
+            updateNextButton() {
+                const nextBtn = document.getElementById('nextBtn');
+                if (!nextBtn) return;
+                
+                const hasAnswered = this.userAnswers[this.currentQuestionIndex] !== undefined;
+                nextBtn.disabled = !hasAnswered;
+                
+                if (hasAnswered) {
+                    nextBtn.classList.remove('btn-disabled');
+                    nextBtn.classList.add('btn-primary');
+                } else {
+                    nextBtn.classList.add('btn-disabled');
+                    nextBtn.classList.remove('btn-primary');
+                }
             }
             
             nextQuestion() {
@@ -2107,13 +2181,25 @@
                 this.updateNavigation();
                 this.updateProgress();
                 
-                // Update visual state
+                // Update visual state with correct/incorrect colors
                 const questionDiv = document.getElementById(`question-${questionIndex}`);
                 const answerOptions = questionDiv.querySelectorAll('.answer-option');
+                const question = this.questions[questionIndex];
+                const correctAnswer = this.correctAnswers[question.id];
+                
                 answerOptions.forEach(option => {
-                    option.classList.remove('selected');
-                    if (option.querySelector(`input[value="${answer}"]`)) {
+                    const optionValue = option.querySelector('input').value;
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                    
+                    if (optionValue === answer) {
                         option.classList.add('selected');
+                        if (answer === correctAnswer) {
+                            option.classList.add('correct');
+                        } else {
+                            option.classList.add('incorrect');
+                        }
+                    } else if (optionValue === correctAnswer) {
+                        option.classList.add('correct');
                     }
                 });
                 
@@ -2121,6 +2207,9 @@
                 if (this.immediateFeedback) {
                     this.showAnswerFeedback(questionIndex, answer);
                 }
+                
+                // Enable next button if this is the current question
+                this.updateNextButton();
             }
 
             showAnswerFeedback(questionIndex, answer) {
