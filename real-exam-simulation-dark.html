@@ -2000,11 +2000,15 @@
             }
 
             async startExam() {
-                this.examDuration = parseInt(document.getElementById('examDuration').value) * 60 * 1000;
-                this.questionCount = document.getElementById('questionCount').value;
-                this.shuffleMode = document.getElementById('shuffleMode').value;
-                this.immediateFeedback = document.getElementById('immediateFeedback').value === 'enabled';
-                this.requireAnswer = document.getElementById('requireAnswer').value === 'enabled';
+                const examDurationEl = document.getElementById('examDuration');
+                const questionCountEl = document.getElementById('questionCount');
+                const shuffleModeEl = document.getElementById('shuffleMode');
+                const immediateFeedbackEl = document.getElementById('immediateFeedback');
+                
+                this.examDuration = examDurationEl ? parseInt(examDurationEl.value) * 60 * 1000 : 2 * 60 * 60 * 1000;
+                this.questionCount = questionCountEl ? questionCountEl.value : 50;
+                this.shuffleMode = shuffleModeEl ? shuffleModeEl.value : 'fisher-yates';
+                this.immediateFeedback = immediateFeedbackEl ? immediateFeedbackEl.value === 'enabled' : true;
 
                 document.getElementById('examSettings').style.display = 'none';
                 document.getElementById('questionsContainer').style.display = 'flex';
@@ -2013,10 +2017,10 @@
                 try {
                     await this.loadQuestionsFromFiles();
                     
-                    if (this.questionCount !== 'all' && this.questions.length > this.questionCount) {
-                        this.questions = this.questions.slice(0, this.questionCount);
-                        // Note: correctAnswers is now an object, so we don't slice it
-                    }
+                                    if (this.questionCount !== 'all' && this.questions.length > parseInt(this.questionCount)) {
+                    this.questions = this.questions.slice(0, parseInt(this.questionCount));
+                    // Note: correctAnswers is now an object, so we don't slice it
+                }
 
                     this.shuffleQuestions();
                     this.renderQuestions();
