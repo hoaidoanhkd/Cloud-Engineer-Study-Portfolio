@@ -812,9 +812,19 @@
             border-color: var(--error-red);
         }
 
-        .btn-danger:hover {
-            background: #dc2626;
-        }
+                 .btn-danger:hover {
+             background: #dc2626;
+         }
+
+         .btn-success {
+             background: var(--success-green);
+             color: white;
+             border-color: var(--success-green);
+         }
+
+         .btn-success:hover {
+             background: #059669;
+         }
 
         .btn-disabled {
             background: var(--gray-400) !important;
@@ -1551,6 +1561,83 @@
                 --bg-primary: #000000;
             }
         }
+
+        /* Save/Restore Progress */
+        .save-progress {
+            background: var(--success-green-light);
+            border: 1px solid var(--success-green);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            animation: slideInUp 0.5s ease;
+        }
+
+        .save-progress-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--success-green);
+            font-weight: 500;
+        }
+
+        .save-progress-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .save-btn {
+            background: var(--success-green);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .save-btn:hover {
+            background: var(--primary-blue-dark);
+            transform: translateY(-1px);
+        }
+
+        .resume-btn {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .resume-btn:hover {
+            background: var(--primary-blue-dark);
+            transform: translateY(-1px);
+        }
+
+        .clear-save-btn {
+            background: var(--error-red);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .clear-save-btn:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 <body>
@@ -1619,12 +1706,40 @@
                     </select>
                 </div>
             </div>
-            <button class="start-exam-btn" onclick="startExam()">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/>
-                </svg>
-                Start Exam
-            </button>
+                         <button class="start-exam-btn" onclick="startExam()">
+                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/>
+                 </svg>
+                 Start Exam
+             </button>
+             
+             <div style="
+                 margin-top: 1.5rem;
+                 padding: 1rem;
+                 background: var(--primary-blue-light);
+                 border: 1px solid var(--primary-blue);
+                 border-radius: 0.75rem;
+                 font-size: 0.875rem;
+                 color: var(--text-secondary);
+                 text-align: center;
+             ">
+                 <strong>💾 Tính năng lưu tiến độ:</strong> Tiến độ bài thi sẽ được tự động lưu mỗi 30 giây và có thể khôi phục trong vòng 24 giờ.
+             </div>
+            
+            <!-- Save Progress Section -->
+            <div id="saveProgressSection" style="display: none;">
+                <div class="save-progress">
+                    <div class="save-progress-info">
+                        <span>💾</span>
+                        <span>Tiến độ đã được lưu</span>
+                    </div>
+                    <div class="save-progress-actions">
+                        <button class="save-btn" onclick="saveProgress()">Lưu tiến độ</button>
+                        <button class="resume-btn" onclick="resumeExam()">Tiếp tục bài thi</button>
+                        <button class="clear-save-btn" onclick="clearSavedProgress()">Xóa lưu</button>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Questions Container -->
@@ -1725,10 +1840,11 @@
                 this.init();
             }
 
-            init() {
-                this.setupThemeToggle();
-                this.setupEventListeners();
-            }
+                         init() {
+                 this.setupThemeToggle();
+                 this.setupEventListeners();
+                 this.checkForSavedProgress();
+             }
 
             setupThemeToggle() {
                 const themeToggle = document.getElementById('themeToggle');
@@ -1763,10 +1879,13 @@
                 window.selectAnswer = (questionIndex, answer) => this.selectAnswer(questionIndex, answer);
                 window.nextQuestion = () => this.nextQuestion();
                 window.previousQuestion = () => this.previousQuestion();
-                window.finishExam = () => this.finishExam();
-                window.confirmFinish = () => this.confirmFinish();
-                window.closeModal = () => this.closeModal();
-                window.toggleHint = () => this.toggleHint();
+                                 window.finishExam = () => this.finishExam();
+                 window.confirmFinish = () => this.confirmFinish();
+                 window.closeModal = () => this.closeModal();
+                 window.toggleHint = () => this.toggleHint();
+                 window.saveProgress = () => this.saveProgress();
+                 window.resumeExam = () => this.resumeExam();
+                 window.clearSavedProgress = () => this.clearSavedProgress();
                 
                 // Keyboard navigation
                 document.addEventListener('keydown', (e) => this.handleKeyboard(e));
@@ -2025,10 +2144,11 @@
                     this.shuffleQuestions();
                     this.renderQuestions();
                     this.startTimer();
-                    this.updateProgress();
-                    this.updateNextButton();
-                    
-                    this.isExamStarted = true;
+                                         this.updateProgress();
+                     this.updateNextButton();
+                     this.startAutoSave(); // Start auto-save
+                     
+                     this.isExamStarted = true;
                     
                 } catch (error) {
                     console.error('Error starting exam:', error);
@@ -2126,17 +2246,20 @@
                 const controlsDiv = document.createElement('div');
                 controlsDiv.className = 'exam-controls';
                 
-                controlsDiv.innerHTML = `
-                    <button class="control-btn btn-secondary" onclick="previousQuestion()">
-                        ← Previous
-                    </button>
-                    <button class="control-btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
-                        Next →
-                    </button>
-                    <button class="control-btn btn-danger" onclick="finishExam()">
-                        Submit Exam
-                    </button>
-                `;
+                                 controlsDiv.innerHTML = `
+                     <button class="control-btn btn-secondary" onclick="previousQuestion()">
+                         ← Previous
+                     </button>
+                     <button class="control-btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                         Next →
+                     </button>
+                     <button class="control-btn btn-success" onclick="saveProgress()" style="background: var(--success-green); border-color: var(--success-green);">
+                         💾 Save
+                     </button>
+                     <button class="control-btn btn-danger" onclick="finishExam()">
+                         Submit Exam
+                     </button>
+                 `;
                 
                 container.appendChild(controlsDiv);
             }
@@ -2575,16 +2698,182 @@
                 document.getElementById('confirmModal').style.display = 'block';
             }
 
-            confirmFinish() {
-                clearInterval(this.timer);
-                this.showResults();
-                this.closeModal();
-            }
+                         confirmFinish() {
+                 clearInterval(this.timer);
+                 this.stopAutoSave(); // Stop auto-save
+                 this.showResults();
+                 this.closeModal();
+             }
 
-            closeModal() {
-                document.getElementById('confirmModal').style.display = 'none';
-            }
-        }
+                         closeModal() {
+                 document.getElementById('confirmModal').style.display = 'none';
+             }
+
+             // Save/Restore Progress Methods
+             checkForSavedProgress() {
+                 const savedProgress = localStorage.getItem('examProgress');
+                 if (savedProgress) {
+                     try {
+                         const progress = JSON.parse(savedProgress);
+                         const timeDiff = Date.now() - progress.timestamp;
+                         const hoursDiff = timeDiff / (1000 * 60 * 60);
+                         
+                         // Show save progress section if saved within last 24 hours
+                         if (hoursDiff < 24) {
+                             document.getElementById('saveProgressSection').style.display = 'block';
+                         } else {
+                             // Clear old progress
+                             localStorage.removeItem('examProgress');
+                         }
+                     } catch (error) {
+                         console.warn('Error parsing saved progress:', error);
+                         localStorage.removeItem('examProgress');
+                     }
+                 }
+             }
+
+             saveProgress() {
+                 if (!this.isExamStarted) {
+                     this.showNotification('Vui lòng bắt đầu bài thi trước khi lưu tiến độ', 'warning');
+                     return;
+                 }
+
+                 const progressData = {
+                     userAnswers: this.userAnswers,
+                     currentQuestionIndex: this.currentQuestionIndex,
+                     examStartTime: this.examStartTime,
+                     examDuration: this.examDuration,
+                     questionCount: this.questionCount,
+                     shuffleMode: this.shuffleMode,
+                     immediateFeedback: this.immediateFeedback,
+                     questions: this.questions.map(q => ({ id: q.id, text: q.text, options: q.options })),
+                     correctAnswers: this.correctAnswers,
+                     timestamp: Date.now()
+                 };
+
+                 try {
+                     localStorage.setItem('examProgress', JSON.stringify(progressData));
+                     this.showNotification('Tiến độ đã được lưu thành công! 💾', 'success');
+                 } catch (error) {
+                     console.error('Error saving progress:', error);
+                     this.showNotification('Lỗi khi lưu tiến độ. Vui lòng thử lại.', 'error');
+                 }
+             }
+
+             resumeExam() {
+                 const savedProgress = localStorage.getItem('examProgress');
+                 if (!savedProgress) {
+                     this.showNotification('Không có tiến độ đã lưu để khôi phục', 'warning');
+                     return;
+                 }
+
+                 try {
+                     const progress = JSON.parse(savedProgress);
+                     const timeDiff = Date.now() - progress.timestamp;
+                     const hoursDiff = timeDiff / (1000 * 60 * 60);
+                     
+                     if (hoursDiff >= 24) {
+                         this.showNotification('Tiến độ đã lưu quá 24 giờ. Vui lòng bắt đầu bài thi mới.', 'warning');
+                         localStorage.removeItem('examProgress');
+                         return;
+                     }
+
+                     // Restore exam state
+                     this.userAnswers = progress.userAnswers || {};
+                     this.currentQuestionIndex = progress.currentQuestionIndex || 0;
+                     this.examStartTime = progress.examStartTime;
+                     this.examDuration = progress.examDuration;
+                     this.questionCount = progress.questionCount;
+                     this.shuffleMode = progress.shuffleMode;
+                     this.immediateFeedback = progress.immediateFeedback;
+                     this.questions = progress.questions || [];
+                     this.correctAnswers = progress.correctAnswers || {};
+
+                     // Start exam with restored data
+                     this.startExamWithSavedData();
+                     
+                 } catch (error) {
+                     console.error('Error resuming exam:', error);
+                     this.showNotification('Lỗi khi khôi phục tiến độ. Vui lòng bắt đầu bài thi mới.', 'error');
+                     localStorage.removeItem('examProgress');
+                 }
+             }
+
+             startExamWithSavedData() {
+                 document.getElementById('examSettings').style.display = 'none';
+                 document.getElementById('questionsContainer').style.display = 'flex';
+                 document.getElementById('questionsContainer').style.flexDirection = 'column';
+
+                 this.renderQuestions();
+                 this.startTimer();
+                 this.updateProgress();
+                 this.updateNextButton();
+                 this.startAutoSave(); // Start auto-save
+                 
+                 this.isExamStarted = true;
+                 
+                 this.showNotification('Đã khôi phục tiến độ bài thi! 🎯', 'success');
+             }
+
+             clearSavedProgress() {
+                 localStorage.removeItem('examProgress');
+                 document.getElementById('saveProgressSection').style.display = 'none';
+                 this.showNotification('Đã xóa tiến độ đã lưu', 'info');
+             }
+
+             showNotification(message, type = 'info') {
+                 const notification = document.createElement('div');
+                 notification.style.cssText = `
+                     position: fixed;
+                     top: 2rem;
+                     right: 2rem;
+                     background: ${type === 'success' ? 'var(--success-green-light)' : 
+                                  type === 'error' ? 'var(--error-red-light)' : 
+                                  type === 'warning' ? 'var(--warning-orange-light)' : 'var(--bg-glass)'};
+                     border: 1px solid ${type === 'success' ? 'var(--success-green)' : 
+                                       type === 'error' ? 'var(--error-red)' : 
+                                       type === 'warning' ? 'var(--warning-orange)' : 'var(--border-color)'};
+                     color: ${type === 'success' ? 'var(--success-green)' : 
+                            type === 'error' ? 'var(--error-red)' : 
+                            type === 'warning' ? 'var(--warning-orange)' : 'var(--text-primary)'};
+                     padding: 1rem 1.5rem;
+                     border-radius: 0.75rem;
+                     box-shadow: var(--shadow-lg);
+                     z-index: 1000;
+                     animation: slideInUp 0.3s ease;
+                     max-width: 300px;
+                     font-weight: 500;
+                 `;
+                 notification.textContent = message;
+                 
+                 document.body.appendChild(notification);
+                 
+                 setTimeout(() => {
+                     notification.style.animation = 'slideInUp 0.3s ease reverse';
+                     setTimeout(() => notification.remove(), 300);
+                 }, 3000);
+             }
+
+             // Auto-save progress every 30 seconds
+             startAutoSave() {
+                 if (this.autoSaveInterval) {
+                     clearInterval(this.autoSaveInterval);
+                 }
+                 
+                 this.autoSaveInterval = setInterval(() => {
+                     if (this.isExamStarted && Object.keys(this.userAnswers).length > 0) {
+                         this.saveProgress();
+                     }
+                 }, 30000); // 30 seconds
+             }
+
+             stopAutoSave() {
+                 if (this.autoSaveInterval) {
+                     clearInterval(this.autoSaveInterval);
+                     this.autoSaveInterval = null;
+                 }
+             }
+         }
 
         // Initialize exam simulation
         const examSimulation = new ModernExamSimulation();
